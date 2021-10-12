@@ -1,0 +1,9 @@
+/node_modules
+/indev
+/modules
+/.vscode
+/commands/numerology.js
+/commands/test.js
+/commands/fetch_club.js
+/slash.js
+/snippets.json

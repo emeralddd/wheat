@@ -1,0 +1,182 @@
+{
+	"0":
+	{
+		"name":"Bạch Dương - Aries",
+		"unicode":"♈︎",
+		"gloss":"Con cừu đực có bộ lông vàng",
+		"start":"21 tháng 3",
+		"end":"19 tháng 4",
+		"sao_hd":"Sao Hỏa",
+		"sao_cd":"Sao Hỏa",
+		"doilap":"Thiên Bình",
+		"phamgia":"Sao Hỏa",
+		"batloi":"Sao Kim",
+		"dacdia":"Mặt Trời",
+		"suythoai":"Sao Thổ"
+	},
+	"1":
+	{
+		"name":"Kim Ngưu - Taurus",
+		"unicode":"♉︎",
+		"gloss":"Con bò vàng",
+		"start":"20 tháng 4",
+		"end":"20 tháng 5",
+		"sao_hd":"Sao Kim",
+		"sao_cd":"Sao Kim",
+		"doilap":"Thiên Yết",
+		"phamgia":"Sao Kim",
+		"batloi":"Sao Hỏa",
+		"dacdia":"Mặt Trăng",
+		"suythoai":"Không có"
+	},
+	"2":
+	{
+		"name":"Song Tử - Gemini",
+		"unicode":"♉︎",
+		"gloss":"Cặp song sinh",
+		"start":"21 tháng 5",
+		"end":"20 tháng 6",
+		"sao_hd":"Sao Thủy",
+		"sao_cd":"Sao Thủy",
+		"doilap":"Nhân Mã",
+		"phamgia":"Sao Thủy",
+		"batloi":"Sao Mộc",
+		"dacdia":"Không có",
+		"suythoai":"Không có"
+	},
+	"3":
+	{
+		"name":"Cự Giải - Cancer",
+		"unicode":"♋︎",
+		"gloss":"Con cua",
+		"start":"21 tháng 6",
+		"end":"22 tháng 7",
+		"sao_hd":"Mặt Trăng",
+		"sao_cd":"Mặt Trăng",
+		"doilap":"Ma Kết",
+		"phamgia":"Mặt Trăng",
+		"batloi":"Sao Thổ",
+		"dacdia":"Sao Mộc",
+		"suythoai":"Sao Hỏa, Trái Đất"
+	},
+	"4":
+	{
+		"name":"Sư Tử - Leo",
+		"unicode":"♌︎",
+		"gloss":"Con sư tử",
+		"start":"23 tháng 7",
+		"end":"22 tháng 8",
+		"sao_hd":"Mặt Trời",
+		"sao_cd":"Mặt Trời",
+		"doilap":"Bảo Bình",
+		"phamgia":"Mặt Trời",
+		"batloi":"Sao Thổ",
+		"dacdia":"Trái Đất",
+		"suythoai":"Không có"
+	},
+	"5":
+	{
+		"name":"Xử Nữ - Virgo",
+		"unicode":"♍︎",
+		"gloss":"Người trinh nữ",
+		"start":"23 tháng 8",
+		"end":"22 tháng 9",
+		"sao_hd":"Sao Thủy",
+		"sao_cd":"Trái Đất",
+		"doilap":"Song Ngư",
+		"phamgia":"Sao Thủy, Trái Đất",
+		"batloi":"Sao Mộc",
+		"dacdia":"Sao Thủy",
+		"suythoai":"Sao Kim"
+	},
+	"6":
+	{
+		"name":"Thiên Bình - Libra",
+		"unicode":"♎︎",
+		"gloss":"Cán cân",
+		"start":"23 tháng 9",
+		"end":"23 tháng 10",
+		"sao_hd":"Sao Kim",
+		"sao_cd":"Sao Kim",
+		"doilap":"Bạch Dương",
+		"phamgia":"Sao Kim",
+		"batloi":"Sao Hỏa",
+		"dacdia":"Sao Thổ",
+		"suythoai":"Mặt Trời"
+	},
+	"7":
+	{
+		"name":"Thiên Yết - Scorpio",
+		"unicode":"♏︎",
+		"gloss":"Con bọ cạp",
+		"start":"23 tháng 10",
+		"end":"22 tháng 11",
+		"sao_hd":"Sao Diêm Vương",
+		"sao_cd":"Sao Hỏa",
+		"doilap":"Kim Ngưu",
+		"phamgia":"Sao Hỏa",
+		"batloi":"Sao Kim",
+		"dacdia":"Không có",
+		"suythoai":"Mặt Trăng"
+	},
+	"8":
+	{
+		"name":"Nhân Mã - Sagittarius",
+		"unicode":"♐︎",
+		"gloss":"Một nhân mã đang giương cung tên",
+		"start":"23 tháng 11",
+		"end":"21 tháng 12",
+		"sao_hd":"Sao Mộc",
+		"sao_cd":"Sao Mộc",
+		"doilap":"Song Tử",
+		"phamgia":"Sao Mộc",
+		"batloi":"Sao Thủy",
+		"dacdia":"Không có",
+		"suythoai":"Không có"
+	},
+	"9":
+	{
+		"name":"Ma Kết - Capricorn",
+		"unicode":"♑︎",
+		"gloss":"Con dê biển",
+		"start":"22 tháng 12",
+		"end":"19 tháng 1",
+		"sao_hd":"Sao Thổ",
+		"sao_cd":"Sao Thổ",
+		"doilap":"Cự Giải",
+		"phamgia":"Sao Thổ",
+		"batloi":"Mặt Trăng",
+		"dacdia":"Sao Hỏa",
+		"suythoai":"Sao Mộc"
+	},
+	"10":
+	{
+		"name":"Bảo Bình - Aquarius",
+		"unicode":"♒︎",
+		"gloss":"Người mang nước",
+		"start":"20 tháng 1",
+		"end":"18 tháng 2",
+		"sao_hd":"Sao Thiên Vương",
+		"sao_cd":"Sao Thổ",
+		"doilap":"Sư Tử",
+		"phamgia":"Sao Thổ",
+		"batloi":"Mặt Trời",
+		"dacdia":"Không có",
+		"suythoai":"Không có"
+	},
+	"11":
+	{
+		"name":"Song Ngư - Pisces",
+		"unicode":"♓︎",
+		"gloss":"Đôi cá",
+		"start":"19 tháng 2",
+		"end":"20 tháng 3",
+		"sao_hd":"Sao Hải Vương",
+		"sao_cd":"Sao Mộc",
+		"doilap":"Song Ngư",
+		"phamgia":"Sao Mộc",
+		"batloi":"Sao Thủy",
+		"dacdia":"Sao Kim",
+		"suythoai":"Sao Thủy"
+	}
+}

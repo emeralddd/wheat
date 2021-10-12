@@ -1,0 +1,6 @@
+{
+    "version":"Alpha_13_10_2021",
+    "before":"Alpha_15_09_2021",
+    "add":["Cập nhật lại giao diện và bộ nhận diện mới của Bot","Mở Server Hỗ trợ chính thức","Thêm VNC thành server đích"],
+    "remove":["Tính năng xem số lượng user của bot trong lệnh `info`","Gỡ VNC khỏi server hỗ trợ"]
+}
