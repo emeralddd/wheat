@@ -76,7 +76,7 @@ const initial = async () => {
     try {
         importLanguage()
         addCommand()
-        //connectDB()
+        connectDB()
         isInitial=true
     } catch (error) {
         console.error(error.message)
@@ -93,19 +93,18 @@ wheat.once('ready', () => {
 
 wheat.on('messageCreate', async (message) => {
     if(message.channel.type === "dm") return
-    if(message.author.id !== '687301490238554160') return
 
     try {
         const msg= message.content
         if(!msg) return
         
-    //    const serverInfo = await servers.findOne({id:message.guild.id})
-        let prefix='-'
-    //    if(serverInfo) {
-    //        prefix = serverInfo.prefix || process.env.PREFIX
-    //    } else {
-    //        prefix= process.env.PREFIX
-    //    }
+        const serverInfo = await servers.findOne({id:message.guild.id})
+        let prefix
+        if(serverInfo) {
+            prefix = serverInfo.prefix || process.env.PREFIX
+        } else {
+            prefix= process.env.PREFIX
+        }
         const lang="vi_VN"
 
         if(msg==='<@!786234973308715008>') {
