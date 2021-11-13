@@ -1,3 +1,4 @@
+const { Message } = require('discord.js')
 const bot = require('wheat-better-cmd')
 
 const help = {
@@ -8,8 +9,14 @@ const help = {
     aliases: ["lichsucapnhat","lscn","cl"]
 }
 
+/**
+ * @param {object} obj
+ * @param {Message} obj.message
+ * @param {String[]} obj.args
+ */
+
 const run = async ({message,args}) => {
-    const overview = require('../logs/overview.json').logs  
+    const overview = require('../../logs/overview.json').logs  
     const embed = await bot.wheatSampleEmbedGenerate(true)
     let logChosen
     if(args[1]) {

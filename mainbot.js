@@ -1,10 +1,12 @@
+require('events').EventEmitter.prototype._maxListeners = Infinity
+require('events').defaultMaxListeners = Infinity
 const { Collection, Client, Intents } = require('discord.js')
 const fs = require('fs')
 const servers = require('./models/server')
 const mongo = require('mongoose')
 require('dotenv').config()
 
-const wheat = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]})
+const wheat = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]})
 let commandsList = new Collection()
 let aliasesList = new Collection()
 let helpMenu=[]
@@ -22,30 +24,33 @@ const importLanguage = () => {
 }
 
 const addCommand = () => {
-    fs.readdir('./commands/', (error, files) => {
-        if(error) {
-            console.error(error.message)
-        }
-        const jsfile = files.filter(file => file.split('.').pop() === 'js')
-        if(jsfile.length === 0) {
-            console.error('Chua lenh nao duoc add!')
-        }
-        jsfile.forEach((file,index) => {
-            const module = require(`./commands/${file}`)
-
-            if(module.help) {
-                console.log(`${file} da duoc add!`)
-
-                commandsList.set(module.help.name,module)
-                helpMenu[file.split('.js')[0]] = module.help
-
-                if(!groupMenu[module.help.group]) groupMenu[module.help.group]=[]
-                groupMenu[module.help.group].push(module.help.name)
-
-                module.help.aliases.forEach(alias => {
-                    aliasesList.set(alias,module.help.name)
-                })
+    const all = ["admin","utility","setting","ftelling","fun","random"]
+    all.forEach(str => {
+        fs.readdir(`./commands/${str}`, (error, files) => {
+            if(error) {
+                console.error(error.message)
             }
+            const jsfile = files.filter(file => file.split('.').pop() === 'js')
+            if(jsfile.length === 0) {
+                console.error('Chua lenh nao duoc add!')
+            }
+            jsfile.forEach((file,index) => {
+                const module = require(`./commands/${str}/${file}`)
+    
+                if(module.help) {
+                //    console.log(`${file} da duoc add!`)
+    
+                    commandsList.set(module.help.name,module)
+                    helpMenu[file.split('.js')[0]] = module.help
+    
+                    if(!groupMenu[module.help.group]) groupMenu[module.help.group]=[]
+                    groupMenu[module.help.group].push(module.help.name)
+    
+                    module.help.aliases.forEach(alias => {
+                        aliasesList.set(alias,module.help.name)
+                    })
+                }
+            })
         })
     })
 }
@@ -65,12 +70,14 @@ const connectDB = async () => {
         }
     }
 }
-
+const isInitial = false
 const initial = async () => {
+    if(isInitial) return
     try {
         importLanguage()
         addCommand()
-        connectDB()
+        //connectDB()
+        isInitial=true
     } catch (error) {
         console.error(error.message)
     }
@@ -79,24 +86,26 @@ const initial = async () => {
 initial()
 
 wheat.once('ready', () => {
-    wheat.user.setActivity('EHELP', {type:'PLAYING'});
+
+    wheat.user.setActivity('EHELP', {type:'LISTENING'});
     console.log(`Da dang nhap duoi ten ${wheat.user.tag}!`)
 })
 
 wheat.on('messageCreate', async (message) => {
-    const msg= message.content
-
     if(message.channel.type === "dm") return
     if(message.author.id !== '687301490238554160') return
 
     try {
-        const serverInfo = await servers.findOne({id:message.guild.id})
-        let prefix;
-        if(serverInfo) {
-            prefix = serverInfo.prefix || process.env.PREFIX
-        } else {
-            prefix= process.env.PREFIX
-        }
+        const msg= message.content
+        if(!msg) return
+        
+    //    const serverInfo = await servers.findOne({id:message.guild.id})
+        let prefix='-'
+    //    if(serverInfo) {
+    //        prefix = serverInfo.prefix || process.env.PREFIX
+    //    } else {
+    //        prefix= process.env.PREFIX
+    //    }
         const lang="vi_VN"
 
         if(msg==='<@!786234973308715008>') {
@@ -113,6 +122,8 @@ wheat.on('messageCreate', async (message) => {
             if(i != '') args.push(i)
         }
 
+        if(args.length===0) return
+
         let cmd = args[0].toLowerCase()
 
         if(aliasesList.has(cmd)) {
@@ -124,7 +135,9 @@ wheat.on('messageCreate', async (message) => {
             try {
                 command.run({
                     wheat,
+                    S,
                     message,
+                    msg,
                     args,
                     helpMenu,
                     groupMenu,

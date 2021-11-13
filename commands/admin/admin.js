@@ -1,4 +1,14 @@
+const {Client, Message} = require('discord.js')
+
+/**
+ * @param {object} obj
+ * @param {Client} obj.wheat
+ * @param {Message} obj.message
+ * @param {String[]} obj.args
+ */
+
 module.exports.run = async ({wheat, message, args}) => {
+
     if (args[1]=== 'lists' &&message.author.id === '687301490238554160') 
     {
 		let s = '';
@@ -20,6 +30,9 @@ module.exports.run = async ({wheat, message, args}) => {
 		message.channel.send(String(wheat.guilds.cache.size));
         return;
 	}
+    if(args[1]==='gg' && message.author.id === '687301490238554160') {
+        console.log(wheat.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+    }
 }
 
 module.exports.help = {

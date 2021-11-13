@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const { MessageActionRow, MessageButton } = require('discord.js')
+const { MessageActionRow, MessageButton, Message } = require('discord.js')
 
 const help = {
     name:"invite",
@@ -8,6 +8,11 @@ const help = {
     group:"utility",
     aliases: ["inv"]
 }
+
+/**
+ * @param {object} obj
+ * @param {Message} obj.message
+ */
 
 const run = async ({message}) => {
     const embed = await bot.wheatSampleEmbedGenerate(true)

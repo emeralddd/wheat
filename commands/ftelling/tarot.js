@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {MessageAttachment} = require('discord.js')
+const {MessageAttachment, Message} = require('discord.js')
 const help = {
 	name:"tarot",
     htu:"",
@@ -7,6 +7,11 @@ const help = {
     group:"ftelling",
     aliases: []
 }
+
+/**
+ * @param {object} obj
+ * @param {Message} obj.message
+ */
 
 const run = async ({message}) => {
    	const tarotMeaning = await bot.wheatReadJSON('./storage/tarot_meaning.json')

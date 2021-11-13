@@ -1,4 +1,6 @@
+const {Client, Message } = require('discord.js')
 const bot = require('wheat-better-cmd')
+
 
 const help = {
     name:"avatar",
@@ -7,6 +9,13 @@ const help = {
     group:"utility",
     aliases: ["ava","daidien"]
 }
+
+/**
+ * @param {object} obj
+ * @param {Client} obj.wheat
+ * @param {Message} obj.message
+ * @param {String[]} obj.args
+ */
 
 const run = async ({wheat, message, args}) => {
     const embed = await bot.wheatSampleEmbedGenerate()

@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const { MessageActionRow, MessageButton } = require('discord.js')
+const { MessageActionRow, MessageButton, Message } = require('discord.js')
 
 const help = {
     name:"support",
@@ -8,6 +8,11 @@ const help = {
     group:"utility",
     aliases: ["hotro"]
 }
+
+/**
+ * @param {object} obj
+ * @param {Message} obj.message
+ */
 
 const run = async ({message}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
@@ -27,20 +32,20 @@ const run = async ({message}) => {
         .setURL('https://docs.google.com/forms/d/1EwycxNOkf0lJasyiyDj6G1AT9CDSJtvcLwYTcF9dk9c/viewform?edit_requested=true')
         .setEmoji('🎟️')
 
-    const join1 = new MessageButton()
+    /*const join1 = new MessageButton()
         .setLabel('Support Server')
         .setStyle('LINK')
         .setURL('https://discord.gg/s3WX35n6ys')
-        .setEmoji('895590343356084224')
+        .setEmoji('895590343356084224')*/
 
     const join2 = new MessageButton()
-        .setLabel('Landing Server')
+        .setLabel('Support Server')
         .setStyle('LINK')
         .setURL('https://discord.gg/vietnamesecommunity')
         .setEmoji('704230705747591198')
     
     const link = new MessageActionRow()
-        .addComponents([button,join1,join2])
+        .addComponents([button,join2])
 
     await bot.wheatEmbedButton(message,[embed],[link])
 }

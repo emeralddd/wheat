@@ -1,3 +1,4 @@
+const { Message, Collection } = require('discord.js')
 const bot = require('wheat-better-cmd')
 
 const help = {
@@ -7,6 +8,16 @@ const help = {
     group:"utility",
     aliases: []
 }
+
+/**
+ * @param {object} obj
+ * @param {Message} obj.message
+ * @param {String[]} obj.args
+ * @param {Array} obj.helpMenu
+ * @param {Array} obj.groupMenu
+ * @param {string} obj.prefix
+ * @param {Collection} obj.aliasesList
+ */
 
 const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList}) => {
     const embed = await bot.wheatSampleEmbedGenerate(true)
@@ -22,7 +33,6 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList}) => {
             { 
                 name: 'Fun', 
                 value: '`'+prefix+'help fun`', 
-                inline: true
             },
             { 
                 name: 'Random', 
@@ -31,7 +41,10 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList}) => {
             { 
                 name: 'Bổ trợ', 
                 value: '`'+prefix+'help utility`',
-                inline: true 
+            },
+            { 
+                name: 'Cài đặt', 
+                value: '`'+prefix+'help setting`',
             }
         )
         await bot.wheatEmbedSend(message,[embed])

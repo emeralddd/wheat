@@ -1,3 +1,4 @@
+const { Message } = require('discord.js')
 const bot = require('wheat-better-cmd')
 
 const help = {
@@ -7,6 +8,11 @@ const help = {
     group:"fun",
     aliases: ["swasdi","hi","xinchao","hallo","aloha","conichiwa","salam","privet","nihao"]
 }
+
+/**
+ * @param {object} obj
+ * @param {Message} obj.message
+ */
 
 const run = async ({message}) => {
     const list=["مرحبا ", "Përshëndetje", "እው ሰላም ነው", "Hello!", "Բարեւ", "Salam", "cześć", "سلام" , "Mholweni", 

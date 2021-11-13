@@ -1,14 +1,20 @@
 const bot = require('wheat-better-cmd')
-const {Permissions} = require('discord.js')
-const servers = require('../models/server')
+const {Message,Permissions} = require('discord.js')
+const servers = require('../../models/server')
 
 const help = {
     name:"prefix",
     htu:" <prefix mới>",
     des:"Đổi prefix của bot",
-    group:"utility",
+    group:"setting",
     aliases: ["pf"]
 }
+
+/**
+ * @param {object} obj
+ * @param {Message} obj.message
+ * @param {String[]} obj.args
+ */
 
 const run = async ({message,args}) => {
     const embed = await bot.wheatSampleEmbedGenerate()

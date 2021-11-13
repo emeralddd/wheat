@@ -1,3 +1,4 @@
+const { Client, Message } = require('discord.js')
 const moment = require('moment')
 const bot = require('wheat-better-cmd')
 
@@ -9,14 +10,32 @@ const help = {
     aliases: ["thongtin"]
 }
 
-const run = async ({wheat,message}) => {
+/**
+ * @param {object} obj
+ * @param {Client} obj.wheat
+ * @param {Message} obj.message
+ * @param {Array} obj.helpMenu
+ */
+
+const run = async ({wheat,message,helpMenu}) => {
     const embed = await bot.wheatSampleEmbedGenerate(true)
     embed.setAuthor(`Wheat#1261`,process.env.AVATAR)
     embed.setTitle(`About me`)
     embed.setDescription(`Bot xem bài Tarot, 12 cung Hoàng Đạo, Tử Vi, ... bằng tiếng Việt tốt nhất trên Discord!`)
     const uptime_milli = moment.duration(wheat.uptime,'milliseconds')
-    const overview = require('../logs/overview.json').logs  
-    let count=14
+    const overview = require('../../logs/overview.json').logs  
+    //console.log(helpMenu)
+    const promises = [
+        await wheat.shard.fetchClientValues('guilds.cache.size'),
+    ]
+
+    const guildCount = await Promise.all(promises)
+        .then(results => {
+				return results[0].reduce((acc, guildCount) => acc + guildCount, 0)
+			})
+		.catch(console.error)
+
+    const count=20
 
     embed.addFields(
         {
@@ -36,12 +55,12 @@ const run = async ({wheat,message}) => {
         },
         {
             name: "Server",
-            value: String(wheat.guilds.cache.size),
+            value: String(guildCount),
             inline: true
         },
         {
             name: "Shard",
-            value: "1",
+            value: "2",
             inline: true
         },
         {

@@ -2,8 +2,15 @@
 /indev
 /modules
 /.vscode
-/commands/numerology.js
 /commands/test.js
 /commands/fetch_club.js
+/commands/ftelling/numerology.js
+/commands/ftelling/doingayamduong.js
+/commands/ftelling/12congiap.js
+/commands/fun/boylove.js
+/commands/fun/cry.js
+/commands/fun/kick.js
+/commands/fun/ship.js
+/commands/utility/shard.js
 /slash.js
-/snippets.json
+/.env
