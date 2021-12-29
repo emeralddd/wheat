@@ -11,6 +11,5 @@
 /commands/fun/kick.js
 /commands/fun/ship.js
 /commands/utility/shard.js
-/storage/giotrungphut.json
 /slash.js
 /.env
