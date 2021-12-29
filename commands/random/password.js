@@ -18,11 +18,11 @@ const help = {
 const run = async ({message,args}) => {
     const len = Number(args[1])
     if(!len) {
-        await bot.wheatSendErrorMessage(message,`Độ dài cần là một số nguyên dương lớn hơn hoặc bằng 8`)
+        await bot.wheatSendErrorMessage(message,`Độ dài cần là một số nguyên dương lớn hơn hoặc bằng 8 và bé hơn hoặc bằng 100`)
         return 
     }
-    if(len<8) {
-        await bot.wheatSendErrorMessage(message,`Độ dài cần là một số nguyên dương lớn hơn hoặc bằng 8`)
+    if(len>100&&len<8) {
+        await bot.wheatSendErrorMessage(message,`Độ dài cần là một số nguyên dương lớn hơn hoặc bằng 8 và bé hơn hoặc bằng 100`)
         return 
     }
     //lower 30 

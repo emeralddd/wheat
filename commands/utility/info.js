@@ -35,7 +35,7 @@ const run = async ({wheat,message,helpMenu}) => {
 			})
 		.catch(console.error)
 
-    const count=20
+    const count=25
 
     embed.addFields(
         {
@@ -50,7 +50,7 @@ const run = async ({wheat,message,helpMenu}) => {
         },
         {
             name: "Developer",
-            value: `VC | emerald  💎#9999`,
+            value: `temeralddd#1385`,
             inline: true
         },
         {
@@ -60,7 +60,7 @@ const run = async ({wheat,message,helpMenu}) => {
         },
         {
             name: "Shard",
-            value: "2",
+            value: "3",
             inline: true
         },
         {

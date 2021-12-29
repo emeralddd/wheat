@@ -41,8 +41,8 @@ const run = async ({message}) => {
     const join2 = new MessageButton()
         .setLabel('Support Server')
         .setStyle('LINK')
-        .setURL('https://discord.gg/vietnamesecommunity')
-        .setEmoji('704230705747591198')
+        .setURL('https://discord.gg/z5Z4uzmED9')
+        .setEmoji('895590343356084224')
     
     const link = new MessageActionRow()
         .addComponents([button,join2])

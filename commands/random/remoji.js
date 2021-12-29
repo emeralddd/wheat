@@ -21,7 +21,7 @@ const run = async ({wheat,message}) => {
     const emoji = wheat.emojis.cache.random()
     //console.log(emoji)
     embed.setTitle(`Random Emoji`)
-    embed.setDescription(`<${emoji.identifier}>\nTên:${emoji.name}\nID:${emoji.id}\nServer:${emoji.guild.name}\nAnimated:${emoji.animated?`Có`:`Không`}\nCode:`+"`"+emoji.identifier+"`"+(emoji.author?`Thêm bởi: ${emoji.author.username}`:``))
+    embed.setDescription(`<${emoji.animated?``:`:`}${emoji.identifier}>\nTên: ${emoji.name}\nID: ${emoji.id}\nServer: ${emoji.guild.name}\nAnimated: ${emoji.animated?`Có`:`Không`}\nCode: `+"`"+emoji.identifier+"`"+(emoji.author?`Thêm bởi: ${emoji.author.username}`:``))
     await bot.wheatEmbedSend(message,[embed])
 }
 

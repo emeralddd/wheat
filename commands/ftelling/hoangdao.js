@@ -62,17 +62,18 @@ const run = async ({message,args}) => {
             break
         }
     }
-
+    
+    if(date==='29/02') i=11
     if(i===12) i=9
-    if(date!=='29/02') i=11
 
     const tinhchat=["Vận Động","Cố Định","Biến đổi"]
     const tukhoatc=["Hành động, năng động, chủ động, tác động lớn","Chống lại sự thay đổi, sức mạnh ý chí lớn, không linh hoạt","Khả năng thích ứng, linh hoạt, tháo vát"]
-    const nguyento=["Lửa","Khí","Đất","Nước"]
+    const nguyento=["Lửa","Đất","Khí","Nước"]
     const tukhoangto=["Nhiệt tình, nỗ lực thể hiện bản thân, niềm tin","Giao tiếp, xã hội hóa, khái niệm hóa","Thực tiễn, thận trọng, thế giới vật chất","Cảm xúc, đồng cảm, nhạy cảm"]
 
     embed.setAuthor('⋗ Cung hoàng đạo thứ: ' + String(i+1))
     embed.setTitle(zodiac[i].unicode+" "+zodiac[i].name)
+    embed.setFooter(`Tham gia Server Hỗ Trợ: https://discord.gg/z5Z4uzmED9`)
     embed.addFields(
         {
             name:"∴ Đặc điểm",

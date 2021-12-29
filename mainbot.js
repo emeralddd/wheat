@@ -38,17 +38,21 @@ const addCommand = () => {
                 const module = require(`./commands/${str}/${file}`)
     
                 if(module.help) {
-                //    console.log(`${file} da duoc add!`)
+
+                    if(process.env.NODE_ENV === 'dev' || module.help.status !== 'dev') {
     
-                    commandsList.set(module.help.name,module)
-                    helpMenu[file.split('.js')[0]] = module.help
-    
-                    if(!groupMenu[module.help.group]) groupMenu[module.help.group]=[]
-                    groupMenu[module.help.group].push(module.help.name)
-    
-                    module.help.aliases.forEach(alias => {
-                        aliasesList.set(alias,module.help.name)
-                    })
+                        commandsList.set(module.help.name,module)
+                        helpMenu[file.split('.js')[0]] = module.help
+
+        
+                        if(!groupMenu[str]) groupMenu[str]=[]
+                        groupMenu[str].push(module.help.name)
+        
+                        module.help.aliases.forEach(alias => {
+                            aliasesList.set(alias,module.help.name)
+                        })
+
+                    }
                 }
             })
         })
@@ -70,13 +74,13 @@ const connectDB = async () => {
         }
     }
 }
-const isInitial = false
+let isInitial = false
 const initial = async () => {
     if(isInitial) return
     try {
         importLanguage()
         addCommand()
-        //connectDB()
+        if(process.env.NODE_ENV !== 'dev') connectDB()
         isInitial=true
     } catch (error) {
         console.error(error.message)
@@ -93,19 +97,27 @@ wheat.once('ready', () => {
 
 wheat.on('messageCreate', async (message) => {
     if(message.channel.type === "dm") return
-    if(message.author.id !== '687301490238554160') return
-
+    
+    if(process.env.NODE_ENV === 'dev') {
+        if(message.author.id !== '687301490238554160') return
+    }
+    
     try {
         const msg= message.content
         if(!msg) return
         
-    //    const serverInfo = await servers.findOne({id:message.guild.id})
         let prefix='-'
-    //    if(serverInfo) {
-    //        prefix = serverInfo.prefix || process.env.PREFIX
-    //    } else {
-    //        prefix= process.env.PREFIX
-    //    }
+
+        if(process.env.NODE_ENV !== 'dev') {
+            const serverInfo = await servers.findOne({id:message.guild.id})
+        
+            if(serverInfo) {
+                prefix = serverInfo.prefix || process.env.PREFIX
+            } else {
+                prefix = process.env.PREFIX
+            }
+        }
+
         const lang="vi_VN"
 
         if(msg==='<@!786234973308715008>') {

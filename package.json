@@ -15,7 +15,7 @@
     "discord-api-types": "^0.23.1",
     "discord.js": "^13.1.0",
     "dotenv": "^9.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "lorem-ipsum": "^2.0.4",
     "moment": "^2.29.1",
     "mongoose": "^6.0.8",
@@ -23,10 +23,11 @@
     "quick.db": "^7.1.3",
     "randomcolor": "^0.6.2",
     "sqlite3": "^5.0.2",
-    "wheat-better-cmd": "^1.0.9"
+    "wheat-better-cmd": "file:../wheat-better-cmd"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "node": "^16.13.0",
     "nodemon": "^2.0.7"
   }
 }

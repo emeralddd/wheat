@@ -45,6 +45,10 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList}) => {
             { 
                 name: 'Cài đặt', 
                 value: '`'+prefix+'help setting`',
+            },
+            {
+                name: 'Hỗ trợ',
+                value: 'Tham gia Server Hỗ Trợ: https://discord.gg/z5Z4uzmED9',
             }
         )
         await bot.wheatEmbedSend(message,[embed])
