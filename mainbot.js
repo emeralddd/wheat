@@ -167,4 +167,4 @@ wheat.on('messageCreate', async (message) => {
     }
 })
 
-wheat.login(process.env.TOKEN)
+wheat.login((process.env.NODE_ENV === 'dev' ? process.env.TOKEN : process.env.TOKEN2))
