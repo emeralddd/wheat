@@ -42,7 +42,7 @@ const run = async ({message,args}) => {
 
     if(!logChosen) logChosen = overview[overview.length-1]
 
-    const logJSON = require(`../logs/${logChosen}.json`)
+    const logJSON = require(`../../logs/${logChosen}.json`)
 
     embed.setTitle(`Lịch sử cập nhật`)
     embed.setDescription(`Bản cập nhật: ${logChosen}\nBản cập nhật trước đó: ${logJSON.before}`)
