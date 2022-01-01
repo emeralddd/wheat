@@ -3,7 +3,6 @@ const {MessageAttachment, Message} = require('discord.js')
 const moment = require('moment')
 
 const help = {
-    status:"dev",
     name:"numerology",
     htu:" <ngày ở định dạng DD/MM/YYYY>",
     des:"Xem thần số học của ngày sinh, không tin tưởng tất cả!",
