@@ -1,10 +1,12 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity
 require('events').defaultMaxListeners = Infinity
 const { Collection, Client, Intents } = require('discord.js')
+const bot = require('wheat-better-cmd')
 const fs = require('fs')
 const servers = require('./models/server')
 const mongo = require('mongoose')
 require('dotenv').config()
+const announcement = require('./announcement.json')
 
 const wheat = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]})
 let commandsList = new Collection()
@@ -99,14 +101,15 @@ wheat.on('messageCreate', async (message) => {
     if(message.channel.type === "dm") return
     
     if(process.env.NODE_ENV === 'dev') {
-        if(message.author.id !== '687301490238554160') return
+        const allowUsers=['687301490238554160','735665530500808755']
+        if(!allowUsers.includes(message.author.id)) return
     }
     
     try {
         const msg= message.content
         if(!msg) return
         
-        let prefix='-'
+        let prefix='='
 
         if(process.env.NODE_ENV !== 'dev') {
             const serverInfo = await servers.findOne({id:message.guild.id})
@@ -136,16 +139,16 @@ wheat.on('messageCreate', async (message) => {
 
         if(args.length===0) return
 
-        let cmd = args[0].toLowerCase()
-
-        if(aliasesList.has(cmd)) {
-            cmd=aliasesList.get(cmd)
+        const cmd = args[0].toLowerCase()
+        let executeCommand = cmd
+        if(aliasesList.has(executeCommand)) {
+            executeCommand=aliasesList.get(executeCommand)
         }
 
-        if (commandsList.has(cmd)) {
-            const command = commandsList.get(cmd)
+        if (commandsList.has(executeCommand)) {
+            const command = commandsList.get(executeCommand)
             try {
-                command.run({
+                await command.run({
                     wheat,
                     S,
                     message,
@@ -156,11 +159,20 @@ wheat.on('messageCreate', async (message) => {
                     prefix,
                     aliasesList,
                     language,
-                    lang
+                    lang,
+                    cmd
                 })
+                
+                if(announcement.status==='active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(helpMenu[executeCommand].group)) {
+                    const embed = await bot.wheatSampleEmbedGenerate()
+                    embed.setTitle(announcement.title)
+                    embed.setDescription(announcement.description)
+                    await bot.wheatEmbedSend(message,[embed])
+                }
+                
             } catch (error) {
                 console.log(error)
-            }
+            } 
         }
     } catch(error) {
         console.log(error)
