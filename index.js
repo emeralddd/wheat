@@ -16,7 +16,7 @@ if(process.env.NODE_ENV !== 'dev') {
 const {ShardingManager} = require('discord.js')
 require('dotenv').config()
 
-const manager = new ShardingManager('./mainbot.js', { totalShards: (process.env.NODE_ENV === 'dev'?1:3), token: process.env.TOKEN })
+const manager = new ShardingManager('./mainbot.js', { totalShards: (process.env.NODE_ENV === 'dev'?1:5), token: process.env.TOKEN })
 
 manager.on('shardCreate', shard => console.log(`Shard ${shard.id} sinh thanh cong!`))
 

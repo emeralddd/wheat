@@ -60,7 +60,7 @@ const run = async ({wheat,message,helpMenu}) => {
         },
         {
             name: "Shard",
-            value: "3",
+            value: "5",
             inline: true
         },
         {

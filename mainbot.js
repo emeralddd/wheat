@@ -128,7 +128,7 @@ wheat.on('messageCreate', async (message) => {
             return
         }
 
-        if(!msg.toLowerCase().startsWith(prefix)) return
+        if(!msg.toLowerCase().startsWith(prefix.toLowerCase())) return
 
         const S = msg.substr(prefix.length).split(' ')
         let args = []
