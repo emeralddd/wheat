@@ -97,6 +97,22 @@ wheat.once('ready', () => {
     console.log(`Da dang nhap duoi ten ${wheat.user.tag}!`)
 })
 
+wheat.on('guildCreate',async (guild) => {
+    const ownerId = await guild.fetchOwner()
+    const embed = await bot.wheatSampleEmbedGenerate()
+    embed.setTitle(`Cảm ơn bạn vì đã sử dụng bot Wheat!`)
+    embed.setDescription("Một số thứ dưới đây sẽ giúp bạn làm quen với bot:\n\n- Prefix mặc định của bot là `e`. Bạn có thể thay đổi bằng lệnh `eprefix`.\n\n- Ping bot để xem prefix hiện tại của bot.\n\n- Sử dụng lệnh `ehelp` để xem danh sách lệnh của bot.\n\n- Nếu còn điều gì thắc mắc, hãy sử dụng lệnh `esupport`.\n\n**Chúng tôi mong bạn sẽ có những trải nghiệm tốt nhất với Wheat!**")
+
+    const embed1 = await bot.wheatSampleEmbedGenerate()
+    embed1.setTitle(`Thanks for using Wheat bot!`)
+    embed1.setDescription("There are somethings can help you get started with bot:\n\n- Default prefix of bot is `e`. You can change it using `eprefix`.\n\n- Ping bot to see prefix of bot at specific server.\n\n- Using `ehelp` to see commands lists of bot.\n\n- If you has any questions, please use command `esupport`.\n\n**Hope you have the best experiences with Wheat!**")
+    
+    try {
+        await ownerId.send({embeds:[embed,embed1]})
+        await ownerId.send("🌾**Server Support:** https://discord.gg/z5Z4uzmED9")
+    } catch(err) {}
+})
+
 wheat.on('messageCreate', async (message) => {
     if(message.channel.type === "dm") return
     
