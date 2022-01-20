@@ -3,7 +3,6 @@ const bot = require('wheat-better-cmd')
 require('dotenv').config
 
 const help = {
-    status:"dev",
     name:"kick",
     htu:"+ <mention/id>",
     des:"Gif thể hiện cảm xúc & hành động",

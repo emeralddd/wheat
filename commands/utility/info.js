@@ -35,7 +35,7 @@ const run = async ({wheat,message,helpMenu}) => {
 			})
 		.catch(console.error)
 
-    const count=25
+    const count=43
 
     embed.addFields(
         {

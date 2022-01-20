@@ -4,6 +4,7 @@ const axios = require('axios').default
 require('dotenv').config
 
 const help = {
+    status:"dev",
     name:"test",
     htu:"",
     des:"Gif thể hiện cảm xúc & hành động",
