@@ -26,7 +26,7 @@ const importLanguage = () => {
 }
 
 const addCommand = () => {
-    const all = ["admin","utility","setting","ftelling","fun","random"]
+    const all = ["admin","astronomy","utility","setting","ftelling","fun","random"]
     all.forEach(str => {
         fs.readdir(`./commands/${str}`, (error, files) => {
             if(error) {
