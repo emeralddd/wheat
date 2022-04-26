@@ -1,0 +1,20 @@
+{
+    "listCommand": "List commands of Wheat",
+    "fortuneTelling": "Fortune Telling",
+    "fun": "Fun",
+    "random": "Random",
+    "utility": "Utility",
+    "setting": "Setting",
+    "astronomy": "Astronomy",
+    "groupCommand": "Group command",
+    "command": "Command",
+    "none": "None",
+    "parentGroup": "Parent group",
+    "aliases": "Aliases",
+    "syntax": "Syntax",
+    "note1": "Note: [] - optional; <> - required",
+    "note2": "Use command ",
+    "note3": "help <command/group command>` to get details of a command or group command",
+    "note4": "Support Server: ",
+    "noCommand": "Not found that command/group command!"
+}

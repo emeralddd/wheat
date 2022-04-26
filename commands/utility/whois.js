@@ -4,8 +4,6 @@ const { Message, Client } = require('discord.js')
 
 const help = {
     name:"whois",
-    htu:" + [mention/id]",
-    des:"Xem thông tin của ai đó!",
     group:"utility",
     aliases: ["timnguoi","findinfo","aila"]
 }
@@ -17,43 +15,42 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat, message, args}) => {
+const run = async ({wheat, message, args, lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
 
     try {
         const USER = await bot.wheatGetUserByIdOrMention(wheat,args[1],message.author.id)
         if(!USER) {
-            await bot.wheatSend(message, `Không tìm thấy người dùng đó!`)
+            await bot.wheatSend(message, lg.error.notFoundThatUser)
             return
         }
 
         const MEMBER = await message.guild.members.fetch(USER.id)
         embed.setThumbnail(`${USER.avatarURL()}?size=1024`)
         embed.setAuthor(`${USER.username}#${USER.discriminator}`)
-        embed.setTitle(`Who is ${USER.username}?`)
+        embed.setTitle(`${lg.main.whoIs} ${USER.username}?`)
         embed.setColor(MEMBER.displayHexColor)
-        //embed.setDescription(MEMBER.presence.activities.forEach(act => act.name))
         let roleList = ""
         MEMBER.roles.cache.each(role => roleList+=`<@&${role.id}> `)
         embed.addFields(
             {
-                name:"Tên hiển thị",
+                name: lg.main.displayName,
                 value: `${MEMBER.displayName} (<@${MEMBER.id}>)`
             },
             {
-                name:"Tham gia Server",
+                name: lg.main.joinedAt,
                 value: moment(MEMBER.joinedAt).format('HH:mm:ss DD/MM/YYYY')
             },
             {
-                name:"Lập tài khoản",
+                name: lg.main.createdAt,
                 value: moment(USER.createdAt).format('HH:mm:ss DD/MM/YYYY')
             },
             {
-                name:"Role",
+                name: lg.main.role,
                 value: String(roleList)
             },
             {
-                name:"Permission",
+                name: lg.main.permissions,
                 value: String(MEMBER.permissions.toArray())
             }
         )
@@ -61,7 +58,7 @@ const run = async ({wheat, message, args}) => {
         await bot.wheatEmbedSend(message,[embed])
     } catch (error) {
         console.log(error)
-        await bot.wheatSend(message, `Không tìm thấy người dùng đó!`)
+        await bot.wheatSend(message, lg.error.notFoundThatUser)
         return
     }
 }

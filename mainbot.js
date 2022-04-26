@@ -7,6 +7,7 @@ const servers = require('./models/server')
 const mongo = require('mongoose')
 require('dotenv').config()
 const announcement = require('./announcement.json')
+const member = require('./models/member')
 
 const wheat = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]})
 let commandsList = new Collection()
@@ -14,78 +15,25 @@ let aliasesList = new Collection()
 let helpMenu=[]
 let groupMenu = {}
 let language = []
+let all = []
+let groups = []
+const langList = ['vi_VN','en_US']
 
-language['vi_VN'] = require('./language/vi_VN.json')
-language['en_US'] = require('./language/en_US.json')
+const importLanguage = require('./modules/importLanguage')
+const addCommands = require('./modules/addCommands')
+const connectDatabase = require('./modules/connectDatabase')
 
-const importLanguage = () => {
-    const langList = ['vi_VN','en_US']
-    langList.forEach(i => {
-        language[i] = require(`./language/${i}.json`)
-    })
-}
-
-const addCommand = () => {
-    const all = ["admin","astronomy","utility","setting","ftelling","fun","random"]
-    all.forEach(str => {
-        fs.readdir(`./commands/${str}`, (error, files) => {
-            if(error) {
-                console.error(error.message)
-            }
-            const jsfile = files.filter(file => file.split('.').pop() === 'js')
-            if(jsfile.length === 0) {
-                console.error('Chua lenh nao duoc add!')
-            }
-            jsfile.forEach((file,index) => {
-                const module = require(`./commands/${str}/${file}`)
-    
-                if(module.help) {
-
-                    if(process.env.NODE_ENV === 'dev' || module.help.status !== 'dev') {
-    
-                        commandsList.set(module.help.name,module)
-                        helpMenu[file.split('.js')[0]] = module.help
-
-        
-                        if(!groupMenu[str]) groupMenu[str]=[]
-                        groupMenu[str].push(module.help.name)
-        
-                        module.help.aliases.forEach(alias => {
-                            aliasesList.set(alias,module.help.name)
-                        })
-
-                    }
-                }
-            })
-        })
-    })
-}
-
-const connectDB = async () => {
-    try {
-        await mongo.connect(`mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster0.mwdxl.mongodb.net/client?retryWrites=true&w=majority`,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
-        console.log('DB Connected Successfully!')
-    } catch (err) {
-        if(err) {
-            console.log(err.message)
-            process.exit(1)
-        }
-    }
-}
 let isInitial = false
 const initial = async () => {
     if(isInitial) return
     try {
-        importLanguage()
-        addCommand()
-        if(process.env.NODE_ENV !== 'dev') connectDB()
+        ({groupMenu,helpMenu,aliasesList,commandsList,all,groups} = await addCommands(langList))
+        language = importLanguage(langList)
+        await connectDatabase()
+        // if(process.env.NODE_ENV !== 'dev') connectDB()
         isInitial=true
     } catch (error) {
-        console.error(error.message)
+        console.log(error)
     }
 }
 
@@ -97,7 +45,7 @@ wheat.once('ready', () => {
     console.log(`Da dang nhap duoi ten ${wheat.user.tag}!`)
 })
 
-wheat.on('guildCreate',async (guild) => {
+wheat.on('guildCreate', async (guild) => {
     const ownerId = await guild.fetchOwner()
     const embed = await bot.wheatSampleEmbedGenerate()
     embed.setTitle(`Cảm ơn bạn vì đã sử dụng bot Wheat!`)
@@ -120,37 +68,49 @@ wheat.on('messageCreate', async (message) => {
         const allowUsers=['687301490238554160','735665530500808755']
         if(!allowUsers.includes(message.author.id)) return
     }
-    
+
+    const msg = message.content
+    const memberId = message.author.id
+    const guildId = message.guild.id
+    const channelId = message.channel.id
+
     try {
-        const msg= message.content
         if(!msg) return
         
         let prefix='='
+        let lang=process.env.CODE
 
-        if(process.env.NODE_ENV !== 'dev') {
-            const serverInfo = await servers.findOne({id:message.guild.id})
+        // if(process.env.NODE_ENV !== 'dev') {
+            const serverInfo = await servers.findOne({id:guildId})
         
             if(serverInfo) {
                 prefix = serverInfo.prefix || process.env.PREFIX
+                lang = serverInfo.language || lang
             } else {
                 prefix = process.env.PREFIX
             }
+        // }
+
+        const memberInfo = await member.findOne({id:memberId})
+
+        if(memberInfo) {
+            lang = memberInfo.language || lang
         }
 
-        const lang="vi_VN"
-
-        if(msg==='<@!786234973308715008>') {
-            message.channel.send(`${language[lang].my_prefix}: **${prefix}**`)
+        const lg = language[lang]
+        
+        if(msg==='<@786234973308715008>') {
+            await bot.wheatSend(message,`${language[lang].main.myPrefix}: **${prefix}**`)
             return
         }
 
         if(!msg.toLowerCase().startsWith(prefix.toLowerCase())) return
 
-        const S = msg.substr(prefix.length).split(' ')
+        const S = msg.substring(prefix.length).split(' ')
         let args = []
 
-        for (const i of S) {
-            if(i != '') args.push(i)
+        for(const i of S) {
+            if(i !== '') args.push(i)
         }
 
         if(args.length===0) return
@@ -158,11 +118,16 @@ wheat.on('messageCreate', async (message) => {
         const cmd = args[0].toLowerCase()
         let executeCommand = cmd
         if(aliasesList.has(executeCommand)) {
-            executeCommand=aliasesList.get(executeCommand)
+            executeCommand = aliasesList.get(executeCommand)
         }
+
+        message.language=lang
 
         if (commandsList.has(executeCommand)) {
             const command = commandsList.get(executeCommand)
+
+            if(serverInfo && serverInfo.disable && serverInfo.disable.get(executeCommand) && serverInfo.disable.get(executeCommand).includes(channelId)) return
+
             try {
                 await command.run({
                     wheat,
@@ -173,10 +138,15 @@ wheat.on('messageCreate', async (message) => {
                     helpMenu,
                     groupMenu,
                     prefix,
+                    commandsList,
                     aliasesList,
                     language,
                     lang,
-                    cmd
+                    cmd,
+                    lg,
+                    langList,
+                    all,
+                    groups
                 })
                 
                 if(announcement.status==='active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(helpMenu[executeCommand].group)) {
@@ -195,4 +165,4 @@ wheat.on('messageCreate', async (message) => {
     }
 })
 
-wheat.login((process.env.NODE_ENV === 'dev' ? process.env.TOKEN : process.env.TOKEN2))
+wheat.login((process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test' ? process.env.TOKEN : process.env.TOKEN2))

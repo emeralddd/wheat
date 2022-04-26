@@ -3,8 +3,6 @@ const { MessageActionRow, MessageButton, Message } = require('discord.js')
 
 const help = {
     name:"invite",
-    htu:"",
-    des:"Invite Bot!",
     group:"utility",
     aliases: ["inv"]
 }
@@ -14,18 +12,18 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message}) => {
+const run = async ({message,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate(true)
-    embed.setTitle(`INVITE Bot!`)
-    embed.setDescription(`Invite bot để sử dụng những tính năng thú vị nhất trong chính server của bạn!`)
+    embed.setTitle(lg.main.inviteBot)
+    embed.setDescription(lg.main.inviteToGetBot)
     
     const topgg = new MessageButton()
-        .setLabel('Invite thông qua Top.gg!')
+        .setLabel(lg.main.inviteTopgg)
         .setStyle('LINK')
         .setURL('https://top.gg/bot/798925450562764863')
 
     const direct = new MessageButton()
-        .setLabel('Invite trực tiếp!')
+        .setLabel(lg.main.inviteDirectly)
         .setStyle('LINK')
         .setURL('https://discord.com/api/oauth2/authorize?client_id=786234973308715008&permissions=4294442871&scope=bot')
     

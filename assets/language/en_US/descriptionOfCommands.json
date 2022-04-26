@@ -1,0 +1,290 @@
+{
+    "apod": [
+        {
+            "name": "apod",
+            "syntax": " [DD/MM/YYYY]",
+            "desc": "View an astronomical image of any given in a day provided by NASA",
+            "note": "If you don't provide a date, the default date will be date.\nInput date must be after 16/06/1995"
+        }
+    ],
+    "ftelling": [
+        {
+            "name": "tarot",
+            "syntax": "",
+            "desc": "Pick a random card from Rider Waite Tarot and give meaning!",
+            "note": ""
+        },
+        {
+            "name": "numerology",
+            "syntax": " <DD/MM/YYYY>",
+            "desc": "See the meaning of The Ruling Number of a birth!",
+            "note": "The date must be entered."
+        },
+        {
+            "name": "zodiac",
+            "syntax": " <DD/MM>",
+            "desc": "Give zodiac information about any date!",
+            "note": "The date must be entered."
+        }
+    ],
+    "fun": [
+        {
+            "name": "angry",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "bite",
+            "syntax": " <mention/id>",
+            "desc": "Show your action!",
+            "note": "The user must be provided!"
+        },
+        {
+            "name": "cry",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "dizzy",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "excited",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "happy",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "hello",
+            "syntax": "",
+            "desc": "Say Hello in many languages!",
+            "note": ""
+        },
+        {
+            "name": "hug",
+            "syntax": " <mention/id>",
+            "desc": "Show your action!",
+            "note": "The user must be provided!"
+        },
+        {
+            "name": "kick",
+            "syntax": " <mention/id>",
+            "desc": "Show your action!",
+            "note": "The user must be provided!"
+        },
+        {
+            "name": "kiss",
+            "syntax": " <mention/id>",
+            "desc": "Show your action!",
+            "note": "The user must be provided!"
+        },
+        {
+            "name": "pat",
+            "syntax": " <mention/id>",
+            "desc": "Show your action!",
+            "note": "The user must be provided!"
+        },
+        {
+            "name": "punch",
+            "syntax": " <mention/id>",
+            "desc": "Show your action!",
+            "note": "The user must be provided!"
+        },
+        {
+            "name": "sad",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "scare",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "slap",
+            "syntax": " <mention/id>",
+            "desc": "Show your action!",
+            "note": "The user must be provided!"
+        },
+        {
+            "name": "sleepy",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "smile",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        },
+        {
+            "name": "thinking",
+            "syntax": "",
+            "desc": "Show your emtional!",
+            "note": ""
+        }
+    ],
+    "random": [
+        {
+            "name": "coinflip",
+            "syntax": "",
+            "desc": "Flip a coin",
+            "note": ""
+        },
+        {
+            "name": "dice",
+            "syntax": " [number of faces in first dice] [number of faces in second dice] ... [number of faces in nth dice]",
+            "desc": "Roll some dices",
+            "note": "If you don't provide any faces of any dice, default will be a dice has 6 faces."
+        },
+        {
+            "name": "loremipsum",
+            "syntax": "",
+            "desc": "Generate a random Dummy Text",
+            "note": ""
+        },
+        {
+            "name": "password",
+            "syntax": " <length>",
+            "desc": "Generate a strong password",
+            "note": "Length must be an integer greater than and equal to 8 and less than and equal to 100"
+        },
+        {
+            "name": "pick",
+            "syntax": " <first option>,<second option>,[third option],[forth option],...",
+            "desc": "Choose an option from a list",
+            "note": ""
+        },
+        {
+            "name": "rand",
+            "syntax": " [min boundary (max)] [max boundary]",
+            "desc": "Choose a random number in range",
+            "note": "If you don't provide any arguments, default range will be [1, 100].\nIf you only provided one argument, the range will be [1, argument you provided]."
+        },
+        {
+            "name": "rdate",
+            "syntax": " [DD/MM/YYYY] [DD/MM/YYYY]",
+            "desc": "Give a random date in range",
+            "note": "If you don't provide any arguments, default will be after 01/01/1970.\nIf you only provided one argument, the range will be after 01/01/1970 and before the date you provided."
+        },
+        {
+            "name": "remoji",
+            "syntax": "",
+            "desc": "Give a random emoji from a random server which bot is joined!",
+            "note": ""
+        },
+        {
+            "name": "rtime",
+            "syntax": " [hh:mm] [hh:mm]",
+            "desc": "Give a random time in range",
+            "note": "If you don't provide any arguments, default will be after 00: 00 and before 23: 59.\nIf you only provided one argument, the range will be after 00: 00 and before the time you provided."
+        }
+    ],
+    "setting": [
+        {
+            "name": "prefix",
+            "syntax": " <new prefix>",
+            "desc": "Update the prefix of the bot at the server",
+            "note": "You need Administrator or Manager Server permission.\nPrefix's length must be a positive number and less than 32.\nNew prefix must be provided"
+        },
+        {
+            "name": "language",
+            "syntax": " <new <language>",
+            "desc": "Update the language of the bot at the server",
+            "note": "You need Administrator or Manager Server permission.\nNew language must be provided"
+        },
+        {
+            "name": "selflanguage",
+            "syntax": " <new language>",
+            "desc": "Update the language of the bot for you",
+            "note": "Language preference: Your language → Server language → Default language (`en_US`)"
+        }
+    ],
+    "utility": [
+        {
+            "name": "avatar",
+            "syntax": " [mention/id]",
+            "desc": "See someone's avatar",
+            "note": "If you do not enter another person, the default will take your avatar!"
+        },
+        {
+            "name": "bug",
+            "syntax": "",
+            "desc": "Get the error message link",
+            "note": ""
+        },
+        {
+            "name": "changelog",
+            "syntax": " [lists/update name]",
+            "desc": "View bot's update history",
+            "note": "If use `lists`, it will return a list of all versions\nIf you provide the name of the version, it will be details of that version\nIf you don't provide any arguments, default will be the latest version."
+        },
+        {
+            "name": "color",
+            "syntax": " [color code (hex, int, RGB)]",
+            "desc": "See color with code",
+            "note": "If no information is entered, the default will give any color."
+        },
+        {
+            "name": "help",
+            "syntax": " [command || group]",
+            "desc": "Gives a list of command groups, commands and details of each command.",
+            "note": "If nothing is entered, all commands and groups of commands will be displayed by default."
+        },
+        {
+            "name": "info",
+            "syntax": "",
+            "desc": "Show info of bot",
+            "note": ""
+        },
+        {
+            "name": "invite",
+            "syntax": "",
+            "desc": "Invite bot!",
+            "note": ""
+        },
+        {
+            "name": "ping",
+            "syntax": "",
+            "desc": "Get respond time of bot",
+            "note": ""
+        },
+        {
+            "name": "qrgen",
+            "syntax": " <string>",
+            "desc": "Generate a QRCode",
+            "note": "String's length must be a positive number and less than 1600!"
+        },
+        {
+            "name": "support",
+            "syntax": "",
+            "desc": "Get support information",
+            "note": ""
+        },
+        {
+            "name": "vote",
+            "syntax": "",
+            "desc": "Vote for bot at Top.gg",
+            "note": ""
+        },
+        {
+            "name": "whois",
+            "syntax": " [mention/id]",
+            "desc": "Get info of any users at executed server!",
+            "note": "If you don't provide any arguments, default will be your info!"
+        }
+    ]
+}

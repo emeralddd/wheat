@@ -4,8 +4,6 @@ require('dotenv').config
 
 const help = {
     name:"dizzy",
-    htu:"",
-    des:"Gif thể hiện cảm xúc & hành động",
     group:"fun",
     aliases: []
 }
@@ -15,10 +13,10 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message}) => {
-    const gifArray = require('../../storage/gifsurl.json').dizzy
+const run = async ({message,lg}) => {
+    const gifArray = require('../../assets/url/gifsURL.json').dizzy
     const embed = await bot.wheatSampleEmbedGenerate()
-    embed.setTitle(`${message.member.displayName} đang quay cuồng trong mơ hồ ...`)
+    embed.setTitle(`${message.member.displayName} ${lg.fun.dizzy}`)
     embed.setImage(bot.wheatRandomElementFromArray(gifArray))
     await bot.wheatEmbedSend(message,[embed])
 }

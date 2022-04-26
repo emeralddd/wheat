@@ -3,8 +3,6 @@ const bot = require('wheat-better-cmd')
 
 const help = {
     name:"changelog",
-    htu:" [lists/tên_bản_cập_nhật]",
-    des:"Xem lịch sử sửa đổi của bot!",
     group:"utility",
     aliases: ["lichsucapnhat","lscn","cl"]
 }
@@ -15,37 +13,39 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args}) => {
+const run = async ({message,args,lg}) => {
     const overview = require('../../logs/overview.json').logs  
+    const latest = require('../../logs/overview.json').latest
     const embed = await bot.wheatSampleEmbedGenerate(true)
     let logChosen
     if(args[1]) {
         if(args[1] === 'lists') {
-            embed.setTitle(`Danh sách lịch sử bản cập nhật`)
+            embed.setTitle(lg.main.changeLogList)
             
             let details = ""
-            overview.reverse().forEach(value => {
+
+            for(const value of overview.reverse()) {
                 details+="(#) `"+value+"`\n"
-            })
+            }
             
-            embed.setDescription(`Bản cập nhật mới nhất: **${overview[overview.length-1]}**`)
+            embed.setDescription(`${lg.main.latestUpdate}: **${latest}**`)
             embed.addField(`▼`,details)
             await bot.wheatEmbedSend(message,[embed])
             return
         }
         if(!overview.includes(args[1])) {
-            await bot.wheatSend(message,`Không có bản cập nhật đó!`)
+            await bot.wheatSend(message,lg.error.notFoundThatUpdate)
             return 
         }
         logChosen=args[1]
     }
 
-    if(!logChosen) logChosen = overview[overview.length-1]
+    if(!logChosen) logChosen = latest
 
     const logJSON = require(`../../logs/${logChosen}.json`)
 
-    embed.setTitle(`Lịch sử cập nhật`)
-    embed.setDescription(`Bản cập nhật: ${logChosen}\nBản cập nhật trước đó: ${logJSON.before}`)
+    embed.setTitle(lg.main.changeLog)
+    embed.setDescription(`${lg.main.updateN}: **${logChosen}**\n${lg.main.previousUpdate}: ${logJSON.before}`)
 
     let add = ``, remove =``
     logJSON.add.forEach(value => {
@@ -58,12 +58,12 @@ const run = async ({message,args}) => {
 
     embed.addFields([
         {
-            name:`Thêm`,
-            value: (add===``?`Không có`:add)
+            name:lg.main.add,
+            value: (add===``?lg.help.none:add)
         },
         {
-            name:`Xóa bỏ`,
-            value: (remove===``?`Không có`:remove)
+            name:lg.main.remove,
+            value: (remove===``?lg.help.none:remove)
         }
     ])
 

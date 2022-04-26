@@ -4,8 +4,6 @@ const servers = require('../../models/server')
 
 const help = {
     name:"prefix",
-    htu:" <prefix mới>",
-    des:"Đổi prefix của bot",
     group:"setting",
     aliases: ["pf"]
 }
@@ -16,19 +14,19 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args}) => {
+const run = async ({message,args,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
     const perm = message.member.permissions
     if(!(perm.has(Permissions.FLAGS.ADMINISTRATOR)||perm.has(Permissions.FLAGS.MANAGE_GUILD)))  {
-        await bot.wheatSendErrorMessage(message,`Bạn cần phải có 1 trong 2 quyền **Administrator** hoặc **Manager Server** để thực thi lệnh này!`)
+        await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
         return
     }
     if(!args[1]) {
-        await bot.wheatSendErrorMessage(message,`Thiếu prefix mới!`)
+        await bot.wheatSendErrorMessage(message,lg.error.missingNewPrefix)
         return
     }
     if(args[1].length>32) {
-        await bot.wheatSendErrorMessage(message,`Prefix phải có độ dài nhỏ hơn hoặc bằng 32 kí tự`)
+        await bot.wheatSendErrorMessage(message,lg.error.wrongPrefix)
         return
     }
 
@@ -46,12 +44,12 @@ const run = async ({message,args}) => {
             await newPrefix.save()
         }
         
-        embed.setTitle(`Đổi Prefix thành công!`)
-        embed.setDescription(`Đã đổi thành công prefix của server thành **`+args[1]+`**`)
+        embed.setTitle(lg.main.successExecution)
+        embed.setDescription(`${lg.main.changePrefixTo} **`+args[1]+`**`)
         await bot.wheatEmbedSend(message,[embed])
     } catch(error) {
         console.log(error)
-        await bot.wheatSendErrorMessage(message,`Đã có lỗi trong quá trình thực thi, vui lòng thử lại sau ít phút!`)
+        await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
     }
 }
 

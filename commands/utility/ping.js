@@ -3,8 +3,6 @@ const bot = require('wheat-better-cmd')
 
 const help = {
     name:"ping",
-    htu:"",
-    des:"Xem thời gian phản hồi Ping của bot",
     group:"utility",
     aliases: []
 }
@@ -14,9 +12,9 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message}) => {
+const run = async ({message,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
-    embed.setDescription(`**Pong! in ` + String(new Date().getTime() - message.createdTimestamp ) + ` ms!**`)
+    embed.setDescription(`**Pong! ${lg.main.in} ` + String(new Date().getTime() - message.createdTimestamp ) + ` ${lg.main.miliseconds}!**`)
     await bot.wheatEmbedSend(message,[embed])
 }
 

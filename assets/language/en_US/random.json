@@ -1,0 +1,13 @@
+{
+    "flipping": "Flipping a coin",
+    "heads": "Heads",
+    "tails": "Tails",
+    "dices": "Roll some dices",
+    "dicesResult": "and get results respectively",
+    "sumIs": "Sum is",
+    "passwordIs": "Random password created is ",
+    "iPick": "I picked",
+    "randomNumInRange": "Random number in range",
+    "randomDate": "Random date is",
+    "randomTime": "Random time is"
+}

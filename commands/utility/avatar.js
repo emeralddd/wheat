@@ -4,8 +4,6 @@ const bot = require('wheat-better-cmd')
 
 const help = {
     name:"avatar",
-    htu:" + [mention/id]",
-    des:"Xem ảnh đại diện của một ai đó!",
     group:"utility",
     aliases: ["ava","daidien"]
 }
@@ -17,13 +15,13 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat, message, args}) => {
+const run = async ({wheat, message, args, lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
 
     try {
         const USER = await bot.wheatGetUserByIdOrMention(wheat,args[1],message.author.id)
         if(!USER) {
-            await bot.wheatSend(message, `Không tìm thấy người dùng đó!`)
+            await bot.wheatSend(message, lg.error.notFoundThatUser)
             return
         }
         
@@ -31,7 +29,7 @@ const run = async ({wheat, message, args}) => {
         embed.setImage(`${USER.avatarURL()}?size=1024`)
         await bot.wheatEmbedSend(message,[embed])
     } catch (error) {
-        await bot.wheatSend(message, `Không tìm thấy người dùng đó!`)
+        await bot.wheatSend(message, lg.error.notFoundThatUser)
         return
     }
 }

@@ -8,9 +8,7 @@ const {Client, Message} = require('discord.js')
  */
 
 module.exports.run = async ({wheat, message, args}) => {
-
-    if (args[1]=== 'lists' &&message.author.id === '687301490238554160') 
-    {
+    if (args[1]=== 'lists'&&message.author.id === '687301490238554160') {
 		let s = '';
         let t=0;
 		wheat.guilds.cache.each(w => {

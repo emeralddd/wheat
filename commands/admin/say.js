@@ -1,7 +1,5 @@
-const bot = require('wheat-better-cmd')
-const {MessageAttachment, Message, Client} = require('discord.js')
-const { writeFileSync, readFileSync } = require('fs')
-const { join } = require('path')
+const {Message, Client} = require('discord.js')
+
 const help = {
 	name:"say",
     htu:"",

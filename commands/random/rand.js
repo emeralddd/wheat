@@ -3,8 +3,6 @@ const bot = require('wheat-better-cmd')
 
 const help = {
     name:"rand",
-    htu:" [giới hạn nhỏ nhất (lớn nhất)] [giới hạn lớn nhất]",
-    des:"Đưa ra một số ngẫu nhiên trong khoảng được cho trước",
     group:"random",
     aliases: ["rd","ngaunhien","batky","rdm","r"]
 }
@@ -15,7 +13,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args}) => {
+const run = async ({message,args,lg}) => {
     let numberMIN = Number(args[1])
 	let numberMAX = Number(args[2])
     
@@ -36,7 +34,7 @@ const run = async ({message,args}) => {
     }
 
 	const randomNumber = Math.floor(Math.random()*(numberMAX-numberMIN+1)+numberMIN)
-	await bot.wheatSend(message,`Số ngẫu nhiên trong khoảng [${numberMIN},${numberMAX}] là: ${randomNumber}`) 
+	await bot.wheatSend(message,`${lg.random.randomNumInRange} [${numberMIN},${numberMAX}] ${lg.main.is}: ${randomNumber}`) 
 }
 
 module.exports.run = run

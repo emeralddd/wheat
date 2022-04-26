@@ -1,11 +1,9 @@
-const { Message, DiscordAPIError } = require('discord.js')
+const { Message } = require('discord.js')
 const bot = require('wheat-better-cmd')
 require('dotenv').config
 
 const help = {
     name:"bite",
-    htu:"+ <mention/id>",
-    des:"Gif thể hiện cảm xúc & hành động",
     group:"fun",
     aliases: []
 }
@@ -17,16 +15,16 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat,message,args}) => {
+const run = async ({wheat,message,args,lg}) => {
     const mentionUsers= await bot.wheatGetUserByIdOrMention(wheat,args[1],'0')
     //console.log(mentionUsers)
     if(!mentionUsers) {
-        await bot.wheatSendErrorMessage(message,'Cần bổ sung một người để thực hiện hành động!')
+        await bot.wheatSendErrorMessage(message,lg.error.needToTriggerAtOnePerson)
         return
     }
-    const gifArray = require('../../storage/gifsurl.json').bite
+    const gifArray = require('../../assets/url/gifsURL.json').bite
     const embed = await bot.wheatSampleEmbedGenerate()
-    embed.setTitle(`${message.member.displayName} cạp ${mentionUsers.username}`)
+    embed.setTitle(`${message.member.displayName} ${lg.fun.bite} ${mentionUsers.username}`)
     embed.setImage(bot.wheatRandomElementFromArray(gifArray))
     await bot.wheatEmbedSend(message,[embed])
 }

@@ -4,8 +4,6 @@ const { MessageAttachment, Message } = require('discord.js')
 
 const help = {
     name:"qrgen",
-    htu:" + <xâu cần tạo QR>",
-    des:"Tạo ra mã QR từ xâu có sẵn",
     group:"utility",
     aliases: ["taoqr","qrgenerator","qr"]
 }
@@ -16,42 +14,36 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({S, message}) => {
+const run = async ({S, message,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
-   // console.log(S)
     
     let content=""
     let block=true
-    //console.log(S)
     for(let i=1; i<S.length; i++) {
-    //    console.log(S[i])
         if(!(S[i]===''&&block)) {
             block=false
-       //     console.log(S[i])
             content+=S[i]+(i===S.length-1?"":" ")
         }
     }
-
-    //console.log(content)
     
     if(content.length===0) {
-        await bot.wheatSendErrorMessage(message,`Chưa nhập dữ liệu!`)
+        await bot.wheatSendErrorMessage(message,lg.error.missingData)
         return
     }
 
     if(content.length>1600) {
-        await bot.wheatSendErrorMessage(message,`Độ dài dữ liệu chỉ được nằm trong khoảng (0,1600]!`)
+        await bot.wheatSendErrorMessage(message,lg.error.wrongQrLength)
         return
     }
 
     qrcode.toBuffer(content,async (err,buffer) => {
         if(err) {
-            await bot.wheatSendErrorMessage(message,`Đã xảy ra lỗi khi xử lý, vui lòng thử lại sau!`)
+            await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
             return
         }
         const attachment = new MessageAttachment(buffer,'qr.png')
         embed.setImage('attachment://qr.png')
-        embed.setTitle(`Mã QR được tạo thành công!`)
+        embed.setTitle(lg.main.successExecution)
         embed.setDescription(content)
         await bot.wheatEmbedAttachFilesSend(message,[embed],[attachment])
     })

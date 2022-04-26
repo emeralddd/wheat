@@ -1,11 +1,10 @@
 const { Client, Message } = require('discord.js')
 const moment = require('moment')
 const bot = require('wheat-better-cmd')
+require('dotenv').config()
 
 const help = {
     name:"info",
-    htu:"",
-    des:"Xem thông tin của Bot!",
     group:"utility",
     aliases: ["thongtin"]
 }
@@ -17,14 +16,12 @@ const help = {
  * @param {Array} obj.helpMenu
  */
 
-const run = async ({wheat,message,helpMenu}) => {
+const run = async ({wheat,message,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate(true)
     embed.setAuthor(`Wheat#1261`,process.env.AVATAR)
-    embed.setTitle(`About me`)
-    embed.setDescription(`Bot xem bài Tarot, 12 cung Hoàng Đạo, Tử Vi, ... bằng tiếng Việt tốt nhất trên Discord!`)
+    embed.setTitle(lg.main.aboutMe)
+    embed.setDescription(lg.main.botDescription)
     const uptime_milli = moment.duration(wheat.uptime,'milliseconds')
-    const overview = require('../../logs/overview.json').logs  
-    //console.log(helpMenu)
     const promises = [
         await wheat.shard.fetchClientValues('guilds.cache.size'),
     ]
@@ -35,36 +32,36 @@ const run = async ({wheat,message,helpMenu}) => {
 			})
 		.catch(console.error)
 
-    const count=43
+    const count=48
 
     embed.addFields(
         {
-            name: "Version",
-            value: overview[overview.length-1],
+            name: lg.main.updateN,
+            value: require('../../logs/overview.json').latest,
             inline: true
         },
         {
-            name: "Uptime",
-            value: `${Math.floor(uptime_milli.asHours())} giờ, ${Math.floor(uptime_milli.asMinutes())%60} phút, ${Math.floor(uptime_milli.asSeconds())%60} giây`,
+            name: lg.main.uptime,
+            value: `${Math.floor(uptime_milli.asHours())} ${lg.main.hourS}, ${Math.floor(uptime_milli.asMinutes())%60} ${lg.main.minuteS}, ${Math.floor(uptime_milli.asSeconds())%60} ${lg.main.secondS}`,
             inline: true
         },
         {
-            name: "Developer",
+            name: lg.main.developer,
             value: `temeralddd#1385`,
             inline: true
         },
         {
-            name: "Server",
+            name: lg.main.servers,
             value: String(guildCount),
             inline: true
         },
         {
-            name: "Shard",
-            value: "5",
+            name: lg.main.shards,
+            value: process.env.shards,
             inline: true
         },
         {
-            name: "Commands",
+            name: lg.main.commands,
             value: String(count),
             inline: true
         }

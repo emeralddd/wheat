@@ -5,10 +5,8 @@ require('dotenv').config()
 const moment = require('moment')
 
 const help = {
-    status:"dev",
+    // status:"dev",
     name:"apod",
-    htu:" + [ngày ở định dạng DD/MM/YYYY]",
-    des:"Xem một bức ảnh thiên văn theo ngày của NASA",
     group:"astronomy",
     aliases: ['astropic','nasapic','picday']
 }
@@ -18,24 +16,42 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message,args}) => {
-    const date = args[1]
-    const mmt =moment(date,'DD/MM/YYYY',true)
+const run = async ({message,args,lg}) => {
+    const date = args[1] || moment().subtract(1, 'days').format('DD/MM/YYYY')
+    
+    const mmt = moment(date,'DD/MM/YYYY',true)
     if(!mmt.isValid()) {
-        await bot.wheatSendErrorMessage(message,`Sai cấu trúc ngày!`)
+        await bot.wheatSendErrorMessage(message,lg.error.formatError)
+        return
+    }
+
+    if(mmt.isBefore('1995-06-16')) {
+        await bot.wheatSendErrorMessage(message,lg.error.dateAfterApod)
+        return
+    }
+
+    if(mmt.isAfter(moment().subtract(1,'days'))) {
+        await bot.wheatSendErrorMessage(message,lg.error.dateOverApod)
         return
     }
     
     const date_str= mmt.format('YYYY-MM-DD')
 
-    const res = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_KEY}&date=${date_str}`)
+    const key = [process.env.NASA_KEY1,process.env.NASA_KEY2,process.env.NASA_KEY3]
+
+    const res = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${bot.wheatRandomElementFromArray(key)}&date=${date_str}`)
+
+    if(!res.data.title) {
+        await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
+        return
+    }
 
     const embed = await bot.wheatSampleEmbedGenerate()
 
     embed.setTitle(res.data.title)
-    embed.setFooter(`Copyright: ${res.data.copyright}`)
+    embed.setFooter({text:`${lg.main.copyright}: ${res.data.copyright || "NASA"}`})
     embed.setTimestamp(mmt.toDate())
-    embed.setImage(res.data.hdurl)
+    embed.setImage(res.data.url)
     embed.setDescription(res.data.explanation)
 
     await bot.wheatEmbedSend(message,[embed])

@@ -14,6 +14,9 @@ const Server = new Schema({
         },
         language: {
             type: String
+        },
+        disable: {
+            type: Map
         }
     }
 )

@@ -4,8 +4,6 @@ const moment = require('moment')
 
 const help = {
     name:"rtime",
-    htu:" [<hh:mm> <hh:mm>]",
-    des:"Đưa ra một thời gian bất kỳ trong ngày hoặc trong khoảng nhập vào (thời gian ở định dạng 24 giờ, bắt đầu từ 0)",
     group:"random",
     aliases: ["randomtime","ngaunhiengio","timebetween"]
 }
@@ -16,35 +14,34 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
+const run = async ({message,args,lg}) => {
     let first,last
     if(args.length===1) {
         first = 0
         last = Date.now()
+    } else if(args.length===2) {
+        first = moment(`00:00 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
+        last = moment(`${args[1]} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
     } else if(args.length===3) {
         first = moment(`${args[1]} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
         last = moment(`${args[2]} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
     } else {
-        await bot.wheatSendErrorMessage(message,`Dữ liệu nhập vào không hợp lệ!`)
+        await bot.wheatSendErrorMessage(message,lg.error.formatError)
         return
     }
 
-    console.log(`first: ${first} last: ${last}`)
-
     if((!first&&first!=0)||(!last&&last!=0)) {
-        await bot.wheatSendErrorMessage(message,`Dữ liệu nhập vào không hợp lệ!`)
+        await bot.wheatSendErrorMessage(message,lg.error.formatError)
         return 
     }
     
     if(first>last) {
-        await bot.wheatSendErrorMessage(message,`Thời điểm trước phải trước thời điểm sau!`)
+        await bot.wheatSendErrorMessage(message,lg.error.startMustBeBeforeEnd)
         return
     }
 
     const choose = bot.wheatRandomNumberBetween(first,last)
-    console.log(`ch: ${choose}`)
-    await bot.wheatSend(message,`Giờ ngẫu nhiên được chọn là: ${moment.unix(choose).format("hh:mm")}`)
+    await bot.wheatSend(message,`${lg.random.randomTime}: ${moment.unix(choose).format("hh:mm")}`)
 }
 
 module.exports.run = run

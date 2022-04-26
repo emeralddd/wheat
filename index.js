@@ -8,15 +8,13 @@ if(process.env.NODE_ENV !== 'dev') {
         res.send('Hello World')
     })
 
-    app.use(express.static('public'))
-
-    app.listen(3000)
+    app.listen(8000)
 }
 
 const {ShardingManager} = require('discord.js')
 require('dotenv').config()
 
-const manager = new ShardingManager('./mainbot.js', { totalShards: (process.env.NODE_ENV === 'dev'?1:5), token: process.env.TOKEN })
+const manager = new ShardingManager('./mainbot.js', { totalShards: (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test'?1:Number(process.env.shards)) })
 
 manager.on('shardCreate', shard => console.log(`Shard ${shard.id} sinh thanh cong!`))
 

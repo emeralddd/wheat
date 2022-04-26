@@ -4,8 +4,6 @@ const { createCanvas, loadImage } = require('canvas')
 
 const help = {
     name:"color",
-    htu:" + [mã màu (hex, int, RGB)]",
-    des:"Xem màu sắc ứng với mã",
     group:"utility",
     aliases: ["mau","sac","clr"]
 }
@@ -17,7 +15,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({message, args}) => {
+const run = async ({message, args, lg}) => {
     const code = args[1]
     let deccode=bot.wheatRandomNumberBetween(0,16777215)
     if(code) {
@@ -25,34 +23,34 @@ const run = async ({message, args}) => {
             const rgb = code.split(',')
             const red=Number(rgb[0]),green=Number(rgb[1]),blue=Number(rgb[2])
             if(!red||!green||!blue) {
-                await bot.wheatSendErrorMessage(message,`Mã màu nhập không hợp lệ!`)
+                await bot.wheatSendErrorMessage(message,lg.error.wrongColorCode)
                 return
             }
             if(0>red||red>255||0>green||green>255||0>blue||blue>255) {
-                await bot.wheatSendErrorMessage(message,`Mã màu nhập không hợp lệ!`)
+                await bot.wheatSendErrorMessage(message,lg.error.wrongColorCode)
                 return
             }
             deccode=red*65536+green*256+blue
         } else {
             if(code[0]==='#'||code.startsWith('0x')) {
                 if(code[0]==='#'&&code.length!=7) {
-                    await bot.wheatSendErrorMessage(message,`Mã màu nhập không hợp lệ!`)
+                    await bot.wheatSendErrorMessage(message,lg.error.wrongColorCode)
                     return
                 }
                 const int = parseInt(code[0]==='#'?'0x'+code.substr(1,6):code,16)
                 if(!int) {
-                    await bot.wheatSendErrorMessage(message,`Mã màu nhập không hợp lệ!`)
+                    await bot.wheatSendErrorMessage(message,lg.error.wrongColorCode)
                     return
                 }
                 deccode=int
             } else {
                 const int = Number(code)
                 if(!int) {
-                    await bot.wheatSendErrorMessage(message,`Mã màu nhập không hợp lệ!`)
+                    await bot.wheatSendErrorMessage(message,lg.error.wrongColorCode)
                     return
                 }
                 if(int<0||int>16777215) {
-                    await bot.wheatSendErrorMessage(message,`Mã màu nhập không hợp lệ!`)
+                    await bot.wheatSendErrorMessage(message,lg.error.wrongColorCode)
                     return
                 }
                 deccode=int
@@ -71,7 +69,7 @@ const run = async ({message, args}) => {
     ctx.fillRect(0, 0, 200, 200)
     const embed = await bot.wheatSampleEmbedGenerate() 
     const attachment = new MessageAttachment(canvas.toBuffer(),`${hexa}.png`)
-    embed.setTitle(`🎨 Mã màu: #${hexa}`)
+    embed.setTitle(`🎨 ${lg.main.colorCode}: #${hexa}`)
     embed.setDescription(`HEXA: **#${hexa}**\nDEC: **${deccode}**\nRGB: **(${red},${green},${blue})**`)
     embed.setThumbnail(`attachment://${hexa}.png`)
     await bot.wheatEmbedAttachFilesSend(message,[embed],[attachment])

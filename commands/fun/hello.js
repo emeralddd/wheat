@@ -3,8 +3,6 @@ const bot = require('wheat-better-cmd')
 
 const help = {
     name:"hello",
-    htu:"",
-    des:"Đáp lại câu xin chào bằng nhiều thứ tiếng khác nhau",
     group:"fun",
     aliases: ["swasdi","hi","xinchao","hallo","aloha","conichiwa","salam","privet","nihao"]
 }

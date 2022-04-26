@@ -3,8 +3,6 @@ const bot = require('wheat-better-cmd')
 
 const help = {
     name:"dice",
-    htu:" [số mặt của xúc xắc 1] [số mặt của xúc xắc 2] ... [số mặt của xúc xắc n]",
-    des:"Đổ xúc xắc",
     group:"random",
     aliases: ["xucxac","xingau","doxingau","tungxucxac","xn","xx"]
 }
@@ -15,7 +13,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args}) => {
+const run = async ({message,args,lg}) => {
     let rd=[]
     for(let face of args) {
         if(Number(face)) {
@@ -34,7 +32,7 @@ const run = async ({message,args}) => {
         sum+=e.dice;
     })
 
-	await bot.wheatSend(message,`Đổ các xúc xắc ${sf}được kết quả lần lượt là ${sd}. Tổng là: ${sum}`) 
+	await bot.wheatSend(message,`${lg.random.dices} ${sf}${lg.random.dicesResult} ${sd}. ${lg.random.sumIs}: ${sum}`) 
 }
 
 module.exports.run = run

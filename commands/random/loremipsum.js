@@ -4,8 +4,6 @@ const LoremIpsum = require("lorem-ipsum").LoremIpsum
 
 const help = {
     name:"loremipsum",
-    htu:"",
-    des:"Tạo ra một đoạn Dummy Text ngẫu nhiên",
     group:"random",
     aliases: ["li","lorem","ipsum","dummy"]
 }

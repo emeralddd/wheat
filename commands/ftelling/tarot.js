@@ -1,9 +1,8 @@
 const bot = require('wheat-better-cmd')
 const {MessageAttachment, Message} = require('discord.js')
+
 const help = {
 	name:"tarot",
-    htu:"",
-    des:"Xem bài Tarot với mục đích giải trí, không nên tin tưởng hoàn toàn!",
     group:"ftelling",
     aliases: []
 }
@@ -13,17 +12,17 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message}) => {
-   	const tarotMeaning = await bot.wheatReadJSON('./storage/tarot_meaning.json')
+const run = async ({message,lg}) => {
+   	const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json')
 	const randomCard = tarotMeaning[Math.floor(Math.random() * 78) + 1]
 	const embed = await bot.wheatSampleEmbedGenerate()
-	embed.setAuthor('⁘ ' + message.member.displayName + ', lá bài Tarot của bạn là ...')
+	embed.setAuthor(`⁘ ${message.member.displayName}, ${lg.fortune.yourTarotCardIs} ...`)
 	embed.setTitle(`${randomCard.version?`<a:VC_verify5:704210216434008074>`:``}** ${randomCard.name}!**`)
-	embed.setDescription('Thuộc bộ ẩn ' + (randomCard.type === '1' ? 'chính' : 'phụ'))
+	embed.setDescription(randomCard.type === '1' ? lg.fortune.majorArcana : lg.fortune.minorArcana)
 
 	embed.addFields(
 		{
-			name: 'Từ khóa',
+			name: lg.fortune.keywords,
 			value: randomCard.keywords
 		}
 	)
@@ -31,7 +30,7 @@ const run = async ({message}) => {
 
 		embed.addFields(
 			{
-				name: 'Ý nghĩa',
+				name: lg.fortune.meaning,
 				value: randomCard.meaning
 			}
 		)
@@ -49,7 +48,7 @@ const run = async ({message}) => {
 	} else {
 		embed.addFields(
 			{
-				name: 'Mô tả Bài',
+				name: lg.fortune.cardDescription,
 				value: randomCard.description
 			}
 		)
@@ -62,7 +61,7 @@ const run = async ({message}) => {
 
 		embed.addFields(
 			{
-				name: 'Giải nghĩa',
+				name: lg.fortune.meaning,
 				value: randomCard.meaning
 			}
 		)
@@ -80,9 +79,8 @@ const run = async ({message}) => {
 			})
 	}
 	
-    const fileimage = randomCard.image
-	const attachment = new MessageAttachment('./storage/tarot_image/' + fileimage,fileimage)
-	embed.setImage('attachment://' + fileimage)
+	const attachment = new MessageAttachment(`./assets/image/tarotImage/${randomCard.image}`,randomCard.image)
+	embed.setImage(`attachment://${randomCard.image}`)
     bot.wheatEmbedAttachFilesSend(message,[embed],[attachment])
 }
 

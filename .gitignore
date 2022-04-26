@@ -1,6 +1,5 @@
 /node_modules
 /indev
-/modules
 /.vscode
 /commands/test.js
 /commands/fetch_club.js
@@ -11,3 +10,4 @@
 /commands/utility/shard.js
 /slash.js
 /.env
+/modules/getLunarDate.js

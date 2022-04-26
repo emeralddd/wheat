@@ -3,8 +3,6 @@ const { MessageActionRow, MessageButton, ButtonInteraction, Message } = require(
 
 const help = {
   name:"vote",
-  htu:"",
-  des:"Vote cho Bot tại Top.gg!",
   group:"utility",
   aliases: ["topgg"]
 }
