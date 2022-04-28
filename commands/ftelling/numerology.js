@@ -50,7 +50,7 @@ const run = async ({message,args,lg}) => {
 	embed.setDescription(num.description)
     embed.fields=[]
     embed1.fields=[]
-    embed1.setFooter(lg.fortune.numerologyDetails)
+    embed1.setFooter({text:lg.fortune.numerologyDetails})
     embed.addFields({
             name:`◌ ${lg.fortune.general}`,
             value: num.description

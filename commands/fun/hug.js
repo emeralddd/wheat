@@ -19,7 +19,7 @@ const run = async ({wheat,message,args,lg}) => {
     const mentionUsers= await bot.wheatGetUserByIdOrMention(wheat,args[1],'0')
     //console.log(mentionUsers)
     if(!mentionUsers) {
-        await bot.wheatSendErrorMessage(message,needToTriggerAtOnePerson)
+        await bot.wheatSendErrorMessage(message,lg.error.needToTriggerAtOnePerson)
         return
     }
     const gifArray = require('../../assets/url/gifsURL.json').hug

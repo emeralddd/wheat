@@ -95,7 +95,7 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
         )
         
         embed.setDescription(helpMenu[command].desc[lang]);
-        embed.setFooter(lg.help.note1)
+        embed.setFooter({text:lg.help.note1})
             
         await bot.wheatEmbedSend(message,[embed])
     } else {
