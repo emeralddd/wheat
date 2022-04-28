@@ -27,7 +27,7 @@ const run = async ({wheat, message, args, lg}) => {
 
         const MEMBER = await message.guild.members.fetch(USER.id)
         embed.setThumbnail(`${USER.avatarURL()}?size=1024`)
-        embed.setAuthor(`${USER.username}#${USER.discriminator}`)
+        embed.setAuthor({name:`${USER.username}#${USER.discriminator}`})
         embed.setTitle(`${lg.main.whoIs} ${USER.username}?`)
         embed.setColor(MEMBER.displayHexColor)
         let roleList = ""

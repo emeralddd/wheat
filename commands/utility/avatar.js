@@ -25,7 +25,7 @@ const run = async ({wheat, message, args, lg}) => {
             return
         }
         
-        embed.setAuthor(`${USER.username}#${USER.discriminator}`,USER.avatarURL())
+        embed.setAuthor({name:`${USER.username}#${USER.discriminator}`,url:USER.avatarURL()})
         embed.setImage(`${USER.avatarURL()}?size=1024`)
         await bot.wheatEmbedSend(message,[embed])
     } catch (error) {

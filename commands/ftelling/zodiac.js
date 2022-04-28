@@ -69,7 +69,7 @@ const run = async ({message,args,lg}) => {
     const nguyento=[lg.fortune.elementFire,lg.fortune.elementEarth,lg.fortune.elementAir,lg.fortune.elementWater]
     const tukhoangto=[lg.fortune.keywordsFire,lg.fortune.keywordsEarth,lg.fortune.keywordsAir,lg.fortune.keywordsWater]
 
-    embed.setAuthor(`⋗ ${lg.fortune.zodiacth}: ${String(i+1)}`)
+    embed.setAuthor({name:`⋗ ${lg.fortune.zodiacth}: ${String(i+1)}`})
     embed.setTitle(zodiac[i].unicode+" "+zodiac[i].name)
     embed.addFields(
         {

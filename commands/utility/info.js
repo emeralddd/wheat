@@ -18,7 +18,7 @@ const help = {
 
 const run = async ({wheat,message,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate(true)
-    embed.setAuthor(`Wheat#1261`,process.env.AVATAR)
+    embed.setAuthor({name:`Wheat#1261`,url:process.env.AVATAR})
     embed.setTitle(lg.main.aboutMe)
     embed.setDescription(lg.main.botDescription)
     const uptime_milli = moment.duration(wheat.uptime,'milliseconds')

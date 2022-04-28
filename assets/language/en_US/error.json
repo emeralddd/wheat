@@ -6,6 +6,7 @@
     "missingPermission": "You need to have  **Administrator**  or  **Manager Server**  to execute this command!",
     "missingNewPrefix": "Missing new prefix!",
     "wrongPrefix": "Prefix must be less than or equal to 32 character",
+    "missingNewLanguage": "Missing new language!",
     "wrongLanguage": "Language don't exist. Only:",
     "notFoundThatUser": "User not found!",
     "notFoundThatUpdate": "There is no such update!",
@@ -13,5 +14,7 @@
     "missingData": "No data entered!",
     "wrongQrLength": "The length of data only be in range (0,1600]!",
     "needToTriggerAtOnePerson": "Need a person to trigger action on!",
-    "botMissingPermissions":"Bot is missing one of some permissions: `SEND_MESSAGES`, `EMBED_LINKS` or `ATTACH_FILES`!"
+    "botMissingPermissions": "Bot is missing one of some permissions: `SEND_MESSAGES`, `EMBED_LINKS` or `ATTACH_FILES`!",
+    "dateAfterApod": "The date must not be before June 16, 1995!",
+    "dateOverApod": "The date must not be after yesterday!"
 }

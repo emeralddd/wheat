@@ -211,6 +211,18 @@
             "syntax": " <new language>",
             "desc": "Update the language of the bot for you",
             "note": "Language preference: Your language → Server language → Default language (`en_US`)"
+        },
+        {
+            "name": "disable",
+            "syntax": " [all/command 1/group command 1] [all/command 2/group command 2] ...",
+            "desc": "Disable commands/group commands at the current channel",
+            "note": "If use `all`, all the commands except `enable` cannot be used at the current channel!"
+        },
+        {
+            "name": "enable",
+            "syntax": " [all/command 1/group command 1] [all/command 2/group command 2] ...",
+            "desc": "Enable commands/group commands at the current channel",
+            "note": "If use `all`, all the commands can be used at the current channel!"
         }
     ],
     "utility": [

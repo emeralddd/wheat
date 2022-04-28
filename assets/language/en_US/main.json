@@ -35,7 +35,7 @@
     "shards": "Shards",
     "in": "in",
     "miliseconds": "ms",
-    "commands":"Commands",
+    "commands": "Commands",
     "inviteBot": "Add bot!",
     "inviteToGetBot": "Invite bot to use many interesting features in your own server!",
     "inviteTopgg": "Invite through Top.gg!",
@@ -52,7 +52,6 @@
     "role": "Roles",
     "permissions": "Permission",
     "changeSelfLanguageTo": "Successfully change your language to",
-    "languageAtThisServer":"Ngôn ngữ của server",
-    "myLanguage":"Ngôn ngữ của bạn",
-    "unset":"Chưa đặt"
+    "languageAtThisServer": "Server's language",
+    "myLanguage": "Your language"
 }

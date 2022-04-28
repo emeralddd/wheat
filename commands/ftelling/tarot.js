@@ -16,7 +16,7 @@ const run = async ({message,lg}) => {
    	const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json')
 	const randomCard = tarotMeaning[Math.floor(Math.random() * 78) + 1]
 	const embed = await bot.wheatSampleEmbedGenerate()
-	embed.setAuthor(`⁘ ${message.member.displayName}, ${lg.fortune.yourTarotCardIs} ...`)
+	embed.setAuthor({name:`⁘ ${message.member.displayName}, ${lg.fortune.yourTarotCardIs} ...`})
 	embed.setTitle(`${randomCard.version?`<a:VC_verify5:704210216434008074>`:``}** ${randomCard.name}!**`)
 	embed.setDescription(randomCard.type === '1' ? lg.fortune.majorArcana : lg.fortune.minorArcana)
 
