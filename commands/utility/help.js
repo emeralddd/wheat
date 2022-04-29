@@ -22,7 +22,7 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
     const lg=language[lang]
 
     const embed = await bot.wheatSampleEmbedGenerate(true)
-    embed.setAuthor({name:`Wheat#1261`,url:process.env.AVATAR})
+    embed.setAuthor({name:`Wheat#1261`,iconUrl:process.env.AVATAR})
 
     if(args.length===1) {
         embed.setTitle(lg.help.listCommand) 

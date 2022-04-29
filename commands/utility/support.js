@@ -14,7 +14,7 @@ const help = {
 
 const run = async ({message,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
-    embed.setAuthor({name:`Wheat#1261`,url:process.env.AVATAR})
+    embed.setAuthor({name:`Wheat#1261`,iconUrl:process.env.AVATAR})
     embed.setTitle(lg.main.needHelp)
     embed.setDescription(lg.main.supportDetails)
     embed.addFields(
