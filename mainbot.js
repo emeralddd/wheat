@@ -2,12 +2,14 @@ require('events').EventEmitter.prototype._maxListeners = Infinity
 require('events').defaultMaxListeners = Infinity
 const { Collection, Client, Intents } = require('discord.js')
 const bot = require('wheat-better-cmd')
-const fs = require('fs')
-const servers = require('./models/server')
 const mongo = require('mongoose')
 require('dotenv').config()
 const announcement = require('./announcement.json')
-const member = require('./models/member')
+// const member = require('./models/member')
+// const servers = require('./models/server')
+let members = []
+let servers = []
+const getServerUserDatabase = require('./modules/getServerUserDatabase')
 
 const wheat = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]})
 let commandsList = new Collection()
@@ -24,13 +26,21 @@ const addCommands = require('./modules/addCommands')
 const connectDatabase = require('./modules/connectDatabase')
 
 let isInitial = false
+
+const eachSecond = async() => {
+    setInterval(async() => {
+        members = await getServerUserDatabase.members()
+        servers = await getServerUserDatabase.servers()
+    }, 1000)
+}
+
 const initial = async () => {
     if(isInitial) return
     try {
         ({groupMenu,helpMenu,aliasesList,commandsList,all,groups} = await addCommands(langList))
         language = importLanguage(langList)
         await connectDatabase()
-        // if(process.env.NODE_ENV !== 'dev') connectDB()
+        eachSecond()
         isInitial=true
     } catch (error) {
         console.log(error)
@@ -40,7 +50,6 @@ const initial = async () => {
 initial()
 
 wheat.once('ready', () => {
-
     wheat.user.setActivity('EHELP', {type:'LISTENING'});
     console.log(`Da dang nhap duoi ten ${wheat.user.tag}!`)
 })
@@ -77,21 +86,19 @@ wheat.on('messageCreate', async (message) => {
     try {
         if(!msg) return
         
-        let prefix='='
+        let prefix=process.env.PREFIX
         let lang=process.env.CODE
 
-        // if(process.env.NODE_ENV !== 'dev') {
-            const serverInfo = await servers.findOne({id:guildId})
-        
-            if(serverInfo) {
-                prefix = serverInfo.prefix || process.env.PREFIX
-                lang = serverInfo.language || lang
-            } else {
-                prefix = process.env.PREFIX
-            }
-        // }
+        const serverInfo = servers[guildId]
+    
+        if(serverInfo) {
+            prefix = serverInfo.prefix || prefix
+            lang = serverInfo.language || lang
+        } else {
+            prefix = process.env.PREFIX
+        }
 
-        const memberInfo = await member.findOne({id:memberId})
+        const memberInfo = members[memberId]
 
         if(memberInfo) {
             lang = memberInfo.language || lang
