@@ -20,7 +20,7 @@ module.exports.servers = async () => {
             premium: i.premium || false,
             prefix: i.prefix || 'e',
             language: i.language || 'vi_VN',
-            disable: i.disable || {}
+            disable: i.disable || new Map()
         }
     }
     

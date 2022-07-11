@@ -3,12 +3,10 @@
 /.vscode
 /commands/test.js
 /commands/fetch_club.js
-/commands/ftelling/doingayamduong.js
 /commands/ftelling/12congiap.js
 /commands/fun/boylove.js
 /commands/fun/ship.js
 /commands/utility/shard.js
 /slash.js
 /.env
-/modules/getLunarDate.js
 /package-dev.json

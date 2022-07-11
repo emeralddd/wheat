@@ -1,0 +1,6 @@
+{
+    "version":"BOT_JUNE2022",
+    "before":"BOT_APRIL2022",
+    "add":["Đổi ngày dương thành âm - Change from Julius Calendar's date to Vietnamese Lunar Calendar's date"],
+    "remove":[]
+}
