@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {Message,Permissions} = require('discord.js')
+const { Message, PermissionsBitField } = require('discord.js')
 const servers = require('../../models/server')
 
 const help = {
@@ -17,7 +17,7 @@ const help = {
 const run = async ({message,args,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
     const perm = message.member.permissions
-    if(!(perm.has(Permissions.FLAGS.ADMINISTRATOR)||perm.has(Permissions.FLAGS.MANAGE_GUILD)))  {
+    if(!(perm.has(PermissionsBitField.Flags.Administrator)||perm.has(PermissionsBitField.Flags.ManageGuild)))  {
         await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
         return
     }

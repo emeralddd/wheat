@@ -1,7 +1,7 @@
 const bot = require('wheat-better-cmd')
 const {Message} = require('discord.js')
 const members = require('../../models/member')
-require('dotenv').config()
+require('dotenv').config({path: 'secret.env'})
 
 const help = {
     name:"selflanguage",

@@ -1,4 +1,4 @@
-const {Client, Message, MessageAttachment } = require('discord.js')
+const {Client, Message, AttachmentBuilder } = require('discord.js')
 const bot = require('wheat-better-cmd')
 const { createCanvas, loadImage } = require('canvas')
 
@@ -68,7 +68,7 @@ const run = async ({message, args, lg}) => {
     ctx.fillStyle = `#${hexa}`
     ctx.fillRect(0, 0, 200, 200)
     const embed = await bot.wheatSampleEmbedGenerate() 
-    const attachment = new MessageAttachment(canvas.toBuffer(),`${hexa}.png`)
+    const attachment = new AttachmentBuilder(canvas.toBuffer(),{name:`${hexa}.png`})
     embed.setTitle(`🎨 ${lg.main.colorCode}: #${hexa}`)
     embed.setDescription(`HEXA: **#${hexa}**\nDEC: **${deccode}**\nRGB: **(${red},${green},${blue})**`)
     embed.setThumbnail(`attachment://${hexa}.png`)

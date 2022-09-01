@@ -1,7 +1,7 @@
 const bot = require('wheat-better-cmd')
-const {Message,Permissions} = require('discord.js')
+const {Message,PermissionsBitField} = require('discord.js')
 const servers = require('../../models/server')
-require('dotenv').config()
+require('dotenv').config({path: 'secret.env'})
 
 const help = {
     name:"language",
@@ -19,7 +19,7 @@ const help = {
 const run = async ({message,args,langList,lg,language,lang}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
     const perm = message.member.permissions
-    if(!(perm.has(Permissions.FLAGS.ADMINISTRATOR)||perm.has(Permissions.FLAGS.MANAGE_GUILD)))  {
+    if(!(perm.has(PermissionsBitField.Flags.Administrator)||perm.has(PermissionsBitField.Flags.ManageGuild)))  {
         await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
         return
     }

@@ -29,7 +29,10 @@ const run = async ({message,args,lg}) => {
             }
             
             embed.setDescription(`${lg.main.latestUpdate}: **${latest}**`)
-            embed.addField(`▼`,details)
+            embed.addFields([{
+                name: `▼`,
+                value: details
+            }])
             await bot.wheatEmbedSend(message,[embed])
             return
         }

@@ -1,5 +1,5 @@
 const mongo = require('mongoose')
-require('dotenv').config()
+require('dotenv').config({path: 'secret.env'})
 
 module.exports = async () => {
     try {

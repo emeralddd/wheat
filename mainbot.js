@@ -1,9 +1,9 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity
 require('events').defaultMaxListeners = Infinity
-const { Collection, Client, Intents } = require('discord.js')
+const { Collection, Client, GatewayIntentBits } = require('discord.js')
 const bot = require('wheat-better-cmd')
 const mongo = require('mongoose')
-require('dotenv').config()
+require('dotenv').config({path: 'secret.env'})
 const announcement = require('./announcement.json')
 // const member = require('./models/member')
 // const servers = require('./models/server')
@@ -11,7 +11,8 @@ let members = []
 let servers = []
 const getServerUserDatabase = require('./modules/getServerUserDatabase')
 
-const wheat = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]})
+const wheat = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent]})
+
 let commandsList = new Collection()
 let aliasesList = new Collection()
 let helpMenu=[]

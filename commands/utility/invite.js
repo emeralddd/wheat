@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const { MessageActionRow, MessageButton, Message } = require('discord.js')
+const { ActionRowBuilder, ButtonBuilder, Message, ButtonStyle } = require('discord.js')
 
 const help = {
     name:"invite",
@@ -17,17 +17,17 @@ const run = async ({message,lg}) => {
     embed.setTitle(lg.main.inviteBot)
     embed.setDescription(lg.main.inviteToGetBot)
     
-    const topgg = new MessageButton()
+    const topgg = new ButtonBuilder()
         .setLabel(lg.main.inviteTopgg)
-        .setStyle('LINK')
+        .setStyle(ButtonStyle.Link)
         .setURL('https://top.gg/bot/798925450562764863')
 
-    const direct = new MessageButton()
+    const direct = new ButtonBuilder()
         .setLabel(lg.main.inviteDirectly)
-        .setStyle('LINK')
+        .setStyle(ButtonStyle.Link)
         .setURL('https://discord.com/api/oauth2/authorize?client_id=786234973308715008&permissions=4294442871&scope=bot')
     
-    const link = new MessageActionRow()
+    const link = new ActionRowBuilder()
         .addComponents([topgg,direct])
     
     await bot.wheatEmbedButton(message,[embed],[link])

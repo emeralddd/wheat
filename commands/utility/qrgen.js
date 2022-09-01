@@ -1,6 +1,6 @@
 const bot = require('wheat-better-cmd')
 const qrcode = require('qrcode')
-const { MessageAttachment, Message } = require('discord.js')
+const { AttachmentBuilder, Message } = require('discord.js')
 
 const help = {
     name:"qrgen",
@@ -41,7 +41,7 @@ const run = async ({S, message,lg}) => {
             await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
             return
         }
-        const attachment = new MessageAttachment(buffer,'qr.png')
+        const attachment = new AttachmentBuilder(buffer,{name:'qr.png'})
         embed.setImage('attachment://qr.png')
         embed.setTitle(lg.main.successExecution)
         embed.setDescription(content)

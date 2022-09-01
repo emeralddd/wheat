@@ -4,7 +4,6 @@ const bot = require('wheat-better-cmd')
 const moment = require('moment')
  
 const help = {
-    status:'dev',
     name:"doingayduongam",
     group:"ftelling",
     aliases: ["duongam"]

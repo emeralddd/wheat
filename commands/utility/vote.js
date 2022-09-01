@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const { MessageActionRow, MessageButton, ButtonInteraction, Message } = require('discord.js')
+const { ActionRowBuilder, ButtonBuilder, ButtonInteraction, Message, ButtonStyle } = require('discord.js')
 
 const help = {
   name:"vote",
@@ -16,11 +16,11 @@ const run = async ({message}) => {
     const embed = await bot.wheatSampleEmbedGenerate(true)
     embed.setTitle(`VOTE cho Bot!`)
     embed.setDescription(`Vote để ủng hộ thêm cho bot nha!!`)
-    const link = new MessageActionRow()
+    const link = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel('Vote Ngay')
-                .setStyle('LINK')
+                .setStyle(ButtonStyle.Link)
                 .setURL('https://top.gg/bot/786234973308715008/vote')
                 .setEmoji('895593639449853962')
         )

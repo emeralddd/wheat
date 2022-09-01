@@ -1,7 +1,7 @@
 {
-    "status":"active",
+    "status":"dev",
     "title":"Tính năng mới",
-    "description":"Dùng lệnh `apod` để xem NASA chụp gì vào ngày sinh của bạn!\nUse `apod` to get astronomy pictures of NASA",
+    "description":"Dùng lệnh `eduongam` để chuyển ngày dương sang âm nhanh chóng!\nUse `eduongam` to convert Solar Date to Vietnamese Lunar Date",
     "ignoredcommand":[],
     "ignoredparents":["fun","random","settings","admin"]
 }

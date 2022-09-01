@@ -1,4 +1,5 @@
-const { Message, MessageActionRow, MessageButton } = require('discord.js')
+const { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+
 
 const bot = require('wheat-better-cmd')
 
@@ -17,11 +18,11 @@ const run = async ({message,lg}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
     embed.setTitle(lg.main.reportBotError)
     embed.setDescription(lg.main.clickLinkToReport)
-    const link = new MessageActionRow()
+    const link = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel(lg.main.clickHere)
-                .setStyle('LINK')
+                .setStyle(ButtonStyle.Link)
                 .setURL('https://docs.google.com/forms/d/1QOYrbwJqjZHZElWbq7FIb5HEzsRPJN-PBxx_5hiv5nQ/viewform?edit_requested=true')
                 .setEmoji('🐛')
         )

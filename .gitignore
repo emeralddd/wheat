@@ -1,12 +1,12 @@
 /node_modules
 /indev
 /.vscode
-/commands/test.js
 /commands/fetch_club.js
-/commands/ftelling/12congiap.js
-/commands/fun/boylove.js
 /commands/fun/ship.js
 /commands/utility/shard.js
 /slash.js
 /.env
 /package-dev.json
+/secret.env
+/commands/ftelling/lichvannien.js
+/commands/ftelling/xemngay.js

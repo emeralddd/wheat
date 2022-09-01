@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {MessageAttachment, Message} = require('discord.js')
+const {AttachmentBuilder, Message} = require('discord.js')
 const moment = require('moment')
 
 const help = {
@@ -94,7 +94,7 @@ const run = async ({message,args,lg}) => {
         }
     )
 
-	const attachment = new MessageAttachment(`./assets/image/zodiacImage/${i+1}.png`,`${i+1}.png`)
+	const attachment = new AttachmentBuilder(`./assets/image/zodiacImage/${i+1}.png`,`${i+1}.png`)
     embed.setThumbnail(`attachment://${i+1}.png`)
 
     await bot.wheatEmbedAttachFilesSend(message,[embed],[attachment])

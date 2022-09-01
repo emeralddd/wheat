@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {MessageAttachment, Message} = require('discord.js')
+const {AttachmentBuilder, Message} = require('discord.js')
 
 const help = {
 	name:"tarot",
@@ -79,7 +79,8 @@ const run = async ({message,lg}) => {
 			})
 	}
 	
-	const attachment = new MessageAttachment(`./assets/image/tarotImage/${randomCard.image}`,randomCard.image)
+	embed.setFooter({text:"Nguồn: Tarot.vn"})
+	const attachment = new AttachmentBuilder(`./assets/image/tarotImage/${randomCard.image}`,randomCard.image)
 	embed.setImage(`attachment://${randomCard.image}`)
     bot.wheatEmbedAttachFilesSend(message,[embed],[attachment])
 }

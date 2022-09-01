@@ -1,7 +1,7 @@
 const { Client, Message } = require('discord.js')
 const moment = require('moment')
 const bot = require('wheat-better-cmd')
-require('dotenv').config()
+require('dotenv').config({path: 'secret.env'})
 
 const help = {
     name:"info",

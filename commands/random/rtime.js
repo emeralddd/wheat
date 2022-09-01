@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {MessageAttachment, Message} = require('discord.js')
+const {AttachmentBuilder, Message} = require('discord.js')
 const moment = require('moment')
 
 const help = {

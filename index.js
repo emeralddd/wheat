@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path: 'secret.env'})
 
 if(process.env.NODE_ENV !== 'dev') {
     const express = require('express')
@@ -12,7 +12,7 @@ if(process.env.NODE_ENV !== 'dev') {
 }
 
 const {ShardingManager} = require('discord.js')
-require('dotenv').config()
+require('dotenv').config({path: 'secret.env'})
 
 const manager = new ShardingManager('./mainbot.js', { 
     totalShards: (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test'?1:Number(process.env.shards)), 
