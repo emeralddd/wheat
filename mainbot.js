@@ -41,7 +41,6 @@ const initial = async () => {
         ({groupMenu,helpMenu,aliasesList,commandsList,all,groups} = await addCommands(langList))
         language = importLanguage(langList)
         await connectDatabase()
-        eachSecond()
         isInitial=true
     } catch (error) {
         console.log(error)
@@ -51,6 +50,7 @@ const initial = async () => {
 initial()
 
 wheat.once('ready', () => {
+    eachSecond()
     wheat.user.setActivity('EHELP', {type:'LISTENING'});
     console.log(`Da dang nhap duoi ten ${wheat.user.tag}!`)
 })

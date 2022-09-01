@@ -16,10 +16,11 @@ require('dotenv').config({path: 'secret.env'})
 
 const manager = new ShardingManager('./mainbot.js', { 
     totalShards: (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test'?1:Number(process.env.shards)), 
-    spawnTimeout: -1,
     respawn: true
 })
 
 manager.on('shardCreate', shard => console.log(`Shard ${shard.id} sinh thanh cong!`))
 
-manager.spawn()
+manager.spawn({
+    timeout:-1
+})
