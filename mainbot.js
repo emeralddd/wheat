@@ -52,7 +52,7 @@ initial()
 wheat.once('ready', () => {
     eachSecond()
     wheat.user.setActivity('EHELP', {type:'LISTENING'});
-    console.log(`Da dang nhap duoi ten ${wheat.user.tag}!`)
+    console.log(`[${wheat.shard.ids[0]}] Da dang nhap duoi ten ${wheat.user.tag}!`)
 })
 
 wheat.on('guildCreate', async (guild) => {
