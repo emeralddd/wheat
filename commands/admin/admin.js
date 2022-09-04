@@ -26,6 +26,12 @@ module.exports.run = async ({wheat, message, args}) => {
     if (args[1] === 'count' &&message.author.id === '687301490238554160') 
     {
 		message.channel.send(String(wheat.guilds.cache.size));
+        wheat.shard.fetchClientValues('guilds.cache.size')
+            .then(results => {
+                console.log(`${results.reduce((acc, guildCount) => acc + guildCount, 0)} total guilds`);
+            })
+            .catch(console.error);
+
         return;
 	}
     if(args[1]==='gg' && message.author.id === '687301490238554160') {

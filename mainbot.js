@@ -1,6 +1,6 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity
 require('events').defaultMaxListeners = Infinity
-const { Collection, Client, GatewayIntentBits } = require('discord.js')
+const { Collection, Client, GatewayIntentBits, ActivityType } = require('discord.js')
 const bot = require('wheat-better-cmd')
 const mongo = require('mongoose')
 require('dotenv').config({path: 'secret.env'})
@@ -32,7 +32,7 @@ const eachSecond = async() => {
     setInterval(async() => {
         members = await getServerUserDatabase.members()
         servers = await getServerUserDatabase.servers()
-    }, 1000)
+    }, 3000)
 }
 
 const initial = async () => {
@@ -51,7 +51,13 @@ initial()
 
 wheat.once('ready', () => {
     eachSecond()
-    wheat.user.setActivity('EHELP', {type:'LISTENING'});
+    wheat.user.setPresence({
+        activities:[{
+            name: 'EHELP',
+            type: ActivityType.Listening
+        }],
+        status:'online'
+    })
     console.log(`[${wheat.shard.ids[0]}] Da dang nhap duoi ten ${wheat.user.tag}!`)
 })
 

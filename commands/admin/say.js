@@ -4,7 +4,7 @@ const help = {
 	name:"say",
     htu:"",
     des:"",
-    group:"admin",
+    group:"",
     aliases: []
 }
 

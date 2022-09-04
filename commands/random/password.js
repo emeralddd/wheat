@@ -19,7 +19,7 @@ const run = async ({message,args,lg}) => {
         await bot.wheatSendErrorMessage(message,lg.error.passwordLengthError)
         return 
     }
-    if(len>100&&len<8) {
+    if(len>100||len<8) {
         await bot.wheatSendErrorMessage(message,lg.error.passwordLengthError)
         return 
     }

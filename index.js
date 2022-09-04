@@ -8,7 +8,7 @@ if(process.env.NODE_ENV !== 'dev') {
         res.send('Hello World')
     })
 
-    app.listen(8000)
+    app.listen(process.env.PORT || 8000)
 }
 
 const {ShardingManager} = require('discord.js')

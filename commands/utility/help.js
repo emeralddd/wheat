@@ -61,6 +61,7 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
     command = args[1].toLowerCase()
 
     if(groupMenu[command]) {
+        if(command === 'admin') return
         for(const id of groupMenu[command]) {
             list+=" `" + id + "`"
         }
@@ -70,7 +71,7 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
         await bot.wheatEmbedSend(message,[embed])
         return
     }
-        
+
     if(aliasesList.has(command)) command = aliasesList.get(command)
     if(helpMenu[command]) {
         for(const id of helpMenu[command].aliases) {
@@ -78,6 +79,8 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
         }
         
         if(list==="") list = lg.help.none
+        if(helpMenu[command].group==='') return
+
         embed.setTitle(`${lg.help.command}: ${command}`)
         embed.addFields(
             {
@@ -94,7 +97,7 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
             }
         )
         
-        embed.setDescription(helpMenu[command].desc[lang]);
+        embed.setDescription(helpMenu[command].desc[lang])
         embed.setFooter({text:lg.help.note1})
             
         await bot.wheatEmbedSend(message,[embed])
