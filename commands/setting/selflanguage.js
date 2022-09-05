@@ -1,6 +1,6 @@
 const bot = require('wheat-better-cmd')
 const {Message} = require('discord.js')
-const members = require('../../models/member')
+const databaseManager = require('../../modules/databaseManager')
 require('dotenv').config({path: 'secret.env'})
 
 const help = {
@@ -19,10 +19,10 @@ const help = {
 const run = async ({message,args,langList,lg,language,lang}) => {
     const embed = await bot.wheatSampleEmbedGenerate()
     const memberId = message.member.id
+    const find = databaseManager.getMember(memberId)
     
     if(!args[1]) {
         try {
-            const find = await members.findOne({id: memberId})
             if((!find) || (find && !find.language)) {
                 embed.setDescription(`${lg.main.myLanguage}: **${lg.main.unset}**`)            
             } else {
@@ -31,7 +31,7 @@ const run = async ({message,args,langList,lg,language,lang}) => {
 
             await bot.wheatEmbedSend(message,[embed])
         } catch(err) {
-            console.log(error)
+            console.log(err)
             await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
         }
         return
@@ -45,18 +45,14 @@ const run = async ({message,args,langList,lg,language,lang}) => {
     
 
     try {
-        const find = await members.findOneAndUpdate(
-            {id:memberId},
-            {language:args[1]},
-            {new:true}
-        )
-        
-        if(!find) {
-            const newLang = new members({
-                id:memberId,
+        if(find) {
+            await databaseManager.updateMember(memberId,{
                 language:args[1]
             })
-            await newLang.save()
+        } else {
+            await databaseManager.newMember(memberId,{
+                language:args[1]
+            })
         }
         
         embed.setTitle(language[args[1]].main.successExecution)

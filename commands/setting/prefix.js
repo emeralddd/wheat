@@ -1,6 +1,6 @@
 const bot = require('wheat-better-cmd')
 const { Message, PermissionsBitField } = require('discord.js')
-const servers = require('../../models/server')
+const databaseManager = require('../../modules/databaseManager')
 
 const help = {
     name:"prefix",
@@ -33,15 +33,16 @@ const run = async ({message,args,lg}) => {
     const guildid=message.guild.id
 
     try {
-        const find = await servers.findOneAndUpdate(
-            {id:guildid},
-            {prefix:args[1]},
-            {new:true}
-        )
-        
-        if(!find) {
-            const newPrefix = new servers({id:guildid,prefix:args[1]})
-            await newPrefix.save()
+        const find = databaseManager.getServer(guildid)
+
+        if(find) {
+            await databaseManager.updateServer(guildid,{
+                prefix:args[1]
+            })
+        } else {
+            await databaseManager.newServer(guildid,{
+                prefix:args[1]
+            })
         }
         
         embed.setTitle(lg.main.successExecution)

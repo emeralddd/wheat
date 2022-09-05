@@ -1,6 +1,6 @@
 const bot = require('wheat-better-cmd')
 const {Message,PermissionsBitField, Collection} = require('discord.js')
-const servers = require('../../models/server')
+const databaseManager = require('../../modules/databaseManager')
 
 const help = {
     name:"disable",
@@ -59,7 +59,7 @@ const run = async ({message,args,lg,groupMenu,aliasesList,commandsList,groups}) 
     try {
         let disableList = new Map()
 
-        const find = await servers.findOne({id:guildId})
+        const find = databaseManager.getServer(guildId)
         if(find && find.disable) disableList = find.disable
 
         if(disabledCommands.length>0) {
@@ -73,18 +73,13 @@ const run = async ({message,args,lg,groupMenu,aliasesList,commandsList,groups}) 
             }
 
             if(find) {
-                await servers.findOneAndUpdate(
-                    {id: guildId},
-                    {disable: disableList},
-                    {new:true}
-                )
-            } else {
-                const newServer = new servers({
-                    id: guildId,
+                databaseManager.updateServer(guildId,{
                     disable: disableList
                 })
-
-                await newServer.save()
+            } else {
+                databaseManager.newServer(guildId,{
+                    disable: disableList
+                })
             }
         }
 

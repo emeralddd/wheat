@@ -1,15 +1,10 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity
 require('events').defaultMaxListeners = Infinity
 const { Collection, Client, GatewayIntentBits, ActivityType } = require('discord.js')
+const databaseManager = require('./modules/databaseManager')
 const bot = require('wheat-better-cmd')
-const mongo = require('mongoose')
 require('dotenv').config({path: 'secret.env'})
 const announcement = require('./announcement.json')
-// const member = require('./models/member')
-// const servers = require('./models/server')
-let members = []
-let servers = []
-const getServerUserDatabase = require('./modules/getServerUserDatabase')
 
 const wheat = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent]})
 
@@ -28,13 +23,6 @@ const connectDatabase = require('./modules/connectDatabase')
 
 let isInitial = false
 
-const eachSecond = async() => {
-    setInterval(async() => {
-        members = await getServerUserDatabase.members()
-        servers = await getServerUserDatabase.servers()
-    }, 3000)
-}
-
 const initial = async () => {
     if(isInitial) return
     try {
@@ -50,7 +38,6 @@ const initial = async () => {
 initial()
 
 wheat.once('ready', () => {
-    eachSecond()
     wheat.user.setPresence({
         activities:[{
             name: 'EHELP',
@@ -96,7 +83,7 @@ wheat.on('messageCreate', async (message) => {
         let prefix=process.env.PREFIX
         let lang=process.env.CODE
 
-        const serverInfo = servers[guildId]
+        const serverInfo = databaseManager.getServer(guildId)
     
         if(serverInfo) {
             prefix = serverInfo.prefix || prefix
@@ -105,7 +92,7 @@ wheat.on('messageCreate', async (message) => {
             prefix = process.env.PREFIX
         }
 
-        const memberInfo = members[memberId]
+        const memberInfo = databaseManager.getMember(memberId)
 
         if(memberInfo) {
             lang = memberInfo.language || lang

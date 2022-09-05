@@ -1,6 +1,6 @@
 const bot = require('wheat-better-cmd')
 const {Message,PermissionsBitField} = require('discord.js')
-const servers = require('../../models/server')
+const databaseManager = require('../../modules/databaseManager')
 require('dotenv').config({path: 'secret.env'})
 
 const help = {
@@ -26,9 +26,11 @@ const run = async ({message,args,langList,lg,language,lang}) => {
     
     const guildid=message.guild.id
     
+    const find = await databaseManager.getServer(guildid)
+    
     if(!args[1]) {
         try {
-            const find = await servers.findOne({id: guildid})
+            
             if((!find) || (find && !find.language)) {
                 embed.setDescription(`${lg.main.languageAtThisServer}: **${process.env.CODE}**`)            
             } else {
@@ -37,7 +39,7 @@ const run = async ({message,args,langList,lg,language,lang}) => {
 
             await bot.wheatEmbedSend(message,[embed])
         } catch(err) {
-            console.log(error)
+            console.log(err)
             await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
         }
         return
@@ -49,19 +51,17 @@ const run = async ({message,args,langList,lg,language,lang}) => {
     }
 
     try {
-        const find = await servers.findOneAndUpdate(
-            {id:guildid},
-            {language:args[1]},
-            {new:true}
-        )
         
-        if(!find) {
-            const newLang = new servers({id:guildid,language:args[1]})
-            await newLang.save()
+        if(find) {
+            await databaseManager.updateServer(guildid,{
+                language:args[1]
+            })
+        } else {
+            await databaseManager.newServer(guildid,{
+                language:args[1]
+            })
         }
-        
-        // console.log(language['en_US'])
-
+ 
         embed.setTitle(language[args[1]].main.successExecution)
         embed.setDescription(`${language[args[1]].main.changeLanguageTo} **`+args[1]+`**`)
         await bot.wheatEmbedSend(message,[embed])

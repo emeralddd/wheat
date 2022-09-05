@@ -3,7 +3,7 @@ module.exports.members = async () => {
     const foundMembers = await members.find()
     let res = []
     for(const i of foundMembers) {
-        res[i.id]={
+        res[i.id]= {
             language: i.language || 'vi_VN',
         }
     }
