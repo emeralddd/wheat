@@ -25,6 +25,12 @@
             "syntax": " <DD/MM>",
             "desc": "Give zodiac information about any date!",
             "note": "The date must be entered."
+        },
+        {
+            "name": "doingayduongam",
+            "syntax": " <DD/MM/YYYY>",
+            "desc": "Convert Gregorius calendar to Vietnamese Lunar calendar!",
+            "note": "The date must be entered."
         }
     ],
     "fun": [

@@ -101,6 +101,8 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
             console.log(command)
             return
         }
+
+        if(helpMenu[command].desc[lang][0]===' ') console.log(command)
         
         embed.setDescription(helpMenu[command].desc[lang])
         embed.setFooter({text:lg.help.note1})

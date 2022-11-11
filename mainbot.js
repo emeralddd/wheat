@@ -1,6 +1,6 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity
 require('events').defaultMaxListeners = Infinity
-const { Collection, Client, GatewayIntentBits, ActivityType } = require('discord.js')
+const { Collection, Client, GatewayIntentBits, ActivityType, Events } = require('discord.js')
 const databaseManager = require('./modules/databaseManager')
 const bot = require('wheat-better-cmd')
 require('dotenv').config({path: 'secret.env'})
@@ -35,9 +35,8 @@ const initial = async () => {
     }
 }
 
-initial()
-
-wheat.once('ready', () => {
+wheat.once('ready', async () => {
+    await initial()
     wheat.user.setPresence({
         activities:[{
             name: 'EHELP',
@@ -62,6 +61,79 @@ wheat.on('guildCreate', async (guild) => {
         await ownerId.send({embeds:[embed,embed1]})
         await ownerId.send("🌾**Server Support:** https://discord.gg/z5Z4uzmED9")
     } catch(err) {}
+})
+
+wheat.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return
+
+    if(process.env.NODE_ENV === 'dev') {
+        const allowUsers=['687301490238554160','735665530500808755']
+        if(!allowUsers.includes(interaction.member.id)) return
+    }
+
+    const memberId = interaction.member.id
+    const guildId = interaction.guildId
+    const channelId = interaction.channelId
+
+    try {
+        let prefix=process.env.PREFIX
+        let lang=process.env.CODE
+
+        const serverInfo = databaseManager.getServer(guildId)
+    
+        if(serverInfo) {
+            prefix = serverInfo.prefix || prefix
+            lang = serverInfo.language || lang
+        } else {
+            prefix = process.env.PREFIX
+        }
+
+        const memberInfo = databaseManager.getMember(memberId)
+
+        if(memberInfo) {
+            lang = memberInfo.language || lang
+        }
+
+        const lg = language[lang]
+
+        const executeCommand = interaction.commandName
+
+        interaction.language=lang
+
+        if (commandsList.has(executeCommand)) {
+            const command = commandsList.get(executeCommand)
+
+            if(serverInfo && serverInfo.disable && serverInfo.disable.get(executeCommand) && serverInfo.disable.get(executeCommand).includes(channelId)) {
+                await interaction.reply({ 
+                    content: `Lệnh ${executeCommand} không được sử dụng tại kênh này!`, 
+                    ephemeral: true 
+                })
+                return
+            }
+
+            try {
+                await command.runinteraction({
+                    wheat,
+                    interaction,
+                    helpMenu,
+                    groupMenu,
+                    prefix,
+                    commandsList,
+                    aliasesList,
+                    language,
+                    lang,
+                    lg,
+                    langList,
+                    all,
+                    groups
+                })
+            } catch (error) {
+                console.log(error)
+            } 
+        }
+    } catch(error) {
+        console.log(error)
+    }
 })
 
 wheat.on('messageCreate', async (message) => {

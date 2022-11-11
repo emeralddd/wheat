@@ -11,11 +11,13 @@ const init = async() => {
 init()
 
 module.exports.getMember = (memberId) => {
-    return members[memberId]
+    if(members) return members[memberId]
+    return {}
 }
 
 module.exports.getServer = (serverId) => {
-    return servers[serverId]
+    if(servers) return servers[serverId]
+    return {}
 }
 
 module.exports.updateMember = async (memberId,newData) => {

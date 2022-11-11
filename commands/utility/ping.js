@@ -1,4 +1,4 @@
-const { Message } = require('discord.js')
+const { Message, ChatInputCommandInteraction } = require('discord.js')
 const bot = require('wheat-better-cmd')
 
 const help = {
@@ -18,6 +18,17 @@ const run = async ({message,lg}) => {
     await bot.wheatEmbedSend(message,[embed])
 }
 
+/**
+ * @param {object} obj
+ * @param {ChatInputCommandInteraction} obj.interaction
+ */
+
+const runinteraction = async({interaction,lg}) => {
+    await interaction.reply(`**Pong! ${lg.main.in} ` + String(new Date().getTime() - interaction.createdTimestamp ) + ` ${lg.main.miliseconds}!**`)
+}
+
 module.exports.run = run
+
+module.exports.runinteraction = runinteraction
 
 module.exports.help = help

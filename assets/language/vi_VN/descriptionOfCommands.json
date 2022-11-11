@@ -25,6 +25,12 @@
             "syntax":" <DD/MM>",
             "desc":"Đưa ra thông tin hoàng đạo về một ngày bất kì!",
             "note":"Ngày bắt buộc phải được nhập."
+        },
+        {
+            "name": "doingayduongam",
+            "syntax": " <DD/MM/YYYY>",
+            "desc": "Đổi dương lịch sang âm lịch",
+            "note": "Ngày bắt buộc phải được nhập."
         }
     ],
     "fun":[
