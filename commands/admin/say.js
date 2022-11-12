@@ -15,7 +15,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat,message,args}) => {
+const run = async ({wheat,message,interaction,args}) => {
     if(message.author.id!=='687301490238554160') return
     let talk=""
     for(let i=2; i<args.length; i++)

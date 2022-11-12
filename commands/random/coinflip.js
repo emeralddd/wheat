@@ -12,7 +12,8 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message,lg}) => {
+const run = async ({message,interaction,lg}) => {
+    message = message || interaction
 	const cf = Math.floor(Math.random()*1310)
 	const msg = await bot.wheatSend(message,lg.random.flipping)
     setTimeout(() => {

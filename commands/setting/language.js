@@ -1,28 +1,47 @@
 const bot = require('wheat-better-cmd')
-const {Message,PermissionsBitField} = require('discord.js')
+const {Message,PermissionsBitField, SlashCommandBuilder, ChatInputCommandInteraction} = require('discord.js')
 const databaseManager = require('../../modules/databaseManager')
 require('dotenv').config({path: 'secret.env'})
 
 const help = {
     name:"language",
     group:"setting",
-    aliases: ["lang","ngonngu"]
+    aliases: ["lang","ngonngu"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('language')
+                .setDescription('choose language')
+                .addChoices(
+                    { name: 'Tiếng Việt', value: 'vi_VN' },
+                    { name: 'English', value: 'en_US' },
+                )
+        )
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator | PermissionsBitField.Flags.ManageGuild)
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  * @param {String[]} obj.langList
  */
 
-const run = async ({message,args,langList,lg,language,lang}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
-    const perm = message.member.permissions
-    if(!(perm.has(PermissionsBitField.Flags.Administrator)||perm.has(PermissionsBitField.Flags.ManageGuild)))  {
-        await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
-        return
+const run = async ({message,interaction,args,langList,lg,language,lang}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
+
+    if(message) {
+        const perm = message.member.permissions
+        if(!(perm.has(PermissionsBitField.Flags.Administrator)||perm.has(PermissionsBitField.Flags.ManageGuild)))  {
+            await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
+            return
+        }
+    } else {
+        args=['']
+        if(interaction.options.getString('language')) args.push(interaction.options.getString('language'))
     }
+
+    message||=interaction
     
     const guildid=message.guild.id
     

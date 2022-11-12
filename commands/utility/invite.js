@@ -12,8 +12,9 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate(true)
+const run = async ({message,interaction,lg}) => {
+    message||=interaction
+    const embed = bot.wheatSampleEmbedGenerate(true)
     embed.setTitle(lg.main.inviteBot)
     embed.setDescription(lg.main.inviteToGetBot)
     

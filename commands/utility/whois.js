@@ -1,29 +1,40 @@
 const bot = require('wheat-better-cmd')
 const moment = require('moment')
-const { Message, Client } = require('discord.js')
+const { Message, Client, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js')
 
 const help = {
     name:"whois",
     group:"utility",
-    aliases: ["timnguoi","findinfo","aila"]
+    aliases: ["timnguoi","findinfo","aila"],
+    data: new SlashCommandBuilder()
+        .addUserOption(option =>
+            option.setName('user')
+                .setDescription('mention||id')
+        )
 }
 
 /**
  * @param {object} obj
  * @param {Client} obj.wheat
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat, message, args, lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
+const run = async ({wheat, message, interaction, args, lg}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
 
     try {
-        const USER = await bot.wheatGetUserByIdOrMention(wheat,args[1],message.author.id)
+        message||=interaction
+        
+        const USER = (args?await bot.wheatGetUserByIdOrMention(wheat,args[1],message.member.id):interaction.options.getUser('user')||interaction.user)
+        
         if(!USER) {
             await bot.wheatSend(message, lg.error.notFoundThatUser)
             return
         }
+
+        message||=interaction
 
         const MEMBER = await message.guild.members.fetch(USER.id)
         embed.setThumbnail(`${USER.avatarURL()}?size=1024`)

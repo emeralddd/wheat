@@ -1,49 +1,56 @@
-const { Message } = require('discord.js')
+const { Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js')
 const bot = require('wheat-better-cmd')
 
 const help = {
     name:"changelog",
     group:"utility",
-    aliases: ["lichsucapnhat","lscn","cl"]
+    aliases: ["lichsucapnhat","lscn","cl"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('update')
+                .setDescription('lists/update name')
+        )
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args,lg}) => {
+const run = async ({message,interaction,args,lg}) => {
     const overview = require('../../logs/overview.json').logs  
     const latest = require('../../logs/overview.json').latest
-    const embed = await bot.wheatSampleEmbedGenerate(true)
-    let logChosen
-    if(args[1]) {
-        if(args[1] === 'lists') {
-            embed.setTitle(lg.main.changeLogList)
-            
-            let details = ""
+    const embed = bot.wheatSampleEmbedGenerate(true)
+    let logChosen = (message?args[1]:interaction.options.getString('update')) || latest
+    
+    logChosen.trim()
+    
+    message||=interaction
 
-            for(const value of overview.reverse()) {
-                details+="(#) `"+value+"`\n"
-            }
-            
-            embed.setDescription(`${lg.main.latestUpdate}: **${latest}**`)
-            embed.addFields([{
-                name: `▼`,
-                value: details
-            }])
-            await bot.wheatEmbedSend(message,[embed])
-            return
+    if(logChosen === 'lists') {
+        embed.setTitle(lg.main.changeLogList)
+        
+        let details = ""
+
+        for(const value of overview.reverse()) {
+            details+="(#) `"+value+"`\n"
         }
-        if(!overview.includes(args[1])) {
-            await bot.wheatSend(message,lg.error.notFoundThatUpdate)
-            return 
-        }
-        logChosen=args[1]
+        
+        embed.setDescription(`${lg.main.latestUpdate}: **${latest}**`)
+        embed.addFields([{
+            name: `▼`,
+            value: details
+        }])
+        await bot.wheatEmbedSend(message,[embed])
+        return
     }
 
-    if(!logChosen) logChosen = latest
+    if(!overview.includes(logChosen)) {
+        await bot.wheatSend(message,lg.error.notFoundThatUpdate)
+        return 
+    }
 
     const logJSON = require(`../../logs/${logChosen}.json`)
 

@@ -1,25 +1,44 @@
 const bot = require('wheat-better-cmd')
-const {Message} = require('discord.js')
+const {Message, ChatInputCommandInteraction, SlashCommandBuilder} = require('discord.js')
 const databaseManager = require('../../modules/databaseManager')
 require('dotenv').config({path: 'secret.env'})
 
 const help = {
     name:"selflanguage",
     group:"setting",
-    aliases: ["selflang","ngonngurieng","nnr","sl"]
+    aliases: ["selflang","ngonngurieng","nnr","sl"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('language')
+                .setDescription('choose self language')
+                .addChoices(
+                    { name: 'Tiếng Việt', value: 'vi_VN' },
+                    { name: 'English', value: 'en_US' },
+                )
+        )
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  * @param {String[]} obj.langList
  */
 
-const run = async ({message,args,langList,lg,language,lang}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
+const run = async ({message,interaction,args,langList,lg,language,lang}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
     const memberId = message.member.id
     const find = databaseManager.getMember(memberId)
+
+    if(interaction) {
+        args=['']
+        if(interaction.options.getString('language')) {
+            args.push(interaction.options.getString('language'))
+        }
+    }
+
+    message||=interaction
     
     if(!args[1]) {
         try {

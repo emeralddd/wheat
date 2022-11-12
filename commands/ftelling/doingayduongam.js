@@ -1,4 +1,4 @@
-const {Message} = require('discord.js')
+const {Message, ChatInputCommandInteraction, SlashCommandBuilder} = require('discord.js')
 const {convertDuongAm} = require('../../modules/getLunarDate')
 const bot = require('wheat-better-cmd')
 const moment = require('moment')
@@ -6,18 +6,28 @@ const moment = require('moment')
 const help = {
     name:"doingayduongam",
     group:"ftelling",
-    aliases: ["duongam"]
+    aliases: ["duongam"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('date')
+                .setDescription('<DD/MM/YYYY>')
+                .setRequired(true)
+        )
 }
 
 /**
-* @param {object} obj
-* @param {Message} obj.message
+ * @param {object} obj
+ * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
 */
 
-const run = async ({message,args,lg,lang}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
-    const date = args[1]
+const run = async ({message,interaction,args,lg,lang}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
+    const date = args?args[1]:interaction.options.getString('date')
     const mmt = moment(date,'DD/MM/YYYY',true)
+
+    message = message || interaction
+
     if(!mmt.isValid()) {
         await bot.wheatSendErrorMessage(message,lg.error.formatError)
         return

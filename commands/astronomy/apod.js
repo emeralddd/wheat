@@ -1,23 +1,31 @@
-const { Message } = require('discord.js')
+const { Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js')
 const bot = require('wheat-better-cmd')
 const axios = require('axios').default
 require('dotenv').config({path: 'secret.env'})
 const moment = require('moment')
 
 const help = {
-    // status:"dev",
     name:"apod",
     group:"astronomy",
-    aliases: ['astropic','nasapic','picday']
+    aliases: ['astropic','nasapic','picday'],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('date')
+                .setDescription('<DD/MM/YYYY>')
+                .setRequired(true)
+        )
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  */
 
-const run = async ({message,args,lg}) => {
-    const date = args[1] || moment().subtract(1, 'days').format('DD/MM/YYYY')
+const run = async ({message,interaction,args,lg}) => {
+    const date = (args?args[1]:interaction.options.getString('date')) || moment().subtract(1, 'days').format('DD/MM/YYYY')
+
+    message = message || interaction
     
     const mmt = moment(date,'DD/MM/YYYY',true)
     if(!mmt.isValid()) {
@@ -46,7 +54,7 @@ const run = async ({message,args,lg}) => {
         return
     }
 
-    const embed = await bot.wheatSampleEmbedGenerate()
+    const embed = bot.wheatSampleEmbedGenerate()
 
     embed.setTitle(res.data.title)
     embed.setFooter({text:`${lg.main.copyright}: ${res.data.copyright || "NASA"}`})

@@ -1,29 +1,38 @@
-const { Message } = require('discord.js')
+const { Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js')
 const bot = require('wheat-better-cmd')
 require('dotenv').config
 
 const help = {
     name:"bite",
     group:"fun",
-    aliases: []
+    aliases: [],
+    data: new SlashCommandBuilder()
+        .addUserOption(option =>
+            option.setName('user')
+                .setDescription('mention')
+                .setRequired(true)
+        )
 }
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
+ * @param {Message} obj.message 
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {Discord.Client} obj.wheat
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat,message,args,lg}) => {
-    const mentionUsers= await bot.wheatGetUserByIdOrMention(wheat,args[1],'0')
-    //console.log(mentionUsers)
+const run = async ({wheat,message,interactioninteraction,args,lg}) => {
+    const mentionUsers = await bot.wheatGetUserByIdOrMention(wheat,args ? args[1] : interaction.options.getUser('user').id,'0')
+
+    message = message || interaction
+
     if(!mentionUsers) {
         await bot.wheatSendErrorMessage(message,lg.error.needToTriggerAtOnePerson)
         return
     }
     const gifArray = require('../../assets/url/gifsURL.json').bite
-    const embed = await bot.wheatSampleEmbedGenerate()
+    const embed = bot.wheatSampleEmbedGenerate()
     embed.setTitle(`${message.member.displayName} ${lg.fun.bite} ${mentionUsers.username}`)
     embed.setImage(bot.wheatRandomElementFromArray(gifArray))
     await bot.wheatEmbedSend(message,[embed])

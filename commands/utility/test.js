@@ -15,7 +15,7 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message,args,commandsList}) => {
+const run = async ({message,interaction,args,commandsList}) => {
     console.log(process.env.HI)
 }
 

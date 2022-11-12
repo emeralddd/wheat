@@ -12,7 +12,8 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message}) => {
+const run = async ({message,interaction}) => {
+    message = message || interaction
     const list=["مرحبا ", "Përshëndetje", "እው ሰላም ነው", "Hello!", "Բարեւ", "Salam", "cześć", "سلام" , "Mholweni", 
     "Kaixo", "добры дзень", "হ্যালো", "zdravo", "Olá", "Здравейте", "Hola", "Kumusta", "Moni", "Bonghjornu", "Bonjou", 
     "שלום","Hej","Hallo","Tere", "Kamusta", "Hoi", "Halò", "Ola", "გამარჯობა", "નમસ્તે", "안녕하세요", "Barka dai",

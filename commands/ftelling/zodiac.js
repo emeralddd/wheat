@@ -1,22 +1,31 @@
 const bot = require('wheat-better-cmd')
-const {AttachmentBuilder, Message} = require('discord.js')
+const {AttachmentBuilder, Message, SlashCommandBuilder, ChatInputCommandInteraction} = require('discord.js')
 const moment = require('moment')
 
 const help = {
     name:"zodiac",
     group:"ftelling",
-    aliases: ["hoangdao"]
+    aliases: ["hoangdao"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('date')
+                .setDescription('<DD/MM>')
+                .setRequired(true)
+        )
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
-    const date = args[1]
+const run = async ({message,interaction,args,lg}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
+    const date = args?args[1]:interaction.options.getString('date')
+
+    message = message || interaction
 
     const mmt =moment(date,'DD/MM',true)
     if(!mmt.isValid()&&date!=='29/02') {

@@ -1,16 +1,23 @@
 const bot = require('wheat-better-cmd')
-const {Message,PermissionsBitField, Collection} = require('discord.js')
+const {Message,PermissionsBitField, Collection, SlashCommandBuilder} = require('discord.js')
 const databaseManager = require('../../modules/databaseManager')
 
 const help = {
     name:"enable",
     group:"setting",
-    aliases: ["hear","listen","bophotlo"]
+    aliases: ["hear","listen","bophotlo"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('options')
+                .setDescription('[all/command 1/group command 1] [all/command 2/group command 2] ...')
+        )
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator | PermissionsBitField.Flags.ManageGuild)
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  * @param {String[]} obj.langList
  * @param {Collection} obj.aliasesList
@@ -19,19 +26,22 @@ const help = {
  * @param {Array} obj.groups
  */
 
-const run = async ({message,args,lg,groupMenu,aliasesList,commandsList,groups}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
-    const perm = message.member.permissions
-    if(!(perm.has(PermissionsBitField.Flags.Administrator)||perm.has(PermissionsBitField.Flags.ManageGuild)))  {
-        await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
-        return
+const run = async ({message,interaction,args,lg,groupMenu,aliasesList,commandsList,groups}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
+
+    if(message) {
+        const perm = message.member.permissions
+        if(!(perm.has(PermissionsBitField.Flags.Administrator)||perm.has(PermissionsBitField.Flags.ManageGuild)))  {
+            await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
+            return
+        }
+    } else {
+        args = ['enable']
+        if(interaction.options.getString('options')) args = [...args,...interaction.options.getString('options').split(' ')]
     }
 
-    const guildId = message.guild.id
-    const channelId = message.channel.id
-
     let enabledCommands=[]
-
+    
     for(let i=1; i<args.length; i++) {
         if(args[i]==='all') {
             for(const g of groups) {
@@ -49,11 +59,14 @@ const run = async ({message,args,lg,groupMenu,aliasesList,commandsList,groups}) 
             }
         }
     }
-
+    
     enabledCommands = Array.from(new Set(enabledCommands))
+    
+    message||=interaction
 
-    // console.log(enabledCommands)
-
+    const guildId = message.guild.id
+    const channelId = message.channel.id
+    
     try {
         let disableList = new Map()
 

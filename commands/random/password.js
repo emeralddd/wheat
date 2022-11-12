@@ -1,20 +1,32 @@
-const { Message } = require('discord.js')
+const { Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js')
 const bot = require('wheat-better-cmd')
 
 const help = {
     name:"password",
     group:"random",
-    aliases: ["pass","mk","passgen","autopass","taomk","matkhau"]
+    aliases: ["pass","mk","passgen","autopass","taomk","matkhau"],
+    data: new SlashCommandBuilder()
+    .addIntegerOption(option =>
+        option.setName('length')
+            .setMinValue(8)
+            .setMaxValue(100)
+            .setDescription('integer in [8,100]')
+            .setRequired(true)
+    )
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args,lg}) => {
-    const len = Number(args[1])
+const run = async ({message,interaction,args,lg}) => {
+    const len = Number(args?args[1]:interaction.options.getInteger('length'))
+
+    message=message||interaction
+
     if(!len) {
         await bot.wheatSendErrorMessage(message,lg.error.passwordLengthError)
         return 

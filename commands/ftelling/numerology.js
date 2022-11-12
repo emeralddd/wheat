@@ -1,23 +1,33 @@
 const bot = require('wheat-better-cmd')
-const {AttachmentBuilder, Message} = require('discord.js')
+const {AttachmentBuilder, Message, SlashCommandBuilder, ChatInputCommandInteraction, MessageFlags} = require('discord.js')
 const moment = require('moment')
 
 const help = {
     name:"numerology",
     group:"ftelling",
-    aliases: ["thansohoc","tsh","nhansohoc","nsh"]
+    aliases: ["thansohoc","tsh","nhansohoc","nsh"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('date')
+                .setDescription('<DD/MM/YYYY>')
+                .setRequired(true)
+        )
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  */
 
-const run = async ({message,args,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
-    const embed1 = await bot.wheatSampleEmbedGenerate()
-    const date = args[1]
+const run = async ({message,interaction,args,lg}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
+    const embed1 = bot.wheatSampleEmbedGenerate()
+    const date = args?args[1]:interaction.options.getString('date')
+
+    message = message || interaction
+
     const mmt =moment(date,'DD/MM/YYYY',true)
     if(!mmt.isValid()) {
         await bot.wheatSendErrorMessage(message,lg.error.formatError)

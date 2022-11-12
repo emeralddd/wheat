@@ -1,15 +1,21 @@
-const { Message, Collection } = require('discord.js')
+const { Message, Collection, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js')
 const bot = require('wheat-better-cmd')
 
 const help = {
     name:"help",
     group:"utility",
-    aliases: []
+    aliases: [],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('option')
+            .setDescription('command/group command')
+        )
 }
 
 /**
  * @param {object} obj
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {String[]} obj.args
  * @param {Array} obj.helpMenu
  * @param {Array} obj.groupMenu
@@ -17,14 +23,16 @@ const help = {
  * @param {Collection} obj.aliasesList
  */
 
-const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,lang}) => {
+const run = async ({message,interaction,args,helpMenu,groupMenu,prefix,aliasesList,language,lang}) => {
 
     const lg=language[lang]
 
-    const embed = await bot.wheatSampleEmbedGenerate(true)
+    const embed = bot.wheatSampleEmbedGenerate(true)
     embed.setAuthor({name:`Wheat#1261`,iconUrl:process.env.AVATAR})
 
-    if(args.length===1) {
+    message||=interaction
+
+    if((args&&args.length===1)||(interaction&&(!interaction.options.getString('option')))) {
         embed.setTitle(lg.help.listCommand) 
         embed.setDescription(lg.help.note2+'`'+prefix+lg.help.note3+'\n**'+lg.help.note4+'https://discord.gg/z5Z4uzmED9**')
         embed.addFields(
@@ -58,7 +66,7 @@ const run = async ({message,args,helpMenu,groupMenu,prefix,aliasesList,language,
     }
 
     let list="",command
-    command = args[1].toLowerCase()
+    command = (args?args[1]:interaction.options.getString('option').trim()).toLowerCase()
 
     if(groupMenu[command]) {
         if(command === 'admin') return

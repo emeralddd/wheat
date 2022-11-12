@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {AttachmentBuilder, Message} = require('discord.js')
+const {AttachmentBuilder, Message, ChatInputCommandInteraction} = require('discord.js')
 
 const help = {
 	name:"tarot",
@@ -9,13 +9,16 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
+ * @param {Message} obj.message 
+ * @param {ChatInputCommandInteraction} obj.interaction
  */
 
-const run = async ({message,lg}) => {
+const run = async ({message,interaction,lg}) => {
+	message = message || interaction
+
    	const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json')
 	const randomCard = tarotMeaning[Math.floor(Math.random() * 78) + 1]
-	const embed = await bot.wheatSampleEmbedGenerate()
+	const embed = bot.wheatSampleEmbedGenerate()
 	embed.setAuthor({name:`⁘ ${message.member.displayName}, ${lg.fortune.yourTarotCardIs} ...`})
 	embed.setTitle(`${randomCard.version?`<a:VC_verify5:704210216434008074>`:``}** ${randomCard.name}!**`)
 	embed.setDescription(randomCard.type === '1' ? lg.fortune.majorArcana : lg.fortune.minorArcana)

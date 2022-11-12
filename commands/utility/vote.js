@@ -12,8 +12,11 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message}) => {
-    const embed = await bot.wheatSampleEmbedGenerate(true)
+const run = async ({message,interaction}) => {
+    const embed = bot.wheatSampleEmbedGenerate(true)
+
+    message||=interaction
+
     embed.setTitle(`VOTE cho Bot!`)
     embed.setDescription(`Vote để ủng hộ thêm cho bot nha!!`)
     const link = new ActionRowBuilder()

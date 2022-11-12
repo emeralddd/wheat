@@ -1,4 +1,4 @@
-const { Client, Message } = require('discord.js')
+const { Client, Message, ChatInputCommandInteraction } = require('discord.js')
 const moment = require('moment')
 const bot = require('wheat-better-cmd')
 require('dotenv').config({path: 'secret.env'})
@@ -13,11 +13,13 @@ const help = {
  * @param {object} obj
  * @param {Client} obj.wheat
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  * @param {Array} obj.helpMenu
  */
 
-const run = async ({wheat,message,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate(true)
+const run = async ({wheat,message,interaction,lg}) => {
+    message||=interaction
+    const embed = bot.wheatSampleEmbedGenerate(true)
     embed.setAuthor({name:`Wheat#1261`,iconUrl:process.env.AVATAR})
     embed.setTitle(lg.main.aboutMe)
     embed.setDescription(lg.main.botDescription)

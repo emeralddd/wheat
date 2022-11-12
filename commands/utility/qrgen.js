@@ -1,30 +1,50 @@
 const bot = require('wheat-better-cmd')
 const qrcode = require('qrcode')
-const { AttachmentBuilder, Message } = require('discord.js')
+const { AttachmentBuilder, Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js')
 
 const help = {
     name:"qrgen",
     group:"utility",
-    aliases: ["taoqr","qrgenerator","qr"]
+    aliases: ["taoqr","qrgenerator","qr"],
+    data: new SlashCommandBuilder()
+        .addStringOption(option =>
+            option.setName('content')
+                .setDescription('length<1601')
+                .setRequired(true)
+        )
 }
 
 /**
  * @param {object} obj
  * @param {String[]} obj.S
  * @param {Message} obj.message
+ * @param {ChatInputCommandInteraction} obj.interaction
  */
 
-const run = async ({S, message,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
+const run = async ({S, message, interaction, lg}) => {
+    const embed = bot.wheatSampleEmbedGenerate()
     
     let content=""
-    let block=true
-    for(let i=1; i<S.length; i++) {
-        if(!(S[i]===''&&block)) {
-            block=false
-            content+=S[i]+(i===S.length-1?"":" ")
+
+    if(message) {
+        let block=true
+        console.log(S)
+        for(let i=0; i<S.length; i++) {
+            if(S[i]!==''&&block) {
+                block=false
+                continue
+            }
+            if(!block) {
+                content+=S[i]+" "
+            }
         }
+
+        content = content.trimStart().trimEnd()
+    } else {
+        content=interaction.options.getString('content')
     }
+
+    message||=interaction
     
     if(content.length===0) {
         await bot.wheatSendErrorMessage(message,lg.error.missingData)

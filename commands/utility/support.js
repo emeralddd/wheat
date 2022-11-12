@@ -12,8 +12,9 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
+const run = async ({message,interaction,lg}) => {
+    message||=interaction
+    const embed = bot.wheatSampleEmbedGenerate()
     embed.setAuthor({name:`Wheat#1261`,iconUrl:process.env.AVATAR})
     embed.setTitle(lg.main.needHelp)
     embed.setDescription(lg.main.supportDetails)

@@ -13,19 +13,20 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message}) => {
-    const lorem = new LoremIpsum({
-        sentencesPerParagraph: {
-          max: 8,
-          min: 4
-        },
-        wordsPerSentence: {
-          max: 16,
-          min: 4
-        }
-    })
-    const loremstring = lorem.generateParagraphs(1)
-    await bot.wheatSend(message,loremstring)
+const run = async ({message,interaction}) => {
+  message=message||interaction
+  const lorem = new LoremIpsum({
+      sentencesPerParagraph: {
+        max: 8,
+        min: 4
+      },
+      wordsPerSentence: {
+        max: 16,
+        min: 4
+      }
+  })
+  const loremstring = lorem.generateParagraphs(1)
+  await bot.wheatSend(message,loremstring)
 }
 
 module.exports.run = run

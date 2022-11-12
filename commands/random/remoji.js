@@ -14,8 +14,9 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({wheat,message,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
+const run = async ({wheat,message,interaction,lg}) => {
+    message||=interaction
+    const embed = bot.wheatSampleEmbedGenerate()
     const emoji = wheat.emojis.cache.random()
 
     embed.setTitle(`Random Emoji`)

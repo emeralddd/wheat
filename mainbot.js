@@ -49,7 +49,7 @@ wheat.once('ready', async () => {
 
 wheat.on('guildCreate', async (guild) => {
     const ownerId = await guild.fetchOwner()
-    const embed = await bot.wheatSampleEmbedGenerate()
+    const embed = bot.wheatSampleEmbedGenerate()
     embed.setTitle(`Cảm ơn bạn vì đã sử dụng bot Wheat!`)
     embed.setDescription("Một số thứ dưới đây sẽ giúp bạn làm quen với bot:\n\n- Prefix mặc định của bot là `e`. Bạn có thể thay đổi bằng lệnh `eprefix`.\n\n- Ping bot để xem prefix hiện tại của bot.\n\n- Sử dụng lệnh `ehelp` để xem danh sách lệnh của bot.\n\n- Nếu còn điều gì thắc mắc, hãy sử dụng lệnh `esupport`.\n\n**Chúng tôi mong bạn sẽ có những trải nghiệm tốt nhất với Wheat!**")
 
@@ -112,7 +112,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             }
 
             try {
-                await command.runinteraction({
+                await command.run({
                     wheat,
                     interaction,
                     helpMenu,
@@ -223,7 +223,7 @@ wheat.on('messageCreate', async (message) => {
                 })
                 
                 if(announcement.status==='active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(helpMenu[executeCommand].group)) {
-                    const embed = await bot.wheatSampleEmbedGenerate()
+                    const embed = bot.wheatSampleEmbedGenerate()
                     embed.setTitle(announcement.title)
                     embed.setDescription(announcement.description)
                     await bot.wheatEmbedSend(message,[embed])

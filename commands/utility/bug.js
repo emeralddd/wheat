@@ -14,8 +14,9 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message,lg}) => {
-    const embed = await bot.wheatSampleEmbedGenerate()
+const run = async ({message,interaction,lg}) => {
+    message||=interaction
+    const embed = bot.wheatSampleEmbedGenerate()
     embed.setTitle(lg.main.reportBotError)
     embed.setDescription(lg.main.clickLinkToReport)
     const link = new ActionRowBuilder()

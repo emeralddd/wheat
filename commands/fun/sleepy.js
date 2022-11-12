@@ -13,9 +13,10 @@ const help = {
  * @param {Message} obj.message
  */
 
-const run = async ({message,lg}) => {
+const run = async ({message,interaction,lg}) => {
+    message = message || interaction
     const gifArray = require('../../assets/url/gifsURL.json').sleepy
-    const embed = await bot.wheatSampleEmbedGenerate()
+    const embed = bot.wheatSampleEmbedGenerate()
     embed.setTitle(`${message.member.displayName} ${lg.fun.sleepy}`)
     embed.setImage(bot.wheatRandomElementFromArray(gifArray))
     await bot.wheatEmbedSend(message,[embed])
