@@ -12,7 +12,6 @@ const help = {
         .addStringOption(option =>
             option.setName('date')
                 .setDescription('<DD/MM/YYYY>')
-                .setRequired(true)
         )
 }
 

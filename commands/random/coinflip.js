@@ -17,7 +17,11 @@ const run = async ({message,interaction,lg}) => {
 	const cf = Math.floor(Math.random()*1310)
 	const msg = await bot.wheatSend(message,lg.random.flipping)
     setTimeout(() => {
-        msg.edit(`${((cf&1)?lg.random.heads:lg.random.tails)}`)
+        if(interaction) {
+            interaction.editReply(`${((cf&1)?lg.random.heads:lg.random.tails)}`)
+        } else {
+            msg.edit(`${((cf&1)?lg.random.heads:lg.random.tails)}`)
+        }
     },2000) 
 }
 
