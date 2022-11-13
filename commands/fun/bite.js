@@ -22,7 +22,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat,message,interactioninteraction,args,lg}) => {
+const run = async ({wheat,message,interaction,args,lg}) => {
     const mentionUsers = await bot.wheatGetUserByIdOrMention(wheat,args ? args[1] : interaction.options.getUser('user').id,'0')
 
     message = message || interaction
