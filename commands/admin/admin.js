@@ -9,19 +9,17 @@ const {Client, Message} = require('discord.js')
 
 module.exports.run = async ({wheat, message, args}) => {
     if (args[1]=== 'lists'&&message.author.id === '687301490238554160') {
-		let s = '';
-        let t=0;
-		wheat.guilds.cache.each(w => {
-			if(t===5) 
-            {
-                message.channel.send(s);
-                s='',t=0;
+        const tmp = await wheat.shard.broadcastEval(c => {
+            return c.guilds.cache.filter(g => g.memberCount>10000)
+        })
+
+        for(let i of tmp) {
+            for(let j of i) {
+                console.log(`name: ${j.name} - ${j.iconURL} - ${j.memberCount}`)
             }
-            s+=w.name + ' owner: <@' + w.ownerID + '> member:' + w.memberCount + '\n';
-            t++;
-		});
-        message.channel.send(s);
-        return;
+        }
+
+        // console.log(tmp)
 	}
     if (args[1] === 'count' &&message.author.id === '687301490238554160') 
     {
@@ -35,7 +33,13 @@ module.exports.run = async ({wheat, message, args}) => {
         return;
 	}
     if(args[1]==='gg' && message.author.id === '687301490238554160') {
-        console.log(wheat.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+        // console.log(wheat.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+
+        const res = await wheat.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+
+        console.log(res)
+
+        console.log(res.reduce((acc, memberCount) => acc + memberCount, 0))
     }
 }
 

@@ -61,6 +61,12 @@ const run = async ({message,interaction,lg}) => {
 				name: '▿',
 				value: randomCard._description
 			})
+			
+		if (randomCard.__description)
+			embed.addFields({
+				name: '▿',
+				value: randomCard.__description
+			})
 
 		embed.addFields(
 			{

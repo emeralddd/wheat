@@ -53,7 +53,7 @@ wheat.on('guildCreate', async (guild) => {
     embed.setTitle(`Cảm ơn bạn vì đã sử dụng bot Wheat!`)
     embed.setDescription("Một số thứ dưới đây sẽ giúp bạn làm quen với bot:\n\n- Prefix mặc định của bot là `e`. Bạn có thể thay đổi bằng lệnh `eprefix`.\n\n- Ping bot để xem prefix hiện tại của bot.\n\n- Sử dụng lệnh `ehelp` để xem danh sách lệnh của bot.\n\n- Nếu còn điều gì thắc mắc, hãy sử dụng lệnh `esupport`.\n\n**Chúng tôi mong bạn sẽ có những trải nghiệm tốt nhất với Wheat!**")
 
-    const embed1 = await bot.wheatSampleEmbedGenerate()
+    const embed1 = bot.wheatSampleEmbedGenerate()
     embed1.setTitle(`Thanks for using Wheat bot!`)
     embed1.setDescription("There are somethings can help you get started with bot:\n\n- Default prefix of bot is `e`. You can change it using `eprefix`.\n\n- Ping bot to see prefix of bot at specific server.\n\n- Using `ehelp` to see commands lists of bot.\n\n- If you has any questions, please use command `esupport`.\n\n**Hope you have the best experiences with Wheat!**")
     
@@ -66,12 +66,12 @@ wheat.on('guildCreate', async (guild) => {
 wheat.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return
 
-    if(process.env.NODE_ENV === 'dev') {
+    if(process.env.NODE_ENV === 'dev' || process.env.ADMIN==='true') {
         const allowUsers=['687301490238554160','735665530500808755']
         if(!allowUsers.includes(interaction.member.id)) return
     }
 
-    const memberId = interaction.member.id
+    const memberId = interaction.user.id
     const guildId = interaction.guildId
     const channelId = interaction.channelId
 
@@ -139,7 +139,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 wheat.on('messageCreate', async (message) => {
     if(message.channel.type === "dm") return
     
-    if(process.env.NODE_ENV === 'dev') {
+    if(process.env.NODE_ENV === 'dev' || process.env.ADMIN==='true') {
         const allowUsers=['687301490238554160','735665530500808755']
         if(!allowUsers.includes(message.author.id)) return
     }
