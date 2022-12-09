@@ -1,6 +1,6 @@
 {
   "name": "wheat",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "wheatbot",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "mongoose": "^6.5.4",
     "qrcode": "^1.5.1",
     "randomcolor": "^0.6.2",
-    "wheat-better-cmd": "^1.1.8"
+    "wheat-better-cmd": "^1.1.9"
   },
   "devDependencies": {
     "eslint": "^8.23.0",

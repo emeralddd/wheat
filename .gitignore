@@ -1,13 +1,13 @@
 /node_modules
-/indev
 /.vscode
 /commands/fetch_club.js
 /commands/fun/ship.js
 /commands/utility/shard.js
-/slash.js
-/.env
+slash.js
+.env
 /package-dev.json
 /secret.env
 /commands/ftelling/lichvannien.js
 /commands/ftelling/xemngay.js
-/progress.txt
+progress.txt
+.eslintrc.json
