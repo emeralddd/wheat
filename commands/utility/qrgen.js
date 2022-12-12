@@ -28,7 +28,7 @@ const run = async ({S, message, interaction, lg}) => {
 
     if(message) {
         let block=true
-        console.log(S)
+        // console.log(S)
         for(let i=0; i<S.length; i++) {
             if(S[i]!==''&&block) {
                 block=false
