@@ -19,13 +19,13 @@
     "changeLogList": "List of Update Changelog",
     "latestUpdate": "Latest Update",
     "changeLog": "Changelog",
-    "previousUpdate": "Previous Update",
-    "updateN": "Update",
+    "previousVersion": "Previous version",
+    "version": "Version",
     "add": "Add",
     "remove": "Remove",
     "colorCode": "Color code",
     "aboutMe": "About me",
-    "botDescription": "Wheat can see Tarot Card, Astrological Sign, Numerology, ... in multi-languages best in Discord!",
+    "botDescription": "Wheat can see Tarot Card, Astrological Sign, Numerology, ... in Vietnamese best in Discord!",
     "uptime": "Uptime",
     "hourS": "hour(s)",
     "minuteS": "minute(s)",
@@ -55,5 +55,8 @@
     "languageAtThisServer": "Server's language",
     "myLanguage": "Your language",
     "rateLimit1":"This command requires",
-    "rateLimit2":"second(s) rate limited!"
+    "rateLimit2":"second(s) rate limited!",
+    "releasebuild":"Release build",
+    "generation":"Generation",
+    "build":"Build"
 }

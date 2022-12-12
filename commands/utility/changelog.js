@@ -55,7 +55,7 @@ const run = async ({message,interaction,args,lg}) => {
     const logJSON = require(`../../logs/${logChosen}.json`)
 
     embed.setTitle(lg.main.changeLog)
-    embed.setDescription(`${lg.main.updateN}: **${logChosen}**\n${lg.main.previousUpdate}: ${logJSON.before}`)
+    embed.setDescription(`${lg.main.version}: **${logChosen}**\n${lg.main.previousVersion}: ${logJSON.before}\n${lg.main.generation}: ${logJSON.gen}\n${lg.main.releasebuild}: ${logJSON.release}`);
 
     let add = ``, remove =``
     logJSON.add.forEach(value => {

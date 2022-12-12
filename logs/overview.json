@@ -1,15 +1,16 @@
 {
   "logs": [
-    "Alpha_27_07_2021",
-    "Alpha_21_08_2021",
-    "Alpha_15_09_2021",
-    "Alpha_13_10_2021",
-    "Release_13_11_2021",
-    "Release_01_01_2022",
-    "Release_20_01_2022",
-    "BOT_APRIL2022",
-    "BOT_JULY2022",
-    "BOT_NOVEMBER2022"
+    "21TwentySevenBY",
+    "21TwentyOneTM",
+    "21FifteenCN",
+    "21ThirdteenMI",
+    "21ThirdteenMM",
+    "22OneMT",
+    "22TwentyMT",
+    "22TwentyEightBN",
+    "22TwelveBY",
+    "22TwelveMM",
+    "22TwelveMH"
   ],
-  "latest":"BOT_NOVEMBER2022"
+  "latest":"22TwelveMH"
 }

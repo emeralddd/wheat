@@ -34,12 +34,39 @@ const run = async ({wheat,message,interaction,lg}) => {
 			})
 		.catch(console.error)
 
-    const count=48
+    const count=48;
+
+    const version = require('../../logs/overview.json').latest;
 
     embed.addFields(
         {
-            name: lg.main.updateN,
-            value: require('../../logs/overview.json').latest,
+            name: lg.main.generation,
+            value: require(`../../logs/${version}.json`).gen,
+            inline:true
+        },
+        {
+            name: lg.main.version,
+            value: version,
+            inline: true
+        },
+        {
+            name: lg.main.build,
+            value: require('../../package.json').version,
+            inline: true
+        },
+        {
+            name: lg.main.shards,
+            value: process.env.shards,
+            inline: true
+        },
+        {
+            name: lg.main.servers,
+            value: String(guildCount),
+            inline: true
+        },
+        {
+            name: lg.main.commands,
+            value: String(count),
             inline: true
         },
         {
@@ -52,21 +79,6 @@ const run = async ({wheat,message,interaction,lg}) => {
             value: `temeralddd#1385`,
             inline: true
         },
-        {
-            name: lg.main.servers,
-            value: String(guildCount),
-            inline: true
-        },
-        {
-            name: lg.main.shards,
-            value: process.env.shards,
-            inline: true
-        },
-        {
-            name: lg.main.commands,
-            value: String(count),
-            inline: true
-        }
     )
     await bot.wheatEmbedSend(message,[embed])
 }

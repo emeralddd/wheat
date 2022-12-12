@@ -1,0 +1,8 @@
+{
+    "version":"21TwentyOneTM",
+    "before":"21TwentySevenBY",
+    "gen":"Wheat Alpha",
+    "release":"0.1.0",
+    "add":["Lệnh `avatar` `bug` `vote` `invite` `support`"],
+    "remove":["Lệnh `language`"]
+}

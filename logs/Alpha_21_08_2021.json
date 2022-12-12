@@ -1,6 +1,0 @@
-{
-    "version":"Alpha_21_08_2021",
-    "before":"Alpha_27_07_2021",
-    "add":["Lệnh `avatar` `bug` `vote` `invite` `support`"],
-    "remove":["Lệnh `language`"]
-}

@@ -19,8 +19,8 @@
     "changeLogList":"Danh sách lịch sử bản cập nhật",
     "latestUpdate":"Bản cập nhật mới nhất",
     "changeLog":"Lịch sử cập nhật",
-    "previousUpdate":"Bản cập nhật trước đó",
-    "updateN":"Bản cập nhật",
+    "previousVersion":"Bản cập nhật trước đó",
+    "version":"Bản cập nhật",
     "add":"Thêm",
     "remove":"Xóa bỏ",
     "colorCode":"Mã màu",
@@ -55,5 +55,8 @@
     "languageAtThisServer":"Ngôn ngữ của server",
     "myLanguage":"Ngôn ngữ của bạn",
     "rateLimit1":"Khoảng cách giữa 2 lần thực thi lệnh này tối thiểu là",
-    "rateLimit2":"giây!"
+    "rateLimit2":"giây!",
+    "releasebuild":"Bản dựng ra mắt",
+    "generation":"Thế hệ",
+    "build":"Bản dựng"
 }

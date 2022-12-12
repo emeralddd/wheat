@@ -1,6 +1,8 @@
 {
-    "version":"BOT_NOVEMBER2022",
-    "before":"BOT_JULY2022",
+    "version":"22TwelveMM",
+    "before":"22TwelveBY",
+    "gen":"Wheat 3",
+    "release":"3.0.0",
     "add":["Thêm Slash Command - Add Slash Commands"],
     "remove":[]
 }
