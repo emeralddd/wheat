@@ -6,6 +6,7 @@ const help = {
     name:"prefix",
     group:"setting",
     aliases: ["pf"],
+    rate:3000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('prefix')

@@ -7,6 +7,7 @@ const help = {
     name:"language",
     group:"setting",
     aliases: ["lang","ngonngu"],
+    rate:3000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('language')

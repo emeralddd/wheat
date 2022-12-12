@@ -53,5 +53,7 @@
     "permissions":"Permission",
     "changeSelfLanguageTo":"Đã đổi thành công ngôn ngữ của bạn thành",
     "languageAtThisServer":"Ngôn ngữ của server",
-    "myLanguage":"Ngôn ngữ của bạn"
+    "myLanguage":"Ngôn ngữ của bạn",
+    "rateLimit1":"Khoảng cách giữa 2 lần thực thi lệnh này tối thiểu là",
+    "rateLimit2":"giây!"
 }

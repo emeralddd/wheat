@@ -1,4 +1,5 @@
 const bot = require('wheat-better-cmd')
+const rateLimiter = require('./rateLimiter');
 const { Collection } = require("discord.js")
 const { readdirSync } = require("fs")
 
@@ -63,6 +64,8 @@ module.exports = async (langList) => {
     }
 
     // console.log(helpMenu['tarot'])
+
+    rateLimiter.init(helpMenu);
 
     return {groupMenu,helpMenu,aliasesList,commandsList,all,groups}
 }

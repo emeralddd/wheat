@@ -53,5 +53,7 @@
     "permissions": "Permission",
     "changeSelfLanguageTo": "Successfully change your language to",
     "languageAtThisServer": "Server's language",
-    "myLanguage": "Your language"
+    "myLanguage": "Your language",
+    "rateLimit1":"This command requires",
+    "rateLimit2":"second(s) rate limited!"
 }

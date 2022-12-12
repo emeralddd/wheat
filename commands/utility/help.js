@@ -102,6 +102,10 @@ const run = async ({message,interaction,args,helpMenu,groupMenu,prefix,aliasesLi
             {
                 name: lg.help.syntax,
                 value: "`" + prefix +command+helpMenu[command].syntax[lang] + "`\n"+helpMenu[command].note[lang], 
+            },
+            {
+                name: lg.help.ratelimit,
+                value: `${helpMenu[command].rate?helpMenu[command].rate/1000:0}s`,
             }
         )
 

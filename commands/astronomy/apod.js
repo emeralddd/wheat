@@ -8,6 +8,7 @@ const help = {
     name:"apod",
     group:"astronomy",
     aliases: ['astropic','nasapic','picday'],
+    rate:3000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('date')

@@ -6,6 +6,7 @@ const help = {
     name:"whois",
     group:"utility",
     aliases: ["timnguoi","findinfo","aila"],
+    rate:1500,
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')

@@ -6,6 +6,7 @@ const help = {
     name:"disable",
     group:"setting",
     aliases: ["ignore","photlo","lamlo"],
+    rate:4000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('options')

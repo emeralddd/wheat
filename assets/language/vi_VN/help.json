@@ -16,5 +16,6 @@
     "note2":"Sử dụng lệnh ",
     "note3":"help <lệnh/nhóm lệnh>` để có chi tiết từng lệnh/nhóm lệnh",
     "note4":"Server hỗ trợ: ",
-    "noCommand":"Không có lệnh hoặc nhóm lệnh đó!"
+    "noCommand":"Không có lệnh hoặc nhóm lệnh đó!",
+    "ratelimit":"Rate-limit"
 }

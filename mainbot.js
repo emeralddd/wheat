@@ -20,6 +20,7 @@ const langList = ['vi_VN','en_US']
 const importLanguage = require('./modules/importLanguage')
 const addCommands = require('./modules/addCommands')
 const connectDatabase = require('./modules/connectDatabase')
+const rateLimiter = require('./modules/rateLimiter');
 
 let isInitial = false
 
@@ -111,6 +112,20 @@ wheat.on(Events.InteractionCreate, async interaction => {
                 return
             }
 
+            const status = rateLimiter.validate(memberId,executeCommand);
+
+            if(status===0) {
+                await interaction.reply({
+                    content:`${language[lang].main.rateLimit1} ${helpMenu[executeCommand].rate/1000} ${language[lang].main.rateLimit2}`,
+                    ephemeral: true
+                });
+                return;
+            }
+
+            if(status===2) {
+                return;
+            }
+
             try {
                 await command.run({
                     wheat,
@@ -200,6 +215,17 @@ wheat.on('messageCreate', async (message) => {
             const command = commandsList.get(executeCommand)
 
             if(serverInfo && serverInfo.disable && serverInfo.disable.get(executeCommand) && serverInfo.disable.get(executeCommand).includes(channelId)) return
+
+            const status = rateLimiter.validate(memberId,executeCommand);
+
+            if(status===0) {
+                await bot.wheatSend(message,`${language[lang].main.rateLimit1} ${helpMenu[executeCommand].rate/1000} ${language[lang].main.rateLimit2}`);
+                return;
+            }
+
+            if(status===2) {
+                return;
+            }
 
             try {
                 await command.run({

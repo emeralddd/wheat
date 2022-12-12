@@ -5,6 +5,7 @@ const help = {
     name:"avatar",
     group:"utility",
     aliases: ["ava","daidien"],
+    rate:1500,
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')
