@@ -3,6 +3,7 @@
     "before":"22TwentyMT",
     "gen":"Wheat 2",
     "release":"2.0.0",
+    "date":"28/04/2022",
     "add":["Xem hình ảnh thiên văn mỗi ngày của NASA - See astronomy picture everyday of NASA","Đa ngôn ngữ - Multi-language support","Tính năng tắt lệnh/mở lệnh đối với một kênh - Enable/Disable specific commands at specific channel"],
     "remove":[]
 }

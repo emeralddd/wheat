@@ -2,6 +2,7 @@
     "version":"22TwelveBY",
     "before":"22TwentyEightBN",
     "gen":"Wheat 2",
+    "date":"12/07/2022",
     "release":"2.1.0",
     "add":["Đổi ngày dương thành âm - Change from Julius Calendar's date to Vietnamese Lunar Calendar's date"],
     "remove":[]

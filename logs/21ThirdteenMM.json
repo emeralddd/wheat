@@ -2,6 +2,7 @@
     "version":"21ThirdteenMM",
     "before":"21ThirdteenMI",
     "gen":"Wheat 1",
+    "date":"13/11/2021",
     "release":"1.0.0",
     "add":["Một loạt các tính năng random","Phân chia Shard","Lệnh random màu"],
     "remove":[]

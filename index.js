@@ -1,11 +1,22 @@
 require('dotenv').config({path: 'secret.env'})
+const shelljs = require('shelljs');
 
 if(process.env.NODE_ENV !== 'dev') {
     const express = require('express')
     const app = express()
 
+    app.use(express.json())
+
     app.get('/', function (req, res) {
         res.send('Hello World')
+    })
+
+    app.post('/wheatriped', function (req, res) {
+        if(req.body.RESTART_KEY===process.env.RESTART_KEY) {
+            shelljs.exec('/restart.sh');
+        }
+
+        res.send('Hiii!');
     })
 
     app.listen(process.env.PORT || 8000)

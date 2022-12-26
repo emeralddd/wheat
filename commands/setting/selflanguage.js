@@ -28,6 +28,7 @@ const help = {
  */
 
 const run = async ({message,interaction,args,langList,lg,language,lang}) => {
+    message||=interaction
     const embed = bot.wheatSampleEmbedGenerate()
     const memberId = message.member.id
     const find = databaseManager.getMember(memberId)
@@ -38,8 +39,6 @@ const run = async ({message,interaction,args,langList,lg,language,lang}) => {
             args.push(interaction.options.getString('language'))
         }
     }
-
-    message||=interaction
     
     if(!args[1]) {
         try {

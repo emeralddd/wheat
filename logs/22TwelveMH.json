@@ -2,6 +2,7 @@
     "version":"22TwelveMH",
     "before":"22TwelveMM",
     "gen":"Wheat 3",
+    "date":"12/12/2022",
     "release":"3.1.1",
     "add":["Thêm rate-limit - Add rate limit","Đổi hệ thống tên các bản cập nhật, nâng cấp - Renew name of updates, versions"],
     "remove":[]

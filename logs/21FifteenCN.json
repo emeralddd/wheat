@@ -2,6 +2,7 @@
     "version":"21FifteenCN",
     "before":"21TwentyOneTM",
     "gen":"Wheat Alpha",
+    "date":"15/09/2021",
     "release":"0.2.0",
     "add":["Mở tính năng xem log phát triển bot","Cập nhật bot để phù hợp với API mới của Discord"],
     "remove":[]

@@ -2,6 +2,7 @@
     "version":"21TwentyOneTM",
     "before":"21TwentySevenBY",
     "gen":"Wheat Alpha",
+    "date":"21/08/2021",
     "release":"0.1.0",
     "add":["Lệnh `avatar` `bug` `vote` `invite` `support`"],
     "remove":["Lệnh `language`"]
