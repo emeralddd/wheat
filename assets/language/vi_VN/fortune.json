@@ -1,6 +1,6 @@
 {
     "yourRullingNumberIs":"số Chủ Đạo của bạn là số",
-    "numerologyDetails":"Mọi thông tin được nêu trên được tham khảo từ cuốn sách The Complete Book of Numerology – Cuốn sách Toàn diện về Khoa học Số của tác giả David A. Phillips và được dịch, giới thiệu bởi bà Lê Đỗ Quỳnh Hương!",
+    "numerologyDetails":"Mọi thông tin được nêu trên được dịch từ cuốn sách The Complete Book of Numerology của tác giả David A. Phillips!",
     "general":"Giới thiệu",
     "lifePurpose":"Mục đích sống",
     "good":"Thể hiện tốt nhất",
@@ -8,6 +8,7 @@
     "bad":"Nhược điểm",
     "sol":"Hướng giải quyết",
     "job":"Nghề nghiệp",
+    "summary": "Tổng kết",
     "yourTarotCardIs":"lá bài Tarot của bạn là",
     "minorArcana":"Bộ ẩn phụ",
     "majorArcana":"Bộ ẩn chính",

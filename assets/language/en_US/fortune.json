@@ -1,6 +1,6 @@
 {
     "yourRullingNumberIs": "your Ruling Number is",
-    "numerologyDetails": "All information is referenced from The Complete Book of Numerology by David A. Phillips, and translated, introduced by Ms. Le Do Quynh Huong!",
+    "numerologyDetails": "All information is translated from The Complete Book of Numerology by David A. Phillips!",
     "general": "General",
     "lifePurpose": "Life Purpose",
     "good": "Best expression",
@@ -8,6 +8,7 @@
     "bad": "Disadvantages",
     "sol": "Solution",
     "job": "Job",
+    "summary": "Summary",
     "yourTarotCardIs": "your Tarot card is",
     "minorArcana": "Minor Arcana",
     "majorArcana": "Major Arcana",

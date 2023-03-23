@@ -34,7 +34,7 @@ const run = async ({message,interaction,args,lg}) => {
         return
     }
     
-    const number = await bot.wheatReadJSON('./assets/content/numerologyRulingNumber.json')
+    const number = await bot.wheatReadJSON('./assets/content/numerologyRulingNumber_new.json')
     const ngay= mmt.format('DD')
     const thang= mmt.format('MM')
     const nam= mmt.format('YYYY')
@@ -53,45 +53,43 @@ const run = async ({message,interaction,args,lg}) => {
         }
     }
 
+    // const arr=[2,3,4,5,6,7,8,9,10,11,22]
+
+    // for(let i=8; i<arr.length; i++) {
+
     const num = number[temp]
+    // const num=number[arr[i]]
+
     if(temp===22) temp="22/4"
+
 	embed.setTitle(`▩ ${message.member.displayName}, ${lg.fortune.yourRullingNumberIs} **${temp}**`)
     if(temp==="22/4") temp=22
 	embed.setDescription(num.description)
-    embed.fields=[]
-    embed1.fields=[]
+    embed.data.fields=[]
+    embed1.data.fields=[]
     embed1.setFooter({text:lg.fortune.numerologyDetails})
-    embed.addFields({
-            name:`◌ ${lg.fortune.general}`,
-            value: num.description
-        })
-    if(num.desc1) {
-        embed.addFields({
-            name:`▿`,
-            value: num.desc1
-        })
-    }
+
     embed.addFields({
             name:`◌ ${lg.fortune.lifePurpose}`,
-            value: num.life
+            value: num.lifePurpose
         },
         {
             name:`◌ ${lg.fortune.good}`,
-            value: num.good
+            value: num.bestExpression
         },
         {
             name:`◌ ${lg.fortune.special}`,
-            value: num.special
+            value: num.distinctiveTraits
     })
-    if(num.special1) {
+    if(num.distinctiveTraits1) {
         embed.addFields({
             name:`▿`,
-            value: num.special1
+            value: num.distinctiveTraits1
         })
     }
     embed1.addFields({
             name:`◌ ${lg.fortune.bad}`,
-            value: num.bad
+            value: num.negative
         },
         {
             name:`◌ ${lg.fortune.sol}`,
@@ -106,8 +104,14 @@ const run = async ({message,interaction,args,lg}) => {
     embed1.addFields({
             name:`◌ ${lg.fortune.job}`,
             value: num.job
+        },
+        {
+            name:`◌ ${lg.fortune.summary}`,
+            value: num.summary
         }
     )
+
+    // console.log(embed);
 
 	const attachment = new AttachmentBuilder(`./assets/image/numberImage/${temp}.png`,`${temp}.png`)
     embed.setThumbnail(`attachment://${temp}.png`)
@@ -117,6 +121,8 @@ const run = async ({message,interaction,args,lg}) => {
     await message.channel.send({embeds:[embed1]});
 
     // await bot.wheatEmbedSend(message,[embed1])
+
+    // }
 }
 
 module.exports.run = run
