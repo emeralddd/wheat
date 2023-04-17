@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch commands --watch mainbot.js --watch modules"
+    "dev": "nodemon --watch commands --watch mainbot.js --watch modules",
+    "start": "node index.js"
   },
   "author": "EMERALD",
   "license": "ISC",
