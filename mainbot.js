@@ -40,7 +40,7 @@ wheat.once('ready', async () => {
     await initial()
     wheat.user.setPresence({
         activities:[{
-            name: 'EHELP',
+            name: 'EHELP - Bot đang gặp một số lỗi về Slash Command, nếu gặp phải, vui lòng gửi hình ảnh vào server hỗ trợ để được giúp đỡ!',
             type: ActivityType.Listening
         }],
         status:'online'
@@ -143,11 +143,11 @@ wheat.on(Events.InteractionCreate, async interaction => {
                     groups
                 })
             } catch (error) {
-                console.log(error)
+                // console.log(error)
             }
         }
     } catch(error) {
-        console.log(error)
+        // console.log(error)
     }
 })
 
