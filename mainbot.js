@@ -1,6 +1,6 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity
 require('events').defaultMaxListeners = Infinity
-const { Collection, Client, GatewayIntentBits, ActivityType, Events } = require('discord.js')
+const { Collection, Client, GatewayIntentBits, ActivityType, Events } = require('discord.js');
 const databaseManager = require('./modules/databaseManager')
 const bot = require('wheat-better-cmd')
 require('dotenv').config({path: 'secret.env'})
@@ -127,6 +127,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             }
 
             try {
+                await interaction.deferReply();
                 await command.run({
                     wheat,
                     interaction,

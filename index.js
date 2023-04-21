@@ -22,7 +22,7 @@ if(process.env.NODE_ENV !== 'dev') {
     app.listen(process.env.PORT || 8000)
 }
 
-const {ShardingManager} = require('discord.js')
+const {ShardingManager} = require('discord.js');
 require('dotenv').config({path: 'secret.env'})
 
 const manager = new ShardingManager('./mainbot.js', { 

@@ -1,4 +1,4 @@
-const {Message, Client} = require('discord.js')
+const {Message, Client} = require('discord.js');
 
 const help = {
 	name:"say",
@@ -16,19 +16,19 @@ const help = {
  */
 
 const run = async ({wheat,message,interaction,args}) => {
-    if(message.author.id!=='687301490238554160') return
-    let talk=""
+    if(message.author.id!=='687301490238554160') return;
+    let talk="";
     for(let i=2; i<args.length; i++)
-        talk+=args[i]+" "
+        talk+=args[i]+" ";
 
     const fnc = eval(`async(sub) => {
-        const channel = await sub.channels.cache.get('${args[1]}')
-        if(channel) channel.send('${talk}')
-    }`)
+        const channel = await sub.channels.cache.get('${args[1]}');
+        if(channel) channel.send('${talk}');
+    }`);
     
-    wheat.shard.broadcastEval(fnc)
+    wheat.shard.broadcastEval(fnc);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

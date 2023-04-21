@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const { ActionRowBuilder, ButtonBuilder, ButtonInteraction, Message, ButtonStyle } = require('discord.js')
+const { ActionRowBuilder, ButtonBuilder, ButtonInteraction, Message, ButtonStyle } = require('discord.js');
 
 const help = {
   name:"vote",

@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {AttachmentBuilder, Message, ChatInputCommandInteraction} = require('discord.js')
+const {AttachmentBuilder, Message, ChatInputCommandInteraction} = require('discord.js');
 
 const help = {
 	name:"tarot",

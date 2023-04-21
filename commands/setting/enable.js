@@ -1,5 +1,5 @@
 const bot = require('wheat-better-cmd')
-const {Message,PermissionsBitField, Collection, SlashCommandBuilder} = require('discord.js')
+const {Message,PermissionsBitField, Collection, SlashCommandBuilder} = require('discord.js');
 const databaseManager = require('../../modules/databaseManager')
 
 const help = {

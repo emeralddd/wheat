@@ -1,4 +1,4 @@
-const { Message, DiscordAPIError, SlashCommandBuilder } = require('discord.js')
+const { Message, DiscordAPIError, SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd')
 require('dotenv').config
 

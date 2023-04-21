@@ -1,4 +1,4 @@
-const { Client, Message, ChatInputCommandInteraction } = require('discord.js')
+const { Client, Message, ChatInputCommandInteraction } = require('discord.js');
 const moment = require('moment')
 const bot = require('wheat-better-cmd')
 require('dotenv').config({path: 'secret.env'})

@@ -1,4 +1,4 @@
-const { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 
 const bot = require('wheat-better-cmd')

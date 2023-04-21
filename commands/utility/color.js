@@ -1,4 +1,4 @@
-const {Client, Message, AttachmentBuilder, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js')
+const {Client, Message, AttachmentBuilder, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd')
 const { createCanvas, loadImage } = require('canvas')
 

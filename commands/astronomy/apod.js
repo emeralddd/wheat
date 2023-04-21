@@ -1,8 +1,8 @@
-const { Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js')
-const bot = require('wheat-better-cmd')
-const axios = require('axios').default
-require('dotenv').config({path: 'secret.env'})
-const moment = require('moment')
+const { Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
+const bot = require('wheat-better-cmd');
+const axios = require('axios').default;
+require('dotenv').config({path: 'secret.env'});
+const moment = require('moment');
 
 const help = {
     name:"apod",
@@ -23,19 +23,19 @@ const help = {
  */
 
 const run = async ({message,interaction,args,lg}) => {
-    const date = (args?args[1]:interaction.options.getString('date')) || moment().subtract(1, 'days').format('DD/MM/YYYY')
+    const date = (args?args[1]:interaction.options.getString('date')) || moment().subtract(1, 'days').format('DD/MM/YYYY');
 
     message = message || interaction
     
-    const mmt = moment(date,'DD/MM/YYYY',true)
+    const mmt = moment(date,'DD/MM/YYYY',true);
     if(!mmt.isValid()) {
-        await bot.wheatSendErrorMessage(message,lg.error.formatError)
-        return
+        await bot.wheatSendErrorMessage(message,lg.error.formatError);
+        return;
     }
 
     if(mmt.isBefore('1995-06-16')) {
-        await bot.wheatSendErrorMessage(message,lg.error.dateAfterApod)
-        return
+        await bot.wheatSendErrorMessage(message,lg.error.dateAfterApod);
+        return;
     }
 
     if(mmt.isAfter(moment().subtract(1,'days'))) {

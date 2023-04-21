@@ -1,6 +1,6 @@
 const bot = require('wheat-better-cmd')
 const qrcode = require('qrcode')
-const { AttachmentBuilder, Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js')
+const { AttachmentBuilder, Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
 
 const help = {
     name:"qrgen",

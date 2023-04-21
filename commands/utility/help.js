@@ -1,4 +1,4 @@
-const { Message, Collection, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js')
+const { Message, Collection, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd')
 
 const help = {

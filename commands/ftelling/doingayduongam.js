@@ -1,4 +1,4 @@
-const {Message, ChatInputCommandInteraction, SlashCommandBuilder} = require('discord.js')
+const {Message, ChatInputCommandInteraction, SlashCommandBuilder} = require('discord.js');
 const {convertDuongAm} = require('../../modules/getLunarDate')
 const bot = require('wheat-better-cmd')
 const moment = require('moment')

@@ -1,4 +1,4 @@
-const { Message } = require('discord.js')
+const { Message } = require('discord.js');
 const bot = require('wheat-better-cmd')
 
 const help = {
