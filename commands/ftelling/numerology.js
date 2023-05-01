@@ -116,9 +116,10 @@ const run = async ({message,interaction,args,lg}) => {
 	const attachment = new AttachmentBuilder(`./assets/image/numberImage/${temp}.png`,`${temp}.png`)
     embed.setThumbnail(`attachment://${temp}.png`)
 
-    await bot.wheatEmbedAttachFilesSend(message,[embed],[attachment])
+    await bot.wheatEmbedAttachFilesSend(message,[embed],[attachment]);
 
-    await message.channel.send({embeds:[embed1]});
+    // await message.channel.send({embeds:[embed1]});
+    await bot.wheatEmbedFollow(message,[embed1]);
 
     // await bot.wheatEmbedSend(message,[embed1])
 
