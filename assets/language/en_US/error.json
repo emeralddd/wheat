@@ -16,5 +16,7 @@
     "needToTriggerAtOnePerson": "Need a person to trigger action on!",
     "botMissingPermissions": "Bot is missing one of some permissions: `SEND_MESSAGES`, `EMBED_LINKS` or `ATTACH_FILES`!",
     "dateAfterApod": "The date must not be before June 16, 1995!",
-    "dateOverApod": "The date must not be after yesterday!"
+    "dateOverApod": "The date must not be after yesterday!",
+    "nasaApodTakeTooLong": "APOD API of NASA has ran into some troubles! Please try again later!",
+    "undefinedError": "Undefined error, try again later!"
 }

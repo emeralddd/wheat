@@ -1,14 +1,14 @@
 const { Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd');
 const axios = require('axios').default;
-require('dotenv').config({path: 'secret.env'});
+require('dotenv').config({ path: 'secret.env' });
 const moment = require('moment');
 
 const help = {
-    name:"apod",
-    group:"astronomy",
-    aliases: ['astropic','nasapic','picday'],
-    rate:3000,
+    name: "apod",
+    group: "astronomy",
+    aliases: ['astropic', 'nasapic', 'picday'],
+    rate: 3000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('date')
@@ -22,49 +22,57 @@ const help = {
  * @param {ChatInputCommandInteraction} obj.interaction
  */
 
-const run = async ({message,interaction,args,lg}) => {
-    const date = (args?args[1]:interaction.options.getString('date')) || moment().subtract(1, 'days').format('DD/MM/YYYY');
+const run = async ({ message, interaction, args, lg }) => {
+    const date = (args ? args[1] : interaction.options.getString('date')) || moment().subtract(1, 'days').format('DD/MM/YYYY');
 
-    message = message || interaction
-    
-    const mmt = moment(date,'DD/MM/YYYY',true);
-    if(!mmt.isValid()) {
-        await bot.wheatSendErrorMessage(message,lg.error.formatError);
+    message = message || interaction;
+
+    const mmt = moment(date, 'DD/MM/YYYY', true);
+    if (!mmt.isValid()) {
+        await bot.wheatSendErrorMessage(message, lg.error.formatError);
         return;
     }
 
-    if(mmt.isBefore('1995-06-16')) {
-        await bot.wheatSendErrorMessage(message,lg.error.dateAfterApod);
+    if (mmt.isBefore('1995-06-16')) {
+        await bot.wheatSendErrorMessage(message, lg.error.dateAfterApod);
         return;
     }
 
-    if(mmt.isAfter(moment().subtract(1,'days'))) {
-        await bot.wheatSendErrorMessage(message,lg.error.dateOverApod)
-        return
-    }
-    
-    const date_str= mmt.format('YYYY-MM-DD')
-
-    const key = [process.env.NASA_KEY1,process.env.NASA_KEY2,process.env.NASA_KEY3]
-
-    const res = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${bot.wheatRandomElementFromArray(key)}&date=${date_str}`)
-
-    if(!res.data.title) {
-        await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
-        return
+    if (mmt.isAfter(moment().subtract(1, 'days'))) {
+        await bot.wheatSendErrorMessage(message, lg.error.dateOverApod);
+        return;
     }
 
-    const embed = bot.wheatSampleEmbedGenerate()
+    const date_str = mmt.format('YYYY-MM-DD');
 
-    embed.setTitle(res.data.title)
-    embed.setFooter({text:`${lg.main.copyright}: ${res.data.copyright || "NASA"}`})
-    embed.setTimestamp(mmt.toDate())
-    embed.setImage(res.data.url)
-    embed.setDescription(res.data.explanation)
+    const key = [process.env.NASA_KEY1, process.env.NASA_KEY2, process.env.NASA_KEY3];
 
-    await bot.wheatEmbedSend(message,[embed])
+    axios.get(`https://apis.nasa.gov/planetary/apod?api_key=${bot.wheatRandomElementFromArray(key)}&date=${date_str}`, {
+        timeout: 5000
+    }).then(res => {
+        if (!res.data.title) {
+            bot.wheatSendErrorMessage(message, lg.error.undefinedError);
+            return;
+        }
+
+        const embed = bot.wheatSampleEmbedGenerate();
+
+        embed.setTitle(res.data.title);
+        embed.setFooter({ text: `${lg.main.copyright}: ${res.data.copyright || "NASA"}` });
+        embed.setTimestamp(mmt.toDate());
+        embed.setImage(res.data.url);
+        embed.setDescription(res.data.explanation);
+
+        bot.wheatEmbedSend(message, [embed]);
+    }).catch(err => {
+        if (err.code === 'ECONNABORTED') {
+            bot.wheatSendErrorMessage(message, lg.error.nasaApodTakeTooLong);
+        } else {
+            bot.wheatSendErrorMessage(message, lg.error.undefinedError);
+        }
+    });
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;
