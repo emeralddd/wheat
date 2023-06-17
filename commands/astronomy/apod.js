@@ -47,9 +47,10 @@ const run = async ({ message, interaction, args, lg }) => {
 
     const key = [process.env.NASA_KEY1, process.env.NASA_KEY2, process.env.NASA_KEY3];
 
-    axios.get(`https://apis.nasa.gov/planetary/apod?api_key=${bot.wheatRandomElementFromArray(key)}&date=${date_str}`, {
+    axios.get(`https://api.nasa.gov/planetary/apod?api_key=${bot.wheatRandomElementFromArray(key)}&date=${date_str}`, {
         timeout: 5000
     }).then(res => {
+        // console.log(res.data);
         if (!res.data.title) {
             bot.wheatSendErrorMessage(message, lg.error.undefinedError);
             return;
@@ -65,6 +66,7 @@ const run = async ({ message, interaction, args, lg }) => {
 
         bot.wheatEmbedSend(message, [embed]);
     }).catch(err => {
+        // console.log(err);
         if (err.code === 'ECONNABORTED') {
             bot.wheatSendErrorMessage(message, lg.error.nasaApodTakeTooLong);
         } else {
