@@ -1,37 +1,33 @@
-require('dotenv').config({path: 'secret.env'})
-const shelljs = require('shelljs');
+require('dotenv').config({ path: 'secret.env' });
 
-if(process.env.NODE_ENV !== 'dev') {
-    const express = require('express')
-    const app = express()
+const { ShardingManager } = require('discord.js');
+require('dotenv').config({ path: 'secret.env' });
 
-    app.use(express.json())
-
-    app.get('/', function (req, res) {
-        res.send('Hello World')
-    })
-
-    app.post('/wheatriped', function (req, res) {
-        if(req.body.RESTART_KEY===process.env.RESTART_KEY) {
-            shelljs.exec('/restart.sh');
-        }
-
-        res.send('Hiii!');
-    })
-
-    app.listen(process.env.PORT || 8000)
-}
-
-const {ShardingManager} = require('discord.js');
-require('dotenv').config({path: 'secret.env'})
-
-const manager = new ShardingManager('./mainbot.js', { 
-    totalShards: (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test'?1:Number(process.env.shards)), 
+const manager = new ShardingManager('./mainbot.js', {
+    totalShards: (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test' ? 1 : Number(process.env.shards)),
     respawn: true
-})
+});
 
-manager.on('shardCreate', shard => console.log(`Shard ${shard.id} sinh thanh cong!`))
+manager.on('shardCreate', shard => {
+    console.log(`Shard ${shard.id} sinh thanh cong!`);
+
+    shard.on('disconnect', (a, b) => {
+        console.log(`Shard ${shard.id} disconnected`);
+        console.log(a);
+        console.log(b);
+    });
+    shard.on('reconnecting', (a, b) => {
+        console.log(`Shard ${shard.id} reconnecting`);
+        console.log(a);
+        console.log(b);
+    });
+    shard.on('death', (a, b) => {
+        console.log(`Shard ${shard.id} died`);
+        console.log(a);
+        console.log(b);
+    });
+});
 
 manager.spawn({
-    timeout:-1
-})
+    timeout: -1
+});
