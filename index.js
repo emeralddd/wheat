@@ -1,5 +1,6 @@
 require('dotenv').config({ path: 'secret.env' });
 
+const { exec } = require('child_process');
 const { ShardingManager } = require('discord.js');
 require('dotenv').config({ path: 'secret.env' });
 
@@ -11,20 +12,18 @@ const manager = new ShardingManager('./mainbot.js', {
 manager.on('shardCreate', shard => {
     console.log(`Shard ${shard.id} sinh thanh cong!`);
 
-    shard.on('disconnect', (a, b) => {
+    shard.on('disconnect', (a) => {
         console.log(`Shard ${shard.id} disconnected`);
         console.log(a);
-        console.log(b);
     });
-    shard.on('reconnecting', (a, b) => {
+    shard.on('reconnecting', (a) => {
         console.log(`Shard ${shard.id} reconnecting`);
         console.log(a);
-        console.log(b);
     });
-    shard.on('death', (a, b) => {
+    shard.on('death', (a) => {
         console.log(`Shard ${shard.id} died`);
+        exec('free');
         console.log(a);
-        console.log(b);
     });
 });
 
