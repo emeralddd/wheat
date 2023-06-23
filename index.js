@@ -22,7 +22,7 @@ manager.on('shardCreate', shard => {
     });
     shard.on('death', (a) => {
         console.log(`Shard ${shard.id} died`);
-        exec('free');
+        console.log(process.memoryUsage());
         console.log(a);
     });
 });
