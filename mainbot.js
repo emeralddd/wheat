@@ -40,7 +40,7 @@ wheat.once('ready', async () => {
     await initial();
     wheat.user.setPresence({
         activities: [{
-            name: 'EHELP - Bot đang gặp một số lỗi gây dừng đột ngột; nếu gặp phải, vui lòng gửi hình ảnh vào server hỗ trợ để chúng tôi có thể tổng hợp và sửa lỗi!',
+            name: 'EHELP',
             type: ActivityType.Listening
         }],
         status: 'online'
