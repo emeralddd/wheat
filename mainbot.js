@@ -65,7 +65,8 @@ wheat.on('guildCreate', async (guild) => {
 })
 
 wheat.on(Events.InteractionCreate, async interaction => {
-    console.log('receive', Date.now());
+    const d = new Date();
+    console.log('receive', d.toString());
 
     if (!interaction.isChatInputCommand()) return;
 
