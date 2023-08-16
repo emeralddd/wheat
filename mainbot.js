@@ -65,6 +65,8 @@ wheat.on('guildCreate', async (guild) => {
 })
 
 wheat.on(Events.InteractionCreate, async interaction => {
+    console.log('receive', Date.now());
+
     if (!interaction.isChatInputCommand()) return;
 
     if (process.env.NODE_ENV === 'dev' || process.env.ADMIN === 'true') {
@@ -127,7 +129,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
                 return;
             }
 
-            await command.run({
+            command.run({
                 wheat,
                 interaction,
                 helpMenu,

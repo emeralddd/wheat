@@ -1,13 +1,12 @@
 {
   "name": "wheat",
-  "version": "3.1.12",
+  "version": "3.1.13",
   "description": "wheatbot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "SET NODE_ENV=dev&&nodemon --watch commands --watch mainbot.js --watch modules",
-    "start": "SET NODE_ENV=production&&node index.js",
-    "add": "npm version patch && git add ."
+    "start": "SET NODE_ENV=production&&node index.js"
   },
   "author": "EMERALD",
   "license": "ISC",
