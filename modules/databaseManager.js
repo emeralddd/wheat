@@ -1,85 +1,85 @@
-const member = require('../models/member')
-const server = require('../models/server')
-const getServerUserDatabase = require('./getServerUserDatabase')
-let members,servers
+const member = require('../models/member');
+const server = require('../models/server');
+const getServerUserDatabase = require('./getServerUserDatabase');
+let members, servers;
 
-const init = async() => {
-    members = await getServerUserDatabase.members()
-    servers = await getServerUserDatabase.servers()
+const init = async () => {
+    members = await getServerUserDatabase.members();
+    servers = await getServerUserDatabase.servers();
 }
 
-init()
+init();
 
 module.exports.getMember = (memberId) => {
-    if(members) return members[memberId]
-    return {}
+    if (members) return members[memberId];
+    return {};
 }
 
 module.exports.getServer = (serverId) => {
-    if(servers) return servers[serverId]
-    return {}
+    if (servers) return servers[serverId];
+    return {};
 }
 
-module.exports.updateMember = async (memberId,newData) => {
+module.exports.updateMember = async (memberId, newData) => {
     try {
         await member.findOneAndUpdate(
-            {id: memberId},
+            { id: memberId },
             newData,
-            {new:true}
-        )
+            { new: true }
+        );
 
-        members[memberId]={
+        members[memberId] = {
             ...members[memberId],
             ...newData
-        }
+        };
     } catch (err) {
-        throw err
+        throw err;
     }
 }
 
-module.exports.updateServer = async (serverId,newData) => {
+module.exports.updateServer = async (serverId, newData) => {
     try {
         await server.findOneAndUpdate(
-            {id: serverId},
+            { id: serverId },
             newData,
-            {new:true}
-        )
+            { new: true }
+        );
 
-        servers[serverId]={
+        servers[serverId] = {
             ...servers[serverId],
             ...newData
-        }
+        };
     } catch (err) {
-        throw err
+        throw err;
     }
 }
 
-module.exports.newMember = async (memberId,newData) => {
+module.exports.newMember = async (memberId, newData) => {
     try {
         const newMember = new member({
             id: memberId,
             ...newData
-        })
-        
-        await newMember.save()
+        });
 
-        members[memberId]=newData
+        await newMember.save();
+
+        members[memberId] = newData;
     } catch (err) {
-        throw err
+        throw err;
     }
 }
 
-module.exports.newServer = async (serverId,newData) => {
+module.exports.newServer = async (serverId, newData) => {
     try {
         const newServer = new server({
             id: serverId,
             ...newData
-        })
-        
-        await newServer.save()
+        });
 
-        servers[serverId]=newData
+        await newServer.save();
+
+        servers[serverId] = newData;
     } catch (err) {
-        throw err
+        throw err;
     }
 }

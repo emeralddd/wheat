@@ -1,6 +1,3 @@
-require('dotenv').config({ path: 'secret.env' });
-
-const { exec } = require('child_process');
 const { ShardingManager } = require('discord.js');
 require('dotenv').config({ path: 'secret.env' });
 

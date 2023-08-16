@@ -72,15 +72,18 @@ wheat.on(Events.InteractionCreate, async interaction => {
         if (!allowUsers.includes(interaction.member.id)) return;
     }
 
-    const memberId = interaction.user.id;
-    const guildId = interaction.guildId;
-    const channelId = interaction.channelId;
-
     try {
+        await interaction.deferReply();
+
+        const memberId = interaction.user.id;
+        const guildId = interaction.guildId;
+        const channelId = interaction.channelId;
+
         let prefix = process.env.PREFIX;
         let lang = process.env.CODE;
 
         const serverInfo = databaseManager.getServer(guildId);
+        const memberInfo = databaseManager.getMember(memberId);
 
         if (serverInfo) {
             prefix = serverInfo.prefix || prefix;
@@ -88,8 +91,6 @@ wheat.on(Events.InteractionCreate, async interaction => {
         } else {
             prefix = process.env.PREFIX;
         }
-
-        const memberInfo = databaseManager.getMember(memberId);
 
         if (memberInfo) {
             lang = memberInfo.language || lang;
@@ -105,7 +106,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             const command = commandsList.get(executeCommand);
 
             if (serverInfo && serverInfo.disable && serverInfo.disable.get(executeCommand) && serverInfo.disable.get(executeCommand).includes(channelId)) {
-                await interaction.reply({
+                await interaction.editReply({
                     content: `Lệnh ${executeCommand} không được sử dụng tại kênh này!`,
                     ephemeral: true
                 });
@@ -115,7 +116,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             const status = rateLimiter.validate(memberId, executeCommand);
 
             if (status === 0) {
-                await interaction.reply({
+                await interaction.editReply({
                     content: `${language[lang].main.rateLimit1} ${helpMenu[executeCommand].rate / 1000} ${language[lang].main.rateLimit2}`,
                     ephemeral: true
                 });
@@ -126,28 +127,24 @@ wheat.on(Events.InteractionCreate, async interaction => {
                 return;
             }
 
-            try {
-                await interaction.deferReply();
-                await command.run({
-                    wheat,
-                    interaction,
-                    helpMenu,
-                    groupMenu,
-                    prefix,
-                    commandsList,
-                    aliasesList,
-                    language,
-                    lang,
-                    lg,
-                    langList,
-                    all,
-                    groups
-                });
-            } catch (error) {
-                console.log(error);
-            }
+            await command.run({
+                wheat,
+                interaction,
+                helpMenu,
+                groupMenu,
+                prefix,
+                commandsList,
+                aliasesList,
+                language,
+                lang,
+                lg,
+                langList,
+                all,
+                groups
+            });
         }
     } catch (error) {
+        console.log('mainbot.js', interaction.createdAt);
         console.log(error);
     };
 });
@@ -160,12 +157,13 @@ wheat.on('messageCreate', async (message) => {
         if (!allowUsers.includes(message.author.id)) return;
     }
 
-    const msg = message.content;
-    const memberId = message.author.id;
-    const guildId = message.guild.id;
-    const channelId = message.channel.id;
 
     try {
+        const msg = message.content;
+        const memberId = message.author.id;
+        const guildId = message.guild.id;
+        const channelId = message.channel.id;
+
         if (!msg) return;
 
         let prefix = process.env.PREFIX;
