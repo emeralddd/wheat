@@ -1,182 +1,162 @@
 {
-	"0":
-	{
-		"name":"Bạch Dương - Aries",
-		"unicode":"♈︎",
-		"gloss":"Con cừu đực có bộ lông vàng",
-		"start":"21 tháng 3",
-		"end":"19 tháng 4",
-		"sao_hd":"Sao Hỏa",
-		"sao_cd":"Sao Hỏa",
-		"doilap":"Thiên Bình",
-		"phamgia":"Sao Hỏa",
-		"batloi":"Sao Kim",
-		"dacdia":"Mặt Trời",
-		"suythoai":"Sao Thổ"
+	"0": {
+		"name": "Bạch Dương - Aries",
+		"unicode": "♈︎",
+		"gloss": "Con cừu đực có bộ lông vàng",
+		"start": "21 tháng 3",
+		"end": "19 tháng 4",
+		"sao_hd": "Sao Hỏa",
+		"sao_cd": "Sao Hỏa",
+		"doilap": "Thiên Bình",
+		"phamgia": "Sao Hỏa",
+		"batloi": "Sao Kim",
+		"dacdia": "Mặt Trời",
+		"suythoai": "Sao Thổ"
 	},
-	"1":
-	{
-		"name":"Kim Ngưu - Taurus",
-		"unicode":"♉︎",
-		"gloss":"Con bò vàng",
-		"start":"20 tháng 4",
-		"end":"20 tháng 5",
-		"sao_hd":"Sao Kim",
-		"sao_cd":"Sao Kim",
-		"doilap":"Thiên Yết",
-		"phamgia":"Sao Kim",
-		"batloi":"Sao Hỏa",
-		"dacdia":"Mặt Trăng",
-		"suythoai":"Không có"
+	"1": {
+		"name": "Kim Ngưu - Taurus",
+		"unicode": "♉︎",
+		"gloss": "Con bò vàng",
+		"start": "20 tháng 4",
+		"end": "20 tháng 5",
+		"sao_hd": "Sao Kim",
+		"sao_cd": "Sao Kim",
+		"doilap": "Thiên Yết",
+		"phamgia": "Sao Kim",
+		"batloi": "Sao Hỏa",
+		"dacdia": "Mặt Trăng",
+		"suythoai": "Không có"
 	},
-	"2":
-	{
-		"name":"Song Tử - Gemini",
-		"unicode":"♉︎",
-		"gloss":"Cặp song sinh",
-		"start":"21 tháng 5",
-		"end":"20 tháng 6",
-		"sao_hd":"Sao Thủy",
-		"sao_cd":"Sao Thủy",
-		"doilap":"Nhân Mã",
-		"phamgia":"Sao Thủy",
-		"batloi":"Sao Mộc",
-		"dacdia":"Không có",
-		"suythoai":"Không có"
+	"2": {
+		"name": "Song Tử - Gemini",
+		"unicode": "♉︎",
+		"gloss": "Cặp song sinh",
+		"start": "21 tháng 5",
+		"end": "20 tháng 6",
+		"sao_hd": "Sao Thủy",
+		"sao_cd": "Sao Thủy",
+		"doilap": "Nhân Mã",
+		"phamgia": "Sao Thủy",
+		"batloi": "Sao Mộc",
+		"dacdia": "Không có",
+		"suythoai": "Không có"
 	},
-	"3":
-	{
-		"name":"Cự Giải - Cancer",
-		"unicode":"♋︎",
-		"gloss":"Con cua",
-		"start":"21 tháng 6",
-		"end":"22 tháng 7",
-		"sao_hd":"Mặt Trăng",
-		"sao_cd":"Mặt Trăng",
-		"doilap":"Ma Kết",
-		"phamgia":"Mặt Trăng",
-		"batloi":"Sao Thổ",
-		"dacdia":"Sao Mộc",
-		"suythoai":"Sao Hỏa, Trái Đất"
+	"3": {
+		"name": "Cự Giải - Cancer",
+		"unicode": "♋︎",
+		"gloss": "Con cua",
+		"start": "21 tháng 6",
+		"end": "22 tháng 7",
+		"sao_hd": "Mặt Trăng",
+		"sao_cd": "Mặt Trăng",
+		"doilap": "Ma Kết",
+		"phamgia": "Mặt Trăng",
+		"batloi": "Sao Thổ",
+		"dacdia": "Sao Mộc",
+		"suythoai": "Sao Hỏa, Trái Đất"
 	},
-	"4":
-	{
-		"name":"Sư Tử - Leo",
-		"unicode":"♌︎",
-		"gloss":"Con sư tử",
-		"start":"23 tháng 7",
-		"end":"22 tháng 8",
-		"sao_hd":"Mặt Trời",
-		"sao_cd":"Mặt Trời",
-		"doilap":"Bảo Bình",
-		"phamgia":"Mặt Trời",
-		"batloi":"Sao Thổ",
-		"dacdia":"Trái Đất",
-		"suythoai":"Không có"
+	"4": {
+		"name": "Sư Tử - Leo",
+		"unicode": "♌︎",
+		"gloss": "Con sư tử",
+		"start": "23 tháng 7",
+		"end": "22 tháng 8",
+		"sao_hd": "Mặt Trời",
+		"sao_cd": "Mặt Trời",
+		"doilap": "Bảo Bình",
+		"phamgia": "Mặt Trời",
+		"batloi": "Sao Thổ",
+		"dacdia": "Trái Đất",
+		"suythoai": "Không có"
 	},
-	"5":
-	{
-		"name":"Xử Nữ - Virgo",
-		"unicode":"♍︎",
-		"gloss":"Người trinh nữ",
-		"start":"23 tháng 8",
-		"end":"22 tháng 9",
-		"sao_hd":"Sao Thủy",
-		"sao_cd":"Trái Đất",
-		"doilap":"Song Ngư",
-		"phamgia":"Sao Thủy, Trái Đất",
-		"batloi":"Sao Mộc",
-		"dacdia":"Sao Thủy",
-		"suythoai":"Sao Kim"
+	"5": {
+		"name": "Xử Nữ - Virgo",
+		"unicode": "♍︎",
+		"gloss": "Người trinh nữ",
+		"start": "23 tháng 8",
+		"end": "22 tháng 9",
+		"sao_hd": "Sao Thủy",
+		"sao_cd": "Trái Đất",
+		"doilap": "Song Ngư",
+		"phamgia": "Sao Thủy, Trái Đất",
+		"batloi": "Sao Mộc",
+		"dacdia": "Sao Thủy",
+		"suythoai": "Sao Kim"
 	},
-	"6":
-	{
-		"name":"Thiên Bình - Libra",
-		"unicode":"♎︎",
-		"gloss":"Cán cân",
-		"start":"23 tháng 9",
-		"end":"23 tháng 10",
-		"sao_hd":"Sao Kim",
-		"sao_cd":"Sao Kim",
-		"doilap":"Bạch Dương",
-		"phamgia":"Sao Kim",
-		"batloi":"Sao Hỏa",
-		"dacdia":"Sao Thổ",
-		"suythoai":"Mặt Trời"
+	"6": {
+		"name": "Thiên Bình - Libra",
+		"unicode": "♎︎",
+		"personality": [
+			"Thiên Bình thuộc cung khí, biểu hình như một một cái cân. Điều này cũng phản ánh Thiên Bình luôn mang trong mình sự cân bằng và hài hòa. Thiên Bình bị ám ảnh bởi sự đối xứng và cố gắng tạo ra trạng thái cân bằng trong mọi lĩnh vực của cuộc sống. Được cai trị bởi sao Kim – hành tinh chi phối tình yêu, sắc đẹp và tiền bạc, Thiên Bình nhạy cảm, yêu cái đẹp, nghệ thuật và trí tuệ. Thiên Bình có một gu thẩm mỹ tinh tế và khả năng phân tích sắc bén. Do đó, họ thường là những nhà thiết kế, trang trí, nhà phê bình nghệ thuật và nhà tạo mẫu xuất sắc.",
+			"Thiên Bình tượng trưng cho “cái ta chung”, ngược lại với “cái tôi cá nhân”. Tạo dựng mối quan hệ là điều rất đỗi quan trọng đối với các Thiên Bình. Họ thích hợp tác với những người có cùng sở thích, gu thẩm mỹ và thời trang. ",
+			"Thiên Bình luôn cố gắng làm hài lòng mọi người. Vì vậy, đôi khi họ có thể làm phiền lòng những người ở cạnh. Thiên Bình cần nhớ rằng hạnh phúc của những người thân yêu và chất lượng các mối quan hệ của họ quan trọng hơn việc tập trung vào sự chú ý của những người xa lạ.",
+			"Thiên Bình thuộc nhóm Tiên phong, vì vậy họ rất giỏi trong việc đưa ra các sáng kiến mới lạ. Tuy nhiên, Thiên Bình thường xem xét kĩ lưỡng nhiều góc nhìn của một vấn đề, họ thiếu quyết đoán và khó đưa ra sự lựa chọn. Thay vì việc luôn nghe theo những quan điểm của người khác, Thiên Bình thường tin tưởng và làm theo trực giác của họ. Thiên Bình có khả năng giải quyết hầu hết các xung đột một cách bình tĩnh."
+		]
 	},
-	"7":
-	{
-		"name":"Thiên Yết - Scorpio",
-		"unicode":"♏︎",
-		"gloss":"Con bọ cạp",
-		"start":"23 tháng 10",
-		"end":"22 tháng 11",
-		"sao_hd":"Sao Diêm Vương",
-		"sao_cd":"Sao Hỏa",
-		"doilap":"Kim Ngưu",
-		"phamgia":"Sao Hỏa",
-		"batloi":"Sao Kim",
-		"dacdia":"Không có",
-		"suythoai":"Mặt Trăng"
+	"7": {
+		"name": "Thiên Yết - Scorpio",
+		"unicode": "♏︎",
+		"gloss": "Con bọ cạp",
+		"start": "23 tháng 10",
+		"end": "22 tháng 11",
+		"sao_hd": "Sao Diêm Vương",
+		"sao_cd": "Sao Hỏa",
+		"doilap": "Kim Ngưu",
+		"phamgia": "Sao Hỏa",
+		"batloi": "Sao Kim",
+		"dacdia": "Không có",
+		"suythoai": "Mặt Trăng"
 	},
-	"8":
-	{
-		"name":"Nhân Mã - Sagittarius",
-		"unicode":"♐︎",
-		"gloss":"Một nhân mã đang giương cung tên",
-		"start":"23 tháng 11",
-		"end":"21 tháng 12",
-		"sao_hd":"Sao Mộc",
-		"sao_cd":"Sao Mộc",
-		"doilap":"Song Tử",
-		"phamgia":"Sao Mộc",
-		"batloi":"Sao Thủy",
-		"dacdia":"Không có",
-		"suythoai":"Không có"
+	"8": {
+		"name": "Nhân Mã - Sagittarius",
+		"unicode": "♐︎",
+		"gloss": "Một nhân mã đang giương cung tên",
+		"start": "23 tháng 11",
+		"end": "21 tháng 12",
+		"sao_hd": "Sao Mộc",
+		"sao_cd": "Sao Mộc",
+		"doilap": "Song Tử",
+		"phamgia": "Sao Mộc",
+		"batloi": "Sao Thủy",
+		"dacdia": "Không có",
+		"suythoai": "Không có"
 	},
-	"9":
-	{
-		"name":"Ma Kết - Capricorn",
-		"unicode":"♑︎",
-		"gloss":"Con dê biển",
-		"start":"22 tháng 12",
-		"end":"19 tháng 1",
-		"sao_hd":"Sao Thổ",
-		"sao_cd":"Sao Thổ",
-		"doilap":"Cự Giải",
-		"phamgia":"Sao Thổ",
-		"batloi":"Mặt Trăng",
-		"dacdia":"Sao Hỏa",
-		"suythoai":"Sao Mộc"
+	"9": {
+		"name": "Ma Kết - Capricorn",
+		"unicode": "♑︎",
+		"gloss": "Con dê biển",
+		"start": "22 tháng 12",
+		"end": "19 tháng 1",
+		"sao_hd": "Sao Thổ",
+		"sao_cd": "Sao Thổ",
+		"doilap": "Cự Giải",
+		"phamgia": "Sao Thổ",
+		"batloi": "Mặt Trăng",
+		"dacdia": "Sao Hỏa",
+		"suythoai": "Sao Mộc"
 	},
-	"10":
-	{
-		"name":"Bảo Bình - Aquarius",
-		"unicode":"♒︎",
-		"gloss":"Người mang nước",
-		"start":"20 tháng 1",
-		"end":"18 tháng 2",
-		"sao_hd":"Sao Thiên Vương",
-		"sao_cd":"Sao Thổ",
-		"doilap":"Sư Tử",
-		"phamgia":"Sao Thổ",
-		"batloi":"Mặt Trời",
-		"dacdia":"Không có",
-		"suythoai":"Không có"
+	"10": {
+		"name": "Bảo Bình - Aquarius",
+		"unicode": "♒︎",
+		"gloss": "Người mang nước",
+		"start": "20 tháng 1",
+		"end": "18 tháng 2",
+		"sao_hd": "Sao Thiên Vương",
+		"sao_cd": "Sao Thổ",
+		"doilap": "Sư Tử",
+		"phamgia": "Sao Thổ",
+		"batloi": "Mặt Trời",
+		"dacdia": "Không có",
+		"suythoai": "Không có"
 	},
-	"11":
-	{
-		"name":"Song Ngư - Pisces",
-		"unicode":"♓︎",
-		"gloss":"Đôi cá",
-		"start":"19 tháng 2",
-		"end":"20 tháng 3",
-		"sao_hd":"Sao Hải Vương",
-		"sao_cd":"Sao Mộc",
-		"doilap":"Song Ngư",
-		"phamgia":"Sao Mộc",
-		"batloi":"Sao Thủy",
-		"dacdia":"Sao Kim",
-		"suythoai":"Sao Thủy"
+	"11": {
+		"name": "Song Ngư - Pisces",
+		"unicode": "♓︎",
+		"personality": [
+			"Song Ngư thuộc cung nước, là cung cuối cùng trong Hoàng Đạo. Biểu hình như hai con cá đang bơi ngược nhau, điều nói lên sự luân phiên trong tâm trí Song Ngư về thực tại và tưởng tượng. Là cung cuối cùng, Song Ngư có được các bài học: niềm vui, nỗi buồn, hy vọng và sợ hãi của các cung phía trước. Điều này khiến Song Ngư là người tinh tế, nhạy cảm, đồng cảm và từ bi nhất trong vòng Hoàng Đạo. Vì vậy, Song Ngư dễ dàng bị chi phối bởi cảm xúc. Hãy nhớ giữ vững lập trường về lĩnh vực vật chất.",
+			"Song Ngư được cai trị bởi sao Hải Vương, thiên thể chi phối sự sáng tạo và ước mơ, vì thế Song Ngư luôn muốn khám phá trí tưởng tượng vô biên của bản thân.",
+			"Song Ngư thường giải quyết các vấn đề dưới một lăng kính màu hồng, vì vậy họ thường mang tiếng ảo tưởng. Song Ngư cũng cần nhớ rằng vấn đề không thể giải quyết nếu chỉ “bơi đi”. Cố ý không để tâm không bao giờ khiến xung đột biến mất mà chỉ khiến nó có cơ hội phát triển thêm.",
+			"Song Ngư thuộc nhóm Linh hoạt. Điều đó giải thích cho việc Song Ngư rất dễ dàng thích nghi với mọi thứ xung quanh. Song Ngư có thị giác tốt, vì vậy họ thường là những người nghệ sĩ và nhà sáng tạo tài ba. Họ tốt bụng và rất nhẹ nhàng. Họ yêu âm nhạc và sự lãng mạn. Song Ngư khi yêu rất cuồng nhiệt, họ đắm chìm trong tình yêu mà bỏ qua lí trí. Vì vậy, họ cần cân bằng giữa con tim và lí trí."
+		]
 	}
 }
