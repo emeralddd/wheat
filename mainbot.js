@@ -68,7 +68,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
     const d = new Date();
-    console.log('receive', interaction.id, interaction.command.name, d.toString());
+    console.log('receive', interaction.id, interaction.commandName, d.toString());
 
     if (process.env.NODE_ENV === 'dev' || process.env.ADMIN === 'true') {
         const allowUsers = ['687301490238554160', '735665530500808755'];
@@ -147,7 +147,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             });
         }
     } catch (error) {
-        console.log('mainbot.js', interaction.createdAt, interaction.command.name, interaction.id);
+        console.log('mainbot.js', interaction.createdAt, interaction.commandName, interaction.id);
         console.log(error === 'Unknown interaction' ? 'nua r do' : error);
     };
 });
