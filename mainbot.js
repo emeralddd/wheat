@@ -61,7 +61,9 @@ wheat.on('guildCreate', async (guild) => {
     try {
         await ownerId.send({ embeds: [embed, embed1] });
         await ownerId.send("🌾**Support Server:** https://discord.gg/z5Z4uzmED9");
-    } catch (err) { };
+    } catch (error) {
+        console.log(error);
+    };
 })
 
 wheat.on(Events.InteractionCreate, async interaction => {
@@ -148,7 +150,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
         }
     } catch (error) {
         console.log('mainbot.js', interaction.createdAt, interaction.commandName, interaction.id);
-        console.log(error === 'Unknown interaction' ? 'nua r do' : error);
+        console.log(error.message === 'Unknown interaction' ? 'nua r do' : error);
     };
 });
 

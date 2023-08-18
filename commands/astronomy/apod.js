@@ -65,9 +65,9 @@ const run = async ({ message, interaction, args, lg }) => {
         embed.setDescription(res.data.explanation);
 
         bot.wheatEmbedSend(message, [embed]);
-    }).catch(err => {
+    }).catch(error => {
         // console.log(err);
-        if (err.code === 'ECONNABORTED') {
+        if (error.code === 'ECONNABORTED') {
             bot.wheatSendErrorMessage(message, lg.error.nasaApodTakeTooLong);
         } else {
             bot.wheatSendErrorMessage(message, lg.error.undefinedError);
