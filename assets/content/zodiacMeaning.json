@@ -2,16 +2,12 @@
 	"0": {
 		"name": "Bạch Dương - Aries",
 		"unicode": "♈︎",
-		"gloss": "Con cừu đực có bộ lông vàng",
-		"start": "21 tháng 3",
-		"end": "19 tháng 4",
-		"sao_hd": "Sao Hỏa",
-		"sao_cd": "Sao Hỏa",
-		"doilap": "Thiên Bình",
-		"phamgia": "Sao Hỏa",
-		"batloi": "Sao Kim",
-		"dacdia": "Mặt Trời",
-		"suythoai": "Sao Thổ"
+		"personality": [
+			"Bạch Dương là cung hoàng đạo đầu tiên, điều đó giải thích cho việc họ là số một. Bạch Dương được biểu hình như một con cừu đực. Song Ngư táo bạo và tham vọng, họ dám lao vào cả những thử thách nguy hiểm nhất. Bạch Dương thuộc cung Lửa, vì vậy, họ thường là những người lãnh đạo có đam mê, nhiệt huyết và rất tự tin. Họ luôn đi vào trọng tâm, trực tiếp vào vấn đề, nên thường thấy khó chịu với những chi tiết dư thừa và lòng vòng.",
+			"Bạch Dương là một cung thuộc nhóm Thiên phong. Các nhà chiêm tinh tin rằng, những cung hoàng đạo sẽ học được những bài học từ các cung trước đó. Nhưng Bạch Dương lại là người đứng đầu, không được thừa hưởng những bài học trước đó, Bạch Dương dẫn đầu với sự mù quáng nhưng rất lạc quan, luôn xông pha trong cuộc sống. Điều này cũng giải thích về tính cách bốc đồng đặc trưng của họ.",
+			"Họ thường hành động trước khi suy nghĩ kĩ, vì vậy thường để phần thiệt về mình. Bạch Dương đại diện cho “cái tôi cá nhân”, ngược lại với “cái ta chung”. Bạch Dương suy nghĩ rằng, mỗi người tự lo cho mình. Sự tự chủ này có thể có chút truyền cảm hứng, nhưng Bạch Dương cần cẩn thận để không trở nên ích kỉ.",
+			"Bạch Dương được cai trị bởi sao Hỏa, hành tinh của sự nhiệt huyết và năng động, được đặt tên theo vị thần chiến tranh La Mã. Do đó, Bạch Dương luôn sẵn sàng cho mọi trận chiến. Bạch Dương được biết đến với tính nóng nảy. Dù cho “cơn thịnh nộ” của họ không kéo dài lâu, tốt nhất là tránh xa ra cho đến khi họ “hạ hỏa”. Nhưng khi bình thường, họ là những người vui vẻ, tích cực và đáng yêu. Họ luôn khát khao tận hưởng trọn vẹn cuộc sống. Bạn luôn có thể nhận ra một Bạch Dương xuất sắc trên sân thể thao, lao nhanh trên đường cao tốc, hoặc làm chủ một bửa tiệc sôi động."
+		]
 	},
 	"1": {
 		"name": "Kim Ngưu - Taurus",
