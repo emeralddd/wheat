@@ -22,16 +22,12 @@
 	"2": {
 		"name": "Song Tử - Gemini",
 		"unicode": "♉︎",
-		"gloss": "Cặp song sinh",
-		"start": "21 tháng 5",
-		"end": "20 tháng 6",
-		"sao_hd": "Sao Thủy",
-		"sao_cd": "Sao Thủy",
-		"doilap": "Nhân Mã",
-		"phamgia": "Sao Thủy",
-		"batloi": "Sao Mộc",
-		"dacdia": "Không có",
-		"suythoai": "Không có"
+		"personality": [
+			"Bạn có bao giờ bận rộn đến nỗi bạn ước mình có thể phân thân để làm hết mọi việc không? Đó là trải nghiệm của cung Song Tử. Song Tử thuộc cung Khí, được biểu hình như một cặp song sinh. Song Tử quan tâm đến nhiều hoạt động đến nỗi họ phải “tự nhân đôi bản thân”. Vì vậy, họ thường bị hiểu lầm là hai mặt. Trên thực tế, Song Tử hiếm khi có tâm địa xấu. Tinh nghịch và ham hiểu biết, Song Tử luôn luân chuyển giữa nhiều niềm đam mê, sở thích, nghề nghiệp và nhóm bạn. Song Tử thông minh, nhanh trí, họ có thể nói chuyện với bất kỳ ai về bất cứ điều gì.",
+			"Song Tử bắt đầu từ ngày 21 tháng 5 - mở đầu cho sự nóng nực mùa hè. Song Tử thuộc nhóm Linh hoạt. Vì vậy, họ giỏi trong việc dẫn dắt sự thay đổi. Họ luôn tò mò và là những nhà tiên phong tuyệt vời, sử dụng năng lượng của họ để khởi xướng các dự án sáng tạo đổi mới. Nhưng sau khi Song Tử đã chia sẻ tầm nhìn tiến bộ của họ với thế giới, thì tốt nhất là để Song Tử quay trở với việc lên ý tưởng: Song Tử có thời gian tập trung ngắn và họ cảm thấy thoải mái nhất khi có thể bay nhảy từ ý tưởng này sang ý tưởng khác.",
+			"Cả Song Tử và Xử Nữ đều được cai trị bởi Sao Thủy, hành tinh của giao tiếp. Tuy nhiên, dù có cùng hành tinh cai trị , hai cung này lại trái ngược nhau trong cách tiếp cận: Song Tử biểu hiện cảm xúc bên ngoài, trong khi Xử Nữ giữ lại bên trong. Song Tử có một lối nói chuyện thường sử dụng cử chỉ tay - điều sẽ khiến người khác thích thú và chú ý lắng nghe hơn. Giao tiếp rất quan trọng đối với họ, vì vậy họ luôn phải tập để diễn đạt thật trôi chảy.",
+			"Họ thích nhắn tin gần bằng thích nói chuyện trực tiếp. Thực ra, những biểu cảm thường quan trọng hơn với Song Tử hơn là những gì thực sự được nói - và họ cần cẩn thận với lời nói của mình. Song Tử thường không cảm thấy xấu hổ quá lâu, dù cho là họ vừa làm một điều rất vụng. Song Tử luôn bước nhanh chóng và họ không có thời gian để quan tâm đến những sai lầm đáng xấu hổ: Họ chỉ đơn giản là tiếp tục."
+		]
 	},
 	"3": {
 		"name": "Cự Giải - Cancer",
