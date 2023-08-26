@@ -20,7 +20,7 @@ const help = {
 const run = async ({ wheat, message, interaction, lg }) => {
     message ||= interaction;
     const embed = bot.wheatSampleEmbedGenerate(true);
-    embed.setAuthor({ name: `Wheat#1261`, iconUrl: process.env.AVATAR });
+    embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
     embed.setTitle(lg.main.aboutMe);
     embed.setDescription(lg.main.botDescription);
     const uptime_milli = moment.duration(wheat.uptime, 'milliseconds');
