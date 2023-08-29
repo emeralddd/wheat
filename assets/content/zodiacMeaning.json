@@ -32,16 +32,11 @@
 	"3": {
 		"name": "Cự Giải - Cancer",
 		"unicode": "♋︎",
-		"gloss": "Con cua",
-		"start": "21 tháng 6",
-		"end": "22 tháng 7",
-		"sao_hd": "Mặt Trăng",
-		"sao_cd": "Mặt Trăng",
-		"doilap": "Ma Kết",
-		"phamgia": "Mặt Trăng",
-		"batloi": "Sao Thổ",
-		"dacdia": "Sao Mộc",
-		"suythoai": "Sao Hỏa, Trái Đất"
+		"personality": [
+			"Cự Giải thuộc cung Nước, thuộc nhóm Tiên phong. Được biểu hình như con cua, có khả năng di chuyển linh hoạt giữa biển và bờ, thể hiện khả năng tồn tại của Cự Giải trong cả hai thế giới cảm xúc và vật chất. Cự Giải có trực giác cao. Ví dụ Cự Giải có thể dễ dàng nhận ra được năng lượng trong một không gian. Vì vậy, họ rất nhạy cảm với môi môi trường và luôn dè chừng, bảo vệ bản thân mình. Giống như linh vật của họ, Cự Giải được bảo vệ bởi những vỏ cứng, bên ngoài. Ban đầu, Cự Giải có thể được coi là lạnh lùng. Nhưng theo thời gian, Cự Giải sẽ lộ rõ bản chất hiền lành, lòng trắc ẩn và khả năng huyền bí của họ. Đừng ngạc nhiên nếu bạn phải mất một thời gian để hiểu họ.",
+			"Cự Giải được cai trị bởi Mặt trăng, thiên thể biểu thị sự thoải mái, chăm sóc bản thân và khả năng chăm sóc. Vì vậy, Cự Giải có xu hướng hướng về gia đình. Họ thích tạo ra những không gian ấm cúng, an toàn, làm nơi trú ẩn của họ và dành nhiều thời gian ở đó. Cự Giải quan tâm sâu sắc đến gia đình và thường xuyên đảm nhận vai trò chăm sóc. Nhưng khi Cự Giải quan tâm ai quá mức, họ có nguy cơ làm nhòe đi ranh giới giữa việc nuôi dưỡng quan tâm và hành vi kiểm soát.",
+			"Cự Giải thu hút bạn bè và người yêu thông qua lòng trung thành, tin tưởng và cảm xúc sâu sắc của họ. Cự Giải biết cách an ủi người khác. Dù Cự Giải thường tránh xung đột trực tiếp bằng cách lơ đi, họ có thể dùng “càng” để “kẹp” một cái đau đớn thể hiện hành vi gây hấn thụ động đặc trưng của họ. Bạn có thể thấy khó khăn để thuyết phục một Cự Giải chia sẻ công khai về điều gì làm phiền họ. Nhưng nếu bạn có thể làm điều đó mà không làm họ cảm thấy bị đe dọa, bạn sẽ xây dựng được lòng tin bền lâu với Cự Giải."
+		]
 	},
 	"4": {
 		"name": "Sư Tử - Leo",
