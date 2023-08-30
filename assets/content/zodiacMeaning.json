@@ -41,16 +41,11 @@
 	"4": {
 		"name": "Sư Tử - Leo",
 		"unicode": "♌︎",
-		"gloss": "Con sư tử",
-		"start": "23 tháng 7",
-		"end": "22 tháng 8",
-		"sao_hd": "Mặt Trời",
-		"sao_cd": "Mặt Trời",
-		"doilap": "Bảo Bình",
-		"phamgia": "Mặt Trời",
-		"batloi": "Sao Thổ",
-		"dacdia": "Trái Đất",
-		"suythoai": "Không có"
+		"personality": [
+			"Hãy trải thảm đỏ ra, vì Sư Tử đã đến. Đúng như cái tên, Sư Tử được biểu hình như chúa sơn lâm. Sư Tử thuộc nhóm Lửa. Họ đặc biệt năng động, yêu nghệ thuật và đầy đam mê. Sư Tử thích tận hưởng ánh đèn sân khấu và ca ngợi bản thân. Sư Tử là những nhà lãnh đạo thiên phú, họ thích nuôi dưỡng tình bạn và tình yêu theo hướng lãng mạn và cảm hứng nghệ thuật. Sư Tử vui vẻ có thể chịu đựng những mối quan hệ lãng mạn và đầy kịch tính mà thực ra, họ khá thích chúng. Đa số Sư Tử đều tự coi mình là một ngôi sao nổi tiếng. Những người này không bao giờ chán những bữa tối xa xỉ, những bữa tiệc riêng tư, hay những trang phục thiết kế sang trọng.",
+			"Sư Tử được cai trị bởi Mặt trời, thiên thể rực rỡ chi phối sự sống. Mặt trời không bao giờ “xuống cấp”, và tương tự, Sư Tử đặc biệt với sự ổn định, trung thành và nhất quán của họ. Họ là những người bạn và người yêu tận tâm, luôn đặt trái tim vào mỗi mối quan hệ. Sư Tử yêu việc chứng kiến bạn đời của họ thành công - ít nhất là cho đến khi họ cảm thấy bị “đe dọa”. Họ có thể bị ảnh hưởng bởi cái tôi, lòng tự ái và ghen tuông khi họ bắt đầu sợ rằng ánh sáng của họ sẽ bị lu mờ. Điều quan trọng Sư Tử phải nhớ rằng, ánh sáng của họ không bao giờ bị che khuất bởi người khác, và ánh sáng rực rỡ của thành công của người khác không làm gì được cho ánh sáng của họ. Cái tôi của Sư Tử là mối đe dọa lớn nhất đối với hạnh phúc của họ.",
+			"Sư Tử thuộc nhóm Kiên định. Và họ đầy tham vọng và quyết tâm, nhưng trên hết, Sư Tử được ca ngợi vì lòng dũng cảm phi thường của họ. Những người lạc quan không sợ thất bại. Và Sư Tử sẽ cảm nhận được nguồn dũng khí sâu trong lòng đang lớn mạnh khi họ trưởng thành."
+		]
 	},
 	"5": {
 		"name": "Xử Nữ - Virgo",
