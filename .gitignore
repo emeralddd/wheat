@@ -2,7 +2,6 @@
 /.vscode
 /commands/fetch_club.js
 /commands/fun/ship.js
-/commands/utility/shard.js
 slash.js
 .env
 /package-dev.json
