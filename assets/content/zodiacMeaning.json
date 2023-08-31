@@ -56,16 +56,11 @@
 		"name": "Xử Nữ - Virgo",
 		"unicode": "♍︎",
 		"rule": "Ruột",
-		"gloss": "Người trinh nữ",
-		"start": "23 tháng 8",
-		"end": "22 tháng 9",
-		"sao_hd": "Sao Thủy",
-		"sao_cd": "Trái Đất",
-		"doilap": "Song Ngư",
-		"phamgia": "Sao Thủy, Trái Đất",
-		"batloi": "Sao Mộc",
-		"dacdia": "Sao Thủy",
-		"suythoai": "Sao Kim"
+		"personality": [
+			"Xử Nữ là một cung Đất, thuộc nhóm Linh hoạt. Xử Nữ được biểu hình như một người nữ thần. Xử Nữ là những người sống có logic, thực tế và có hệ thống trong cuộc sống. Xử Nữ là một người cầu toàn bẩm sinh và không ngại cải thiện kỹ năng thông qua việc luyện tập chăm chỉ. Xử Nữ đặc biệt nhạy cảm với các nguyên liệu tạo nên một cái gì đó hoàn chỉnh, có thể là trong ẩm thực hoặc những thứ khác. Họ rất ý thức về từng chi tiết.",
+			"Xử Nữ được cai trị bởi sao Thủy, hành tinh của giao tiếp. Mặc dù sao Thủy cũng cai trị Song Tử, nhưng hai cung này hoàn toàn khác biệt: Song Tử biểu hiện cảm xúc bên ngoài, trong khi Xử Nữ thu vào bên trong. Xử Nữ xử lý thông tin như một máy tính, biến những luồng thông tin lộn xộn nhất thành những khái niệm có tổ chức, rõ ràng. Dù Xử Nữ mong muốn được tỉ mỉ trong mọi việc, họ phải nhớ rằng việc luôn theo đuổi sự hoàn hảo có thể gây hại khi cho bản thân hoặc người khác. Vẻ đẹp đôi khi len lõi giữa những khuyết điểm của chúng ta. Điều quan trọng là cần nhận ra và sửa chữa chúng.",
+			"Hơn hết, Xử Nữ muốn giúp đỡ. Họ là những người bạn và người yêu tốt bụng, dịu dàng và hỗ trợ, sử dụng trí tuệ và khả năng giải quyết vấn đề tuyệt vời của mình. Đối lập với Xử Nữ là Song Ngư - cung cấp sự hướng dẫn thông qua tâm linh, ngược lại Xử Nữ muốn trợ giúp ở mức thực tế. Xử Nữ luôn nỗ lực để cung cấp các giải pháp hiệu quả và cải thiện những khó khăn. Họ là những người làm việc có phương pháp, quyết tân và chăm chỉ, rất phù hợp làm giáo viên, bác sĩ, biên tập viên hay nhạc sĩ xuất sắc."
+		]
 	},
 	"6": {
 		"name": "Thiên Bình - Libra",
