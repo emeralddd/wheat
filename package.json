@@ -1,6 +1,6 @@
 {
   "name": "wheat",
-  "version": "3.2.19",
+  "version": "3.2.20",
   "description": "wheatbot",
   "main": "index.js",
   "scripts": {
