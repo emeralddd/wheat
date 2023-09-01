@@ -88,16 +88,11 @@
 		"name": "Nhân Mã - Sagittarius",
 		"unicode": "♐︎",
 		"rule": "Đùi",
-		"gloss": "Một nhân mã đang giương cung tên",
-		"start": "23 tháng 11",
-		"end": "21 tháng 12",
-		"sao_hd": "Sao Mộc",
-		"sao_cd": "Sao Mộc",
-		"doilap": "Song Tử",
-		"phamgia": "Sao Mộc",
-		"batloi": "Sao Thủy",
-		"dacdia": "Không có",
-		"suythoai": "Không có"
+		"personality": [
+			"Nhân Mã là cung Lửa cuối cùng. Họ là những người gan dạ. Điều làm cho Nhân Mã trở nên độc đáo là sự kết hợp động lực, sự tò mò, sự mãnh liệt và khả năng thích ứng. Được biểu hình như một cung thủ (nhân mã - nửa người, nửa ngựa), Nhân Mã không sợ dùng cung tên của mình để khám phá những vùng đất rộng lớn, tìm kiếm câu trả lời ở những nơi chưa ai đặt chân tới.",
+			"Nhân Mã thuộc nhóm Linh hoạt, điều đó diễn giải cho khả năng thích ứng và sự linh hoạt của họ, phản ánh hoàn hảo mong muốn thay đổi sâu rộng của họ. Nhân Mã sinh ra để khám phá và quan trọng là họ phải có sự tự do. Được thôi thúc bởi niềm say mê du ngoạn, Nhân Mã có thể được tìm thấy ở mọi ngóc ngách của thế giới. Nhân Mã luôn luôn đi trên con đường tìm kiếm tri thức, điều này khiến họ trở thành những người kể chuyện hay những người sáng tạo tuyệt vời. Nhân Mã nổi tiếng với sự thẳng thắn đặc trưng của mình, và thường dẫn đến những hiểu lầm, sự suy sụp trong giao tiếp và rất nhiều tổn thương. Tuy nhiên, Nhân Mã không coi bất cứ điều gì quá nghiêm túc, vì vậy rất khó để giận dỗi với những người này.",
+			"Hành tinh cai trị của Nhân Mã là sao Mộc, hành tinh của sự dồi dào. Khẩu hiệu của cung này là: “Được ăn cả, ngã về không!”. Từ “đủ” không tồn tại trong từ điển của cung này. Khi Nhân Mã bị cuốn hút bởi một cái gì, họ dốc hết sức vào đó cho đến khi một cái gì khác thu hút sự chú ý của họ. Là một cung Linh hoạt, Nhân Mã không hứng thú với điều gì quá lâu; những người này có rất nhiều đam mê và sở thích, họ liên tục nhảy từ một ý tưởng sang một ý tưởng khác!"
+		]
 	},
 	"9": {
 		"name": "Ma Kết - Capricorn",
