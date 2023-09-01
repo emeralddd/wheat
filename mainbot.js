@@ -6,7 +6,15 @@ const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
 const announcement = require('./announcement.json');
 
-const wheat = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent] });
+const wheat = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent], presence: {
+        activities: [{
+            name: 'EHELP',
+            type: ActivityType.Listening
+        }],
+        status: 'online'
+    }
+});
 
 let commandsList = new Collection();
 let aliasesList = new Collection();
@@ -38,13 +46,6 @@ const initial = async () => {
 
 wheat.once('ready', async () => {
     await initial();
-    wheat.user.setPresence({
-        activities: [{
-            name: 'EHELP',
-            type: ActivityType.Listening
-        }],
-        status: 'online'
-    });
     console.log(`[${wheat.shard.ids[0]}] Da dang nhap duoi ten ${wheat.user.tag}!`);
 })
 
@@ -62,7 +63,7 @@ wheat.on('guildCreate', async (guild) => {
         await ownerId.send({ embeds: [embed, embed1] });
         await ownerId.send("🌾**Support Server:** https://discord.gg/z5Z4uzmED9");
     } catch (error) {
-        console.log(error);
+        console.log('Cant not DM', error);
     };
 })
 
