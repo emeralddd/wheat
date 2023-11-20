@@ -99,30 +99,18 @@
 		"unicode": "♑︎",
 		"rule": "Đầu gối",
 		"gloss": "Con dê biển",
-		"start": "22 tháng 12",
-		"end": "19 tháng 1",
-		"sao_hd": "Sao Thổ",
-		"sao_cd": "Sao Thổ",
-		"doilap": "Cự Giải",
-		"phamgia": "Sao Thổ",
-		"batloi": "Mặt Trăng",
-		"dacdia": "Sao Hỏa",
-		"suythoai": "Sao Mộc"
+		"personality": [
+			"Ma Kết là cung Đất cuối cùng trong 12 cung hoàng đạo, là một cung thuộc nhóm Tiên phong. Ma Kết thực sự độc đáo, có một điều gì đó khiến Ma Kết rất đặc biệt. Đó có thể là tham vọng cháy bỏng, khả năng phục hồi vô hạn, hoặc khả năng tiến bước, vượt lên những khó khăn thách thức. Ma Kết có sự hoang dã, nhưng luôn giữ bí mật về nó. Và hiếm ai được thấy sự nổi loạn của một Ma Kết. Mặc dù họ thường sẽ kiềm chế sự cuồng nhiệt này, nhưng thực ra Ma Kết rất ưa tiệc tùng.",
+			"Cung Ma Kết được biểu hình như con dê biển, một sinh vật thần thoại với thân của một con dê và đuôi của một con cá. Hình ảnh này nói lên khả năng phân chia của Ma Kết: họ làm chủ và cân bằng cả hai mặt vật chất và cảm xúc. Họ leo lên những đỉnh núi cao nhất, đồng thời xây dựng sức mạnh tâm linh của mình.",
+			"Ma Kết rất kiên trì: họ quyết tâm vượt qua mọi thứ trước mắt. Họ có mục tiêu lớn, dài hạn và tuyệt đối không muốn bị nhiễu loạn bởi những chi tiết dư thừa. Tuy nhiên, vì sự kiên định của họ, họ trông lạnh lùng, không cảm xúc hoặc thậm chí là tàn nhẫn - nhưng đó là do Ma Kết có lập trường vững vàng. Nếu điều gì đó không giúp ích cho tương lai, Ma Kết đã không quan tâm đến nó ở hiện tại.",
+			"Ma Kết được cai trị bởi Sao Thổ. Với sự bao bọc của các vành đai, Sao Thổ là hành tinh liên quan đến các nhiệm vụ, quy tắc, trách nhiệm và thời gian. Nhờ vậy, họ là người đúng giờ và có khả năng quản lí thời gian tốt. Bên cạnh đó, Ma Kết nhận ra rằng cuộc sống rất ngắn ngủi, vì vậy, họ luôn chạy đua với thời gian. Có rất nhiều điều Ma Kết muốn đạt được và hoàn thành trong cuộc đời này. Ma Kết là người chủ động, họ luôn thúc đẩy các dự án mới. Và đặc biệt hơn, họ thường là người nảy ra các ý tưởng mới lạ."
+		]
 	},
 	"10": {
 		"name": "Bảo Bình - Aquarius",
 		"unicode": "♒︎",
 		"rule": "Mắt cá",
-		"gloss": "Người mang nước",
-		"start": "20 tháng 1",
-		"end": "18 tháng 2",
-		"sao_hd": "Sao Thiên Vương",
-		"sao_cd": "Sao Thổ",
-		"doilap": "Sư Tử",
-		"phamgia": "Sao Thổ",
-		"batloi": "Mặt Trời",
-		"dacdia": "Không có",
-		"suythoai": "Không có"
+		"personality": []
 	},
 	"11": {
 		"name": "Song Ngư - Pisces",
