@@ -29,7 +29,7 @@ const run = async ({ message, interaction, args, lg }) => {
 
 	const embed = bot.wheatSampleEmbedGenerate();
 	embed.setAuthor({ name: `⁘ ${message.member.displayName}, ${lg.fortune.yourTarotCardIs} ...` });
-	embed.setTitle(`<a:t_v3:1140505323438874664> ** ${randomCard.name} ${reversed ? (type ? 'Xuôi' : 'Ngược') : ''}!**`);
+	embed.setTitle(`<a:t_v3:1140505323438874664> ** ${randomCard.name} ${reversed ? (type ? 'xuôi' : 'ngược') : ''}!**`);
 	embed.setDescription(randomCard.type === '1' ? lg.fortune.majorArcana : lg.fortune.minorArcana);
 
 	embed.addFields({
