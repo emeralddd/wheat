@@ -10,8 +10,8 @@
     "ftelling": [
         {
             "name": "tarot",
-            "syntax": "",
-            "desc": "Pick a random card from Rider Waite Tarot and give meaning!",
+            "syntax": " [r]",
+            "desc": "Pick a random card from Rider Waite Tarot and give meaning!\nType letter `r` to add the reverse cards.",
             "note": ""
         },
         {

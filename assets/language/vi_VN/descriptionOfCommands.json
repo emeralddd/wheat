@@ -1,30 +1,30 @@
 {
-    "astronomy":[
+    "astronomy": [
         {
-            "name":"apod",
-            "syntax":" [DD/MM/YYYY]",
-            "desc":"Xem một bức ảnh thiên văn của một ngày bất kì cung cấp bởi NASA",
-            "note":"Nếu bạn không cung cấp ngày tháng, mặc định sẽ là ngày đó.\nNgày nhập vào phải sau hoặc ngày 16/06/1995"
+            "name": "apod",
+            "syntax": " [DD/MM/YYYY]",
+            "desc": "Xem một bức ảnh thiên văn của một ngày bất kì cung cấp bởi NASA",
+            "note": "Nếu bạn không cung cấp ngày tháng, mặc định sẽ là ngày đó.\nNgày nhập vào phải sau hoặc ngày 16/06/1995."
         }
     ],
-    "ftelling":[
+    "ftelling": [
         {
-            "name":"tarot",
-            "syntax":"",
-            "desc":"Chọn ngẫu nhiên 1 lá bài từ bộ Rider Waite Tarot và đưa ra ý nghĩa!",
-            "note":""
+            "name": "tarot",
+            "syntax": " [r]",
+            "desc": "Chọn ngẫu nhiên 1 lá bài từ bộ Rider Waite Tarot và đưa ra ý nghĩa!\nThêm kí tự `r` phía sau lệnh để chọn cả lá ngược.",
+            "note": ""
         },
         {
-            "name":"numerology",
-            "syntax":" <DD/MM/YYYY>",
-            "desc":"Xem ý nghĩa con số chủ đạo của một ngày sinh!",
-            "note":"Ngày bắt buộc phải được nhập."
+            "name": "numerology",
+            "syntax": " <DD/MM/YYYY>",
+            "desc": "Xem ý nghĩa con số chủ đạo của một ngày sinh!",
+            "note": "Ngày bắt buộc phải được nhập."
         },
         {
-            "name":"zodiac",
-            "syntax":" <DD/MM>",
-            "desc":"Đưa ra thông tin hoàng đạo về một ngày bất kì!",
-            "note":"Ngày bắt buộc phải được nhập."
+            "name": "zodiac",
+            "syntax": " <DD/MM>",
+            "desc": "Đưa ra thông tin hoàng đạo về một ngày bất kì!",
+            "note": "Ngày bắt buộc phải được nhập."
         },
         {
             "name": "doingayduongam",
@@ -33,276 +33,276 @@
             "note": "Ngày bắt buộc phải được nhập."
         }
     ],
-    "fun":[
+    "fun": [
         {
-            "name":"angry",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "angry",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"bite",
-            "syntax":" <mention/id>",
-            "desc":"Thể hiện hành động của bạn!",
-            "note":"Người bị tác động cần được cung cấp!"
+            "name": "bite",
+            "syntax": " <mention/id>",
+            "desc": "Thể hiện hành động của bạn!",
+            "note": "Người bị tác động cần được cung cấp!"
         },
         {
-            "name":"cry",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "cry",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"dizzy",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "dizzy",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"excited",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "excited",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"happy",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "happy",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"hello",
-            "syntax":"",
-            "desc":"Nói câu Xin chào bằng nhiều thứ tiếng!",
-            "note":""
+            "name": "hello",
+            "syntax": "",
+            "desc": "Nói câu Xin chào bằng nhiều thứ tiếng!",
+            "note": ""
         },
         {
-            "name":"hug",
-            "syntax":" <mention/id>",
-            "desc":"Thể hiện hành động của bạn!",
-            "note":"Người bị tác động cần được cung cấp!"
+            "name": "hug",
+            "syntax": " <mention/id>",
+            "desc": "Thể hiện hành động của bạn!",
+            "note": "Người bị tác động cần được cung cấp!"
         },
         {
-            "name":"kick",
-            "syntax":" <mention/id>",
-            "desc":"Thể hiện hành động của bạn!",
-            "note":"Người bị tác động cần được cung cấp!"
+            "name": "kick",
+            "syntax": " <mention/id>",
+            "desc": "Thể hiện hành động của bạn!",
+            "note": "Người bị tác động cần được cung cấp!"
         },
         {
-            "name":"kiss",
-            "syntax":" <mention/id>",
-            "desc":"Thể hiện hành động của bạn!",
-            "note":"Người bị tác động cần được cung cấp!"
+            "name": "kiss",
+            "syntax": " <mention/id>",
+            "desc": "Thể hiện hành động của bạn!",
+            "note": "Người bị tác động cần được cung cấp!"
         },
         {
-            "name":"pat",
-            "syntax":" <mention/id>",
-            "desc":"Thể hiện hành động của bạn!",
-            "note":"Người bị tác động cần được cung cấp!"
+            "name": "pat",
+            "syntax": " <mention/id>",
+            "desc": "Thể hiện hành động của bạn!",
+            "note": "Người bị tác động cần được cung cấp!"
         },
         {
-            "name":"punch",
-            "syntax":" <mention/id>",
-            "desc":"Thể hiện hành động của bạn!",
-            "note":"Người bị tác động cần được cung cấp!"
+            "name": "punch",
+            "syntax": " <mention/id>",
+            "desc": "Thể hiện hành động của bạn!",
+            "note": "Người bị tác động cần được cung cấp!"
         },
         {
-            "name":"sad",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "sad",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"scare",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "scare",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"slap",
-            "syntax":" <mention/id>",
-            "desc":"Thể hiện hành động của bạn!",
-            "note":"Người bị tác động cần được cung cấp!"
+            "name": "slap",
+            "syntax": " <mention/id>",
+            "desc": "Thể hiện hành động của bạn!",
+            "note": "Người bị tác động cần được cung cấp!"
         },
         {
-            "name":"sleepy",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "sleepy",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"smile",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "smile",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         },
         {
-            "name":"thinking",
-            "syntax":"",
-            "desc":"Thể hiện cảm xúc của bạn!",
-            "note":""
+            "name": "thinking",
+            "syntax": "",
+            "desc": "Thể hiện cảm xúc của bạn!",
+            "note": ""
         }
     ],
-    "random":[
+    "random": [
         {
-            "name":"coinflip",
-            "syntax":"",
-            "desc":"Tung một đồng xu",
-            "note":""
+            "name": "coinflip",
+            "syntax": "",
+            "desc": "Tung một đồng xu",
+            "note": ""
         },
         {
-            "name":"dice",
-            "syntax":" [số mặt của xúc xắc thứ 1] [số mặt của xúc xắc thứ 2] ... [số mặt của xúc xắc thứ n]",
-            "desc":"Tung một số con xúc xắc",
-            "note":"Nếu bạn không cung cấp số mặt của một xúc xắc nào, mặc định sẽ là một viên 6 mặt."
+            "name": "dice",
+            "syntax": " [số mặt của xúc xắc thứ 1] [số mặt của xúc xắc thứ 2] ... [số mặt của xúc xắc thứ n]",
+            "desc": "Tung một số con xúc xắc",
+            "note": "Nếu bạn không cung cấp số mặt của một xúc xắc nào, mặc định sẽ là một viên 6 mặt."
         },
         {
-            "name":"loremipsum",
-            "syntax":"",
-            "desc":"Tạo ra một đoạn Dummy Text",
-            "note":""
+            "name": "loremipsum",
+            "syntax": "",
+            "desc": "Tạo ra một đoạn Dummy Text",
+            "note": ""
         },
         {
-            "name":"password",
-            "syntax":" <độ dài>",
-            "desc":"Tạo ra một mật khẩu mạnh",
-            "note":"Độ dài phải là một số nguyên dương lớn hơn hoặc bằng 8 và nhỏ hơn hoặc bằng 100"
+            "name": "password",
+            "syntax": " <độ dài>",
+            "desc": "Tạo ra một mật khẩu mạnh",
+            "note": "Độ dài phải là một số nguyên dương lớn hơn hoặc bằng 8 và nhỏ hơn hoặc bằng 100"
         },
         {
-            "name":"pick",
-            "syntax":" <lựa chọn 1>,<lựa chọn 2>,[lựa chọn 3],[lựa chọn 4],...",
-            "desc":"Chọn một lựa chọn ra khỏi một danh sách",
-            "note":""
+            "name": "pick",
+            "syntax": " <lựa chọn 1>,<lựa chọn 2>,[lựa chọn 3],[lựa chọn 4],...",
+            "desc": "Chọn một lựa chọn ra khỏi một danh sách",
+            "note": ""
         },
         {
-            "name":"rand",
-            "syntax":" [giới hạn dưới (trên)] [giới hạn trên]",
-            "desc":"Chọn một số ngẫu nhiên trong đoạn",
-            "note":"Nếu bạn không hề nhập vào một thông tin gì, đoạn mặc định sẽ là [1, 100].\nNếu bạn nhập vào một con số, đoạn được chọn sẽ là [1, số bạn nhập]."
+            "name": "rand",
+            "syntax": " [giới hạn dưới (trên)] [giới hạn trên]",
+            "desc": "Chọn một số ngẫu nhiên trong đoạn",
+            "note": "Nếu bạn không hề nhập vào một thông tin gì, đoạn mặc định sẽ là [1, 100].\nNếu bạn nhập vào một con số, đoạn được chọn sẽ là [1, số bạn nhập]."
         },
         {
-            "name":"rdate",
-            "syntax":" [DD/MM/YYYY] [DD/MM/YYYY]",
-            "desc":"Đưa ra một ngày bất kỳ trong khoảng thời gian",
-            "note":"Nếu bạn không đưa ra thông tin gì, ngày mặc định sẽ lấy sau ngày 01/01/1970.\nNếu bạn nhập một thông tin ngày, ngày sẽ được lấy sau ngày 01/01/1970 và trước ngày bạn nhập."
+            "name": "rdate",
+            "syntax": " [DD/MM/YYYY] [DD/MM/YYYY]",
+            "desc": "Đưa ra một ngày bất kỳ trong khoảng thời gian",
+            "note": "Nếu bạn không đưa ra thông tin gì, ngày mặc định sẽ lấy sau ngày 01/01/1970.\nNếu bạn nhập một thông tin ngày, ngày sẽ được lấy sau ngày 01/01/1970 và trước ngày bạn nhập."
         },
         {
-            "name":"remoji",
-            "syntax":"",
-            "desc":"Đưa ra một emoji bất kỳ trong những server mà bot đã tham gia!",
-            "note":""
+            "name": "remoji",
+            "syntax": "",
+            "desc": "Đưa ra một emoji bất kỳ trong những server mà bot đã tham gia!",
+            "note": ""
         },
         {
-            "name":"rtime",
-            "syntax":" [hh:mm] [hh:mm]",
-            "desc":"Đưa ra một thời gian ngẫu nhiên trong khoảng thời gian",
-            "note":"Nếu bạn không đưa ra thông tin gì, thời gian mặc định sẽ lấy sau 0 giờ 0 phút và trước 23 giờ 59 phút.\nNếu bạn nhập một thông tin giờ, thời gian sẽ được lấy sau 0 giờ 0 phút và trước thời gian bạn nhập."
+            "name": "rtime",
+            "syntax": " [hh:mm] [hh:mm]",
+            "desc": "Đưa ra một thời gian ngẫu nhiên trong khoảng thời gian",
+            "note": "Nếu bạn không đưa ra thông tin gì, thời gian mặc định sẽ lấy sau 0 giờ 0 phút và trước 23 giờ 59 phút.\nNếu bạn nhập một thông tin giờ, thời gian sẽ được lấy sau 0 giờ 0 phút và trước thời gian bạn nhập."
         }
     ],
-    "setting":[
+    "setting": [
         {
-            "name":"prefix",
-            "syntax":" <prefix mới>",
-            "desc":"Cập nhật lại prefix của bot tại server",
-            "note":"Bạn cần quyền Administrator hoặc Manager Server.\nPrefix phải có độ dài là một số nguyên dương nhỏ hơn 32.\nPrefix mới phải được nhập"
+            "name": "prefix",
+            "syntax": " <prefix mới>",
+            "desc": "Cập nhật lại prefix của bot tại server",
+            "note": "Bạn cần quyền Administrator hoặc Manager Server.\nPrefix phải có độ dài là một số nguyên dương nhỏ hơn 32.\nPrefix mới phải được nhập"
         },
         {
-            "name":"language",
-            "syntax":" <ngôn ngữ mới>",
-            "desc":"Cập nhật lại ngôn ngữ của bot tại server",
-            "note":"Bạn cần quyền Administrator hoặc Manager Server.\nNgôn ngữ mới phải được nhập"
+            "name": "language",
+            "syntax": " <ngôn ngữ mới>",
+            "desc": "Cập nhật lại ngôn ngữ của bot tại server",
+            "note": "Bạn cần quyền Administrator hoặc Manager Server.\nNgôn ngữ mới phải được nhập"
         },
         {
-            "name":"selflanguage",
-            "syntax":" <ngôn ngữ mới>",
-            "desc":"Cập nhật lại ngôn ngữ của bot dành cho bạn",
-            "note":"Thứ tự ưu tiên của ngôn ngữ: Ngôn ngữ của bạn -> Ngôn ngữ của Server -> Ngôn ngữ mặc định (`en_US`)"
+            "name": "selflanguage",
+            "syntax": " <ngôn ngữ mới>",
+            "desc": "Cập nhật lại ngôn ngữ của bot dành cho bạn",
+            "note": "Thứ tự ưu tiên của ngôn ngữ: Ngôn ngữ của bạn -> Ngôn ngữ của Server -> Ngôn ngữ mặc định (`en_US`)"
         },
         {
-            "name":"disable",
-            "syntax":" [all/lệnh 1/nhóm lệnh 1] [all/lệnh 2/nhóm lệnh 2] ...",
-            "desc":"Tắt lệnh/nhóm lệnh tại kênh hiện tại",
-            "note":"Nếu nhập all, tất cả lệnh trừ `enable` sẽ không thể sử dụng trong kênh đó!"
+            "name": "disable",
+            "syntax": " [all/lệnh 1/nhóm lệnh 1] [all/lệnh 2/nhóm lệnh 2] ...",
+            "desc": "Tắt lệnh/nhóm lệnh tại kênh hiện tại",
+            "note": "Nếu nhập all, tất cả lệnh trừ `enable` sẽ không thể sử dụng trong kênh đó!"
         },
         {
-            "name":"enable",
-            "syntax":" [all/lệnh 1/nhóm lệnh 1] [all/lệnh 2/nhóm lệnh 2] ...",
-            "desc":"Bật lệnh/nhóm lệnh tại kênh hiện tại",
-            "note":"Nếu nhập all, tất cả lệnh sẽ được sử dụng trong kênh đó!"
+            "name": "enable",
+            "syntax": " [all/lệnh 1/nhóm lệnh 1] [all/lệnh 2/nhóm lệnh 2] ...",
+            "desc": "Bật lệnh/nhóm lệnh tại kênh hiện tại",
+            "note": "Nếu nhập all, tất cả lệnh sẽ được sử dụng trong kênh đó!"
         }
     ],
-    "utility":[
+    "utility": [
         {
-            "name":"avatar",
-            "syntax":" [mention/id]",
-            "desc":"Xem avatar của một ai đó",
-            "note":"Nếu bạn không nhập một người khác, mặc định sẽ lấy avatar của bạn!"
+            "name": "avatar",
+            "syntax": " [mention/id]",
+            "desc": "Xem avatar của một ai đó",
+            "note": "Nếu bạn không nhập một người khác, mặc định sẽ lấy avatar của bạn!"
         },
         {
-            "name":"bug",
-            "syntax":"",
-            "desc":"Lấy link thông báo lỗi",
-            "note":""
+            "name": "bug",
+            "syntax": "",
+            "desc": "Lấy link thông báo lỗi",
+            "note": ""
         },
         {
-            "name":"changelog",
-            "syntax":" [lists/tên bản cập nhật]",
-            "desc":"Xem lịch sử cập nhật của bot",
-            "note":"Nếu bạn nhập `lists`, sẽ đưa ra danh sách bản cập nhật của bot.\nNếu bạn cung cấp tên một bản cập nhật, sẽ đưa ra thông tin về bản cập nhật đó.\nNếu bạn không nhập gì, mặc định sẽ đưa ra thông tin về bản cập nhật mới nhất."
+            "name": "changelog",
+            "syntax": " [lists/tên bản cập nhật]",
+            "desc": "Xem lịch sử cập nhật của bot",
+            "note": "Nếu bạn nhập `lists`, sẽ đưa ra danh sách bản cập nhật của bot.\nNếu bạn cung cấp tên một bản cập nhật, sẽ đưa ra thông tin về bản cập nhật đó.\nNếu bạn không nhập gì, mặc định sẽ đưa ra thông tin về bản cập nhật mới nhất."
         },
         {
-            "name":"color",
-            "syntax":" [mã màu (hex, int, RGB)]",
-            "desc":"Xem màu với mã",
-            "note":"Nếu không nhập thông tin gì, mặc định sẽ đưa ra màu bất kỳ."
+            "name": "color",
+            "syntax": " [mã màu (hex, int, RGB)]",
+            "desc": "Xem màu với mã",
+            "note": "Nếu không nhập thông tin gì, mặc định sẽ đưa ra màu bất kỳ."
         },
         {
-            "name":"help",
-            "syntax":" [lệnh || nhóm lệnh]",
-            "desc":"Đưa ra danh sách nhóm lệnh, lệnh và thông tin chi tiết của từng lệnh.",
-            "note":"Nếu không nhập gì, mặc định sẽ đưa ra tất cả lệnh và nhóm lệnh."
+            "name": "help",
+            "syntax": " [lệnh || nhóm lệnh]",
+            "desc": "Đưa ra danh sách nhóm lệnh, lệnh và thông tin chi tiết của từng lệnh.",
+            "note": "Nếu không nhập gì, mặc định sẽ đưa ra tất cả lệnh và nhóm lệnh."
         },
         {
-            "name":"info",
-            "syntax":"",
-            "desc":"Đưa ra thông tin của Bot",
-            "note":""
+            "name": "info",
+            "syntax": "",
+            "desc": "Đưa ra thông tin của Bot",
+            "note": ""
         },
         {
-            "name":"invite",
-            "syntax":"",
-            "desc":"Mời bot!",
-            "note":""
+            "name": "invite",
+            "syntax": "",
+            "desc": "Mời bot!",
+            "note": ""
         },
         {
-            "name":"ping",
-            "syntax":"",
-            "desc":"Lấy thời gian phản hồi của bo",
-            "note":""
+            "name": "ping",
+            "syntax": "",
+            "desc": "Lấy thời gian phản hồi của bo",
+            "note": ""
         },
         {
-            "name":"qrgen",
-            "syntax":" <xâu>",
-            "desc":"Tạo một mã QR từ xâu nhập vào",
-            "note":"Độ dài của xâu nhập vào phải là một số nguyên dương có độ dài nhỏ hơn 1600!"
+            "name": "qrgen",
+            "syntax": " <xâu>",
+            "desc": "Tạo một mã QR từ xâu nhập vào",
+            "note": "Độ dài của xâu nhập vào phải là một số nguyên dương có độ dài nhỏ hơn 1600!"
         },
         {
-            "name":"support",
-            "syntax":"",
-            "desc":"Lấy thông tin hỗ trợ",
-            "note":""
+            "name": "support",
+            "syntax": "",
+            "desc": "Lấy thông tin hỗ trợ",
+            "note": ""
         },
         {
-            "name":"vote",
-            "syntax":"",
-            "desc":"Vote cho bot tại Top.gg",
-            "note":""
+            "name": "vote",
+            "syntax": "",
+            "desc": "Vote cho bot tại Top.gg",
+            "note": ""
         },
         {
-            "name":"whois",
-            "syntax":" [mention/id]",
-            "desc":"Lấy thông tin của một người tại server thực thi lệnh!",
-            "note":"Nếu không cung cấp thông tin gì, mặc định sẽ là thông tin của bạn!"
+            "name": "whois",
+            "syntax": " [mention/id]",
+            "desc": "Lấy thông tin của một người tại server thực thi lệnh!",
+            "note": "Nếu không cung cấp thông tin gì, mặc định sẽ là thông tin của bạn!"
         }
     ]
 }
