@@ -1,0 +1,12 @@
+{
+    "version": "24SevenMO",
+    "before": "22TwelveMH",
+    "gen": "Wheat 3",
+    "date": "01/07/2024",
+    "release": "3.2.43",
+    "add": [
+        "new Tarot",
+        "new zodiac"
+    ],
+    "remove": []
+}
