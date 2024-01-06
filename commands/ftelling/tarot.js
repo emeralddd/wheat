@@ -25,7 +25,7 @@ const run = async ({ message, interaction, args, lg }) => {
 
 	const randomCard = tarotMeaning[Math.floor(Math.random() * 78) + 1];
 	const reversed = (args ? ((args.length > 1 && args[1] === 'r') ? true : false) : (interaction.options.getBoolean('reversed') || false));
-	const type = (reversed ? bot.wheatRandomNumberBetween(0, 1) : 1);
+	const type = (reversed ? bot.wheatRandomNumberBetween(0, 2) : 1);
 
 	const embed = bot.wheatSampleEmbedGenerate();
 	embed.setAuthor({ name: `⁘ ${message.member.displayName}, ${lg.fortune.yourTarotCardIs} ...` });
