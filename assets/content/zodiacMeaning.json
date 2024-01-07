@@ -1,182 +1,130 @@
 {
-	"0":
-	{
-		"name":"Bạch Dương - Aries",
-		"unicode":"♈︎",
-		"gloss":"Con cừu đực có bộ lông vàng",
-		"start":"21 tháng 3",
-		"end":"19 tháng 4",
-		"sao_hd":"Sao Hỏa",
-		"sao_cd":"Sao Hỏa",
-		"doilap":"Thiên Bình",
-		"phamgia":"Sao Hỏa",
-		"batloi":"Sao Kim",
-		"dacdia":"Mặt Trời",
-		"suythoai":"Sao Thổ"
+	"0": {
+		"name": "Bạch Dương - Aries",
+		"unicode": "♈︎",
+		"rule": "Đầu",
+		"personality": [
+			"Bạch Dương là cung hoàng đạo đầu tiên, điều đó giải thích cho việc họ là số một. Bạch Dương được biểu hình như một con cừu đực. Song Ngư táo bạo và tham vọng, họ dám lao vào cả những thử thách nguy hiểm nhất. Bạch Dương thuộc cung Lửa, vì vậy, họ thường là những người lãnh đạo có đam mê, nhiệt huyết và rất tự tin. Họ luôn đi vào trọng tâm, trực tiếp vào vấn đề, nên thường thấy khó chịu với những chi tiết dư thừa và lòng vòng.",
+			"Bạch Dương là một cung thuộc nhóm Thiên phong. Các nhà chiêm tinh tin rằng, những cung hoàng đạo sẽ học được những bài học từ các cung trước đó. Nhưng Bạch Dương lại là người đứng đầu, không được thừa hưởng những bài học trước đó, Bạch Dương dẫn đầu với sự mù quáng nhưng rất lạc quan, luôn xông pha trong cuộc sống. Điều này cũng giải thích về tính cách bốc đồng đặc trưng của họ.",
+			"Họ thường hành động trước khi suy nghĩ kĩ, vì vậy thường để phần thiệt về mình. Bạch Dương đại diện cho “cái tôi cá nhân”, ngược lại với “cái ta chung”. Bạch Dương suy nghĩ rằng, mỗi người tự lo cho mình. Sự tự chủ này có thể có chút truyền cảm hứng, nhưng Bạch Dương cần cẩn thận để không trở nên ích kỉ.",
+			"Bạch Dương được cai trị bởi sao Hỏa, hành tinh của sự nhiệt huyết và năng động, được đặt tên theo vị thần chiến tranh La Mã. Do đó, Bạch Dương luôn sẵn sàng cho mọi trận chiến. Bạch Dương được biết đến với tính nóng nảy. Dù cho “cơn thịnh nộ” của họ không kéo dài lâu, tốt nhất là tránh xa ra cho đến khi họ “hạ hỏa”. Nhưng khi bình thường, họ là những người vui vẻ, tích cực và đáng yêu. Họ luôn khát khao tận hưởng trọn vẹn cuộc sống. Bạn luôn có thể nhận ra một Bạch Dương xuất sắc trên sân thể thao, lao nhanh trên đường cao tốc, hoặc làm chủ một bửa tiệc sôi động."
+		]
 	},
-	"1":
-	{
-		"name":"Kim Ngưu - Taurus",
-		"unicode":"♉︎",
-		"gloss":"Con bò vàng",
-		"start":"20 tháng 4",
-		"end":"20 tháng 5",
-		"sao_hd":"Sao Kim",
-		"sao_cd":"Sao Kim",
-		"doilap":"Thiên Yết",
-		"phamgia":"Sao Kim",
-		"batloi":"Sao Hỏa",
-		"dacdia":"Mặt Trăng",
-		"suythoai":"Không có"
+	"1": {
+		"name": "Kim Ngưu - Taurus",
+		"unicode": "♉︎",
+		"rule": "Cổ",
+		"personality": [
+			"Kim Ngưu thuộc cung đất, biểu hình như bởi con bò đực. Vì vậy những người thuộc cung Kim Ngưu thích thư giãn trong môi trường yên bình, xanh tươi, xung quanh có những âm thanh êm tai, mùi hương dễ chịu. Kim Ngưu được cai trị bởi sao Kim, hành tinh chi phối tình yêu, vẻ đẹp và tiền bạc. Điều này khiến Kim Ngưu này trở thành cung hoàng đạo quyến rũ nhất, họ mê mẩn sự giàu sang và xa xỉ. Kim Ngưu cảm thấy vui vẻ nhất khi được nuông chiều.",
+			"Họ có thể đắm chìm cả ngày trong mùi hương của đồng tiền. Họ say đắm và hiểu rõ giá trị của đồng tiền. Vì vậy, Kim Ngưu sẽ luôn làm việc chăm chỉ để kiếm được thật nhiều tiền. Họ có tham vọng, sự tập trung và kiên cường. Kim Ngưu sẽ luôn có “của để dành” – họ sẽ không tiêu hết số tiền mà mình kiếm được mà giữ một phần để phòng trừ bất trắc. Họ sẽ cảm thấy an tâm khi tài khoản tiết kiệm của bản thân “tăng đều”.",
+			"Kim Ngưu quan tâm đến hiệu quả đầu tư. Và họ biết cách chơi “một trò chơi dài hạn” trong cả sự nghiệp. Trong tình yêu, Kim Ngưu là người chung thủy, hết lòng vì người mình yêu, họ còn biết cách vun vén để xây dựng tình cảm ngày càng lớn mạnh. Sự an toàn rất quan trọng với Kim Ngưu, vì vậy họ sẽ “phát điên lên” nếu ai động đến sự ổn định của họ.",
+			"Kim Ngưu thuộc nhóm Kiên định, một tính chất chiêm tinh phản ánh tính kiên trì, trung thành của Kim Ngưu. Họ giỏi duy trì các hệ thống và ưu tiên sự nhất quán và tin cậy trong mọi lĩnh vực của cuộc sống. Tuy nhiên, Kim Ngưu có phần bảo thủ. Có chút ngang bướng và thường không lắng nghe ý kiến từ người khác. Nhưng tựu chung lại, dù Kim Ngưu có phần ngoan cố, nhưng họ vẫn luôn là những người đáng tin cậy. Họ biết cách an ủi bạn bè và những người thân yêu bằng sự yêu thương từ tận sâu trong lòng họ."
+		]
 	},
-	"2":
-	{
-		"name":"Song Tử - Gemini",
-		"unicode":"♉︎",
-		"gloss":"Cặp song sinh",
-		"start":"21 tháng 5",
-		"end":"20 tháng 6",
-		"sao_hd":"Sao Thủy",
-		"sao_cd":"Sao Thủy",
-		"doilap":"Nhân Mã",
-		"phamgia":"Sao Thủy",
-		"batloi":"Sao Mộc",
-		"dacdia":"Không có",
-		"suythoai":"Không có"
+	"2": {
+		"name": "Song Tử - Gemini",
+		"unicode": "♉︎",
+		"rule": "Tay",
+		"personality": [
+			"Bạn có bao giờ bận rộn đến nỗi bạn ước mình có thể phân thân để làm hết mọi việc không? Đó là trải nghiệm của cung Song Tử. Song Tử thuộc cung Khí, được biểu hình như một cặp song sinh. Song Tử quan tâm đến nhiều hoạt động đến nỗi họ phải “tự nhân đôi bản thân”. Vì vậy, họ thường bị hiểu lầm là hai mặt. Trên thực tế, Song Tử hiếm khi có tâm địa xấu. Tinh nghịch và ham hiểu biết, Song Tử luôn luân chuyển giữa nhiều niềm đam mê, sở thích, nghề nghiệp và nhóm bạn. Song Tử thông minh, nhanh trí, họ có thể nói chuyện với bất kỳ ai về bất cứ điều gì.",
+			"Song Tử bắt đầu từ ngày 21 tháng 5 - mở đầu cho sự nóng nực mùa hè. Song Tử thuộc nhóm Linh hoạt. Vì vậy, họ giỏi trong việc dẫn dắt sự thay đổi. Họ luôn tò mò và là những nhà tiên phong tuyệt vời, sử dụng năng lượng của họ để khởi xướng các dự án sáng tạo đổi mới. Nhưng sau khi Song Tử đã chia sẻ tầm nhìn tiến bộ của họ với thế giới, thì tốt nhất là để Song Tử quay trở với việc lên ý tưởng: Song Tử có thời gian tập trung ngắn và họ cảm thấy thoải mái nhất khi có thể bay nhảy từ ý tưởng này sang ý tưởng khác.",
+			"Cả Song Tử và Xử Nữ đều được cai trị bởi Sao Thủy, hành tinh của giao tiếp. Tuy nhiên, dù có cùng hành tinh cai trị , hai cung này lại trái ngược nhau trong cách tiếp cận: Song Tử biểu hiện cảm xúc bên ngoài, trong khi Xử Nữ giữ lại bên trong. Song Tử có một lối nói chuyện thường sử dụng cử chỉ tay - điều sẽ khiến người khác thích thú và chú ý lắng nghe hơn. Giao tiếp rất quan trọng đối với họ, vì vậy họ luôn phải tập để diễn đạt thật trôi chảy.",
+			"Họ thích nhắn tin gần bằng thích nói chuyện trực tiếp. Thực ra, những biểu cảm thường quan trọng hơn với Song Tử hơn là những gì thực sự được nói - và họ cần cẩn thận với lời nói của mình. Song Tử thường không cảm thấy xấu hổ quá lâu, dù cho là họ vừa làm một điều rất vụng. Song Tử luôn bước nhanh chóng và họ không có thời gian để quan tâm đến những sai lầm đáng xấu hổ: Họ chỉ đơn giản là tiếp tục."
+		]
 	},
-	"3":
-	{
-		"name":"Cự Giải - Cancer",
-		"unicode":"♋︎",
-		"gloss":"Con cua",
-		"start":"21 tháng 6",
-		"end":"22 tháng 7",
-		"sao_hd":"Mặt Trăng",
-		"sao_cd":"Mặt Trăng",
-		"doilap":"Ma Kết",
-		"phamgia":"Mặt Trăng",
-		"batloi":"Sao Thổ",
-		"dacdia":"Sao Mộc",
-		"suythoai":"Sao Hỏa, Trái Đất"
+	"3": {
+		"name": "Cự Giải - Cancer",
+		"unicode": "♋︎",
+		"rule": "Dạ dày",
+		"personality": [
+			"Cự Giải thuộc cung Nước, thuộc nhóm Tiên phong. Được biểu hình như con cua, có khả năng di chuyển linh hoạt giữa biển và bờ, thể hiện khả năng tồn tại của Cự Giải trong cả hai thế giới cảm xúc và vật chất. Cự Giải có trực giác cao. Ví dụ Cự Giải có thể dễ dàng nhận ra được năng lượng trong một không gian. Vì vậy, họ rất nhạy cảm với môi môi trường và luôn dè chừng, bảo vệ bản thân mình. Giống như linh vật của họ, Cự Giải được bảo vệ bởi những vỏ cứng, bên ngoài. Ban đầu, Cự Giải có thể được coi là lạnh lùng. Nhưng theo thời gian, Cự Giải sẽ lộ rõ bản chất hiền lành, lòng trắc ẩn và khả năng huyền bí của họ. Đừng ngạc nhiên nếu bạn phải mất một thời gian để hiểu họ.",
+			"Cự Giải được cai trị bởi Mặt trăng, thiên thể biểu thị sự thoải mái, chăm sóc bản thân và khả năng chăm sóc. Vì vậy, Cự Giải có xu hướng hướng về gia đình. Họ thích tạo ra những không gian ấm cúng, an toàn, làm nơi trú ẩn của họ và dành nhiều thời gian ở đó. Cự Giải quan tâm sâu sắc đến gia đình và thường xuyên đảm nhận vai trò chăm sóc. Nhưng khi Cự Giải quan tâm ai quá mức, họ có nguy cơ làm nhòe đi ranh giới giữa việc nuôi dưỡng quan tâm và hành vi kiểm soát.",
+			"Cự Giải thu hút bạn bè và người yêu thông qua lòng trung thành, tin tưởng và cảm xúc sâu sắc của họ. Cự Giải biết cách an ủi người khác. Dù Cự Giải thường tránh xung đột trực tiếp bằng cách lơ đi, họ có thể dùng “càng” để “kẹp” một cái đau đớn thể hiện hành vi gây hấn thụ động đặc trưng của họ. Bạn có thể thấy khó khăn để thuyết phục một Cự Giải chia sẻ công khai về điều gì làm phiền họ. Nhưng nếu bạn có thể làm điều đó mà không làm họ cảm thấy bị đe dọa, bạn sẽ xây dựng được lòng tin bền lâu với Cự Giải."
+		]
 	},
-	"4":
-	{
-		"name":"Sư Tử - Leo",
-		"unicode":"♌︎",
-		"gloss":"Con sư tử",
-		"start":"23 tháng 7",
-		"end":"22 tháng 8",
-		"sao_hd":"Mặt Trời",
-		"sao_cd":"Mặt Trời",
-		"doilap":"Bảo Bình",
-		"phamgia":"Mặt Trời",
-		"batloi":"Sao Thổ",
-		"dacdia":"Trái Đất",
-		"suythoai":"Không có"
+	"4": {
+		"name": "Sư Tử - Leo",
+		"unicode": "♌︎",
+		"rule": "Tim",
+		"personality": [
+			"Hãy trải thảm đỏ ra, vì Sư Tử đã đến. Đúng như cái tên, Sư Tử được biểu hình như chúa sơn lâm. Sư Tử thuộc nhóm Lửa. Họ đặc biệt năng động, yêu nghệ thuật và đầy đam mê. Sư Tử thích tận hưởng ánh đèn sân khấu và ca ngợi bản thân. Sư Tử là những nhà lãnh đạo thiên phú, họ thích nuôi dưỡng tình bạn và tình yêu theo hướng lãng mạn và cảm hứng nghệ thuật. Sư Tử vui vẻ có thể chịu đựng những mối quan hệ lãng mạn và đầy kịch tính mà thực ra, họ khá thích chúng. Đa số Sư Tử đều tự coi mình là một ngôi sao nổi tiếng. Những người này không bao giờ chán những bữa tối xa xỉ, những bữa tiệc riêng tư, hay những trang phục thiết kế sang trọng.",
+			"Sư Tử được cai trị bởi Mặt trời, thiên thể rực rỡ chi phối sự sống. Mặt trời không bao giờ “xuống cấp”, và tương tự, Sư Tử đặc biệt với sự ổn định, trung thành và nhất quán của họ. Họ là những người bạn và người yêu tận tâm, luôn đặt trái tim vào mỗi mối quan hệ. Sư Tử yêu việc chứng kiến bạn đời của họ thành công - ít nhất là cho đến khi họ cảm thấy bị “đe dọa”. Họ có thể bị ảnh hưởng bởi cái tôi, lòng tự ái và ghen tuông khi họ bắt đầu sợ rằng ánh sáng của họ sẽ bị lu mờ. Điều quan trọng Sư Tử phải nhớ rằng, ánh sáng của họ không bao giờ bị che khuất bởi người khác, và ánh sáng rực rỡ của thành công của người khác không làm gì được cho ánh sáng của họ. Cái tôi của Sư Tử là mối đe dọa lớn nhất đối với hạnh phúc của họ.",
+			"Sư Tử thuộc nhóm Kiên định. Và họ đầy tham vọng và quyết tâm, nhưng trên hết, Sư Tử được ca ngợi vì lòng dũng cảm phi thường của họ. Những người lạc quan không sợ thất bại. Và Sư Tử sẽ cảm nhận được nguồn dũng khí sâu trong lòng đang lớn mạnh khi họ trưởng thành."
+		]
 	},
-	"5":
-	{
-		"name":"Xử Nữ - Virgo",
-		"unicode":"♍︎",
-		"gloss":"Người trinh nữ",
-		"start":"23 tháng 8",
-		"end":"22 tháng 9",
-		"sao_hd":"Sao Thủy",
-		"sao_cd":"Trái Đất",
-		"doilap":"Song Ngư",
-		"phamgia":"Sao Thủy, Trái Đất",
-		"batloi":"Sao Mộc",
-		"dacdia":"Sao Thủy",
-		"suythoai":"Sao Kim"
+	"5": {
+		"name": "Xử Nữ - Virgo",
+		"unicode": "♍︎",
+		"rule": "Ruột",
+		"personality": [
+			"Xử Nữ là một cung Đất, thuộc nhóm Linh hoạt. Xử Nữ được biểu hình như một người nữ thần. Xử Nữ là những người sống có logic, thực tế và có hệ thống trong cuộc sống. Xử Nữ là một người cầu toàn bẩm sinh và không ngại cải thiện kỹ năng thông qua việc luyện tập chăm chỉ. Xử Nữ đặc biệt nhạy cảm với các nguyên liệu tạo nên một cái gì đó hoàn chỉnh, có thể là trong ẩm thực hoặc những thứ khác. Họ rất ý thức về từng chi tiết.",
+			"Xử Nữ được cai trị bởi sao Thủy, hành tinh của giao tiếp. Mặc dù sao Thủy cũng cai trị Song Tử, nhưng hai cung này hoàn toàn khác biệt: Song Tử biểu hiện cảm xúc bên ngoài, trong khi Xử Nữ thu vào bên trong. Xử Nữ xử lý thông tin như một máy tính, biến những luồng thông tin lộn xộn nhất thành những khái niệm có tổ chức, rõ ràng. Dù Xử Nữ mong muốn được tỉ mỉ trong mọi việc, họ phải nhớ rằng việc luôn theo đuổi sự hoàn hảo có thể gây hại khi cho bản thân hoặc người khác. Vẻ đẹp đôi khi len lõi giữa những khuyết điểm của chúng ta. Điều quan trọng là cần nhận ra và sửa chữa chúng.",
+			"Hơn hết, Xử Nữ muốn giúp đỡ. Họ là những người bạn và người yêu tốt bụng, dịu dàng và hỗ trợ, sử dụng trí tuệ và khả năng giải quyết vấn đề tuyệt vời của mình. Đối lập với Xử Nữ là Song Ngư - cung cấp sự hướng dẫn thông qua tâm linh, ngược lại Xử Nữ muốn trợ giúp ở mức thực tế. Xử Nữ luôn nỗ lực để cung cấp các giải pháp hiệu quả và cải thiện những khó khăn. Họ là những người làm việc có phương pháp, quyết tân và chăm chỉ, rất phù hợp làm giáo viên, bác sĩ, biên tập viên hay nhạc sĩ xuất sắc."
+		]
 	},
-	"6":
-	{
-		"name":"Thiên Bình - Libra",
-		"unicode":"♎︎",
-		"gloss":"Cán cân",
-		"start":"23 tháng 9",
-		"end":"23 tháng 10",
-		"sao_hd":"Sao Kim",
-		"sao_cd":"Sao Kim",
-		"doilap":"Bạch Dương",
-		"phamgia":"Sao Kim",
-		"batloi":"Sao Hỏa",
-		"dacdia":"Sao Thổ",
-		"suythoai":"Mặt Trời"
+	"6": {
+		"name": "Thiên Bình - Libra",
+		"unicode": "♎︎",
+		"rule": "Da",
+		"personality": [
+			"Thiên Bình thuộc cung khí, biểu hình như một một cái cân. Điều này cũng phản ánh Thiên Bình luôn mang trong mình sự cân bằng và hài hòa. Thiên Bình bị ám ảnh bởi sự đối xứng và cố gắng tạo ra trạng thái cân bằng trong mọi lĩnh vực của cuộc sống. Được cai trị bởi sao Kim – hành tinh chi phối tình yêu, sắc đẹp và tiền bạc, Thiên Bình nhạy cảm, yêu cái đẹp, nghệ thuật và trí tuệ. Thiên Bình có một gu thẩm mỹ tinh tế và khả năng phân tích sắc bén. Do đó, họ thường là những nhà thiết kế, trang trí, nhà phê bình nghệ thuật và nhà tạo mẫu xuất sắc.",
+			"Thiên Bình tượng trưng cho “cái ta chung”, ngược lại với “cái tôi cá nhân”. Tạo dựng mối quan hệ là điều rất đỗi quan trọng đối với các Thiên Bình. Họ thích hợp tác với những người có cùng sở thích, gu thẩm mỹ và thời trang. ",
+			"Thiên Bình luôn cố gắng làm hài lòng mọi người. Vì vậy, đôi khi họ có thể làm phiền lòng những người ở cạnh. Thiên Bình cần nhớ rằng hạnh phúc của những người thân yêu và chất lượng các mối quan hệ của họ quan trọng hơn việc tập trung vào sự chú ý của những người xa lạ.",
+			"Thiên Bình thuộc nhóm Tiên phong, vì vậy họ rất giỏi trong việc đưa ra các sáng kiến mới lạ. Tuy nhiên, Thiên Bình thường xem xét kĩ lưỡng nhiều góc nhìn của một vấn đề, họ thiếu quyết đoán và khó đưa ra sự lựa chọn. Thay vì việc luôn nghe theo những quan điểm của người khác, Thiên Bình thường tin tưởng và làm theo trực giác của họ. Thiên Bình có khả năng giải quyết hầu hết các xung đột một cách bình tĩnh."
+		]
 	},
-	"7":
-	{
-		"name":"Thiên Yết - Scorpio",
-		"unicode":"♏︎",
-		"gloss":"Con bọ cạp",
-		"start":"23 tháng 10",
-		"end":"22 tháng 11",
-		"sao_hd":"Sao Diêm Vương",
-		"sao_cd":"Sao Hỏa",
-		"doilap":"Kim Ngưu",
-		"phamgia":"Sao Hỏa",
-		"batloi":"Sao Kim",
-		"dacdia":"Không có",
-		"suythoai":"Mặt Trăng"
+	"7": {
+		"name": "Thiên Yết - Scorpio",
+		"unicode": "♏︎",
+		"rule": "Cơ quan sinh dục",
+		"personality": [
+			"Bọ Cạp là một cung khó hiểu nhất trong 12 cung hoàng đạo. Bọ Cạp được biểu hình như một con bọ cạp! Bọ Cạp thường xuyên bị nhầm là thuộc cung lửa vì sự đam mê mãnh liệt và sức mạnh phi thường của họ. Thực tế, Bọ Cạp thuộc cung nước. Tương tự các cung nước khác, Bọ Cạp có trực giác tốt và khả năng dự đoán trước được kết quả. Bọ Cạp được cai trị bởi sao Diêm Vương, hành tinh cai trị cả sự hủy diệt và biến đổi.",
+			"Đặc trưng của loài bọ cạp là nọc độc nó. Giống như linh vật hoàng đạo của họ, những người thuộc cung Bọ Cạp luôn rình rập và tấn công khi kẻ thù không ngờ tới. Cuộc sống là một ván cờ đối với Bọ Cạp. Họ sẽ luôn tính toán, lên kế hoạch kĩ càng để có thể “chiếu tướng hết cờ” một cách đầy thuyết phục. Và tất nhiên, không phải ván cờ nào cũng là sự trả thù, không phải dự định nào của họ đều xấu xa cả! Bọ Cạp biết họ muốn gì và sẵn sàng làm việc chăm chỉ và bền bỉ để đạt được mục tiêu đó.",
+			"Họ không bao giờ để lộ ý định của bản thân và sự bí ẩn vốn có đó là điều làm cho Bọ Cạp đầy quyến rũ và mê hoặc. Bọ Cạp là cung hoàng đạo có liên quan chặt chẽ nhất với tình dục. Tình dục không chỉ là niềm vui cho Bọ Cạp, bên cạnh sự gần gũi về thể xác, tình dục còn mang lại sự soi sáng về tinh thần và sự kết nối cảm xúc.",
+			"Bọ Cạp thuộc nhóm Kiên định. Bọ Cạp có khát khao kiểm soát không ngừng. Họ phải nhớ rằng nếu họ để cái tôi kiểm soát tâm trí, họ sẽ tự “chích độc” bản thân. Bọ Cạp luôn trân trọng những mối quan hệ sâu sắc và chân thành. Mặc dù có bề ngoài lạnh lùng, cứng cáp, nhưng thực ra họ rất dễ gần, tận tâm và sẵn lòng giúp đỡ người khác. Nếu bạn đối tốt với họ, chắc chắn những người này sẽ gắn bó với bạn suốt đời."
+		]
 	},
-	"8":
-	{
-		"name":"Nhân Mã - Sagittarius",
-		"unicode":"♐︎",
-		"gloss":"Một nhân mã đang giương cung tên",
-		"start":"23 tháng 11",
-		"end":"21 tháng 12",
-		"sao_hd":"Sao Mộc",
-		"sao_cd":"Sao Mộc",
-		"doilap":"Song Tử",
-		"phamgia":"Sao Mộc",
-		"batloi":"Sao Thủy",
-		"dacdia":"Không có",
-		"suythoai":"Không có"
+	"8": {
+		"name": "Nhân Mã - Sagittarius",
+		"unicode": "♐︎",
+		"rule": "Đùi",
+		"personality": [
+			"Nhân Mã là cung Lửa cuối cùng. Họ là những người gan dạ. Điều làm cho Nhân Mã trở nên độc đáo là sự kết hợp động lực, sự tò mò, sự mãnh liệt và khả năng thích ứng. Được biểu hình như một cung thủ (nhân mã - nửa người, nửa ngựa), Nhân Mã không sợ dùng cung tên của mình để khám phá những vùng đất rộng lớn, tìm kiếm câu trả lời ở những nơi chưa ai đặt chân tới.",
+			"Nhân Mã thuộc nhóm Linh hoạt, điều đó diễn giải cho khả năng thích ứng và sự linh hoạt của họ, phản ánh hoàn hảo mong muốn thay đổi sâu rộng của họ. Nhân Mã sinh ra để khám phá và quan trọng là họ phải có sự tự do. Được thôi thúc bởi niềm say mê du ngoạn, Nhân Mã có thể được tìm thấy ở mọi ngóc ngách của thế giới. Nhân Mã luôn luôn đi trên con đường tìm kiếm tri thức, điều này khiến họ trở thành những người kể chuyện hay những người sáng tạo tuyệt vời. Nhân Mã nổi tiếng với sự thẳng thắn đặc trưng của mình, và thường dẫn đến những hiểu lầm, sự suy sụp trong giao tiếp và rất nhiều tổn thương. Tuy nhiên, Nhân Mã không coi bất cứ điều gì quá nghiêm túc, vì vậy rất khó để giận dỗi với những người này.",
+			"Hành tinh cai trị của Nhân Mã là sao Mộc, hành tinh của sự dồi dào. Khẩu hiệu của cung này là: “Được ăn cả, ngã về không!”. Từ “đủ” không tồn tại trong từ điển của cung này. Khi Nhân Mã bị cuốn hút bởi một cái gì, họ dốc hết sức vào đó cho đến khi một cái gì khác thu hút sự chú ý của họ. Là một cung Linh hoạt, Nhân Mã không hứng thú với điều gì quá lâu; những người này có rất nhiều đam mê và sở thích, họ liên tục nhảy từ một ý tưởng sang một ý tưởng khác!"
+		]
 	},
-	"9":
-	{
-		"name":"Ma Kết - Capricorn",
-		"unicode":"♑︎",
-		"gloss":"Con dê biển",
-		"start":"22 tháng 12",
-		"end":"19 tháng 1",
-		"sao_hd":"Sao Thổ",
-		"sao_cd":"Sao Thổ",
-		"doilap":"Cự Giải",
-		"phamgia":"Sao Thổ",
-		"batloi":"Mặt Trăng",
-		"dacdia":"Sao Hỏa",
-		"suythoai":"Sao Mộc"
+	"9": {
+		"name": "Ma Kết - Capricorn",
+		"unicode": "♑︎",
+		"rule": "Đầu gối",
+		"gloss": "Con dê biển",
+		"personality": [
+			"Ma Kết là cung Đất cuối cùng trong 12 cung hoàng đạo, là một cung thuộc nhóm Tiên phong. Ma Kết thực sự độc đáo, có một điều gì đó khiến Ma Kết rất đặc biệt. Đó có thể là tham vọng cháy bỏng, khả năng phục hồi vô hạn, hoặc khả năng tiến bước, vượt lên những khó khăn thách thức. Ma Kết có sự hoang dã, nhưng luôn giữ bí mật về nó. Và hiếm ai được thấy sự nổi loạn của một Ma Kết. Mặc dù họ thường sẽ kiềm chế sự cuồng nhiệt này, nhưng thực ra Ma Kết rất ưa tiệc tùng.",
+			"Cung Ma Kết được biểu hình như con dê biển, một sinh vật thần thoại với thân của một con dê và đuôi của một con cá. Hình ảnh này nói lên khả năng phân chia của Ma Kết: họ làm chủ và cân bằng cả hai mặt vật chất và cảm xúc. Họ leo lên những đỉnh núi cao nhất, đồng thời xây dựng sức mạnh tâm linh của mình.",
+			"Ma Kết rất kiên trì: họ quyết tâm vượt qua mọi thứ trước mắt. Họ có mục tiêu lớn, dài hạn và tuyệt đối không muốn bị nhiễu loạn bởi những chi tiết dư thừa. Tuy nhiên, vì sự kiên định của họ, họ trông lạnh lùng, không cảm xúc hoặc thậm chí là tàn nhẫn - nhưng đó là do Ma Kết có lập trường vững vàng. Nếu điều gì đó không giúp ích cho tương lai, Ma Kết đã không quan tâm đến nó ở hiện tại.",
+			"Ma Kết được cai trị bởi Sao Thổ. Với sự bao bọc của các vành đai, Sao Thổ là hành tinh liên quan đến các nhiệm vụ, quy tắc, trách nhiệm và thời gian. Nhờ vậy, họ là người đúng giờ và có khả năng quản lí thời gian tốt. Bên cạnh đó, Ma Kết nhận ra rằng cuộc sống rất ngắn ngủi, vì vậy, họ luôn chạy đua với thời gian. Có rất nhiều điều Ma Kết muốn đạt được và hoàn thành trong cuộc đời này. Ma Kết là người chủ động, họ luôn thúc đẩy các dự án mới. Và đặc biệt hơn, họ thường là người nảy ra các ý tưởng mới lạ."
+		]
 	},
-	"10":
-	{
-		"name":"Bảo Bình - Aquarius",
-		"unicode":"♒︎",
-		"gloss":"Người mang nước",
-		"start":"20 tháng 1",
-		"end":"18 tháng 2",
-		"sao_hd":"Sao Thiên Vương",
-		"sao_cd":"Sao Thổ",
-		"doilap":"Sư Tử",
-		"phamgia":"Sao Thổ",
-		"batloi":"Mặt Trời",
-		"dacdia":"Không có",
-		"suythoai":"Không có"
+	"10": {
+		"name": "Bảo Bình - Aquarius",
+		"unicode": "♒︎",
+		"rule": "Mắt cá",
+		"personality": [
+			"Bảo Bình là cung thứ 11 trong Hoàng Đạo, thuộc nhóm Cố định. Bảo Bình chính là cung Khí cuối cùng. Họ là những người tiến bộ, nổi loạn và nhân văn nhất. Là một cung Khí, Bảo Bình thông minh, có tính tò mò và hiểu biết sâu sắc xã hội. Họ như những người cầm bình nước, đổ xuống dòng chảy của cảm hứng, để sự sống được sinh sôi, sự chữa lành được nhân rộng và hy vọng được nảy nở.",
+			"Bảo Bình liên kết chặt chẽ với tính cộng đồng. Họ sẽ là những người liên kết trong khi làm việc nhóm. Bảo Bình luôn mong sự “tốt hơn” và họ quyết tâm tạo ra sự khác biệt mạnh mẽ trên thế giới.",
+			"Bảo Bình được cai trị bởi sao Thiên Vương, hành tinh của sự đổi mới, công nghệ và các sự kiện bất ngờ, phản ánh hoàn toàn tính cách đặc biệt của Bảo Bình. Họ là những người có tầm nhìn, là những chiến lược gia sáng giá. Bảo Bình có chí lớn, nhưng họ thường quên đi những người xung quanh. Họ thường quá tập trung vào việc “đổi mới” mọi nơi, nhưng lại bỏ quên gia đình và bạn bè, khiến họ trở nên xa cách các mối quan hệ. Bảo Bình cần nhớ rằng, sự tiến bộ luôn bắt nguồn từ những điều nhỏ nhặt nhất. Và hãy luôn lan tỏa sự đồng cảm, lòng trắc ẩn bất cứ khi nào có thể."
+		]
 	},
-	"11":
-	{
-		"name":"Song Ngư - Pisces",
-		"unicode":"♓︎",
-		"gloss":"Đôi cá",
-		"start":"19 tháng 2",
-		"end":"20 tháng 3",
-		"sao_hd":"Sao Hải Vương",
-		"sao_cd":"Sao Mộc",
-		"doilap":"Song Ngư",
-		"phamgia":"Sao Mộc",
-		"batloi":"Sao Thủy",
-		"dacdia":"Sao Kim",
-		"suythoai":"Sao Thủy"
+	"11": {
+		"name": "Song Ngư - Pisces",
+		"unicode": "♓︎",
+		"rule": "Bàn chân",
+		"personality": [
+			"Song Ngư thuộc cung nước, là cung cuối cùng trong Hoàng Đạo. Biểu hình như hai con cá đang bơi ngược nhau, điều nói lên sự luân phiên trong tâm trí Song Ngư về thực tại và tưởng tượng. Là cung cuối cùng, Song Ngư có được các bài học: niềm vui, nỗi buồn, hy vọng và sợ hãi của các cung phía trước. Điều này khiến Song Ngư là người tinh tế, nhạy cảm, đồng cảm và từ bi nhất trong vòng Hoàng Đạo. Vì vậy, Song Ngư dễ dàng bị chi phối bởi cảm xúc. Hãy nhớ giữ vững lập trường về lĩnh vực vật chất.",
+			"Song Ngư được cai trị bởi sao Hải Vương, thiên thể chi phối sự sáng tạo và ước mơ, vì thế Song Ngư luôn muốn khám phá trí tưởng tượng vô biên của bản thân.",
+			"Song Ngư thường giải quyết các vấn đề dưới một lăng kính màu hồng, vì vậy họ thường mang tiếng ảo tưởng. Song Ngư cũng cần nhớ rằng vấn đề không thể giải quyết nếu chỉ “bơi đi”. Cố ý không để tâm không bao giờ khiến xung đột biến mất mà chỉ khiến nó có cơ hội phát triển thêm.",
+			"Song Ngư thuộc nhóm Linh hoạt. Điều đó giải thích cho việc Song Ngư rất dễ dàng thích nghi với mọi thứ xung quanh. Song Ngư có thị giác tốt, vì vậy họ thường là những người nghệ sĩ và nhà sáng tạo tài ba. Họ tốt bụng và rất nhẹ nhàng. Họ yêu âm nhạc và sự lãng mạn. Song Ngư khi yêu rất cuồng nhiệt, họ đắm chìm trong tình yêu mà bỏ qua lí trí. Vì vậy, họ cần cân bằng giữa con tim và lí trí."
+		]
 	}
 }
