@@ -70,10 +70,7 @@ wheat.on('guildCreate', async (guild) => {
 wheat.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
-    const d = new Date();
-    // console.log('receive', interaction.id, interaction.commandName, d.toString());
-
-    if (process.env.NODE_ENV === 'dev' || process.env.ADMIN === 'true') {
+    if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
         const allowUsers = ['687301490238554160', '735665530500808755'];
         if (!allowUsers.includes(interaction.member.id)) return;
     }
@@ -158,7 +155,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 wheat.on('messageCreate', async (message) => {
     if (message.channel.type === "dm") return;
 
-    if (process.env.NODE_ENV === 'dev' || process.env.ADMIN === 'true') {
+    if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
         const allowUsers = ['687301490238554160', '735665530500808755'];
         if (!allowUsers.includes(message.author.id)) return;
     }
@@ -270,4 +267,4 @@ wheat.on('messageCreate', async (message) => {
     }
 });
 
-wheat.login((process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test' ? process.env.TOKEN : process.env.TOKEN2));
+wheat.login((process.env.NODE_ENV === 'dev' ? process.env.TOKEN : process.env.TOKEN2));

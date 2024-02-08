@@ -1,17 +1,10 @@
 const bot = require('wheat-better-cmd');
-require('dotenv').config({ path: 'secret.env' });
-const { Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
+const { Message, ChatInputCommandInteraction, Client } = require('discord.js');
 
 const help = {
     name: "shard",
     group: "utility",
-    aliases: [],
-    data: new SlashCommandBuilder()
-        .addNumberOption(option =>
-            option.setName('shardId')
-                .setDescription(`[0,${process.env.shards})`)
-                .setRequired(false)
-        )
+    aliases: ['shards'],
 };
 
 /**
@@ -19,12 +12,42 @@ const help = {
  * @param {String[]} obj.S
  * @param {Message} obj.message
  * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Client} obj.wheat
  */
 
-const run = async ({ args, message, interaction, lg }) => {
+const run = async ({ wheat, message, interaction, lg }) => {
+    message ||= interaction;
+
+    const shardList = await wheat.shard.broadcastEval(subWheat => {
+        const moment = require('moment');
+        const uptime = moment.duration(subWheat.uptime, 'milliseconds');
+        let uptimeString = "";
+        if (Math.floor(uptime.asDays()) !== 0) uptimeString += ` ${Math.floor(uptime.asDays())}d${Math.floor(uptime.asDays()) === 1 ? '' : 's'}`;
+        if (Math.floor(uptime.asHours()) !== 0) uptimeString += ` ${Math.floor(uptime.asHours()) % 24}h${Math.floor(uptime.asHours()) === 1 ? '' : 's'}`;
+        if (Math.floor(uptime.asMinutes()) !== 0) uptimeString += ` ${Math.floor(uptime.asMinutes()) % 60}min${Math.floor(uptime.asMinutes()) === 1 ? '' : 's'}`;
+        if (Math.floor(uptime.asSeconds()) !== 0) uptimeString += ` ${Math.floor(uptime.asSeconds()) % 60}sec${Math.floor(uptime.asSeconds()) === 1 ? '' : 's'}`;
+
+        return {
+            guilds: subWheat.guilds.cache.size,
+            uptime: uptimeString
+        }
+    });
+
     const embed = bot.wheatSampleEmbedGenerate();
+    embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
+    embed.setTitle('Shard list');
+
+    for (let i = 0; i < shardList.length; i++) {
+        embed.addFields({
+            name: `Shard ${i}`,
+            value: `Guilds: ${shardList[i].guilds}\nUptime: ${shardList[i].uptime}`,
+            inline: true
+        });
+    }
+
+    await bot.wheatEmbedAttachFilesSend(message, [embed]);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;
