@@ -2,7 +2,7 @@ const { ShardingManager } = require('discord.js');
 require('dotenv').config({ path: 'secret.env' });
 
 const manager = new ShardingManager('./mainbot.js', {
-    totalShards: (process.env.NODE_ENV === 'dev' ? 2 : Number(process.env.shards)),
+    totalShards: (process.env.NODE_ENV === 'dev' ? 1 : Number(process.env.shards)),
     respawn: true
 });
 
