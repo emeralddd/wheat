@@ -1,4 +1,5 @@
 const bot = require('wheat-better-cmd');
+const databaseManager = require('../../modules/databaseManager');
 const { AttachmentBuilder, Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
 
 const help = {
@@ -24,7 +25,18 @@ const run = async ({ message, interaction, args, lg }) => {
 	const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json');
 
 	const randomCard = tarotMeaning[Math.floor(Math.random() * 78) + 1];
-	const reversed = (args ? ((args.length > 1 && args[1] === 'r') ? true : false) : (interaction.options.getBoolean('reversed') || false));
+
+	const memberId = message.member.id;
+	const find = databaseManager.getMember(memberId);
+
+	let reverseByDefault = false;
+
+	if (find && find.tarotReverseDefault) {
+		reverseByDefault = true;
+	}
+
+	const reversed = reverseByDefault || (args ? ((args.length > 1 && args[1] === 'r') ? true : false) : (interaction.options.getBoolean('reversed') || false));
+
 	const type = (reversed ? Math.floor(Math.random() * 2) : 1);
 
 	const embed = bot.wheatSampleEmbedGenerate();

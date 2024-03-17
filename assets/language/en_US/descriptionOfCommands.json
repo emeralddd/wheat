@@ -229,6 +229,12 @@
             "syntax": " [all/command 1/group command 1] [all/command 2/group command 2] ...",
             "desc": "Enable commands/group commands at the current channel",
             "note": "If use `all`, all the commands can be used at the current channel!"
+        },
+        {
+            "name": "tarotdefault",
+            "syntax": " [true/false]",
+            "desc": "Use reverse Tarot card by default",
+            "note": "Type `true` to use reverse Tarot card by default."
         }
     ],
     "utility": [

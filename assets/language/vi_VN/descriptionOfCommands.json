@@ -229,6 +229,12 @@
             "syntax": " [all/lệnh 1/nhóm lệnh 1] [all/lệnh 2/nhóm lệnh 2] ...",
             "desc": "Bật lệnh/nhóm lệnh tại kênh hiện tại",
             "note": "Nếu nhập all, tất cả lệnh sẽ được sử dụng trong kênh đó!"
+        },
+        {
+            "name": "tarotdefault",
+            "syntax": " [true/false]",
+            "desc": "Áp dụng cả lá bài ngược khi bốc bài Tarot",
+            "note": "Nhập true để thêm lá bài ngược theo mặc định."
         }
     ],
     "utility": [
