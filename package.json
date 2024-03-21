@@ -1,6 +1,6 @@
 {
   "name": "wheat",
-  "version": "3.3.5",
+  "version": "3.3.6",
   "description": "wheatbot",
   "main": "index.js",
   "scripts": {
@@ -13,8 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^1.1.0",
+    "@napi-rs/canvas": "^0.1.51",
     "axios": "^1.4.0",
-    "canvas": "^2.9.3",
     "discord-api-types": "^0.37.53",
     "discord.js": "^14.12.1",
     "dotenv": "^16.3.1",
