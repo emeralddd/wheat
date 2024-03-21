@@ -4,7 +4,7 @@ require('dotenv').config({ path: 'secret.env' });
 module.exports = async () => {
     try {
         mongo.set("strictQuery", false);
-        mongo.connect(`mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster0.${process.env.DBHOST}.mongodb.net/client?retryWrites=true&w=majority`, {
+        mongo.connect(process.env.DBURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }, () => {
