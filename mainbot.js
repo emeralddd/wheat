@@ -82,6 +82,13 @@ wheat.on(Events.InteractionCreate, async interaction => {
         const guildId = interaction.guildId;
         const channelId = interaction.channelId;
 
+        if (!guildId) {
+            await interaction.editReply({
+                content: `Slash Command qua DM sẽ được hoạt động trong tương lai!`
+            });
+            return;
+        }
+
         let prefix = process.env.PREFIX;
         let lang = process.env.CODE;
 
