@@ -11,8 +11,8 @@
         {
             "name": "tarot",
             "syntax": " [r]",
-            "desc": "Chọn ngẫu nhiên 1 lá bài từ bộ Rider Waite Tarot và đưa ra ý nghĩa!\nThêm kí tự `r` phía sau lệnh để chọn cả lá ngược.",
-            "note": ""
+            "desc": "Chọn ngẫu nhiên 1 lá bài từ bộ Rider Waite Tarot và đưa ra ý nghĩa!",
+            "note": "Thêm kí tự `r` phía sau lệnh để chọn cả lá ngược."
         },
         {
             "name": "numerology",
@@ -291,6 +291,12 @@
             "syntax": " <xâu>",
             "desc": "Tạo một mã QR từ xâu nhập vào",
             "note": "Độ dài của xâu nhập vào phải là một số nguyên dương có độ dài nhỏ hơn 1600!"
+        },
+        {
+            "name": "shard",
+            "syntax": "",
+            "desc": "Xem shard của bot",
+            "note": ""
         },
         {
             "name": "support",

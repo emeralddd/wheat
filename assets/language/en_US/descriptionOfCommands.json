@@ -11,8 +11,8 @@
         {
             "name": "tarot",
             "syntax": " [r]",
-            "desc": "Pick a random card from Rider Waite Tarot and give meaning!\nType letter `r` to add the reverse cards.",
-            "note": ""
+            "desc": "Pick a random card from Rider Waite Tarot and give meaning!",
+            "note": "Type letter `r` to add the reverse cards."
         },
         {
             "name": "numerology",
@@ -291,6 +291,12 @@
             "syntax": " <string>",
             "desc": "Generate a QRCode",
             "note": "String's length must be a positive number and less than 1600!"
+        },
+        {
+            "name": "shard",
+            "syntax": "",
+            "desc": "View shards of bot",
+            "note": ""
         },
         {
             "name": "support",
