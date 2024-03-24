@@ -71,7 +71,10 @@ wheat.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
-        const allowUsers = ['687301490238554160', '735665530500808755'];
+
+        const allowUsers = ['687301490238554160'];
+
+        if (!interaction.member) return;
         if (!allowUsers.includes(interaction.member.id)) return;
     }
 
@@ -163,7 +166,7 @@ wheat.on('messageCreate', async (message) => {
     if (message.channel.type === "dm") return;
 
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
-        const allowUsers = ['687301490238554160', '735665530500808755'];
+        const allowUsers = ['687301490238554160'];
         if (!allowUsers.includes(message.author.id)) return;
     }
 

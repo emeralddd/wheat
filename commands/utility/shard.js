@@ -45,6 +45,10 @@ const run = async ({ wheat, message, interaction, lg }) => {
         });
     }
 
+    embed.setFooter({
+        text: `From shard ${wheat.shard.ids[0]}!`
+    });
+
     await bot.wheatEmbedAttachFilesSend(message, [embed]);
 }
 
