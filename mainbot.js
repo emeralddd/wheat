@@ -29,6 +29,7 @@ const importLanguage = require('./modules/importLanguage');
 const addCommands = require('./modules/addCommands');
 const connectDatabase = require('./modules/connectDatabase');
 const rateLimiter = require('./modules/rateLimiter');
+const { Request } = require('./structure/Request');
 
 let isInitial = false;
 
@@ -74,6 +75,8 @@ wheat.on(Events.InteractionCreate, async interaction => {
         const allowUsers = ['687301490238554160', '735665530500808755'];
         if (!allowUsers.includes(interaction.member.id)) return;
     }
+
+    const request = new Request(interaction, true);
 
     try {
         await interaction.deferReply();
@@ -132,6 +135,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
             command.run({
                 wheat,
+                request,
                 interaction,
                 helpMenu,
                 groupMenu,
@@ -160,6 +164,7 @@ wheat.on('messageCreate', async (message) => {
         if (!allowUsers.includes(message.author.id)) return;
     }
 
+    const request = new Request(message, false);
 
     try {
         const msg = message.content;
@@ -233,6 +238,7 @@ wheat.on('messageCreate', async (message) => {
             try {
                 await command.run({
                     wheat,
+                    request,
                     S,
                     message,
                     msg,
