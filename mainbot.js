@@ -4,7 +4,7 @@ const { Collection, Client, GatewayIntentBits, ActivityType, Events } = require(
 const databaseManager = require('./modules/databaseManager');
 const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
-const announcement = require('./announcement.json');
+let announcement = require('./announcement.json');
 
 const wheat = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent], presence: {
@@ -173,6 +173,10 @@ wheat.on('messageCreate', async (message) => {
         const channelId = message.channel.id;
 
         if (!msg) return;
+
+        if (memberId === '687301490238554160' && msg === 'ereload') {
+            announcement = require('./announcement.json');
+        }
 
         let prefix = process.env.PREFIX;
         let lang = process.env.CODE;
