@@ -22,7 +22,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ message, interaction, args, lg, language }) => {
+const run = async ({ wheat, message, interaction, args, lg, language }) => {
     message ||= interaction;
     const embed = bot.wheatSampleEmbedGenerate();
     const memberId = message.member.id;
@@ -58,13 +58,19 @@ const run = async ({ message, interaction, args, lg, language }) => {
 
     try {
         if (find) {
-            await databaseManager.updateMember(memberId, {
-                tarotReverseDefault: (args[1] === 'true')
-            });
+            const fnc = eval(`async(sub) => {
+                const databaseManager = require('../../../../modules/databaseManager');
+                await databaseManager.updateMember('${memberId}',{tarotReverseDefault:${(args[1] === 'true')}},sub.shard.ids[0]===${wheat.shard.ids[0]});
+            }`);
+
+            await wheat.shard.broadcastEval(fnc);
         } else {
-            await databaseManager.newMember(memberId, {
-                tarotReverseDefault: (args[1] === 'true')
-            });
+            const fnc = eval(`async(sub) => {
+                const databaseManager = require('../../../../modules/databaseManager');
+                await databaseManager.newMember('${memberId}',{tarotReverseDefault:${(args[1] === 'true')}},sub.shard.ids[0]===${wheat.shard.ids[0]});
+            }`);
+
+            await wheat.shard.broadcastEval(fnc);
         }
 
         embed.setTitle(lg.main.successExecution);

@@ -20,13 +20,15 @@ module.exports.getServer = (serverId) => {
     return {};
 }
 
-module.exports.updateMember = async (memberId, newData) => {
+module.exports.updateMember = async (memberId, newData, toDatabase) => {
     try {
-        await member.findOneAndUpdate(
-            { id: memberId },
-            newData,
-            { new: true }
-        );
+        if (toDatabase) {
+            await member.findOneAndUpdate(
+                { id: memberId },
+                newData,
+                { new: true }
+            );
+        }
 
         members[memberId] = {
             ...members[memberId],
@@ -54,14 +56,16 @@ module.exports.updateServer = async (serverId, newData) => {
     }
 }
 
-module.exports.newMember = async (memberId, newData) => {
+module.exports.newMember = async (memberId, newData, toDatabase) => {
     try {
-        const newMember = new member({
-            id: memberId,
-            ...newData
-        });
+        if (toDatabase) {
+            const newMember = new member({
+                id: memberId,
+                ...newData
+            });
 
-        await newMember.save();
+            await newMember.save();
+        }
 
         members[memberId] = newData;
     } catch (err) {
