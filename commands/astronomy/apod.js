@@ -3,6 +3,7 @@ const bot = require('wheat-better-cmd');
 const axios = require('axios').default;
 require('dotenv').config({ path: 'secret.env' });
 const moment = require('moment');
+const { Request } = require('../../structure/Request');
 
 const help = {
     name: "apod",
@@ -18,28 +19,26 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
+ * @param {Request} obj.request
  * @param {ChatInputCommandInteraction} obj.interaction
  */
 
-const run = async ({ message, interaction, args, lg }) => {
-    const date = (args ? args[1] : interaction.options.getString('date')) || moment().subtract(1, 'days').format('DD/MM/YYYY');
-
-    message = message || interaction;
+const run = async ({ request, args, lg }) => {
+    const date = (request.isMessage ? args[1] : request.interaction.options.getString('date')) || moment().subtract(1, 'days').format('DD/MM/YYYY');
 
     const mmt = moment(date, 'DD/MM/YYYY', true);
     if (!mmt.isValid()) {
-        await bot.wheatSendErrorMessage(message, lg.error.formatError);
+        await request.reply(lg.error.formatError);
         return;
     }
 
     if (mmt.isBefore('1995-06-16')) {
-        await bot.wheatSendErrorMessage(message, lg.error.dateAfterApod);
+        await request.reply(lg.error.dateAfterApod);
         return;
     }
 
     if (mmt.isAfter(moment().subtract(1, 'days'))) {
-        await bot.wheatSendErrorMessage(message, lg.error.dateOverApod);
+        await request.reply(lg.error.dateOverApod);
         return;
     }
 
@@ -52,7 +51,7 @@ const run = async ({ message, interaction, args, lg }) => {
     }).then(res => {
         // console.log(res.data);
         if (!res.data.title) {
-            bot.wheatSendErrorMessage(message, lg.error.undefinedError);
+            request.reply(lg.error.undefinedError);
             return;
         }
 
@@ -64,13 +63,13 @@ const run = async ({ message, interaction, args, lg }) => {
         embed.setImage(res.data.url);
         embed.setDescription(res.data.explanation);
 
-        bot.wheatEmbedSend(message, [embed]);
+        request.reply({ embeds: [embed] });
     }).catch(error => {
         // console.log(err);
         if (error.code === 'ECONNABORTED') {
-            bot.wheatSendErrorMessage(message, lg.error.nasaApodTakeTooLong);
+            request.reply(lg.error.nasaApodTakeTooLong);
         } else {
-            bot.wheatSendErrorMessage(message, lg.error.undefinedError);
+            request.reply(lg.error.undefinedError);
         }
     });
 }
