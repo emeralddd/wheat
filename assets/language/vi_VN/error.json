@@ -18,5 +18,5 @@
     "dateAfterApod": "Ngày nhập không được trước ngày 16/6/1995!",
     "dateOverApod": "Ngày nhập không được sau ngày hôm qua!",
     "nasaApodTakeTooLong": "Hệ thống API APOD của NASA đang gặp lỗi! Vui lòng thử lại sau!",
-    "undefinedError": "Đã có lỗi trong quá trình thực thi, vui lòng thử lại sau!"
+    "undefinedError": "Đã có lỗi trong quá trình thực thi! Vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!"
 }

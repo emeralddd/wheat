@@ -18,5 +18,5 @@
     "dateAfterApod": "The date must not be before June 16, 1995!",
     "dateOverApod": "The date must not be after yesterday!",
     "nasaApodTakeTooLong": "APOD API of NASA has ran into some troubles! Please try again later!",
-    "undefinedError": "Undefined error, try again later!"
+    "undefinedError": "Undefined error! Please report this at support server and try again later!"
 }
