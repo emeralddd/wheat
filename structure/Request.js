@@ -38,21 +38,31 @@
 
         message -> Message
         interaction -> ChatInput
-
+        
+        language -> 
 
 */
 
 //2. Các method với Request
 
 const { Snowflake, TextBasedChannel, User, ChatInputCommandInteraction, Message, Guild, GuildMember, MessagePayload, MessageCreateOptions, RESTJSONErrorCodes, InteractionEditReplyOptions, InteractionReplyOptions } = require('discord.js');
+const importLanguage = require('../modules/importLanguage');
+
+const textList = importLanguage(['vi_VN', 'en_US']);
 
 class Request {
-    constructor(source, type) {
+    constructor(source, language, type) {
         /**
          * This request is Interaction?
          * @type {boolean}
          */
         this.isInteraction = type;
+
+        /**
+         * This request is Message?
+         * @type {boolean}
+         */
+        this.isMessage = type ^ 1;
 
         /**
          * The author of the request
@@ -72,6 +82,12 @@ class Request {
          */
 
         this.message = type ? null : source;
+
+        /**
+         * The language
+         * @type {String}
+         */
+        this.language = (language === 'vi_VN' || language === 'en_US') ? language : 'vi_VN';
 
         /**
          * The channel of request
@@ -129,11 +145,11 @@ class Request {
     async errorHandle(error = {}) {
         if (error.code === RESTJSONErrorCodes.MissingPermissions) {
             try {
-                await this.channel.send("Bot bị thiếu 1 trong các quyền `SEND_MESSAGES`, `EMBED_LINKS` hoặc `ATTACH_FILES`!");
+                await this.channel.send(textList[this.language].error.botMissingPermissions);
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
                     try {
-                        await this.channel.send("Bot bị thiếu 1 trong các quyền `SEND_MESSAGES`, `EMBED_LINKS` hoặc `ATTACH_FILES`!");
+                        await this.channel.send(textList[this.language].error.botMissingPermissions);
                     } catch (e) {
                         if (e.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
                             return;
@@ -145,9 +161,9 @@ class Request {
             console.log(error);
             try {
                 if (this.isInteraction) {
-                    await this.editReply("Đã có lỗi trong quá trình thực thi, vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!");
+                    await this.editReply(textList[this.language].error.undefinedError);
                 } else {
-                    await this.channel.send("Đã có lỗi trong quá trình thực thi, vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!");
+                    await this.channel.send(textList[this.language].error.undefinedError);
                 }
             } catch (err) {
                 console.log(err);

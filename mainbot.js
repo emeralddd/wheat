@@ -79,7 +79,6 @@ wheat.on(Events.InteractionCreate, async interaction => {
         if (!allowUsers.includes(interaction.member.id)) return;
     }
 
-    const request = new Request(interaction, true);
 
     try {
         await interaction.deferReply();
@@ -113,6 +112,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
         }
 
         const lg = language[lang];
+        const request = new Request(interaction, lang, true);
 
         const executeCommand = interaction.commandName;
 
@@ -174,8 +174,6 @@ wheat.on('messageCreate', async (message) => {
         if (!allowUsers.includes(message.author.id)) return;
     }
 
-    const request = new Request(message, false);
-
     try {
         const msg = message.content;
         const memberId = message.author.id;
@@ -207,6 +205,8 @@ wheat.on('messageCreate', async (message) => {
         }
 
         const lg = language[lang];
+
+        const request = new Request(message, lang, false);
 
         if (msg === '<@786234973308715008>') {
             await bot.wheatSend(message, `${language[lang].main.myPrefix}: **${prefix}**`);
