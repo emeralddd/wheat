@@ -1,0 +1,11 @@
+{
+    "version": "24TwentyFiveNA",
+    "before": "24EighteenBA",
+    "gen": "Wheat 3",
+    "date": "25/05/2024",
+    "release": "3.4.11",
+    "add": [
+        "<DEV> Sử dụng Request thay cho Message & Interation thông thường - Using Request for handle message & interation"
+    ],
+    "remove": []
+}
