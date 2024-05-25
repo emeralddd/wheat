@@ -1,11 +1,12 @@
-const {Client, Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
-const bot = require('wheat-better-cmd')
+const { Client, SlashCommandBuilder } = require('discord.js');
+const bot = require('wheat-better-cmd');
+const { Request } = require('../../structure/Request');
 
 const help = {
-    name:"avatar",
-    group:"utility",
-    aliases: ["ava","daidien"],
-    rate:1500,
+    name: "avatar",
+    group: "utility",
+    aliases: ["ava", "daidien"],
+    rate: 1500,
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')
@@ -16,33 +17,30 @@ const help = {
 /**
  * @param {object} obj
  * @param {Client} obj.wheat
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat, message, interaction, args, lg}) => {
-    const embed = bot.wheatSampleEmbedGenerate()
+const run = async ({ wheat, request, args, lg }) => {
+    const embed = bot.wheatSampleEmbedGenerate();
 
     try {
-        message||=interaction
-        
-        const USER = (args?await bot.wheatGetUserByIdOrMention(wheat,args[1],message.member.id):interaction.options.getUser('user')||interaction.user)
-        
-        if(!USER) {
-            await bot.wheatSend(message, lg.error.notFoundThatUser)
-            return
+        const USER = (request.isMessage ? await bot.wheatGetUserByIdOrMention(wheat, args[1], request.member.id) : request.interaction.options.getUser('user') || request.author);
+
+        if (!USER) {
+            await request.reply(lg.error.notFoundThatUser);
+            return;
         }
-        
-        embed.setAuthor({name:`${USER.username}#${USER.discriminator}`,iconURL:USER.avatarURL()})
-        embed.setImage(`${USER.avatarURL()}?size=1024`)
-        await bot.wheatEmbedSend(message,[embed])
+
+        embed.setAuthor({ name: `${USER.username}`, iconURL: USER.avatarURL() });
+        embed.setImage(`${USER.avatarURL()}?size=1024`);
+        await request.reply({ embeds: [embed] });
     } catch (error) {
-        await bot.wheatSend(message, lg.error.notFoundThatUser)
-        return
+        await request.reply(lg.error.notFoundThatUser);
+        return;
     }
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;
