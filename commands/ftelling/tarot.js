@@ -1,6 +1,7 @@
 const bot = require('wheat-better-cmd');
 const databaseManager = require('../../modules/databaseManager');
-const { AttachmentBuilder, Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
+const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
+const { Request } = require('../../structure/Request');
 
 const help = {
 	name: "tarot",
@@ -16,31 +17,40 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message 
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request 
  */
 
-const run = async ({ message, interaction, args, lg }) => {
-	message = message || interaction;
+const run = async ({ request, args, lg }) => {
 	const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json');
 
 	const randomCard = tarotMeaning[Math.floor(Math.random() * 78) + 1];
 
-	const memberId = message.member.id;
+	const memberId = request.member.id;
+
+	let reversed = false;
+
 	const find = databaseManager.getMember(memberId);
-
-	let reverseByDefault = false;
-
 	if (find && find.tarotReverseDefault) {
-		reverseByDefault = true;
+		reversed = true;
 	}
 
-	const reversed = reverseByDefault || (args ? ((args.length > 1 && args[1] === 'r') ? true : false) : (interaction.options.getBoolean('reversed') || false));
+	//r: reversed
+	//nr: no reverse
+
+	if (request.isMessage ? (args.length > 1) : request.interaction.options.getBoolean('reversed') !== null) {
+		if (request.isInteraction ? request.interaction.options.getBoolean('reversed') : args[1] === 'r') {
+			reversed = true;
+		}
+
+		if (request.isInteraction ? !request.interaction.options.getBoolean('reversed') : args[1] === 'nr') {
+			reversed = false;
+		}
+	}
 
 	const type = (reversed ? Math.floor(Math.random() * 2) : 1);
 
 	const embed = bot.wheatSampleEmbedGenerate();
-	embed.setAuthor({ name: `⁘ ${message.member.displayName}, ${lg.fortune.yourTarotCardIs} ...` });
+	embed.setAuthor({ name: `⁘ ${request.member.displayName}, ${lg.fortune.yourTarotCardIs} ...` });
 	embed.setTitle(`<a:t_v3:1140505323438874664> ** ${randomCard.name} ${reversed ? (type ? 'xuôi' : 'ngược') : ''}!**`);
 	embed.setDescription(randomCard.type === '1' ? lg.fortune.majorArcana : lg.fortune.minorArcana);
 
@@ -67,7 +77,7 @@ const run = async ({ message, interaction, args, lg }) => {
 
 	const attachment = new AttachmentBuilder(`./assets/image/tarotImage/${type ? 'u' : 'r'}/${randomCard.image}`, randomCard.image);
 	embed.setImage(`attachment://${randomCard.image}`);
-	bot.wheatEmbedAttachFilesSend(message, [embed], [attachment]);
+	request.reply({ embeds: [embed], files: [attachment] });
 }
 
 module.exports.run = run;
