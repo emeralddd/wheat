@@ -1,11 +1,12 @@
-const bot = require('wheat-better-cmd')
-const {AttachmentBuilder, Message, ChatInputCommandInteraction, SlashCommandBuilder} = require('discord.js');
-const moment = require('moment')
+const bot = require('wheat-better-cmd');
+const { SlashCommandBuilder } = require('discord.js');
+const moment = require('moment');
+const { Request } = require('../../structure/Request');
 
 const help = {
-    name:"rtime",
-    group:"random",
-    aliases: ["randomtime","ngaunhiengio","timebetween"],
+    name: "rtime",
+    group: "random",
+    aliases: ["randomtime", "ngaunhiengio", "timebetween"],
     data: new SlashCommandBuilder()
         .addSubcommand(subcommand =>
             subcommand
@@ -17,7 +18,7 @@ const help = {
                 .setName('1option')
                 .setDescription('random from 00:00 to time chosen')
                 .addStringOption(option =>
-                    option.setName('time')
+                    option.setName('lasttime')
                         .setDescription('<hh:mm>, from 00:00 to 23:59')
                         .setRequired(true)
                 )
@@ -41,61 +42,60 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({message,interaction,args,lg}) => {
-    let first,last
+const run = async ({ request, args, lg }) => {
+    let first, last;
 
-    if(message) {
-        if(args.length===1) {
-            first = 0
-            last = Date.now()
-        } else if(args.length===2) {
-            first = moment(`00:00 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
-            last = moment(`${args[1]} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
-        } else if(args.length===3) {
-            first = moment(`${args[1]} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
-            last = moment(`${args[2]} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
+    if (request.isMessage) {
+        if (args.length === 1) {
+            first = 0;
+            last = Date.now();
+        } else if (args.length === 2) {
+            first = moment(`00:00 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
+            last = moment(`${args[1]} 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
+        } else if (args.length === 3) {
+            first = moment(`${args[1]} 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
+            last = moment(`${args[2]} 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
         } else {
-            await bot.wheatSendErrorMessage(message,lg.error.formatError)
-            return
+            await request.reply(lg.error.formatError);
+            return;
         }
     } else {
-        if(interaction.options.getSubcommand()==='default') {
-            first=0
-            last=Date.now()
+        const subcommand = request.interaction.options.getSubcommand(false);
+
+        if (subcommand === 'default') {
+            first = 0;
+            last = Date.now();
+        }
+        if (subcommand === '1option') {
+            first = moment(`00:00 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
+            last = moment(`${request.interaction.options.getString('lasttime')} 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
         }
 
-        if(interaction.options.getSubcommand()==='1option') {
-            first = moment(`00:00 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
-            last = moment(`${interaction.options.getString('lastdate')} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
+        if (subcommand === '2options') {
+            first = moment(`${request.interaction.options.getString('firsttime')} 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
+            last = moment(`${request.interaction.options.getString('lasttime')} 05/01/1970`, 'HH:mm DD/MM/YYYY', true).unix();
         }
 
-        if(interaction.options.getSubcommand()==='2options') {
-            first = moment(`${interaction.options.getString('firstdate')} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
-            last = moment(`${interaction.options.getString('lastdate')} 05/01/1970`,'HH:mm DD/MM/YYYY',true).unix()
-        }
     }
 
-    message||=interaction
-
-    if((!first&&first!=0)||(!last&&last!=0)) {
-        await bot.wheatSendErrorMessage(message,lg.error.formatError)
-        return 
-    }
-    
-    if(first>last) {
-        await bot.wheatSendErrorMessage(message,lg.error.startMustBeBeforeEnd)
-        return
+    if ((!first && first != 0) || (!last && last != 0)) {
+        await request.reply(lg.error.formatError);
+        return;
     }
 
-    const choose = bot.wheatRandomNumberBetween(first,last)
-    await bot.wheatSend(message,`${lg.random.randomTime}: ${moment.unix(choose).format("hh:mm")}`)
+    if (first > last) {
+        await request.reply(lg.error.startMustBeBeforeEnd);
+        return;
+    }
+
+    const choose = bot.wheatRandomNumberBetween(first, last);
+    await request.reply(`${lg.random.randomTime}: ${moment.unix(choose).format("HH:mm")}`);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;
