@@ -138,6 +138,8 @@ class Request {
         this.member = source.member;
     }
 
+    lastReply = null;
+
     /**
      * Handle error.
      */
@@ -179,7 +181,7 @@ class Request {
 
     async reply(options) {
         try {
-            return this.isInteraction ? await this.interaction.editReply(options) : await this.channel.send(options);
+            return this.lastReply = this.isInteraction ? await this.interaction.editReply(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
         }
@@ -193,7 +195,7 @@ class Request {
 
     async follow(options) {
         try {
-            return this.isInteraction ? await this.interaction.followUp(options) : await this.channel.send(options);
+            return this.lastReply = this.isInteraction ? await this.interaction.followUp(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
         }
@@ -207,7 +209,7 @@ class Request {
 
     async edit(options) {
         try {
-            return this.isInteraction ? await this.interaction.editReply(options) : await this.message.edit(options);
+            return this.isInteraction ? await this.interaction.editReply(options) : await this.lastReply.edit(options);
         } catch (error) {
             await this.errorHandle(error);
         }
@@ -222,13 +224,12 @@ class Request {
             if (this.isInteraction) {
                 await this.interaction.deleteReply();
             } else {
-                await this.message.delete();
+                await this.lastReply.delete();
             }
         } catch (error) {
             await this.errorHandle(error);
         }
     }
-
 }
 
 exports.Request = Request;

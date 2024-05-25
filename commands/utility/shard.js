@@ -1,5 +1,6 @@
 const bot = require('wheat-better-cmd');
-const { Message, ChatInputCommandInteraction, Client } = require('discord.js');
+const { Client } = require('discord.js');
+const { Request } = require('../../structure/Request');
 
 const help = {
     name: "shard",
@@ -10,14 +11,11 @@ const help = {
 /**
  * @param {object} obj
  * @param {String[]} obj.S
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {Client} obj.wheat
  */
 
-const run = async ({ wheat, message, interaction, lg }) => {
-    message ||= interaction;
-
+const run = async ({ wheat, request, lg }) => {
     const shardList = await wheat.shard.broadcastEval(subWheat => {
         const moment = require('moment');
         const uptime = moment.duration(subWheat.uptime, 'milliseconds');
@@ -49,7 +47,7 @@ const run = async ({ wheat, message, interaction, lg }) => {
         text: `From shard ${wheat.shard.ids[0]}!`
     });
 
-    await bot.wheatEmbedAttachFilesSend(message, [embed]);
+    await request.reply({ embeds: [embed] });
 }
 
 module.exports.run = run;

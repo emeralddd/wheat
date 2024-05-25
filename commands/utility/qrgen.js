@@ -1,11 +1,12 @@
-const bot = require('wheat-better-cmd')
-const qrcode = require('qrcode')
-const { AttachmentBuilder, Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
+const bot = require('wheat-better-cmd');
+const qrcode = require('qrcode');
+const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
+const { Request } = require('../../structure/Request');
 
 const help = {
-    name:"qrgen",
-    group:"utility",
-    aliases: ["taoqr","qrgenerator","qr"],
+    name: "qrgen",
+    group: "utility",
+    aliases: ["taoqr", "qrgenerator", "qr"],
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('content')
@@ -17,58 +18,55 @@ const help = {
 /**
  * @param {object} obj
  * @param {String[]} obj.S
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
+
  */
 
-const run = async ({S, message, interaction, lg}) => {
-    const embed = bot.wheatSampleEmbedGenerate()
-    
-    let content=""
+const run = async ({ S, request, lg }) => {
+    const embed = bot.wheatSampleEmbedGenerate();
 
-    if(message) {
-        let block=true
-        // console.log(S)
-        for(let i=0; i<S.length; i++) {
-            if(S[i]!==''&&block) {
-                block=false
-                continue
+    let content = "";
+
+    if (request.isMessage) {
+        let block = true;
+        for (let i = 0; i < S.length; i++) {
+            if (S[i] !== '' && block) {
+                block = false;
+                continue;
             }
-            if(!block) {
-                content+=S[i]+" "
+            if (!block) {
+                content += S[i] + " ";
             }
         }
 
-        content = content.trimStart().trimEnd()
+        content = content.trimStart().trimEnd();
     } else {
-        content=interaction.options.getString('content')
+        content = request.interaction.options.getString('content');
     }
 
-    message||=interaction
-    
-    if(content.length===0) {
-        await bot.wheatSendErrorMessage(message,lg.error.missingData)
-        return
+    if (content.length === 0) {
+        await request.reply(lg.error.missingData);
+        return;
     }
 
-    if(content.length>1600) {
-        await bot.wheatSendErrorMessage(message,lg.error.wrongQrLength)
-        return
+    if (content.length > 1600) {
+        await request.reply(lg.error.wrongQrLength);
+        return;
     }
 
-    qrcode.toBuffer(content,async (err,buffer) => {
-        if(err) {
-            await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
-            return
+    qrcode.toBuffer(content, async (err, buffer) => {
+        if (err) {
+            await request.reply(lg.error.undefinedError);
+            return;
         }
-        const attachment = new AttachmentBuilder(buffer,{name:'qr.png'})
-        embed.setImage('attachment://qr.png')
-        embed.setTitle(lg.main.successExecution)
-        embed.setDescription(content)
-        await bot.wheatEmbedAttachFilesSend(message,[embed],[attachment])
-    })
+        const attachment = new AttachmentBuilder(buffer, { name: 'qr.png' });
+        embed.setImage('attachment://qr.png');
+        embed.setTitle(lg.main.successExecution);
+        embed.setDescription(content);
+        await request.reply({ embeds: [embed], files: [attachment] });
+    });
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

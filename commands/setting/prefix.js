@@ -1,12 +1,13 @@
-const bot = require('wheat-better-cmd')
-const { Message, PermissionsBitField, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
-const databaseManager = require('../../modules/databaseManager')
+const bot = require('wheat-better-cmd');
+const { PermissionsBitField, SlashCommandBuilder } = require('discord.js');
+const databaseManager = require('../../modules/databaseManager');
+const { Request } = require('../../structure/Request');
 
 const help = {
-    name:"prefix",
-    group:"setting",
+    name: "prefix",
+    group: "setting",
     aliases: ["pf"],
-    rate:3000,
+    rate: 3000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('prefix')
@@ -19,59 +20,56 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({message,interaction,args,lg}) => {
-    const embed = bot.wheatSampleEmbedGenerate()
-    if(message) {
-        const perm = message.member.permissions
-        if(!(perm.has(PermissionsBitField.Flags.Administrator)||perm.has(PermissionsBitField.Flags.ManageGuild)))  {
-            await bot.wheatSendErrorMessage(message,lg.error.missingPermission)
-            return
+const run = async ({ request, args, lg }) => {
+    const embed = bot.wheatSampleEmbedGenerate();
+    if (request.isMessage) {
+        const perm = request.member.permissions;
+        if (!(perm.has(PermissionsBitField.Flags.Administrator) || perm.has(PermissionsBitField.Flags.ManageGuild))) {
+            await request.reply(lg.error.missingPermission);
+            return;
         }
-        
-        if(!args[1]) {
-            await bot.wheatSendErrorMessage(message,lg.error.missingNewPrefix)
-            return
+
+        if (!args[1]) {
+            await request.reply(lg.error.missingNewPrefix);
+            return;
         }
-        if(args[1].length>32) {
-            await bot.wheatSendErrorMessage(message,lg.error.wrongPrefix)
-            return
+        if (args[1].length > 32) {
+            await request.reply(lg.error.wrongPrefix);
+            return;
         }
     } else {
-        args=['']
-        if(interaction.options.getString('prefix')) args.push(interaction.options.getString('prefix'))
+        args = [''];
+        if (request.interaction.options.getString('prefix')) args.push(request.interaction.options.getString('prefix'));
     }
 
-    message||=interaction
-
-    const guildid=message.guild.id
+    const guildid = request.guildId;
 
     try {
-        const find = databaseManager.getServer(guildid)
+        const find = databaseManager.getServer(guildid);
 
-        if(find) {
-            await databaseManager.updateServer(guildid,{
-                prefix:args[1]
-            })
+        if (find) {
+            await databaseManager.updateServer(guildid, {
+                prefix: args[1]
+            });
         } else {
-            await databaseManager.newServer(guildid,{
-                prefix:args[1]
-            })
+            await databaseManager.newServer(guildid, {
+                prefix: args[1]
+            });
         }
-        
-        embed.setTitle(lg.main.successExecution)
-        embed.setDescription(`${lg.main.changePrefixTo} **`+args[1]+`**`)
-        await bot.wheatEmbedSend(message,[embed])
-    } catch(error) {
-        console.log(error)
-        await bot.wheatSendErrorMessage(message,lg.error.undefinedError)
+
+        embed.setTitle(lg.main.successExecution);
+        embed.setDescription(`${lg.main.changePrefixTo} **` + args[1] + `**`);
+        await request.reply({ embeds: [embed] });
+    } catch (error) {
+        console.log(error);
+        await request.reply(lg.error.undefinedError);
     }
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

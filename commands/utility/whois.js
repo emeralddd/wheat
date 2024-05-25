@@ -1,12 +1,13 @@
-const bot = require('wheat-better-cmd')
-const moment = require('moment')
-const { Message, Client, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
+const bot = require('wheat-better-cmd');
+const moment = require('moment');
+const { Client, SlashCommandBuilder } = require('discord.js');
+const { Request } = require('../../structure/Request');
 
 const help = {
-    name:"whois",
-    group:"utility",
-    aliases: ["timnguoi","findinfo","aila"],
-    rate:1500,
+    name: "whois",
+    group: "utility",
+    aliases: ["timnguoi", "findinfo", "aila"],
+    rate: 1500,
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')
@@ -17,33 +18,28 @@ const help = {
 /**
  * @param {object} obj
  * @param {Client} obj.wheat
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({wheat, message, interaction, args, lg}) => {
-    const embed = bot.wheatSampleEmbedGenerate()
+const run = async ({ wheat, request, args, lg }) => {
+    const embed = bot.wheatSampleEmbedGenerate();
 
     try {
-        message||=interaction
-        
-        const USER = (args?await bot.wheatGetUserByIdOrMention(wheat,args[1],message.member.id):interaction.options.getUser('user')||interaction.user)
-        
-        if(!USER) {
-            await bot.wheatSend(message, lg.error.notFoundThatUser)
-            return
+        const USER = (request.isMessage ? await bot.wheatGetUserByIdOrMention(wheat, args[1], request.member.id) : request.interaction.options.getUser('user') || request.author);
+
+        if (!USER) {
+            await request.reply(lg.error.notFoundThatUser);
+            return;
         }
 
-        message||=interaction
-
-        const MEMBER = await message.guild.members.fetch(USER.id)
-        embed.setThumbnail(`${USER.avatarURL()}?size=1024`)
-        embed.setAuthor({name:`${USER.username}#${USER.discriminator}`})
-        embed.setTitle(`${lg.main.whoIs} ${USER.username}?`)
-        embed.setColor(MEMBER.displayHexColor)
-        let roleList = ""
-        MEMBER.roles.cache.each(role => roleList+=`<@&${role.id}> `)
+        const MEMBER = await request.guild.members.fetch(USER.id);
+        embed.setThumbnail(`${USER.avatarURL()}?size=1024`);
+        embed.setAuthor({ name: `${USER.username}#${USER.discriminator}` });
+        embed.setTitle(`${lg.main.whoIs} ${USER.username}?`);
+        embed.setColor(MEMBER.displayHexColor);
+        let roleList = "";
+        MEMBER.roles.cache.each(role => roleList += `<@&${role.id}> `);
         embed.addFields(
             {
                 name: lg.main.displayName,
@@ -65,16 +61,16 @@ const run = async ({wheat, message, interaction, args, lg}) => {
                 name: lg.main.permissions,
                 value: String(MEMBER.permissions.toArray())
             }
-        )
+        );
 
-        await bot.wheatEmbedSend(message,[embed])
+        await request.reply({ embeds: [embed] });
     } catch (error) {
-        console.log(error)
-        await bot.wheatSend(message, lg.error.notFoundThatUser)
-        return
+        console.log(error);
+        await request.reply(lg.error.notFoundThatUser);
+        return;
     }
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

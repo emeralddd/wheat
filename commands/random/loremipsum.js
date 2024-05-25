@@ -1,34 +1,34 @@
-const { Message } = require('discord.js');
-const bot = require('wheat-better-cmd')
-const LoremIpsum = require("lorem-ipsum").LoremIpsum
+const { Request } = require("../../structure/Request");
+const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 
 const help = {
-    name:"loremipsum",
-    group:"random",
-    aliases: ["li","lorem","ipsum","dummy"]
+  name: "loremipsum",
+  group: "random",
+  aliases: ["li", "lorem", "ipsum", "dummy"]
 }
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
+ * @param {Request} obj.request
  */
 
-const run = async ({message,interaction}) => {
-  message=message||interaction
+const run = async ({ request }) => {
+
   const lorem = new LoremIpsum({
-      sentencesPerParagraph: {
-        max: 8,
-        min: 4
-      },
-      wordsPerSentence: {
-        max: 16,
-        min: 4
-      }
-  })
-  const loremstring = lorem.generateParagraphs(1)
-  await bot.wheatSend(message,loremstring)
+    sentencesPerParagraph: {
+      max: 8,
+      min: 4
+    },
+    wordsPerSentence: {
+      max: 16,
+      min: 4
+    }
+  });
+
+  const loremstring = lorem.generateParagraphs(1);
+  await request.reply(loremstring);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

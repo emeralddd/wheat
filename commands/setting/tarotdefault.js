@@ -1,6 +1,7 @@
 const bot = require('wheat-better-cmd');
-const { Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const databaseManager = require('../../modules/databaseManager');
+const { Request } = require('../../structure/Request');
 require('dotenv').config({ path: 'secret.env' });
 
 const help = {
@@ -17,21 +18,19 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({ wheat, message, interaction, args, lg, language }) => {
-    message ||= interaction;
+const run = async ({ wheat, request, args, lg }) => {
     const embed = bot.wheatSampleEmbedGenerate();
-    const memberId = message.member.id;
+    const memberId = request.member.id;
     const find = databaseManager.getMember(memberId);
 
-    if (interaction) {
+    if (request.isInteraction) {
         args = [''];
-        if (interaction.options.getBoolean('option') !== null) {
-            args.push(interaction.options.getBoolean('option') ? 'true' : 'false');
+        if (request.interaction.options.getBoolean('option') !== null) {
+            args.push(request.interaction.options.getBoolean('option') ? 'true' : 'false');
         }
     }
 
@@ -43,16 +42,16 @@ const run = async ({ wheat, message, interaction, args, lg, language }) => {
                 embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **${find.tarotReverseDefault ? `Có` : `Không`}**`);
             }
 
-            await bot.wheatEmbedSend(message, [embed]);
+            await request.reply({ embeds: [embed] });
         } catch (err) {
             console.log("tarotdefault 48:\n", err);
-            await bot.wheatSendErrorMessage(message, lg.error.undefinedError);
+            await request.reply(lg.error.undefinedError);
         }
         return;
     }
 
     if (args[1] !== 'true' && args[1] !== 'false') {
-        await bot.wheatSendErrorMessage(message, "Không có lựa chọn đó, chỉ có `true` hoặc `false`");
+        await request.reply("Không có lựa chọn đó, chỉ có `true` hoặc `false`");
         return;
     }
 
@@ -75,10 +74,10 @@ const run = async ({ wheat, message, interaction, args, lg, language }) => {
 
         embed.setTitle(lg.main.successExecution);
         embed.setDescription(`Đã đặt áp dụng cả lá bài ngược khi bốc bài Tarot thành **${args[1]}**`);
-        await bot.wheatEmbedSend(message, [embed]);
+        await request.reply({ embeds: [embed] });;
     } catch (error) {
         console.log("tarotdefault 74:\n", error);
-        await bot.wheatSendErrorMessage(message, lg.error.undefinedError);
+        await request.reply(lg.error.undefinedError);
     }
 }
 

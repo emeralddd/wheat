@@ -1,11 +1,12 @@
-const bot = require('wheat-better-cmd')
-const {Message, SlashCommandBuilder, ChatInputCommandInteraction} = require('discord.js');
-const moment = require('moment')
+const bot = require('wheat-better-cmd');
+const { SlashCommandBuilder } = require('discord.js');
+const moment = require('moment');
+const { Request } = require('../../structure/Request');
 
 const help = {
-    name:"rdate",
-    group:"random",
-    aliases: ["randomdate","ngaunhienngay","datebetween"],
+    name: "rdate",
+    group: "random",
+    aliases: ["randomdate", "ngaunhienngay", "datebetween"],
     data: new SlashCommandBuilder()
         .addSubcommand(subcommand =>
             subcommand
@@ -41,61 +42,59 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({message,interaction,args,lg}) => {
-    let first,last
+const run = async ({ request, args, lg }) => {
+    let first, last;
 
-    if(message) {
-        if(args.length===1) {
-            first = 0
-            last = Date.now()/1000
-        } else if(args.length===2) {
-            first = moment('01/01/1970','DD/MM/YYYY',true).unix()
-            last = moment(args[1],'DD/MM/YYYY',true).unix()
-        }else if(args.length===3) {
-            first = moment(args[1],'DD/MM/YYYY',true).unix()
-            last = moment(args[2],'DD/MM/YYYY',true).unix()
+    if (request.isMessage) {
+        if (args.length === 1) {
+            first = 0;
+            last = Date.now() / 1000;
+        } else if (args.length === 2) {
+            first = moment('01/01/1970', 'DD/MM/YYYY', true).unix();
+            last = moment(args[1], 'DD/MM/YYYY', true).unix();
+        } else if (args.length === 3) {
+            first = moment(args[1], 'DD/MM/YYYY', true).unix();
+            last = moment(args[2], 'DD/MM/YYYY', true).unix();
         } else {
-            await bot.wheatSendErrorMessage(message,lg.error.formatError)
-            return
+            await request.reply(lg.error.formatError);
+            return;
         }
     } else {
-        if(interaction.options.getSubcommand()==='default') {
-            first=0
-            last=Date.now()/1000
+        const subcommand = request.interaction.options.getSubcommand(false);
+        if (subcommand === 'default') {
+            first = 0;
+            last = Date.now() / 1000;
         }
 
-        if(interaction.options.getSubcommand()==='1option') {
-            first = moment('01/01/1970','DD/MM/YYYY',true).unix()
-            last = moment(interaction.options.getString('lastdate'),'DD/MM/YYYY',true).unix()
+        if (subcommand === '1option') {
+            first = moment('01/01/1970', 'DD/MM/YYYY', true).unix();
+            last = moment(request.interaction.options.getString('lastdate'), 'DD/MM/YYYY', true).unix();
         }
 
-        if(interaction.options.getSubcommand()==='2options') {
-            first = moment(interaction.options.getString('firstdate'),'DD/MM/YYYY',true).unix()
-            last = moment(interaction.options.getString('lastdate'),'DD/MM/YYYY',true).unix()
+        if (subcommand === '2options') {
+            first = moment(request.interaction.options.getString('firstdate'), 'DD/MM/YYYY', true).unix();
+            last = moment(request.interaction.options.getString('lastdate'), 'DD/MM/YYYY', true).unix();
         }
     }
 
-    message||=interaction
-
-    if((!first&&first!=0)||(!last&&last!=0)) {
-        await bot.wheatSendErrorMessage(message,lg.error.formatError)
-        return
-    }
-    
-    if(first>last) {
-        await bot.wheatSendErrorMessage(message,lg.error.startMustBeBeforeEnd)
-        return
+    if ((!first && first != 0) || (!last && last != 0)) {
+        await request.reply(lg.error.formatError);
+        return;
     }
 
-    const choose = bot.wheatRandomNumberBetween(first,last)
-    await bot.wheatSend(message,`${lg.random.randomDate}: ${moment.unix(choose).format("DD/MM/YYYY")}`)
+    if (first > last) {
+        await request.reply(lg.error.startMustBeBeforeEnd);
+        return;
+    }
+
+    const choose = bot.wheatRandomNumberBetween(first, last);
+    await request.reply(`${lg.random.randomDate}: ${moment.unix(choose).format("DD/MM/YYYY")}`);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

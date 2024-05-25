@@ -1,5 +1,5 @@
-const { Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
-const bot = require('wheat-better-cmd')
+const { SlashCommandBuilder } = require('discord.js');
+const { Request } = require('../../structure/Request');
 
 const help = {
 	name: "pick",
@@ -15,53 +15,49 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String} obj.msg
  * @param {String} obj.prefix
  */
 
-const run = async ({ message, interaction, msg, prefix, lg }) => {
-	let ls = ""
-
-	if (message) {
-		ls = msg.substring(prefix.length)
+const run = async ({ msg, request, prefix, lg }) => {
+	let ls = "";
+	if (request.isMessage) {
+		ls = msg.substring(prefix.length);
 		for (let i = 0; i < ls.length; i++) {
-			const now = ls[i] + ls[i + 1] + ls[i + 2] + ls[i + 3]
+			const now = ls[i] + ls[i + 1] + ls[i + 2] + ls[i + 3];
 			if (now.toUpperCase() === 'PICK') {
-				ls = ls.substring(i + 4)
-				break
+				ls = ls.substring(i + 4);
+				break;
 			}
 		}
 	} else {
-		ls = interaction.options.getString('choices')
+		ls = request.interaction.options.getString('choices');
 	}
 
-	message ||= interaction
+	ls += ',';
 
-	ls += ','
-
-	let temp = " "
-	let list = []
+	let temp = " ";
+	let list = [];
 
 	for (let i of ls) {
-		if (i !== ',') temp += i
+		if (i !== ',') temp += i;
 		else {
-			list.push(temp.trim())
-			temp = " "
+			list.push(temp.trim());
+			temp = " ";
 		}
 	}
 
 	if (list.length < 2) {
-		await bot.wheatSendErrorMessage(message, lg.error.atLeast2Options)
-		return
+		await request.reply(lg.error.atLeast2Options);
+		return;
 	}
 
-	let item = list[Math.floor(Math.random() * list.length)]
-	if (item === "") item = " "
-	await bot.wheatSend(message, `${lg.random.iPick}: **${item}**`)
+	let item = list[Math.floor(Math.random() * list.length)];
+	if (item === "") item = " ";
+	await request.reply(`${lg.random.iPick}: **${item}**`);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

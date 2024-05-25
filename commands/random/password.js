@@ -1,63 +1,60 @@
-const { Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
-const bot = require('wheat-better-cmd')
+const { SlashCommandBuilder } = require('discord.js');
+const bot = require('wheat-better-cmd');
+const { Request } = require('../../structure/Request');
 
 const help = {
-    name:"password",
-    group:"random",
-    aliases: ["pass","mk","passgen","autopass","taomk","matkhau"],
+    name: "password",
+    group: "random",
+    aliases: ["pass", "mk", "passgen", "autopass", "taomk", "matkhau"],
     data: new SlashCommandBuilder()
-    .addIntegerOption(option =>
-        option.setName('length')
-            .setMinValue(8)
-            .setMaxValue(100)
-            .setDescription('integer in [8,100]')
-            .setRequired(true)
-    )
+        .addIntegerOption(option =>
+            option.setName('length')
+                .setMinValue(8)
+                .setMaxValue(100)
+                .setDescription('integer in [8,100]')
+                .setRequired(true)
+        )
 }
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({message,interaction,args,lg}) => {
-    const len = Number(args?args[1]:interaction.options.getInteger('length'))
+const run = async ({ request, args, lg }) => {
+    const len = Number(request.isMessage ? args[1] : request.interaction.options.getInteger('length'));
 
-    message=message||interaction
-
-    if(!len) {
-        await bot.wheatSendErrorMessage(message,lg.error.passwordLengthError)
-        return 
-    }
-    if(len>100||len<8) {
-        await bot.wheatSendErrorMessage(message,lg.error.passwordLengthError)
-        return 
+    if (!len) {
+        await request.reply(lg.error.passwordLengthError);
+        return;
     }
 
-    const listSymbol=[33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,58,59,60,61,62,63,64,91,92,93,94,95,96,123,124,125,126]
-    let lower,upper,number,symbol,pass=[]
-    lower=upper=Math.floor(len/10*3)
-    number=Math.floor(len/5)
-    symbol=len-lower-upper-number 
-    while(lower--) {
-        pass.push(bot.wheatRandomNumberBetween(97,122))
-        pass.push(bot.wheatRandomNumberBetween(65,90))
+    if (len > 100 || len < 8) {
+        await request.reply(lg.error.passwordLengthError);
+        return;
     }
-    while(number--) {
-        pass.push(bot.wheatRandomNumberBetween(48,57))
+
+    const listSymbol = [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 58, 59, 60, 61, 62, 63, 64, 91, 92, 93, 94, 95, 96, 123, 124, 125, 126];
+    let lower, upper, number, symbol, pass = [];
+    lower = upper = Math.floor(len / 10 * 3);
+    number = Math.floor(len / 5);
+    symbol = len - lower - upper - number;
+    while (lower--) {
+        pass.push(bot.wheatRandomNumberBetween(97, 122));
+        pass.push(bot.wheatRandomNumberBetween(65, 90));
     }
-    while(symbol--) {
-        pass.push(bot.wheatRandomElementFromArray(listSymbol))
+    while (number--) {
+        pass.push(bot.wheatRandomNumberBetween(48, 57));
     }
-    //console.log(pass)
-    pass=bot.wheatShuffleArray(pass)
-    const str=String.fromCharCode.apply(null,pass)
-    //console.log(str)
-    await bot.wheatSend(message,`${lg.random.passwordIs}: ||${str}||`)
+    while (symbol--) {
+        pass.push(bot.wheatRandomElementFromArray(listSymbol));
+    }
+    pass = bot.wheatShuffleArray(pass);
+    const str = String.fromCharCode.apply(null, pass);
+    await request.reply(`${lg.random.passwordIs}: ||${str}||`);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

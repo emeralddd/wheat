@@ -1,4 +1,4 @@
-const { Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd');
 const axios = require('axios').default;
 require('dotenv').config({ path: 'secret.env' });
@@ -20,7 +20,6 @@ const help = {
 /**
  * @param {object} obj
  * @param {Request} obj.request
- * @param {ChatInputCommandInteraction} obj.interaction
  */
 
 const run = async ({ request, args, lg }) => {

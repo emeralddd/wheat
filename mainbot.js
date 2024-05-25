@@ -177,7 +177,7 @@ wheat.on('messageCreate', async (message) => {
     try {
         const msg = message.content;
         const memberId = message.author.id;
-        const guildId = message.guild.id;
+        const guildId = message.guildId;
         const channelId = message.channel.id;
 
         if (!msg) return;
@@ -209,7 +209,7 @@ wheat.on('messageCreate', async (message) => {
         const request = new Request(message, lang, false);
 
         if (msg === '<@786234973308715008>') {
-            await bot.wheatSend(message, `${language[lang].main.myPrefix}: **${prefix}**`);
+            await request.reply(`${language[lang].main.myPrefix}: **${prefix}**`);
             return;
         }
 
@@ -241,7 +241,7 @@ wheat.on('messageCreate', async (message) => {
             const status = rateLimiter.validate(memberId, executeCommand);
 
             if (status === 0) {
-                await bot.wheatSend(message, `${language[lang].main.rateLimit1} ${helpMenu[executeCommand].rate / 1000} ${language[lang].main.rateLimit2}`);
+                await request.reply(`${language[lang].main.rateLimit1} ${helpMenu[executeCommand].rate / 1000} ${language[lang].main.rateLimit2}`);
                 return;
             }
 
@@ -275,7 +275,7 @@ wheat.on('messageCreate', async (message) => {
                     const embed = bot.wheatSampleEmbedGenerate();
                     embed.setTitle(announcement.title);
                     embed.setDescription(announcement.description);
-                    await bot.wheatEmbedSend(message, [embed]);
+                    await request.reply({ embeds: [embed] });
                 }
 
             } catch (error) {

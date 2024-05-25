@@ -1,11 +1,12 @@
-const {Message, ChatInputCommandInteraction, SlashCommandBuilder} = require('discord.js');
-const {convertDuongAm} = require('../../modules/getLunarDate')
-const bot = require('wheat-better-cmd')
-const moment = require('moment')
- 
+const { SlashCommandBuilder } = require('discord.js');
+const { convertDuongAm } = require('../../modules/getLunarDate');
+const bot = require('wheat-better-cmd');
+const moment = require('moment');
+const { Request } = require('../../structure/Request');
+
 const help = {
-    name:"doingayduongam",
-    group:"ftelling",
+    name: "doingayduongam",
+    group: "ftelling",
     aliases: ["duongam"],
     data: new SlashCommandBuilder()
         .addStringOption(option =>
@@ -17,52 +18,48 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
 */
 
-const run = async ({message,interaction,args,lg,lang}) => {
-    const embed = bot.wheatSampleEmbedGenerate()
-    const date = args?args[1]:interaction.options.getString('date')
-    const mmt = moment(date,'DD/MM/YYYY',true)
+const run = async ({ request, args, lg, lang }) => {
+    const embed = bot.wheatSampleEmbedGenerate();
+    const date = request.isMessage ? args[1] : request.interaction.options.getString('date');
+    const mmt = moment(date, 'DD/MM/YYYY', true);
 
-    message = message || interaction
-
-    if(!mmt.isValid()) {
-        await bot.wheatSendErrorMessage(message,lg.error.formatError)
-        return
+    if (!mmt.isValid()) {
+        await request.reply(lg.error.formatError);
+        return;
     }
-    
-    const ngay = Number(mmt.format('DD'))
-    const thang = Number(mmt.format('MM'))
-    const nam = Number(mmt.format('YYYY'))
 
-    const lunar = convertDuongAm(ngay,thang,nam)
+    const ngay = Number(mmt.format('DD'));
+    const thang = Number(mmt.format('MM'));
+    const nam = Number(mmt.format('YYYY'));
 
-    const month = ["","January","February","March","April","May","June","July","August","September","October","November","December"]
+    const lunar = convertDuongAm(ngay, thang, nam);
 
-    const can = [lg.fortune.canh,lg.fortune.tan,lg.fortune.nham,lg.fortune.quy,lg.fortune.giap,lg.fortune.at,lg.fortune.binh,lg.fortune.dinh,lg.fortune.mau,lg.fortune.ky]
+    const month = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    const chi = [lg.fortune.than,lg.fortune.dau,lg.fortune.tuat,lg.fortune.hoi,lg.fortune.ti,lg.fortune.suu,lg.fortune.dan,lg.fortune.mao,lg.fortune.thin,lg.fortune.ty,lg.fortune.ngo,lg.fortune.vi]
+    const can = [lg.fortune.canh, lg.fortune.tan, lg.fortune.nham, lg.fortune.quy, lg.fortune.giap, lg.fortune.at, lg.fortune.binh, lg.fortune.dinh, lg.fortune.mau, lg.fortune.ky];
 
-    const rootDate = moment('06/07/2022','DD/MM/YYYY',true)
+    const chi = [lg.fortune.than, lg.fortune.dau, lg.fortune.tuat, lg.fortune.hoi, lg.fortune.ti, lg.fortune.suu, lg.fortune.dan, lg.fortune.mao, lg.fortune.thin, lg.fortune.ty, lg.fortune.ngo, lg.fortune.vi];
 
-    const dayBetween = rootDate.isBefore(mmt) ? mmt.diff(rootDate,'days')%60 : (60 - rootDate.diff(mmt,'days')%60)%60
+    const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
 
-    const lunarlongyear = can[lunar.year%10] + " " + chi[lunar.year%12]
-    const lunarlongday = can[dayBetween%10] + " " + chi[dayBetween%12]
-    const lunarlongmonth = can[(((lunar.year%5-1)*2+10)%10+lunar.month-1)%10] + " " + chi[(lunar.month+5)%12]
+    const dayBetween = rootDate.isBefore(mmt) ? mmt.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(mmt, 'days') % 60) % 60;
 
-    if(lang === 'vi_VN') {
-        embed.setDescription(`Dương lịch: **Ngày ${ngay} tháng ${thang} năm ${nam}**\nÂm lịch: **Ngày ${lunarlongday} tháng ${lunarlongmonth} năm ${lunarlongyear} (${lunar.day}/${lunar.month}/${lunar.year})**`)
-    } else if(lang === 'en_US') {
-        embed.setDescription(`Gregorian Calendar: **${month[thang]} ${ngay}, ${nam}**\nLunar Calendar: **${lunarlongday} day, ${lunarlongmonth} month, ${lunarlongyear} year (${month[lunar.month]} ${lunar.day}, ${lunar.year})**`)
+    const lunarlongyear = can[lunar.year % 10] + " " + chi[lunar.year % 12];
+    const lunarlongday = can[dayBetween % 10] + " " + chi[dayBetween % 12];
+    const lunarlongmonth = can[(((lunar.year % 5 - 1) * 2 + 10) % 10 + lunar.month - 1) % 10] + " " + chi[(lunar.month + 5) % 12];
+
+    if (lang === 'vi_VN') {
+        embed.setDescription(`Dương lịch: **Ngày ${ngay} tháng ${thang} năm ${nam}**\nÂm lịch: **Ngày ${lunarlongday} tháng ${lunarlongmonth} năm ${lunarlongyear} (${lunar.day}/${lunar.month}/${lunar.year})**`);
+    } else if (lang === 'en_US') {
+        embed.setDescription(`Gregorian Calendar: **${month[thang]} ${ngay}, ${nam}**\nLunar Calendar: **${lunarlongday} day, ${lunarlongmonth} month, ${lunarlongyear} year (${month[lunar.month]} ${lunar.day}, ${lunar.year})**`);
     }
-    
 
-    await bot.wheatEmbedSend(message,[embed])
+    request.reply({ embeds: [embed] });
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

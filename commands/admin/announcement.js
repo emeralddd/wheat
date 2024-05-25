@@ -1,16 +1,17 @@
-const { Client, Message } = require('discord.js');
+const { Client } = require('discord.js');
 const fs = require('fs');
-const bot = require('wheat-better-cmd')
+const bot = require('wheat-better-cmd');
+const { Request } = require('../../structure/Request');
 
 /**
  * @param {object} obj
  * @param {Client} obj.wheat
- * @param {Message} obj.message
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-module.exports.run = async ({ wheat, message, args }) => {
-    if (message.author.id !== '687301490238554160') return;
+module.exports.run = async ({ wheat, request, args }) => {
+    if (request.author.id !== '687301490238554160') return;
 
     const announcement = require('../../announcement.json');
 
@@ -26,7 +27,7 @@ module.exports.run = async ({ wheat, message, args }) => {
         const embed = bot.wheatSampleEmbedGenerate();
         embed.setTitle(announcement.title);
         embed.setDescription(announcement.description);
-        await bot.wheatEmbedSend(message, [embed]);
+        await request.reply({ embeds: [embed] });
         return;
     }
 

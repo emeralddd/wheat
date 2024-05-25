@@ -1,24 +1,21 @@
-const bot = require('wheat-better-cmd')
-const { ActionRowBuilder, ButtonBuilder, ButtonInteraction, Message, ButtonStyle } = require('discord.js');
+const bot = require('wheat-better-cmd');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 const help = {
-  name:"vote",
-  group:"utility",
-  aliases: ["topgg"]
+    name: "vote",
+    group: "utility",
+    aliases: ["topgg"]
 }
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
+ * @param {Message} obj.request
  */
 
-const run = async ({message,interaction}) => {
-    const embed = bot.wheatSampleEmbedGenerate(true)
-
-    message||=interaction
-
-    embed.setTitle(`VOTE cho Bot!`)
-    embed.setDescription(`Vote để ủng hộ thêm cho bot nha!!`)
+const run = async ({ request }) => {
+    const embed = bot.wheatSampleEmbedGenerate(true);
+    embed.setTitle(`VOTE cho Bot!`);
+    embed.setDescription(`Vote để ủng hộ thêm cho bot nha!!`);
     const link = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
@@ -26,10 +23,10 @@ const run = async ({message,interaction}) => {
                 .setStyle(ButtonStyle.Link)
                 .setURL('https://top.gg/bot/786234973308715008/vote')
                 .setEmoji('895593639449853962')
-        )
-    await bot.wheatEmbedButton(message,[embed],[link])
+        );
+    await request.reply({ embeds: [embed], components: [link] });
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

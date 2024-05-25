@@ -1,30 +1,24 @@
-const { Message } = require('discord.js');
-const bot = require('wheat-better-cmd')
+const { Request } = require("../../structure/Request");
 
 const help = {
-    name:"coinflip",
-    group:"random",
-    aliases: ["cf","coin","flip","xu","lat","latdongxu","latxu"]
+    name: "coinflip",
+    group: "random",
+    aliases: ["cf", "coin", "flip", "xu", "lat", "latdongxu", "latxu"]
 }
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
+ * @param {Request} obj.request
  */
 
-const run = async ({message,interaction,lg}) => {
-    message = message || interaction
-	const cf = Math.floor(Math.random()*1310)
-	const msg = await bot.wheatSend(message,lg.random.flipping)
+const run = async ({ request, lg }) => {
+    const cf = Math.floor(Math.random() * 1310);
+    await request.reply(lg.random.flipping);
     setTimeout(() => {
-        if(interaction) {
-            interaction.editReply(`${((cf&1)?lg.random.heads:lg.random.tails)}`)
-        } else {
-            msg.edit(`${((cf&1)?lg.random.heads:lg.random.tails)}`)
-        }
-    },2000) 
+        request.edit(`${((cf & 1) ? lg.random.heads : lg.random.tails)}`);
+    }, 2000);
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

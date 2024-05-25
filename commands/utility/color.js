@@ -1,6 +1,7 @@
-const { Client, Message, AttachmentBuilder, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
+const { Client, AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd');
 const { createCanvas } = require('@napi-rs/canvas');
+const { Request } = require('../../structure/Request');
 
 const help = {
     name: "color",
@@ -67,64 +68,61 @@ const help = {
 /**
  * @param {object} obj
  * @param {Client} obj.wheat
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({ message, interaction, args, lg }) => {
-    let code = message ? args[1] : null;
+const run = async ({ request, args, lg }) => {
+    let code = request.isMessage ? args[1] : null;
     let deccode = bot.wheatRandomNumberBetween(0, 16777215);
 
-    message ||= interaction;
-
-    if (code || (interaction && interaction.options.getSubcommand() !== 'random')) {
-        if ((interaction && interaction.options.getSubcommand() === 'rgb') || ((!interaction) && code.includes(','))) {
+    if (code || (request.isInteraction && request.interaction.options.getSubcommand() !== 'random')) {
+        if ((request.isInteraction && request.interaction.options.getSubcommand() === 'rgb') || ((!request.isInteraction) && code.includes(','))) {
             let red, green, blue;
-            if (interaction) {
-                red = interaction.options.getInteger('red');
-                green = interaction.options.getInteger('green');
-                blue = interaction.options.getInteger('blue');
+            if (request.isInteraction) {
+                red = request.interaction.options.getInteger('red');
+                green = request.interaction.options.getInteger('green');
+                blue = request.interaction.options.getInteger('blue');
             } else {
                 const rgb = code.split(',');
                 red = Number(rgb[0]);
                 green = Number(rgb[1]);
                 blue = Number(rgb[2]);
                 if (!red || !green || !blue) {
-                    await bot.wheatSendErrorMessage(message, lg.error.wrongColorCode);
+                    await request.reply(lg.error.wrongColorCode);
                     return;
                 }
                 if (0 > red || red > 255 || 0 > green || green > 255 || 0 > blue || blue > 255) {
-                    await bot.wheatSendErrorMessage(message, lg.error.wrongColorCode);
+                    await request.reply(lg.error.wrongColorCode);
                     return;
                 }
             }
 
             deccode = red * 65536 + green * 256 + blue;
         } else {
-            if (interaction) {
-                code = interaction.options.getString('hex') || interaction.options.getInteger('int');
+            if (request.isInteraction) {
+                code = request.interaction.options.getString('hex') || request.interaction.options.getInteger('int');
             }
 
             if ((!Number.isInteger(code)) && (code[0] === '#' || code.startsWith('0x'))) {
                 if (code[0] === '#' && code.length != 7) {
-                    await bot.wheatSendErrorMessage(message, lg.error.wrongColorCode);
+                    await request.reply(lg.error.wrongColorCode);
                     return;
                 }
                 const int = parseInt(code[0] === '#' ? '0x' + code.substr(1, 6) : code, 16);
                 if (!int) {
-                    await bot.wheatSendErrorMessage(message, lg.error.wrongColorCode);
+                    await request.reply(lg.error.wrongColorCode);
                     return;
                 }
                 deccode = int;
             } else {
                 const int = Number(code);
                 if (!int) {
-                    await bot.wheatSendErrorMessage(message, lg.error.wrongColorCode);
+                    await request.reply(lg.error.wrongColorCode);
                     return;
                 }
                 if (int < 0 || int > 16777215) {
-                    await bot.wheatSendErrorMessage(message, lg.error.wrongColorCode);
+                    await request.reply(lg.error.wrongColorCode);
                     return;
                 }
                 deccode = int;
@@ -147,7 +145,7 @@ const run = async ({ message, interaction, args, lg }) => {
     embed.setTitle(`🎨 ${lg.main.colorCode}: #${hexa}`);
     embed.setDescription(`HEXA: **#${hexa}**\nDEC: **${deccode}**\nRGB: **(${red},${green},${blue})**`);
     embed.setThumbnail(`attachment://${hexa}.png`);
-    await bot.wheatEmbedAttachFilesSend(message, [embed], [attachment]);
+    await request.reply({ embeds: [embed], files: [attachment] });
 }
 
 module.exports.run = run;

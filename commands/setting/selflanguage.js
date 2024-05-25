@@ -1,7 +1,8 @@
-const bot = require('wheat-better-cmd')
-const { Message, ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js');
-const databaseManager = require('../../modules/databaseManager')
-require('dotenv').config({ path: 'secret.env' })
+const bot = require('wheat-better-cmd');
+const { SlashCommandBuilder } = require('discord.js');
+const databaseManager = require('../../modules/databaseManager');
+const { Request } = require('../../structure/Request');
+require('dotenv').config({ path: 'secret.env' });
 
 const help = {
     name: "selflanguage",
@@ -21,44 +22,42 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  * @param {String[]} obj.langList
  */
 
-const run = async ({ wheat, message, interaction, args, langList, lg, language, lang }) => {
-    message ||= interaction
-    const embed = bot.wheatSampleEmbedGenerate()
-    const memberId = message.member.id
-    const find = databaseManager.getMember(memberId)
+const run = async ({ wheat, request, args, langList, lg, language }) => {
+    const embed = bot.wheatSampleEmbedGenerate();
+    const memberId = request.member.id;
+    const find = databaseManager.getMember(memberId);
 
-    if (interaction) {
-        args = ['']
-        if (interaction.options.getString('language')) {
-            args.push(interaction.options.getString('language'))
+    if (request.isInteraction) {
+        args = [''];
+        if (request.interaction.options.getString('language')) {
+            args.push(request.interaction.options.getString('language'));
         }
     }
 
     if (!args[1]) {
         try {
             if ((!find) || (find && !find.language)) {
-                embed.setDescription(`${lg.main.myLanguage}: **${lg.main.unset}**`)
+                embed.setDescription(`${lg.main.myLanguage}: **${lg.main.unset}**`);
             } else {
-                embed.setDescription(`${lg.main.myLanguage}: **${find.language}**`)
+                embed.setDescription(`${lg.main.myLanguage}: **${find.language}**`);
             }
 
-            await bot.wheatEmbedSend(message, [embed])
+            await request.reply({ embeds: [embed] });
         } catch (err) {
-            console.log(err)
-            await bot.wheatSendErrorMessage(message, lg.error.undefinedError)
+            console.log(err);
+            await request.reply(lg.error.undefinedError);
         }
-        return
+        return;
     }
 
     if (!langList.includes(args[1])) {
-        await bot.wheatSendErrorMessage(message, `${lg.error.wrongLanguage} **${langList.join(', ')}**`)
-        return
+        await request.reply(`${lg.error.wrongLanguage} **${langList.join(', ')}**`);
+        return;
     }
 
     try {
@@ -78,15 +77,15 @@ const run = async ({ wheat, message, interaction, args, langList, lg, language, 
             await wheat.shard.broadcastEval(fnc);
         }
 
-        embed.setTitle(language[args[1]].main.successExecution)
-        embed.setDescription(`${language[args[1]].main.changeSelfLanguageTo} **` + args[1] + `**`)
-        await bot.wheatEmbedSend(message, [embed])
+        embed.setTitle(language[args[1]].main.successExecution);
+        embed.setDescription(`${language[args[1]].main.changeSelfLanguageTo} **` + args[1] + `**`);
+        await request.reply({ embeds: [embed] });
     } catch (error) {
-        console.log(error)
-        await bot.wheatSendErrorMessage(message, lg.error.undefinedError)
+        console.log(error);
+        await request.reply(lg.error.undefinedError);
     }
 }
 
-module.exports.run = run
+module.exports.run = run;
 
-module.exports.help = help
+module.exports.help = help;

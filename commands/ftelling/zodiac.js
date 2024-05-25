@@ -1,6 +1,7 @@
 const bot = require('wheat-better-cmd');
-const { AttachmentBuilder, Message, SlashCommandBuilder, ChatInputCommandInteraction } = require('discord.js');
+const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
 const moment = require('moment');
+const { Request } = require('../../structure/Request');
 
 const help = {
     name: "zodiac",
@@ -16,18 +17,16 @@ const help = {
 
 /**
  * @param {object} obj
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {String[]} obj.args
  */
 
-const run = async ({ message, interaction, args, lg }) => {
+const run = async ({ request, args, lg }) => {
     const embed = bot.wheatSampleEmbedGenerate();
-    const date = (args ? args[1] : interaction.options.getString('date')) + "/2020";
-    message = message || interaction;
+    const date = (request.isMessage ? args[1] : request.interaction.options.getString('date')) + "/2020";
     const mmt = moment(date, 'DD/MM/YYYY', true);
     if (!mmt.isValid()) {
-        await bot.wheatSendErrorMessage(message, lg.error.formatError);
+        await request.reply(lg.error.formatError);
         return;
     }
 
@@ -64,7 +63,7 @@ const run = async ({ message, interaction, args, lg }) => {
     const attachment = new AttachmentBuilder(`./assets/image/zodiacImage/${pos + 1}.png`, `${pos + 1}.png`);
     embed.setThumbnail(`attachment://${pos + 1}.png`);
 
-    await bot.wheatEmbedAttachFilesSend(message, [embed], [attachment]);
+    await request.reply({ embeds: [embed], files: [attachment] });
 }
 
 module.exports.run = run;

@@ -1,6 +1,7 @@
-const { Client, Message, ChatInputCommandInteraction } = require('discord.js');
+const { Client } = require('discord.js');
 const moment = require('moment');
 const bot = require('wheat-better-cmd');
+const { Request } = require('../../structure/Request');
 require('dotenv').config({ path: 'secret.env' });
 
 const help = {
@@ -12,13 +13,11 @@ const help = {
 /**
  * @param {object} obj
  * @param {Client} obj.wheat
- * @param {Message} obj.message
- * @param {ChatInputCommandInteraction} obj.interaction
+ * @param {Request} obj.request
  * @param {Array} obj.helpMenu
  */
 
-const run = async ({ wheat, message, interaction, lg }) => {
-    message ||= interaction;
+const run = async ({ wheat, request, lg }) => {
     const embed = bot.wheatSampleEmbedGenerate(true);
     embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
     embed.setTitle(lg.main.aboutMe);
@@ -34,7 +33,7 @@ const run = async ({ wheat, message, interaction, lg }) => {
         })
         .catch(console.error);
 
-    const count = 48;
+    const count = 51;
 
     const version = require('../../logs/overview.json').latest;
 
@@ -44,7 +43,6 @@ const run = async ({ wheat, message, interaction, lg }) => {
     if (Math.floor(uptime_milli.asHours()) !== 0) uptime += ` ${Math.floor(uptime_milli.asHours()) % 24}h${Math.floor(uptime_milli.asHours()) === 1 ? '' : 's'}`;
     if (Math.floor(uptime_milli.asMinutes()) !== 0) uptime += ` ${Math.floor(uptime_milli.asMinutes()) % 60}min${Math.floor(uptime_milli.asMinutes()) === 1 ? '' : 's'}`;
     if (Math.floor(uptime_milli.asSeconds()) !== 0) uptime += ` ${Math.floor(uptime_milli.asSeconds()) % 60}sec${Math.floor(uptime_milli.asSeconds()) === 1 ? '' : 's'}`;
-
 
     embed.addFields(
         {
@@ -88,7 +86,7 @@ const run = async ({ wheat, message, interaction, lg }) => {
             inline: true
         },
     );
-    await bot.wheatEmbedSend(message, [embed]);
+    await request.reply({ embeds: [embed] });
 }
 
 module.exports.run = run;
