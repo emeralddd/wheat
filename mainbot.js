@@ -30,6 +30,7 @@ const addCommands = require('./modules/addCommands');
 const connectDatabase = require('./modules/connectDatabase');
 const rateLimiter = require('./modules/rateLimiter');
 const { Request } = require('./structure/Request');
+const parseString = require('./modules/parseString');
 
 let isInitial = false;
 
@@ -131,15 +132,11 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
             const status = rateLimiter.validate(memberId, executeCommand);
 
-            if (status === 0) {
+            if (status !== 0) {
                 await interaction.editReply({
-                    content: `${language[lang].main.rateLimit1} ${helpMenu[executeCommand].rate / 1000} ${language[lang].main.rateLimit2}`,
+                    content: parseString(language[lang].main.rateLimit, { sec: status }),
                     ephemeral: true
                 });
-                return;
-            }
-
-            if (status === 2) {
                 return;
             }
 
@@ -161,8 +158,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             });
         }
     } catch (error) {
-        // console.log('mainbot.js', interaction.createdAt, interaction.commandName, interaction.id);
-        console.log(error.message === 'Unknown interaction' ? 'nua r do' : error);
+        console.log(error.message === 'Unknown interaction' ? 'Unknown interaction' : error);
     };
 });
 
@@ -209,7 +205,7 @@ wheat.on('messageCreate', async (message) => {
         const request = new Request(message, lang, false);
 
         if (msg === '<@786234973308715008>') {
-            await request.reply(`${language[lang].main.myPrefix}: **${prefix}**`);
+            await request.reply(`${language[lang].main.myPrefix}: ** ${prefix} ** `);
             return;
         }
 
@@ -240,12 +236,8 @@ wheat.on('messageCreate', async (message) => {
 
             const status = rateLimiter.validate(memberId, executeCommand);
 
-            if (status === 0) {
-                await request.reply(`${language[lang].main.rateLimit1} ${helpMenu[executeCommand].rate / 1000} ${language[lang].main.rateLimit2}`);
-                return;
-            }
-
-            if (status === 2) {
+            if (status !== 0) {
+                await request.reply(parseString(language[lang].main.rateLimit, { sec: status }));
                 return;
             }
 

@@ -1,6 +1,6 @@
 {
   "name": "wheat",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "description": "wheatbot",
   "main": "index.js",
   "scripts": {
@@ -21,9 +21,10 @@
     "lorem-ipsum": "^2.0.8",
     "moment": "^2.30.1",
     "mongoose": "^6.5.4",
+    "node-cache": "^5.1.2",
     "qrcode": "^1.5.3",
     "randomcolor": "^0.6.2",
-    "shelljs": "^0.8.5",
+    "sqlite3": "^5.1.7",
     "wheat-better-cmd": "^1.1.10"
   },
   "devDependencies": {

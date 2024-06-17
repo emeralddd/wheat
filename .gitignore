@@ -1,9 +1,7 @@
 /node_modules
 /.vscode
-/commands/fetch_club.js
 /commands/fun/ship.js
 slash.js
-.env
 /package-dev.json
 /secret.env
 /commands/ftelling/lichvannien.js
@@ -12,3 +10,4 @@ progress.txt
 .eslintrc.json
 test.js
 announcement.json
+wheat.db

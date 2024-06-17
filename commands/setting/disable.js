@@ -38,7 +38,7 @@ const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, gr
         }
     } else {
         args = ['disable'];
-        if (request.interaction.options.getString('options')) args = [...args, ...interaction.options.getString('options').split(' ')];
+        if (request.interaction.options.getString('options')) args = [...args, ...request.interaction.options.getString('options').split(' ')];
     }
 
     let disabledCommands = [];
