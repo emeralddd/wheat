@@ -27,7 +27,6 @@ const langList = ['vi_VN', 'en_US'];
 
 const importLanguage = require('./modules/importLanguage');
 const addCommands = require('./modules/addCommands');
-const connectDatabase = require('./modules/connectDatabase');
 const rateLimiter = require('./modules/rateLimiter');
 const { Request } = require('./structure/Request');
 const parseString = require('./modules/parseString');
@@ -39,7 +38,7 @@ const initial = async () => {
     try {
         ({ groupMenu, helpMenu, aliasesList, commandsList, all, groups } = await addCommands(langList));
         language = importLanguage(langList);
-        await connectDatabase();
+        databaseManager.connect();
         isInitial = true;
     } catch (error) {
         console.log(error);
@@ -80,7 +79,6 @@ wheat.on(Events.InteractionCreate, async interaction => {
         if (!allowUsers.includes(interaction.member.id)) return;
     }
 
-
     try {
         await interaction.deferReply();
 
@@ -98,8 +96,8 @@ wheat.on(Events.InteractionCreate, async interaction => {
         let prefix = process.env.PREFIX;
         let lang = process.env.CODE;
 
-        const serverInfo = databaseManager.getServer(guildId);
-        const memberInfo = databaseManager.getMember(memberId);
+        const serverInfo = await databaseManager.getServer(guildId);
+        const memberInfo = await databaseManager.getMember(memberId);
 
         if (serverInfo) {
             prefix = serverInfo.prefix || prefix;
@@ -117,7 +115,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
         const executeCommand = interaction.commandName;
 
-        interaction.language = lang;
+        request.language = lang;
 
         if (commandsList.has(executeCommand)) {
             const command = commandsList.get(executeCommand);
@@ -185,7 +183,7 @@ wheat.on('messageCreate', async (message) => {
         let prefix = process.env.PREFIX;
         let lang = process.env.CODE;
 
-        const serverInfo = databaseManager.getServer(guildId);
+        const serverInfo = await databaseManager.getServer(guildId);
 
         if (serverInfo) {
             prefix = serverInfo.prefix || prefix;
@@ -194,7 +192,7 @@ wheat.on('messageCreate', async (message) => {
             prefix = process.env.PREFIX;
         }
 
-        const memberInfo = databaseManager.getMember(memberId);
+        const memberInfo = await databaseManager.getMember(memberId);
 
         if (memberInfo) {
             lang = memberInfo.language || lang;

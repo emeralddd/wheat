@@ -49,7 +49,7 @@ const run = async ({ request, args, lg }) => {
     const guildid = request.guildId;
 
     try {
-        const find = databaseManager.getServer(guildid);
+        const find = await databaseManager.getServer(guildid);
 
         if (find) {
             await databaseManager.updateServer(guildid, {

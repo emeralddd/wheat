@@ -29,8 +29,8 @@ const run = async ({ request, args, lg }) => {
 
 	let reversed = false;
 
-	const find = databaseManager.getMember(memberId);
-	if (find && find.tarotReverseDefault) {
+	const find = await databaseManager.getMember(memberId);
+	if (find && find.tarot) {
 		reversed = true;
 	}
 
