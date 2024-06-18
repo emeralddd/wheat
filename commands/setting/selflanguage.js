@@ -16,6 +16,7 @@ const help = {
                 .addChoices(
                     { name: 'Tiếng Việt', value: 'vi_VN' },
                     { name: 'English', value: 'en_US' },
+                    { name: 'Không sử dụng/Unset', value: 'unset' }
                 )
         )
 }
@@ -27,10 +28,10 @@ const help = {
  * @param {String[]} obj.langList
  */
 
-const run = async ({ wheat, request, args, langList, lg, language }) => {
+const run = async ({ request, args, langList, lg, language, serverInfo }) => {
     const embed = bot.wheatSampleEmbedGenerate();
     const memberId = request.member.id;
-    const find = databaseManager.getMember(memberId);
+    const find = await databaseManager.getMember(memberId);
 
     if (request.isInteraction) {
         args = [''];
@@ -55,30 +56,30 @@ const run = async ({ wheat, request, args, langList, lg, language }) => {
         return;
     }
 
-    if (!langList.includes(args[1])) {
+    if (args[1] !== 'unset' && !langList.includes(args[1])) {
         await request.reply(`${lg.error.wrongLanguage} **${langList.join(', ')}**`);
         return;
     }
 
     try {
         if (find) {
-            const fnc = eval(`async(sub) => {
-                const databaseManager = require('../../../../modules/databaseManager');
-                await databaseManager.updateMember('${memberId}',{language:'${args[1]}'},sub.shard.ids[0]===${wheat.shard.ids[0]});
-            }`);
-
-            await wheat.shard.broadcastEval(fnc);
+            await databaseManager.updateMember(memberId, {
+                language: args[1]
+            });
         } else {
-            const fnc = eval(`async(sub) => {
-                const databaseManager = require('../../../../modules/databaseManager');
-                await databaseManager.newMember('${memberId}',{language:'${args[1]}'},sub.shard.ids[0]===${wheat.shard.ids[0]});
-            }`);
-
-            await wheat.shard.broadcastEval(fnc);
+            await databaseManager.newMember(memberId, {
+                language: args[1]
+            });
         }
 
-        embed.setTitle(language[args[1]].main.successExecution);
-        embed.setDescription(`${language[args[1]].main.changeSelfLanguageTo} **` + args[1] + `**`);
+        let afterLang = args[1];
+        if (args[1] === 'unset') {
+            afterLang = serverInfo.language;
+            args[1] = language[serverInfo.language].main.unset;
+        }
+
+        embed.setTitle(language[afterLang].main.successExecution);
+        embed.setDescription(`${language[afterLang].main.changeSelfLanguageTo} **` + args[1] + `**`);
         await request.reply({ embeds: [embed] });
     } catch (error) {
         console.log(error);
