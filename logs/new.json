@@ -1,0 +1,11 @@
+{
+    "version": "",
+    "before": "24TwentyFiveNA",
+    "gen": "Wheat 3",
+    "date": "",
+    "release": "",
+    "add": [
+        "<DEV> Sử dụng SQLite cho cơ sở dữ liệu mới - Change database to SQLite"
+    ],
+    "remove": []
+}

@@ -80,63 +80,59 @@ wheat.on(Events.InteractionCreate, async interaction => {
     }
 
     try {
-        await interaction.deferReply();
-
         const memberId = interaction.user.id;
         const guildId = interaction.guildId;
         const channelId = interaction.channelId;
 
         if (!guildId) {
-            await interaction.editReply({
+            await interaction.reply({
                 content: `Slash Command qua DM sẽ được hoạt động trong tương lai!`
             });
             return;
         }
 
-        let prefix = process.env.PREFIX;
-        let lang = process.env.CODE;
-
-        const serverInfo = await databaseManager.getServer(guildId);
-        const memberInfo = await databaseManager.getMember(memberId);
-
-        if (serverInfo) {
-            prefix = serverInfo.prefix || prefix;
-            lang = serverInfo.language || lang;
-        } else {
-            prefix = process.env.PREFIX;
-        }
-
-        if (memberInfo) {
-            lang = memberInfo.language || lang;
-        }
-
-        const lg = language[lang];
-        const request = new Request(interaction, lang, true);
-
         const executeCommand = interaction.commandName;
-
-        request.language = lang;
 
         if (commandsList.has(executeCommand)) {
             const command = commandsList.get(executeCommand);
 
-            if (serverInfo && serverInfo.disable && serverInfo.disable.get(executeCommand) && serverInfo.disable.get(executeCommand).includes(channelId)) {
-                await interaction.editReply({
+            if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
+                await interaction.reply({
                     content: `Lệnh ${executeCommand} không được sử dụng tại kênh này!`,
                     ephemeral: true
                 });
                 return;
             }
 
+            let prefix = process.env.PREFIX;
+            let lang = process.env.CODE;
+
+            const serverInfo = await databaseManager.getServer(guildId);
+            const memberInfo = await databaseManager.getMember(memberId);
+
+            if (serverInfo) {
+                prefix = serverInfo.prefix || prefix;
+                lang = serverInfo.language || lang;
+            }
+
+            if (memberInfo) {
+                lang = memberInfo.language || lang;
+            }
+
+            const lg = language[lang];
+
             const status = rateLimiter.validate(memberId, executeCommand);
 
             if (status !== 0) {
-                await interaction.editReply({
+                await interaction.reply({
                     content: parseString(language[lang].main.rateLimit, { sec: status }),
                     ephemeral: true
                 });
                 return;
             }
+
+            await interaction.deferReply();
+            const request = new Request(interaction, lang, true);
 
             command.run({
                 wheat,
@@ -224,13 +220,14 @@ wheat.on('messageCreate', async (message) => {
             executeCommand = aliasesList.get(executeCommand);
         }
 
-        message.language = lang;
+        request.language = lang;
 
         if (commandsList.has(executeCommand)) {
             const command = commandsList.get(executeCommand);
 
-            if (serverInfo && serverInfo.disable && serverInfo.disable.get(executeCommand) && serverInfo.disable.get(executeCommand).includes(channelId))
+            if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
                 return;
+            }
 
             const status = rateLimiter.validate(memberId, executeCommand);
 
@@ -258,7 +255,8 @@ wheat.on('messageCreate', async (message) => {
                     lg,
                     langList,
                     all,
-                    groups
+                    groups,
+                    serverInfo
                 });
 
                 if (announcement.status === 'active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(helpMenu[executeCommand].group)) {

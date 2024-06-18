@@ -54,6 +54,7 @@
     "changeSelfLanguageTo": "Successfully change your language to",
     "languageAtThisServer": "Server's language",
     "myLanguage": "Your language",
+    "unset": "Unset",
     "rateLimit": "This command requires %sec% second(s) rate limited!",
     "releasebuild": "Release build",
     "generation": "Generation",

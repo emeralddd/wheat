@@ -50,7 +50,7 @@ const getMembers = async () => {
     const members = await member.find();
     let cnt = 0;
     for (const i of members) {
-        const query = `insert into member values ("${i.id}",${i.verify ? 1 : 0},${i.premium ? 1 : 0},"${i.language ? i.language : 'vi_VN'}",${i.tarotReverseDefault ? 1 : 0})`;
+        const query = `insert into member values ("${i.id}",${i.verify ? 1 : 0},${i.premium ? 1 : 0},${i.language && i.language !== 'unset' ? "\"" + i.language + "\"" : "null"},${i.tarotReverseDefault ? 1 : 0})`;
         cnt += await queryDB(query);
     }
 

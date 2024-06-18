@@ -40,6 +40,20 @@ const querySingleRow = (query) => {
     });
 }
 
+const queryMultipleRows = (query) => {
+    return new Promise((resolve, reject) => {
+        db.all(query,
+            function (error, row) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(row);
+                }
+            }
+        );
+    });
+}
+
 module.exports.getMember = async (memberId) => {
     try {
         const res = await querySingleRow(`select * from member where id="${memberId}"`);
@@ -62,8 +76,10 @@ module.exports.updateMember = async (memberId, newData) => {
     try {
         const setList = [];
         for (const [key, value] of Object.entries(newData)) {
-            setList.push(key + '=' + (Number.isInteger(value) ? '' : '"') + value + (Number.isInteger(value) ? '' : '"'));
+            setList.push(key + '=' + (value === 'unset' ? "null" : ((Number.isInteger(value) ? '' : '"') + value + (Number.isInteger(value) ? '' : '"'))));
         }
+
+        console.log(setList);
 
         queryWithoutRow(`update member set ${setList.join(',')} where id="${memberId}"`);
     } catch (err) {
@@ -86,7 +102,7 @@ module.exports.updateServer = async (serverId, newData) => {
 
 module.exports.newMember = async (memberId, newData) => {
     try {
-        queryWithoutRow(`insert into member values ("${memberId}",${newData.verify ? 1 : 0},${newData.premium ? 1 : 0},"${newData.language || 'vi_VN'}",${i.tarot ? 1 : 0})`);
+        queryWithoutRow(`insert into member values ("${memberId}",${newData.verify ? 1 : 0},${newData.premium ? 1 : 0},${newData.language && newData.language !== 'unset' ? "\"" + newData.language + "\"" : "null"},${i.tarot ? 1 : 0})`);
     } catch (err) {
         throw err;
     }
@@ -95,6 +111,40 @@ module.exports.newMember = async (memberId, newData) => {
 module.exports.newServer = async (serverId, newData) => {
     try {
         queryWithoutRow(`insert into server values ("${serverId}",${newData.premium ? 1 : 0},"${(newData.prefix || 'e').replace(`"`, `""`)}","${newData.language || 'vi_VN'}")`);
+    } catch (err) {
+        throw err;
+    }
+}
+
+module.exports.getDisableCommand = async (channelId, cmd) => {
+    try {
+        const res = await querySingleRow(`select * from disable where channelId="${channelId}" and command="${cmd}"`);
+        return (res ? 1 : 0);
+    } catch (err) {
+        throw err;
+    }
+}
+
+module.exports.getDisableCommands = async (channelId) => {
+    try {
+        const res = await queryMultipleRows(`select command from disable where channelId="${channelId}"`);
+        return res;
+    } catch (err) {
+        throw err;
+    }
+}
+
+module.exports.newDisableCommand = async (channelId, cmd) => {
+    try {
+        await queryWithoutRow(`insert into disable values("${channelId}","${cmd}")`);
+    } catch (err) {
+        throw err;
+    }
+}
+
+module.exports.deleteDisableCommand = async (channelId, cmd) => {
+    try {
+        await queryWithoutRow(`delete from disable where channelId="${channelId}" and command="${cmd}"`);
     } catch (err) {
         throw err;
     }

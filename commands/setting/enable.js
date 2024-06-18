@@ -36,14 +36,15 @@ const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, gr
             await request.reply(lg.error.missingPermission);
             return;
         }
+        args.shift();
     } else {
-        args = ['enable'];
-        if (request.interaction.options.getString('options')) args = [...args, ...request.interaction.options.getString('options').split(' ')];
+        args = [];
+        if (request.interaction.options.getString('options')) args = request.interaction.options.getString('options').split(' ');
     }
 
     let enabledCommands = [];
 
-    for (let i = 1; i < args.length; i++) {
+    for (let i = 0; i < args.length; i++) {
         if (args[i] === 'all') {
             for (const g of groups) {
                 for (const command of groupMenu[g]) {
@@ -61,34 +62,23 @@ const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, gr
         }
     }
 
-    enabledCommands = Array.from(new Set(enabledCommands));
+    enabledCommands = new Set(enabledCommands);
 
-    const guildId = request.guildId;
     const channelId = request.channelId;
 
     try {
-        let disableList = new Map();
-
-        const find = databaseManager.getServer(guildId);
-        if (find && find.disable) disableList = find.disable;
-
-        if (enabledCommands.length > 0) {
-            for (const command of enabledCommands) {
-                if (disableList.has(command)) {
-                    const tmp = disableList.get(command).indexOf(channelId);
-                    if (tmp !== -1) disableList.get(command).splice(tmp, 1);
-                }
+        for (const cmd of enabledCommands) {
+            if (await databaseManager.getDisableCommand(channelId, cmd)) {
+                await databaseManager.deleteDisableCommand(channelId, cmd);
             }
+        }
 
-            if (find) {
-                databaseManager.updateServer(guildId, {
-                    disable: disableList
-                });
-            } else {
-                databaseManager.newServer(guildId, {
-                    disable: disableList
-                });
-            }
+        const totalDisable = await databaseManager.getDisableCommands(channelId);
+
+        const disabledCommands = new Set();
+
+        for (const c of totalDisable) {
+            disabledCommands.add(c.command);
         }
 
         embed.setTitle(lg.main.successExecution);
@@ -96,7 +86,7 @@ const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, gr
         for (const group of groups) {
             let commands = []
             for (const command of groupMenu[group]) {
-                if (disableList.has(command) && disableList.get(command).includes(channelId)) {
+                if (disabledCommands.has(command)) {
                     commands.push("~~`" + command + "`~~");
                 } else {
                     commands.push("**`" + command + "`**");
