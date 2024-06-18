@@ -5,7 +5,8 @@
     "date": "25/05/2024",
     "release": "3.4.11",
     "add": [
-        "<DEV> Sử dụng Request thay cho Message & Interation thông thường - Using Request for handle message & interation"
+        "<DEV> Sử dụng Request thay cho Message & Interation thông thường - Using Request for handle message & interation",
+        "<DEV> Sử dụng cache cho rateLimiter - Using cache for rateLimiter"
     ],
     "remove": []
 }
