@@ -21,7 +21,7 @@ const connect = async () => {
         }
     }
 
-    db = new sqlite3.Database(__dirname + '/../database/wheat.db', (error) => {
+    db = new sqlite3.Database(__dirname + `/../database/${process.env.DBFILE}`, (error) => {
         if (error) {
             return console.error(error.message);
         }

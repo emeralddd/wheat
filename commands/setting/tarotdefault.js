@@ -25,7 +25,7 @@ const help = {
 const run = async ({ request, args, lg }) => {
     const embed = bot.wheatSampleEmbedGenerate();
     const memberId = request.member.id;
-    const find = databaseManager.getMember(memberId);
+    const find = await databaseManager.getMember(memberId);
 
     if (request.isInteraction) {
         args = [''];
@@ -36,10 +36,10 @@ const run = async ({ request, args, lg }) => {
 
     if (!args[1]) {
         try {
-            if ((!find) || (find && !find.tarotReverseDefault)) {
+            if ((!find) || (find && !find.tarot)) {
                 embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **Không**`);
             } else {
-                embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **${find.tarotReverseDefault ? `Có` : `Không`}**`);
+                embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **${find.tarot ? `Có` : `Không`}**`);
             }
 
             await request.reply({ embeds: [embed] });
@@ -58,11 +58,11 @@ const run = async ({ request, args, lg }) => {
     try {
         if (find) {
             await databaseManager.updateMember(memberId, {
-                tarot: args[1]
+                tarot: args[1] === 'true' ? 1 : 0
             });
         } else {
             await databaseManager.newMember(memberId, {
-                tarot: args[1]
+                tarot: args[1] === 'true' ? 1 : 0
             });
         }
 
