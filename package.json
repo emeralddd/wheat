@@ -1,6 +1,6 @@
 {
   "name": "wheat",
-  "version": "3.5.6",
+  "version": "3.5.7",
   "description": "wheatbot",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "@napi-rs/canvas": "^0.1.51",
     "axios": "^1.4.0",
     "discord-api-types": "^0.37.75",
-    "discord.js": "^14.14.1",
+    "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "lorem-ipsum": "^2.0.8",
     "moment": "^2.30.1",

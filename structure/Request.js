@@ -45,7 +45,7 @@
 
 //2. Các method với Request
 
-const { Snowflake, TextBasedChannel, User, ChatInputCommandInteraction, Message, Guild, GuildMember, MessagePayload, MessageCreateOptions, RESTJSONErrorCodes, InteractionEditReplyOptions, InteractionReplyOptions } = require('discord.js');
+const { Snowflake, TextBasedChannel, User, ChatInputCommandInteraction, Message, Guild, GuildMember, MessagePayload, MessageCreateOptions, RESTJSONErrorCodes, InteractionEditReplyOptions, InteractionReplyOptions, SnowflakeUtil } = require('discord.js');
 const importLanguage = require('../modules/importLanguage');
 
 const textList = importLanguage(['vi_VN', 'en_US']);
@@ -181,6 +181,9 @@ class Request {
 
     async reply(options) {
         try {
+            if (typeof (options) === 'string') options = { content: options };
+            options.enforceNonce = true;
+            options.nonce = SnowflakeUtil.generate().toString();
             return this.lastReply = this.isInteraction ? await this.interaction.editReply(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -195,6 +198,9 @@ class Request {
 
     async follow(options) {
         try {
+            if (typeof (options) === 'string') options = { content: options };
+            options.enforceNonce = true;
+            options.nonce = SnowflakeUtil.generate().toString();
             return this.lastReply = this.isInteraction ? await this.interaction.followUp(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -209,6 +215,9 @@ class Request {
 
     async edit(options) {
         try {
+            if (typeof (options) === 'string') options = { content: options };
+            options.enforceNonce = true;
+            options.nonce = SnowflakeUtil.generate().toString();
             return this.isInteraction ? await this.interaction.editReply(options) : await this.lastReply.edit(options);
         } catch (error) {
             await this.errorHandle(error);

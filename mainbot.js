@@ -1,6 +1,6 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity;
 require('events').defaultMaxListeners = Infinity;
-const { Collection, Client, GatewayIntentBits, ActivityType, Events } = require('discord.js');
+const { Collection, Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes } = require('discord.js');
 const databaseManager = require('./modules/databaseManager');
 const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
@@ -61,10 +61,11 @@ wheat.on('guildCreate', async (guild) => {
     embed1.setDescription("There are somethings can help you get started with bot:\n\n- Default prefix of bot is `e`. You can change it using `eprefix`.\n\n- Ping bot to see prefix of bot at specific server.\n\n- Using `ehelp` to see commands lists of bot.\n\n- If you has any questions, please use command `esupport`.\n\n**Hope you have the best experiences with Wheat!**");
 
     try {
-        await ownerId.send({ embeds: [embed, embed1] });
-        await ownerId.send("🌾**Support Server:** https://discord.gg/z5Z4uzmED9");
+        await ownerId.send({ enforceNonce: true, nonce: SnowflakeUtil.generate().toString(), embeds: [embed, embed1] });
+        await ownerId.send({ enforceNonce: true, nonce: SnowflakeUtil.generate().toString(), content: '🌾**Support Server:** https://discord.gg/z5Z4uzmED9' });
     } catch (error) {
-        console.log('Cant not DM', error);
+        if (error.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) return;
+        console.log(error);
     };
 })
 
@@ -86,6 +87,8 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
         if (!guildId) {
             await interaction.reply({
+                enforceNonce: true,
+                nonce: SnowflakeUtil.generate().toString(),
                 content: `Slash Command qua DM sẽ được hoạt động trong tương lai!`
             });
             return;
@@ -98,6 +101,8 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
             if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
                 await interaction.reply({
+                    enforceNonce: true,
+                    nonce: SnowflakeUtil.generate().toString(),
                     content: `Lệnh ${executeCommand} không được sử dụng tại kênh này!`,
                     ephemeral: true
                 });
