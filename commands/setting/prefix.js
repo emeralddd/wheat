@@ -51,7 +51,7 @@ const run = async ({ request, args, lg }) => {
     try {
         const find = await databaseManager.getServer(guildid);
 
-        if (find) {
+        if (find.id) {
             await databaseManager.updateServer(guildid, {
                 prefix: args[1]
             });

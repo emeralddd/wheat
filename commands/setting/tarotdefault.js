@@ -36,7 +36,7 @@ const run = async ({ request, args, lg }) => {
 
     if (!args[1]) {
         try {
-            if ((!find) || (find && !find.tarot)) {
+            if (!find.tarot) {
                 embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **Không**`);
             } else {
                 embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **${find.tarot ? `Có` : `Không`}**`);
@@ -56,7 +56,7 @@ const run = async ({ request, args, lg }) => {
     }
 
     try {
-        if (find) {
+        if (find.id) {
             await databaseManager.updateMember(memberId, {
                 tarot: args[1] === 'true' ? 1 : 0
             });

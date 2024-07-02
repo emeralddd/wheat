@@ -42,7 +42,7 @@ const run = async ({ request, args, langList, lg, language, serverInfo }) => {
 
     if (!args[1]) {
         try {
-            if ((!find) || (find && !find.language)) {
+            if (!find.language) {
                 embed.setDescription(`${lg.main.myLanguage}: **${lg.main.unset}**`);
             } else {
                 embed.setDescription(`${lg.main.myLanguage}: **${find.language}**`);
@@ -62,7 +62,7 @@ const run = async ({ request, args, langList, lg, language, serverInfo }) => {
     }
 
     try {
-        if (find) {
+        if (find.id) {
             await databaseManager.updateMember(memberId, {
                 language: args[1]
             });

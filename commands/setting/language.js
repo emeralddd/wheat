@@ -48,7 +48,7 @@ const run = async ({ request, args, langList, lg, language, lang }) => {
 
     if (!args[1]) {
         try {
-            if ((!find) || (find && !find.language)) {
+            if (!find.language) {
                 embed.setDescription(`${lg.main.languageAtThisServer}: **${process.env.CODE}**`);
             } else {
                 embed.setDescription(`${lg.main.languageAtThisServer}: **${find.language}**`);
@@ -68,7 +68,7 @@ const run = async ({ request, args, langList, lg, language, lang }) => {
     }
 
     try {
-        if (find) {
+        if (find.id) {
             await databaseManager.updateServer(guildid, {
                 language: args[1]
             });
