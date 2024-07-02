@@ -153,7 +153,8 @@ wheat.on(Events.InteractionCreate, async interaction => {
                 lg,
                 langList,
                 all,
-                groups
+                groups,
+                serverInfo
             });
         }
     } catch (error) {
