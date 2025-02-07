@@ -147,3 +147,11 @@ module.exports.deleteDisableCommand = async (channelId, cmd) => {
         throw err;
     }
 }
+
+module.exports.logRequest = async (serverId, timestamp, command, typeOfRequest) => {
+    try {
+        await queryWithoutRow(`insert into statistic values("${serverId}",${timestamp},"${command}",${typeOfRequest})`);
+    } catch (err) {
+        throw err;
+    }
+}

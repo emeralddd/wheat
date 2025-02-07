@@ -5,7 +5,7 @@ require('dotenv').config({ path: 'secret.env' });
 const sqlite3 = require('sqlite3').verbose();
 let db;
 
-const connect = async () => {
+const connectMongoDB = async () => {
     try {
         mongo.set("strictQuery", false);
         mongo.connect(process.env.DBURI, {
@@ -20,7 +20,9 @@ const connect = async () => {
             process.exit(1);
         }
     }
+}
 
+const connectSQLite = async () => {
     db = new sqlite3.Database(__dirname + `/../database/${process.env.DBFILE}`, (error) => {
         if (error) {
             return console.error(error.message);
@@ -86,10 +88,19 @@ const getServers = async () => {
     console.log('get disable ', cnt1);
 }
 
+const fixStatistic = async () => {
+    await queryDB("drop table statistic");
+    await queryDB("CREATE TABLE statistic (serverId      TEXT, timestamp     INTEGER, command       TEXT, typeOfRequest INTEGER);");
+}
+
 const start = async () => {
-    connect();
-    getMembers();
-    getServers();
+    connectMongoDB();
+    connectSQLite();
+
+    fixStatistic();
+
+    // getMembers();
+    // getServers();
 }
 
 start();

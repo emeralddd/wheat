@@ -139,6 +139,8 @@ wheat.on(Events.InteractionCreate, async interaction => {
             await interaction.deferReply();
             const request = new Request(interaction, lang, true);
 
+            databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 1);
+
             command.run({
                 wheat,
                 request,
@@ -243,6 +245,7 @@ wheat.on('messageCreate', async (message) => {
             }
 
             try {
+                databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 0);
                 await command.run({
                     wheat,
                     request,
