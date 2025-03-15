@@ -1,0 +1,11 @@
+{
+    "version": "25FifteenBA",
+    "before": "24EighteenSA",
+    "gen": "Wheat 3",
+    "date": "15/03/2025",
+    "release": "3.6.2",
+    "add": [
+        "<DEV> Hệ thống thống kê thực thi lệnh - Executed command statistic"
+    ],
+    "remove": []
+}
