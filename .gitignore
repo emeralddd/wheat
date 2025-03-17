@@ -1,14 +1,21 @@
+# Dev
 /node_modules
 /.vscode
-/commands/fun/ship.js
-slash.js
 /package-dev.json
-/secret.env
-/commands/ftelling/lichvannien.js
-/commands/ftelling/xemngay.js
 progress.txt
 .eslintrc.json
 test.js
-announcement.json
+
+# Env
+/secret.env
+
+# New feature HINT
+/commands/ftelling/lichvannien.js
+/commands/ftelling/bandosao.js
+/commands/ftelling/tuvi.js
+
+slash.js
+
+# Data
 wheat.db
-statistic.db
+announcement.json
