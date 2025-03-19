@@ -18,4 +18,6 @@ slash.js
 
 # Data
 wheat.db
+wheat.db-shm
+wheat.db-wal
 announcement.json
