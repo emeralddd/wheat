@@ -28,9 +28,9 @@
         },
         {
             "name": "doingayduongam",
-            "syntax": " <DD/MM/YYYY>",
-            "desc": "Convert Gregorius calendar to Vietnamese Lunar calendar!",
-            "note": "The date must be entered."
+            "syntax": " <a/d> <day/month/year>",
+            "desc": "Convert Gregorius calendar to Vietnamese Lunar calendar or vice versa!",
+            "note": "The date must be entered. Use `<a>` option to convert from Lunar and `<d>` option to convert from Gregorius."
         }
     ],
     "fun": [

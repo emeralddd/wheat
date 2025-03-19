@@ -28,9 +28,9 @@
         },
         {
             "name": "doingayduongam",
-            "syntax": " <DD/MM/YYYY>",
-            "desc": "Đổi dương lịch sang âm lịch",
-            "note": "Ngày bắt buộc phải được nhập."
+            "syntax": " <a/d> <ngày/tháng/năm>",
+            "desc": "Đổi dương lịch sang âm lịch hoặc ngược lại.",
+            "note": "Ngày bắt buộc phải được nhập. Sử dụng lựa chọn `<a>` để chuyển từ ngày Âm lịch, `<d>` để chuyển từ ngày Dương lịch."
         }
     ],
     "fun": [

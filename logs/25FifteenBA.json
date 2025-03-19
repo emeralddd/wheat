@@ -5,7 +5,8 @@
     "date": "15/03/2025",
     "release": "3.6.2",
     "add": [
-        "<DEV> Hệ thống thống kê thực thi lệnh - Executed command statistic"
+        "<DEV> Hệ thống thống kê thực thi lệnh - Executed command statistic",
+        "Thêm chức năng chuyển ngày âm lịch sang dương lịch - Add function to convert Lunar date to Gregorian date"
     ],
     "remove": []
 }
