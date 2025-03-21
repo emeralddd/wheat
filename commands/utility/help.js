@@ -101,6 +101,10 @@ const run = async ({ request, args, helpMenu, groupMenu, prefix, aliasesList, la
                 value: "`" + prefix + command + helpMenu[command].syntax[lang] + "`\n" + helpMenu[command].note[lang],
             },
             {
+                name: lg.help.example,
+                value: helpMenu[command].example?.map(e => `\`${prefix}${command}${e}\``).join('\n') ?? `\`${prefix}${command}\``
+            },
+            {
                 name: lg.help.ratelimit,
                 value: `${helpMenu[command].rate ? helpMenu[command].rate / 1000 : 0}s`,
             }
