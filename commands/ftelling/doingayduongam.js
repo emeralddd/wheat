@@ -64,6 +64,12 @@ const run = async ({ request, args, lg, lang }) => {
     const extractMonth = request.isMessage ? Number(dateInput[1]) : request.interaction.options.getInteger('month');
     const extractYear = request.isMessage ? Number(dateInput[2]) : request.interaction.options.getInteger('year');
 
+    const month = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    const can = [lg.fortune.canh, lg.fortune.tan, lg.fortune.nham, lg.fortune.quy, lg.fortune.giap, lg.fortune.at, lg.fortune.binh, lg.fortune.dinh, lg.fortune.mau, lg.fortune.ky];
+
+    const chi = [lg.fortune.than, lg.fortune.dau, lg.fortune.tuat, lg.fortune.hoi, lg.fortune.ti, lg.fortune.suu, lg.fortune.dan, lg.fortune.mao, lg.fortune.thin, lg.fortune.ty, lg.fortune.ngo, lg.fortune.vi];
+
     if (type === 'd') {
         const mmt = moment(`${convertTo2DigitNumber(extractDay)}/${convertTo2DigitNumber(extractMonth)}/${convertTo2DigitNumber(extractYear)}`, 'DD/MM/YYYY', true);
 
@@ -74,12 +80,6 @@ const run = async ({ request, args, lg, lang }) => {
 
         const lunar = convertDuongAm(extractDay, extractMonth, extractYear);
 
-        const month = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-        const can = [lg.fortune.canh, lg.fortune.tan, lg.fortune.nham, lg.fortune.quy, lg.fortune.giap, lg.fortune.at, lg.fortune.binh, lg.fortune.dinh, lg.fortune.mau, lg.fortune.ky];
-
-        const chi = [lg.fortune.than, lg.fortune.dau, lg.fortune.tuat, lg.fortune.hoi, lg.fortune.ti, lg.fortune.suu, lg.fortune.dan, lg.fortune.mao, lg.fortune.thin, lg.fortune.ty, lg.fortune.ngo, lg.fortune.vi];
-
         const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
 
         const dayBetween = rootDate.isBefore(mmt) ? mmt.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(mmt, 'days') % 60) % 60;
@@ -89,45 +89,38 @@ const run = async ({ request, args, lg, lang }) => {
         const lunarlongmonth = can[(((lunar.year % 5 - 1) * 2 + 10) % 10 + lunar.month - 1) % 10] + " " + chi[(lunar.month + 5) % 12];
 
         if (lang === 'vi_VN') {
-            embed.setDescription(`Dương lịch: **Ngày ${extractDay} tháng ${extractMonth} năm ${extractYear}**\nÂm lịch: **Ngày ${lunarlongday} tháng ${lunarlongmonth} năm ${lunarlongyear} (${lunar.day}/${lunar.month}/${lunar.year})**`);
+            embed.setDescription(`Dương lịch: **Ngày ${extractDay} tháng ${extractMonth} năm ${extractYear}**\nÂm lịch: **Ngày ${lunarlongday} tháng ${lunarlongmonth} ${lunar.leap ? '(nhuận)' : ''} năm ${lunarlongyear} (${lunar.day}/${lunar.month}/${lunar.year})**`);
         } else if (lang === 'en_US') {
-            embed.setDescription(`Gregorian Calendar: **${month[extractMonth]} ${extractDay}, ${extractYear}**\nLunar Calendar: **${lunarlongday} day, ${lunarlongmonth} month, ${lunarlongyear} year (${month[lunar.month]} ${lunar.day}, ${lunar.year})**`);
+            embed.setDescription(`Gregorian Calendar: **${month[extractMonth]} ${extractDay}, ${extractYear}**\nLunar Calendar: **${lunarlongday} day, ${lunarlongmonth} month ${lunar.leap ? '(leap)' : ''}, ${lunarlongyear} year (${month[lunar.month]} ${lunar.day}, ${lunar.year})**`);
         }
 
         request.reply({ embeds: [embed] });
     } else {
-        const gregorian = convertAmDuong(extractDay, extractMonth, extractYear, 0, 7);
+        for (let i = 0; i < 2; i++) {
+            const gregorian = convertAmDuong(extractDay, extractMonth, extractYear, i, 7);
 
-        if (gregorian[0] === 0) {
-            await request.reply(lg.error.formatError);
-            return;
+            if (gregorian[0] === 0) {
+                return i === 0 ? request.reply(lg.error.formatError) : 0;
+            }
+
+            const mmt = moment(`${convertTo2DigitNumber(gregorian[0])}/${convertTo2DigitNumber(gregorian[1])}/${convertTo2DigitNumber(gregorian[2])}`, 'DD/MM/YYYY', true);
+
+            const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
+
+            const dayBetween = rootDate.isBefore(mmt) ? mmt.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(mmt, 'days') % 60) % 60;
+
+            const lunarlongyear = can[extractYear % 10] + " " + chi[extractYear % 12];
+            const lunarlongday = can[dayBetween % 10] + " " + chi[dayBetween % 12];
+            const lunarlongmonth = can[(((extractYear % 5 - 1) * 2 + 10) % 10 + extractMonth - 1) % 10] + " " + chi[(extractMonth + 5) % 12];
+
+            if (lang === 'vi_VN') {
+                embed.setDescription(`Âm lịch: **Ngày ${lunarlongday} tháng ${lunarlongmonth} ${i === 1 ? '(nhuận)' : ''} năm ${lunarlongyear} (${extractDay}/${extractMonth}/${extractYear})**\nDương lịch: **Ngày ${gregorian[0]} tháng ${gregorian[1]} năm ${gregorian[2]}**`);
+            } else if (lang === 'en_US') {
+                embed.setDescription(`Lunar Calendar: **${lunarlongday} day, ${lunarlongmonth} month ${i === 1 ? '(leap)' : ''}, ${lunarlongyear} year (${month[extractMonth]} ${extractDay}, ${extractYear})**`);
+            }
+
+            await (i === 0 ? request.reply({ embeds: [embed] }) : request.follow({ embeds: [embed] }));
         }
-
-        const gregorianNhuan = convertAmDuong(extractDay, extractMonth, extractYear, 1, 7);
-
-        const mmt = moment(`${convertTo2DigitNumber(gregorian[0])}/${convertTo2DigitNumber(gregorian[1])}/${convertTo2DigitNumber(gregorian[2])}`, 'DD/MM/YYYY', true);
-
-        const month = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-        const can = [lg.fortune.canh, lg.fortune.tan, lg.fortune.nham, lg.fortune.quy, lg.fortune.giap, lg.fortune.at, lg.fortune.binh, lg.fortune.dinh, lg.fortune.mau, lg.fortune.ky];
-
-        const chi = [lg.fortune.than, lg.fortune.dau, lg.fortune.tuat, lg.fortune.hoi, lg.fortune.ti, lg.fortune.suu, lg.fortune.dan, lg.fortune.mao, lg.fortune.thin, lg.fortune.ty, lg.fortune.ngo, lg.fortune.vi];
-
-        const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
-
-        const dayBetween = rootDate.isBefore(mmt) ? mmt.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(mmt, 'days') % 60) % 60;
-
-        const lunarlongyear = can[extractYear % 10] + " " + chi[extractYear % 12];
-        const lunarlongday = can[dayBetween % 10] + " " + chi[dayBetween % 12];
-        const lunarlongmonth = can[(((extractYear % 5 - 1) * 2 + 10) % 10 + extractMonth - 1) % 10] + " " + chi[(extractMonth + 5) % 12];
-
-        if (lang === 'vi_VN') {
-            embed.setDescription(`Âm lịch: **Ngày ${lunarlongday} tháng ${lunarlongmonth} năm ${lunarlongyear} (${extractDay}/${extractMonth}/${extractYear})**\nDương lịch: **Ngày ${gregorian[0]} tháng ${gregorian[1]} năm ${gregorian[2]}**${gregorianNhuan[0] === 0 ? `` : ` và **Ngày ${gregorianNhuan[0]} tháng ${gregorianNhuan[1]} năm ${gregorianNhuan[2]}**`}`);
-        } else if (lang === 'en_US') {
-            embed.setDescription(`Lunar Calendar: **${lunarlongday} day, ${lunarlongmonth} month, ${lunarlongyear} year (${month[extractMonth]} ${extractDay}, ${extractYear})**\nGregorian Calendar: **${month[gregorian[1]]} ${gregorian[0]}, ${gregorian[2]}**${gregorianNhuan[0] === 0 ? `` : ` and **${month[gregorianNhuan[1]]} ${gregorianNhuan[0]}, ${gregorianNhuan[2]}**`}`);
-        }
-
-        request.reply({ embeds: [embed] });
     }
 }
 
