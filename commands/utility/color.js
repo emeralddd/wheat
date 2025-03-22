@@ -7,6 +7,7 @@ const help = {
     name: "color",
     group: "utility",
     aliases: ["mau", "sac", "clr"],
+    example: ["", " #b219a3", " 493778", " 243,86,222"],
     data: new SlashCommandBuilder()
         .addSubcommand(subcommand =>
             subcommand
@@ -72,7 +73,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     let code = request.isMessage ? args[1] : null;
     let deccode = bot.wheatRandomNumberBetween(0, 16777215);
 
@@ -89,12 +90,11 @@ const run = async ({ request, args, lg }) => {
                 green = Number(rgb[1]);
                 blue = Number(rgb[2]);
                 if (!red || !green || !blue) {
-                    await request.reply(lg.error.wrongColorCode);
-                    return;
+                    return request.reply(t('error.wrongColorCode'));
+                    ;
                 }
                 if (0 > red || red > 255 || 0 > green || green > 255 || 0 > blue || blue > 255) {
-                    await request.reply(lg.error.wrongColorCode);
-                    return;
+                    return request.reply(t('error.wrongColorCode'));
                 }
             }
 
@@ -105,25 +105,18 @@ const run = async ({ request, args, lg }) => {
             }
 
             if ((!Number.isInteger(code)) && (code[0] === '#' || code.startsWith('0x'))) {
-                if (code[0] === '#' && code.length != 7) {
-                    await request.reply(lg.error.wrongColorCode);
-                    return;
-                }
-                const int = parseInt(code[0] === '#' ? '0x' + code.substr(1, 6) : code, 16);
+                const int = parseInt(code[0] === '#' ? '0x' + code.substring(1, code.length) : code, 16);
                 if (!int) {
-                    await request.reply(lg.error.wrongColorCode);
-                    return;
+                    return request.reply(t('error.wrongColorCode'));
                 }
                 deccode = int;
             } else {
                 const int = Number(code);
                 if (!int) {
-                    await request.reply(lg.error.wrongColorCode);
-                    return;
+                    return request.reply(t('error.wrongColorCode'));
                 }
                 if (int < 0 || int > 16777215) {
-                    await request.reply(lg.error.wrongColorCode);
-                    return;
+                    return request.reply(t('error.wrongColorCode'));
                 }
                 deccode = int;
             }
@@ -142,7 +135,7 @@ const run = async ({ request, args, lg }) => {
 
     const embed = bot.wheatSampleEmbedGenerate();
     const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: `${hexa}.png` });
-    embed.setTitle(`🎨 ${lg.main.colorCode}: #${hexa}`);
+    embed.setTitle(`🎨 ${t('main.colorCode', { hexa })}`);
     embed.setDescription(`HEXA: **#${hexa}**\nDEC: **${deccode}**\nRGB: **(${red},${green},${blue})**`);
     embed.setThumbnail(`attachment://${hexa}.png`);
     await request.reply({ embeds: [embed], files: [attachment] });

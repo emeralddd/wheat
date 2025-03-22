@@ -13,18 +13,18 @@ const help = {
  * @param {Request} obj.request
  */
 
-const run = async ({ request, lg }) => {
+const run = async ({ request, t }) => {
     const embed = bot.wheatSampleEmbedGenerate(true);
-    embed.setTitle(lg.main.inviteBot);
-    embed.setDescription(lg.main.inviteToGetBot);
+    embed.setTitle(t('main.inviteBot'));
+    embed.setDescription(t('main.inviteToGetBot'));
 
     const topgg = new ButtonBuilder()
-        .setLabel(lg.main.inviteTopgg)
+        .setLabel(t('main.inviteTopgg'))
         .setStyle(ButtonStyle.Link)
         .setURL('https://top.gg/bot/798925450562764863');
 
     const direct = new ButtonBuilder()
-        .setLabel(lg.main.inviteDirectly)
+        .setLabel(t('main.inviteDirectly'))
         .setStyle(ButtonStyle.Link)
         .setURL('https://discord.com/api/oauth2/authorize?client_id=786234973308715008&permissions=4294442871&scope=bot');
 

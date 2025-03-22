@@ -7,6 +7,7 @@ const help = {
     name: "help",
     group: "utility",
     aliases: [],
+    example: ["", " fun", " tarot"],
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('option')

@@ -7,6 +7,7 @@ const help = {
     name: "qrgen",
     group: "utility",
     aliases: ["taoqr", "qrgenerator", "qr"],
+    example: [" helloworld"],
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('content')
@@ -22,7 +23,7 @@ const help = {
 
  */
 
-const run = async ({ S, request, lg }) => {
+const run = async ({ S, request, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
 
     let content = "";
@@ -45,23 +46,23 @@ const run = async ({ S, request, lg }) => {
     }
 
     if (content.length === 0) {
-        await request.reply(lg.error.missingData);
+        await request.reply(t('error.missingData'));
         return;
     }
 
     if (content.length > 1600) {
-        await request.reply(lg.error.wrongQrLength);
+        await request.reply(t('error.wrongQrLength'));
         return;
     }
 
     qrcode.toBuffer(content, async (err, buffer) => {
         if (err) {
-            await request.reply(lg.error.undefinedError);
+            await request.reply(t('error.undefinedError'));
             return;
         }
         const attachment = new AttachmentBuilder(buffer, { name: 'qr.png' });
         embed.setImage('attachment://qr.png');
-        embed.setTitle(lg.main.successExecution);
+        embed.setTitle(t('main.successExecution'));
         embed.setDescription(content);
         await request.reply({ embeds: [embed], files: [attachment] });
     });

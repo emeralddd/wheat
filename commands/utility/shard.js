@@ -15,7 +15,7 @@ const help = {
  * @param {Client} obj.wheat
  */
 
-const run = async ({ wheat, request, lg }) => {
+const run = async ({ wheat, request, t }) => {
     const shardList = await wheat.shard.broadcastEval(subWheat => {
         const moment = require('moment');
         const uptime = moment.duration(subWheat.uptime, 'milliseconds');
@@ -44,7 +44,7 @@ const run = async ({ wheat, request, lg }) => {
     }
 
     embed.setFooter({
-        text: `From shard ${wheat.shard.ids[0]}!`
+        text: t('main.fromShard', { shardId: wheat.shard.ids[0] })
     });
 
     await request.reply({ embeds: [embed] });

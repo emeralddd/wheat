@@ -13,14 +13,14 @@ const help = {
  * @param {Request} obj.request
  */
 
-const run = async ({ request, lg }) => {
+const run = async ({ request, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
-    embed.setTitle(lg.main.reportBotError);
-    embed.setDescription(lg.main.clickLinkToReport);
+    embed.setTitle(t('main.reportBotError'));
+    embed.setDescription(t('main.clickLinkToReport'));
     const link = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-                .setLabel(lg.main.clickHere)
+                .setLabel(t('main.clickHere'))
                 .setStyle(ButtonStyle.Link)
                 .setURL('https://docs.google.com/forms/d/1QOYrbwJqjZHZElWbq7FIb5HEzsRPJN-PBxx_5hiv5nQ/viewform?edit_requested=true')
                 .setEmoji('🐛')

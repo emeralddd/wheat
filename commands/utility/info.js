@@ -14,14 +14,13 @@ const help = {
  * @param {object} obj
  * @param {Client} obj.wheat
  * @param {Request} obj.request
- * @param {Array} obj.helpMenu
  */
 
-const run = async ({ wheat, request, lg }) => {
+const run = async ({ wheat, request, t }) => {
     const embed = bot.wheatSampleEmbedGenerate(true);
     embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
-    embed.setTitle(lg.main.aboutMe);
-    embed.setDescription(lg.main.botDescription);
+    embed.setTitle(t('main.aboutMe'));
+    embed.setDescription(t('main.botDescription'));
     const uptime_milli = moment.duration(wheat.uptime, 'milliseconds');
     const promises = [
         await wheat.shard.fetchClientValues('guilds.cache.size'),
@@ -46,42 +45,42 @@ const run = async ({ wheat, request, lg }) => {
 
     embed.addFields(
         {
-            name: lg.main.generation,
+            name: t('main.generation'),
             value: require(`../../logs/${version}.json`).gen,
             inline: true
         },
         {
-            name: lg.main.version,
+            name: t('main.version'),
             value: version,
             inline: true
         },
         {
-            name: lg.main.build,
+            name: t('main.build'),
             value: require('../../package.json').version,
             inline: true
         },
         {
-            name: lg.main.shards,
+            name: t('main.shards'),
             value: process.env.shards,
             inline: true
         },
         {
-            name: lg.main.servers,
+            name: t('main.servers'),
             value: String(guildCount),
             inline: true
         },
         {
-            name: lg.main.commands,
+            name: t('main.commands'),
             value: String(count),
             inline: true
         },
         {
-            name: lg.main.uptime,
+            name: t('main.uptime'),
             value: uptime,
             inline: true
         },
         {
-            name: lg.main.developer,
+            name: t('main.developer'),
             value: `darkemeralddd`,
             inline: true
         },

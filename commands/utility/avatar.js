@@ -7,6 +7,7 @@ const help = {
     group: "utility",
     aliases: ["ava", "daidien"],
     rate: 1500,
+    example: [" 786234973308715008"],
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')
@@ -21,14 +22,14 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ wheat, request, args, lg }) => {
+const run = async ({ wheat, request, args }) => {
     const embed = bot.wheatSampleEmbedGenerate();
 
     try {
         const USER = (request.isMessage ? await bot.wheatGetUserByIdOrMention(wheat, args[1], request.member.id) : request.interaction.options.getUser('user') || request.author);
 
         if (!USER) {
-            await request.reply(lg.error.notFoundThatUser);
+            await request.reply(t('error.notFoundThatUser'));
             return;
         }
 
@@ -36,7 +37,7 @@ const run = async ({ wheat, request, args, lg }) => {
         embed.setImage(`${USER.avatarURL()}?size=1024`);
         await request.reply({ embeds: [embed] });
     } catch (error) {
-        await request.reply(lg.error.notFoundThatUser);
+        await request.reply(t('error.notFoundThatUser'));
         return;
     }
 }

@@ -13,10 +13,9 @@ const help = {
 
  */
 
-const run = async ({ request, lg }) => {
+const run = async ({ request, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
-    embed.setDescription(`**Pong! ${lg.main.in} ` + String(new Date().getTime() - request.createdTimestamp) + ` ${lg.main.miliseconds}!**`);
-
+    embed.setDescription(t('main.pingpong', { mili: String(new Date().getTime() - request.createdTimestamp) }));
     await request.reply({ embeds: [embed] });
 }
 

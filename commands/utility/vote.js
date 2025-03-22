@@ -12,14 +12,14 @@ const help = {
  * @param {Message} obj.request
  */
 
-const run = async ({ request }) => {
+const run = async ({ request, t }) => {
     const embed = bot.wheatSampleEmbedGenerate(true);
-    embed.setTitle(`VOTE cho Bot!`);
-    embed.setDescription(`Vote để ủng hộ thêm cho bot nha!!`);
+    embed.setTitle(t('main.voteForBot'));
+    embed.setDescription(t('main.voteDescription'));
     const link = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-                .setLabel('Vote Ngay')
+                .setLabel('Top.GG')
                 .setStyle(ButtonStyle.Link)
                 .setURL('https://top.gg/bot/786234973308715008/vote')
                 .setEmoji('895593639449853962')
