@@ -8,7 +8,7 @@ module.exports.init = (data) => {
 }
 
 module.exports.validate = (userId, command) => {
-    if (!details[command].rate) return 0;
+    if (!details[command] || !details[command].rate) return 0;
 
     const key = userId + command;
 
