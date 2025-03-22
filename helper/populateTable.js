@@ -93,12 +93,19 @@ const fixStatistic = async () => {
     await queryDB("CREATE TABLE statistic (serverId      TEXT, timestamp     INTEGER, command       TEXT, typeOfRequest INTEGER);");
 }
 
+const fixLanguage = async () => {
+    await queryDB("update member set language='vi' where language='vi_VN'");
+    await queryDB("update server set language='vi' where language='vi_VN'");
+    await queryDB("update member set language='en' where language='en_US'");
+    await queryDB("update server set language='en' where language='en_US'");
+}
+
 const start = async () => {
-    connectMongoDB();
+    // connectMongoDB();
     connectSQLite();
 
-    fixStatistic();
-
+    fixLanguage();
+    // fixStatistic();
     // getMembers();
     // getServers();
 }

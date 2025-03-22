@@ -85,7 +85,7 @@ class Request {
          * The language
          * @type {String}
          */
-        this.language = (language === 'vi_VN' || language === 'en_US') ? language : 'vi_VN';
+        this.language = (language === 'vi' || language === 'en') ? language : 'vi';
 
         /**
          * The channel of request

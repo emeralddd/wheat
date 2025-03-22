@@ -1,4 +1,3 @@
-const bot = require('wheat-better-cmd');
 const rateLimiter = require('./rateLimiter');
 const { Collection } = require("discord.js");
 const { readdirSync } = require("fs");
@@ -6,12 +5,12 @@ const { readdirSync } = require("fs");
 const commandsList = new Collection();
 const aliasesList = new Collection();
 const groupMenu = {};
-const helpMenu = {};
 const groupList = ["astronomy", "ftelling", "random", "fun", "utility", "setting", "admin"];
 
 const { languageList, descriptionOfCommands } = require('./languageBase');
 
 const initiate = async () => {
+    const rateObj = {};
     for (const group of groupList) {
         const files = readdirSync(`./commands/${group}`);
         const jsfile = files.filter(file => file.split('.').pop() === 'js');
@@ -32,6 +31,8 @@ const initiate = async () => {
 
                 commandsList.set(commandName, command);
 
+                rateObj[commandName] = command.help;
+
                 for (const alias of command.help.aliases) {
                     aliasesList.set(alias, commandName);
                 }
@@ -43,13 +44,24 @@ const initiate = async () => {
         for (const group of groupList) {
             if (!descriptionOfCommands[lang][group]) continue;
             for (const c of descriptionOfCommands[lang][group]) {
-                if (!helpMenu[c.name]) helpMenu[c.name] = {};
-                helpMenu[c.name][lang] = c;
+                const helpCommand = commandsList.get(c.name);
+
+                if (!helpCommand.help.syntax) {
+                    helpCommand.help.syntax = {};
+                    helpCommand.help.desc = {};
+                    helpCommand.help.note = {};
+                }
+
+                helpCommand.help.syntax[lang] = c.syntax;
+                helpCommand.help.desc[lang] = c.desc;
+                helpCommand.help.note[lang] = c.note;
+
+                commandsList.set(c.name, helpCommand);
             }
         }
     }
 
-    rateLimiter.init(helpMenu);
+    rateLimiter.init(rateObj);
 }
 
 const commandGet = (command) => {
@@ -58,6 +70,14 @@ const commandGet = (command) => {
 
 const aliaseGet = (command) => {
     return aliasesList.get(command);
+}
+
+const commandHas = (command) => {
+    return commandsList.has(command);
+}
+
+const aliaseHas = (command) => {
+    return aliasesList.has(command);
 }
 
 module.exports = {
@@ -70,13 +90,12 @@ module.exports = {
     get groupMenu() {
         return groupMenu;
     },
-    get helpMenu() {
-        return helpMenu;
-    },
     get groupList() {
         return groupList;
     },
     commandGet,
     aliaseGet,
+    commandHas,
+    aliaseHas,
     initiate
 }

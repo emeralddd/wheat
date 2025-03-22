@@ -10,7 +10,7 @@ const { Request } = require('../../structure/Request');
  * @param {String[]} obj.args
  */
 
-module.exports.run = async ({ wheat, request, args }) => {
+module.exports.run = async ({ request, args }) => {
     if (request.author.id !== '687301490238554160') return;
 
     const announcement = require('../../announcement.json');

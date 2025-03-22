@@ -1,6 +1,7 @@
 const { Collection, SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd');
 const { Request } = require('../../structure/Request');
+const { groupList, groupMenu, aliaseHas, aliaseGet, commandGet, commandHas } = require('../../modules/commandBase');
 
 const help = {
     name: "help",
@@ -23,106 +24,79 @@ const help = {
  * @param {Collection} obj.aliasesList
  */
 
-const run = async ({ request, args, helpMenu, groupMenu, prefix, aliasesList, language, lang }) => {
-
-    const lg = language[lang];
+const run = async ({ request, args, prefix, t }) => {
     const embed = bot.wheatSampleEmbedGenerate(true);
-    embed.setAuthor({ name: `Wheat#1261`, iconUrl: process.env.AVATAR });
+    embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
+
+    const language = request.language;
 
     if ((args && args.length === 1) || (request.isInteraction && (!request.interaction.options.getString('option')))) {
-        embed.setTitle(lg.help.listCommand);
-        embed.setDescription(lg.help.note2 + '`' + prefix + lg.help.note3 + '\n**' + lg.help.note4 + 'https://discord.gg/z5Z4uzmED9**');
+        embed.setTitle(t('help.listCommand'));
+        embed.setDescription(t('help.description', { prefix }));
         embed.addFields(
-            {
-                name: language[lang].help.astronomy,
-                value: '`' + groupMenu['astronomy'].join('` `') + '`'
-            },
-            {
-                name: language[lang].help.fortuneTelling,
-                value: '`' + groupMenu['ftelling'].join('` `') + '`'
-            },
-            {
-                name: language[lang].help.random,
-                value: '`' + groupMenu['random'].join('` `') + '`'
-            },
-            {
-                name: language[lang].help.fun,
-                value: '`' + groupMenu['fun'].join('` `') + '`'
-            },
-            {
-                name: language[lang].help.utility,
-                value: '`' + groupMenu['utility'].join('` `') + '`'
-            },
-            {
-                name: language[lang].help.setting,
-                value: '`' + groupMenu['setting'].join('` `') + '`'
-            }
+            groupList.filter(g => g !== 'admin').map(g => ({
+                name: t(`help.${g}`),
+                value: '`' + groupMenu[g].join('` `') + '`'
+            }))
         );
-        await request.reply({ embeds: [embed] });
-        return;
+        return request.reply({ embeds: [embed] });
     }
 
-    let list = "", command;
+    let command;
     command = (args ? args[1] : request.interaction.options.getString('option').trim()).toLowerCase();
 
     if (groupMenu[command]) {
-        if (command === 'admin') return;
-        for (const id of groupMenu[command]) {
-            list += " `" + id + "`";
+        if (command === 'admin') {
+            return request.reply(t('help.noCommand'));
         }
-        embed.setTitle(`${lg.help.groupCommand}: ${command}`);
-        embed.setDescription(list);
+        embed.setTitle(t('help.groupCommand', { group: t(`help.${command}`) }));
+        embed.setDescription('`' + groupMenu[command].join('` `') + '`');
 
-        await request.reply({ embeds: [embed] });
-        return;
+        return request.reply({ embeds: [embed] });
     }
 
-    if (aliasesList.has(command)) command = aliasesList.get(command);
-    if (helpMenu[command]) {
-        for (const id of helpMenu[command].aliases) {
-            list += " `" + id + "`";
+    if (aliaseHas(command)) command = aliaseGet(command);
+    if (commandHas(command)) {
+        const helpCommand = commandGet(command).help;
+        if (helpCommand.group === '' || helpCommand.group === 'admin') {
+            return request.reply(t('help.noCommand'));
         }
 
-        if (list === "") list = lg.help.none;
-        if (helpMenu[command].group === '') return;
-
-        embed.setTitle(`${lg.help.command}: ${command}`);
+        embed.setTitle(t('help.command', { command }));
         embed.addFields(
             {
-                name: lg.help.parentGroup,
-                value: "`" + helpMenu[command].group + "`",
+                name: t('help.parentGroup'),
+                value: "`" + helpCommand.group + "`",
             },
             {
-                name: lg.help.aliases,
-                value: list,
+                name: t('help.aliases'),
+                value: helpCommand.aliases.length === 0 ? t('help.none') : helpCommand.aliases.map(a => "`" + a + "`").join(' '),
             },
             {
-                name: lg.help.syntax,
-                value: "`" + prefix + command + helpMenu[command].syntax[lang] + "`\n" + helpMenu[command].note[lang],
+                name: t('help.syntax'),
+                value: "`" + prefix + command + helpCommand.syntax[language] + "`\n" + helpCommand.note[language],
             },
             {
-                name: lg.help.example,
-                value: helpMenu[command].example?.map(e => `\`${prefix}${command}${e}\``).join('\n') ?? `\`${prefix}${command}\``
+                name: t('help.example'),
+                value: helpCommand.example?.map(e => `\`${prefix}${command}${e}\``).join('\n') ?? `\`${prefix}${command}\``
             },
             {
-                name: lg.help.ratelimit,
-                value: `${helpMenu[command].rate ? helpMenu[command].rate / 1000 : 0}s`,
+                name: t('help.ratelimit'),
+                value: `${helpCommand.rate ? helpCommand.rate / 1000 : 0}s`,
             }
         );
 
-        if (helpMenu[command].desc[lang] === "") {
+        if (helpCommand.desc[language] === "") {
             console.log(command);
             return;
         }
 
-        if (helpMenu[command].desc[lang][0] === ' ') console.log(command);
-
-        embed.setDescription(helpMenu[command].desc[lang]);
-        embed.setFooter({ text: lg.help.note1 });
+        embed.setDescription(helpCommand.desc[language]);
+        embed.setFooter({ text: t('help.note') });
 
         await request.reply({ embeds: [embed] });
     } else {
-        await request.reply(lg.help.noCommand);
+        await request.reply(t('help.noCommand'));
     }
 }
 

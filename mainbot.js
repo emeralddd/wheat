@@ -87,7 +87,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
         const executeCommand = interaction.commandName;
 
-        if (commandBase.commandGet(executeCommand)) {
+        if (commandBase.commandHas(executeCommand)) {
             const command = commandBase.commandGet(executeCommand);
             const serverInfo = await databaseManager.getServer(guildId);
             const memberInfo = await databaseManager.getMember(memberId);
@@ -187,11 +187,11 @@ wheat.on(Events.MessageCreate, async (message) => {
 
         const cmd = args[0].toLowerCase();
         let executeCommand = cmd;
-        if (commandBase.aliaseGet(executeCommand)) {
+        if (commandBase.aliaseHas(executeCommand)) {
             executeCommand = commandBase.aliaseGet(executeCommand);
         }
 
-        if (commandBase.commandGet(executeCommand)) {
+        if (commandBase.commandHas(executeCommand)) {
             const command = commandBase.commandGet(executeCommand);
 
             if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
