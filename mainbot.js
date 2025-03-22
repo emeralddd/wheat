@@ -1,6 +1,6 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity;
 require('events').defaultMaxListeners = Infinity;
-const { Collection, Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes } = require('discord.js');
 const databaseManager = require('./modules/databaseManager');
 const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
@@ -16,28 +16,19 @@ const wheat = new Client({
     }
 });
 
-let commandsList = new Collection();
-let aliasesList = new Collection();
-let helpMenu = [];
-let groupMenu = {};
-let language = [];
-let all = [];
-let groups = [];
-const langList = ['vi_VN', 'en_US'];
-
-const importLanguage = require('./modules/importLanguage');
-const addCommands = require('./modules/addCommands');
+const languageBase = require('./modules/languageBase');
+const commandBase = require('./modules/commandBase');
 const rateLimiter = require('./modules/rateLimiter');
 const { Request } = require('./structure/Request');
-const parseString = require('./modules/parseString');
+const i18next = require('i18next');
 
 let isInitial = false;
 
-const initial = async () => {
+const firstInit = () => {
     if (isInitial) return;
     try {
-        ({ groupMenu, helpMenu, aliasesList, commandsList, all, groups } = await addCommands(langList));
-        language = importLanguage(langList);
+        languageBase.initiate();
+        commandBase.initiate();
         databaseManager.connect();
         isInitial = true;
     } catch (error) {
@@ -45,12 +36,12 @@ const initial = async () => {
     }
 }
 
-wheat.once('ready', async () => {
-    await initial();
+wheat.once(Events.ClientReady, async () => {
+    firstInit();
     console.log(`[${wheat.shard.ids[0]}] Da dang nhap duoi ten ${wheat.user.tag}!`);
-})
+});
 
-wheat.on('guildCreate', async (guild) => {
+wheat.on(Events.GuildCreate, async (guild) => {
     const ownerId = await guild.fetchOwner();
     const embed = bot.wheatSampleEmbedGenerate();
     embed.setTitle(`Cảm ơn bạn vì đã sử dụng bot Wheat!`);
@@ -67,7 +58,7 @@ wheat.on('guildCreate', async (guild) => {
         if (error.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) return;
         console.log(error);
     };
-})
+});
 
 wheat.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
@@ -89,73 +80,56 @@ wheat.on(Events.InteractionCreate, async interaction => {
             await interaction.reply({
                 enforceNonce: true,
                 nonce: SnowflakeUtil.generate().toString(),
-                content: `Slash Command qua DM sẽ được hoạt động trong tương lai!`
+                content: `Slash Command qua DM sẽ được hoạt động trong tương lai! Slash Command via DM will be activated soon!`
             });
             return;
         }
 
         const executeCommand = interaction.commandName;
 
-        if (commandsList.has(executeCommand)) {
-            const command = commandsList.get(executeCommand);
-
-            if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
-                await interaction.reply({
-                    enforceNonce: true,
-                    nonce: SnowflakeUtil.generate().toString(),
-                    content: `Lệnh ${executeCommand} không được sử dụng tại kênh này!`,
-                    ephemeral: true
-                });
-                return;
-            }
-
-            let prefix = process.env.PREFIX;
-            let lang = process.env.CODE;
-
+        if (commandBase.commandGet(executeCommand)) {
+            const command = commandBase.commandGet(executeCommand);
             const serverInfo = await databaseManager.getServer(guildId);
             const memberInfo = await databaseManager.getMember(memberId);
 
-            if (serverInfo) {
-                prefix = serverInfo.prefix || prefix;
-                lang = serverInfo.language || lang;
+            const prefix = serverInfo?.prefix ?? process.env.PREFIX;
+            const language = memberInfo?.language ?? serverInfo?.language ?? process.env.CODE;
+
+            const t = (str, opt = {}, lang = language) => {
+                return i18next.t(str, { ...opt, lng: lang });
             }
 
-            if (memberInfo) {
-                lang = memberInfo.language || lang;
+            if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
+                return interaction.reply({
+                    enforceNonce: true,
+                    nonce: SnowflakeUtil.generate().toString(),
+                    content: t('error.notUseHere', { executeCommand }),
+                    ephemeral: true
+                });
             }
-
-            const lg = language[lang];
 
             const status = rateLimiter.validate(memberId, executeCommand);
 
             if (status !== 0) {
-                await interaction.reply({
-                    content: parseString(language[lang].main.rateLimit, { sec: status }),
+                return interaction.reply({
+                    enforceNonce: true,
+                    nonce: SnowflakeUtil.generate().toString(),
+                    content: t('main.rateLimit', { sec: status }),
                     ephemeral: true
                 });
-                return;
             }
 
             await interaction.deferReply();
-            const request = new Request(interaction, lang, true);
+            const request = new Request(interaction, language, true);
 
             databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 1);
 
             command.run({
                 wheat,
+                t,
                 request,
-                interaction,
-                helpMenu,
-                groupMenu,
                 prefix,
-                commandsList,
-                aliasesList,
-                language,
-                lang,
-                lg,
-                langList,
-                all,
-                groups,
+                memberInfo,
                 serverInfo
             });
         }
@@ -164,7 +138,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
     };
 });
 
-wheat.on('messageCreate', async (message) => {
+wheat.on(Events.MessageCreate, async (message) => {
     if (message.channel.type === "dm") return;
 
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
@@ -184,31 +158,20 @@ wheat.on('messageCreate', async (message) => {
             announcement = require('./announcement.json');
         }
 
-        let prefix = process.env.PREFIX;
-        let lang = process.env.CODE;
-
         const serverInfo = await databaseManager.getServer(guildId);
-
-        if (serverInfo) {
-            prefix = serverInfo.prefix || prefix;
-            lang = serverInfo.language || lang;
-        } else {
-            prefix = process.env.PREFIX;
-        }
-
         const memberInfo = await databaseManager.getMember(memberId);
 
-        if (memberInfo) {
-            lang = memberInfo.language || lang;
+        const prefix = serverInfo?.prefix ?? process.env.PREFIX;
+        const language = memberInfo?.language ?? serverInfo?.language ?? process.env.CODE;
+
+        const t = (str, opt = {}, lang = language) => {
+            return i18next.t(str, { ...opt, lng: lang });
         }
 
-        const lg = language[lang];
-
-        const request = new Request(message, lang, false);
+        const request = new Request(message, language, false);
 
         if (msg === '<@786234973308715008>') {
-            await request.reply(`${language[lang].main.myPrefix}: ** ${prefix} ** `);
-            return;
+            return request.reply(t('main.myPrefix', { prefix }));
         }
 
         if (!msg.toLowerCase().startsWith(prefix.toLowerCase())) return;
@@ -224,14 +187,12 @@ wheat.on('messageCreate', async (message) => {
 
         const cmd = args[0].toLowerCase();
         let executeCommand = cmd;
-        if (aliasesList.has(executeCommand)) {
-            executeCommand = aliasesList.get(executeCommand);
+        if (commandBase.aliaseGet(executeCommand)) {
+            executeCommand = commandBase.aliaseGet(executeCommand);
         }
 
-        request.language = lang;
-
-        if (commandsList.has(executeCommand)) {
-            const command = commandsList.get(executeCommand);
+        if (commandBase.commandGet(executeCommand)) {
+            const command = commandBase.commandGet(executeCommand);
 
             if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
                 return;
@@ -240,7 +201,7 @@ wheat.on('messageCreate', async (message) => {
             const status = rateLimiter.validate(memberId, executeCommand);
 
             if (status !== 0) {
-                await request.reply(parseString(language[lang].main.rateLimit, { sec: status }));
+                await request.reply(t('main.rateLimit', { sec: status }));
                 return;
             }
 
@@ -248,23 +209,13 @@ wheat.on('messageCreate', async (message) => {
                 databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 0);
                 await command.run({
                     wheat,
+                    t,
                     request,
-                    S,
-                    message,
-                    msg,
-                    args,
-                    helpMenu,
-                    groupMenu,
-                    prefix,
-                    commandsList,
-                    aliasesList,
-                    language,
-                    lang,
                     cmd,
-                    lg,
-                    langList,
-                    all,
-                    groups,
+                    S,
+                    args,
+                    prefix,
+                    memberInfo,
                     serverInfo
                 });
 
