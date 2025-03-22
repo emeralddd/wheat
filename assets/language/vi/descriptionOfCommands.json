@@ -10,9 +10,9 @@
     "ftelling": [
         {
             "name": "tarot",
-            "syntax": " [r]",
+            "syntax": " [r] [số lượng]",
             "desc": "Chọn ngẫu nhiên 1 lá bài từ bộ Rider Waite Tarot và đưa ra ý nghĩa!",
-            "note": "Thêm kí tự `r` phía sau lệnh để chọn cả lá ngược."
+            "note": "Thêm kí tự `r` phía sau lệnh để chọn cả lá ngược. Thêm một số nguyên trong đoạn [1,10] để lựa chọn số lượng bài cần bốc."
         },
         {
             "name": "numerology",
@@ -27,10 +27,10 @@
             "note": "Ngày bắt buộc phải được nhập."
         },
         {
-            "name": "doingayduongam",
+            "name": "lichvannien",
             "syntax": " <a/d> <ngày/tháng/năm>",
-            "desc": "Đổi dương lịch sang âm lịch hoặc ngược lại.",
-            "note": "Ngày bắt buộc phải được nhập. Sử dụng lựa chọn `<a>` để chuyển từ ngày Âm lịch, `<d>` để chuyển từ ngày Dương lịch."
+            "desc": "Xem lịch mỗi ngày.",
+            "note": "Ngày bắt buộc phải được nhập. Sử dụng lựa chọn `<a>` để nhập ngày Âm lịch, `<d>` để nhập ngày Dương lịch. Âm lịch được tính dựa trên múi giờ Việt Nam (GMT+7)"
         }
     ],
     "fun": [

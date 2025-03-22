@@ -2,7 +2,7 @@
     "main": {
         "code": "vi",
         "author": "emeralddd",
-        "myPrefix": "Prefix của bot tại server là",
+        "myPrefix": "Prefix của bot tại server là **{{prefix}}**!",
         "failExecution": "Thực Thi Thất Bại!",
         "successExecution": "Thực Thi Thành Công!",
         "undefinedError": "Đã có lỗi trong quá trình thực thi, vui lòng thử lại sau ít phút!",
@@ -56,7 +56,7 @@
         "languageAtThisServer": "Ngôn ngữ của server",
         "myLanguage": "Ngôn ngữ của bạn",
         "unset": "Chưa đặt",
-        "rateLimit": "Khoảng cách giữa 2 lần thực thi lệnh này tối thiểu là %sec% giây!",
+        "rateLimit": "Khoảng cách giữa 2 lần thực thi lệnh này tối thiểu là {{sec}} giây!",
         "releasebuild": "Bản dựng ra mắt",
         "generation": "Thế hệ",
         "build": "Bản dựng"
@@ -88,29 +88,33 @@
         "time1": "Thời gian",
         "to": "đến"
     },
-    "canchi": {
-        "ti": "Tí",
-        "suu": "Sửu",
-        "dan": "Dần",
-        "mao": "Mão",
-        "thin": "Thìn",
-        "ty": "Tỵ",
-        "ngo": "Ngọ",
-        "vi": "Mùi",
-        "than": "Thân",
-        "dau": "Dậu",
-        "tuat": "Tuất",
-        "hoi": "Hợi",
-        "giap": "Giáp",
-        "at": "Ất",
-        "binh": "Bính",
-        "dinh": "Đinh",
-        "mau": "Mậu",
-        "ky": "Kỷ",
-        "canh": "Canh",
-        "tan": "Tân",
-        "nham": "Nhâm",
-        "quy": "Quý"
+    "amduong": {
+        "can": {
+            "at": "Ất",
+            "binh": "Bính",
+            "dinh": "Đinh",
+            "mau": "Mậu",
+            "ky": "Kỷ",
+            "canh": "Canh",
+            "tan": "Tân",
+            "nham": "Nhâm",
+            "quy": "Quý"
+        },
+        "chi": {
+            "ti": "Tí",
+            "suu": "Sửu",
+            "dan": "Dần",
+            "mao": "Mão",
+            "thin": "Thìn",
+            "ty": "Tỵ",
+            "ngo": "Ngọ",
+            "vi": "Mùi",
+            "than": "Thân",
+            "dau": "Dậu",
+            "tuat": "Tuất",
+            "hoi": "Hợi",
+            "giap": "Giáp"
+        }
     },
     "calendar": {
         "gregorianCalendar": "Dương lịch",
@@ -136,7 +140,8 @@
         "dateAfterApod": "Ngày nhập không được trước ngày 16/6/1995!",
         "dateOverApod": "Ngày nhập không được sau ngày hôm qua!",
         "nasaApodTakeTooLong": "Hệ thống API APOD của NASA đang gặp lỗi! Vui lòng thử lại sau!",
-        "undefinedError": "Đã có lỗi trong quá trình thực thi! Vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!"
+        "undefinedError": "Đã có lỗi trong quá trình thực thi! Vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!",
+        "notUseHere": "Lệnh {{executeCommand}} không được sử dụng tại kênh này!"
     },
     "fun": {
         "angry": " đang tức giận ...",

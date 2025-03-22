@@ -46,9 +46,7 @@
 //2. Các method với Request
 
 const { Snowflake, TextBasedChannel, User, ChatInputCommandInteraction, Message, Guild, GuildMember, MessagePayload, MessageCreateOptions, RESTJSONErrorCodes, InteractionEditReplyOptions, InteractionReplyOptions, SnowflakeUtil } = require('discord.js');
-const importLanguage = require('../modules/importLanguage');
-
-const textList = importLanguage(['vi_VN', 'en_US']);
+const { t } = require('i18next');
 
 class Request {
     constructor(source, language, type) {
@@ -147,11 +145,11 @@ class Request {
     async errorHandle(error = {}) {
         if (error.code === RESTJSONErrorCodes.MissingPermissions) {
             try {
-                await this.channel.send(textList[this.language].error.botMissingPermissions);
+                await this.channel.send(t('error.botMissingPermissions', { lng: this.language }));
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
                     try {
-                        await this.channel.send(textList[this.language].error.botMissingPermissions);
+                        await this.channel.send(t('error.botMissingPermissions', { lng: this.language }));
                     } catch (e) {
                         if (e.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
                             return;
@@ -163,9 +161,9 @@ class Request {
             console.log(error);
             try {
                 if (this.isInteraction) {
-                    await this.editReply(textList[this.language].error.undefinedError);
+                    await this.editReply(t('error.undefinedError', { lng: this.language }));
                 } else {
-                    await this.channel.send(textList[this.language].error.undefinedError);
+                    await this.channel.send(t('error.undefinedError', { lng: this.language }));
                 }
             } catch (err) {
                 console.log(err);

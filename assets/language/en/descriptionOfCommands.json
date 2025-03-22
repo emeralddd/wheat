@@ -10,9 +10,9 @@
     "ftelling": [
         {
             "name": "tarot",
-            "syntax": " [r]",
+            "syntax": " [r] [quantity]",
             "desc": "Pick a random card from Rider Waite Tarot and give meaning!",
-            "note": "Type letter `r` to add the reverse cards."
+            "note": "Type letter `r` to add the reverse cards. Type an integer in range [1,10] to choose how many cards to pick."
         },
         {
             "name": "numerology",
@@ -27,10 +27,10 @@
             "note": "The date must be entered."
         },
         {
-            "name": "doingayduongam",
+            "name": "lichvannien",
             "syntax": " <a/d> <day/month/year>",
-            "desc": "Convert Gregorius calendar to Vietnamese Lunar calendar or vice versa!",
-            "note": "The date must be entered. Use `<a>` option to convert from Lunar and `<d>` option to convert from Gregorius."
+            "desc": "See Vietnamese \"Van Nien calendar\" using Gregorius/Lunar calendar.",
+            "note": "The date must be entered. Use `<a>` option to type Lunar date and `<d>` option to type Gregorius date. Lunar date converted using Vietnam timezone (GMT+7)."
         }
     ],
     "fun": [
