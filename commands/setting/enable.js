@@ -1,7 +1,8 @@
 const bot = require('wheat-better-cmd');
-const { PermissionsBitField, Collection, SlashCommandBuilder } = require('discord.js');
+const { PermissionsBitField, SlashCommandBuilder } = require('discord.js');
 const databaseManager = require('../../modules/databaseManager');
 const { Request } = require('../../structure/Request');
+const { groupList, groupMenu, commandHas, aliaseHas, aliaseGet } = require('../../modules/commandBase');
 
 const help = {
     name: "enable",
@@ -12,6 +13,7 @@ const help = {
         .addStringOption(option =>
             option.setName('options')
                 .setDescription('[all/command 1/group command 1] [all/command 2/group command 2] ...')
+                .setDescriptionLocalization('vi', '[all/lệnh 1/nhóm lệnh 1] [all/lệnh 2/nhóm lệnh 2] ...')
         )
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator | PermissionsBitField.Flags.ManageGuild)
 }
@@ -20,14 +22,9 @@ const help = {
  * @param {object} obj
  * @param {Request} obj.request
  * @param {String[]} obj.args
- * @param {String[]} obj.langList
- * @param {Collection} obj.aliasesList
- * @param {Array} obj.groupMenu
- * @param {Collection} obj.commandsList
- * @param {Array} obj.groups
  */
 
-const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, groups }) => {
+const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
 
     if (request.isMessage) {
@@ -46,16 +43,16 @@ const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, gr
 
     for (let i = 0; i < args.length; i++) {
         if (args[i] === 'all') {
-            for (const g of groups) {
+            for (const g of groupList) {
                 for (const command of groupMenu[g]) {
                     enabledCommands.push(command);
                 }
             }
-        } else if (commandsList.has(args[i])) {
+        } else if (commandHas(args[i])) {
             enabledCommands.push(args[i]);
-        } else if (aliasesList.has(args[i])) {
-            enabledCommands.push(aliasesList.get(args[i]));
-        } else if (groups.includes(args[i])) {
+        } else if (aliaseHas(args[i])) {
+            enabledCommands.push(aliaseGet(args[i]));
+        } else if (groupList.includes(args[i])) {
             for (const command of groupMenu[args[i]]) {
                 enabledCommands.push(command);
             }
@@ -81,9 +78,9 @@ const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, gr
             disabledCommands.add(c.command);
         }
 
-        embed.setTitle(lg.main.successExecution);
+        embed.setTitle(t('main.successExecution'));
 
-        for (const group of groups) {
+        for (const group of groupList) {
             let commands = []
             for (const command of groupMenu[group]) {
                 if (disabledCommands.has(command)) {
@@ -102,7 +99,7 @@ const run = async ({ request, args, lg, groupMenu, aliasesList, commandsList, gr
         await request.reply({ embeds: [embed] });
     } catch (error) {
         console.log(error);
-        await request.reply(lg.error.undefinedError);
+        await request.reply(t('error.undefinedError'));
     }
 }
 

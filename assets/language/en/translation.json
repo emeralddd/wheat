@@ -12,8 +12,8 @@
         "yes": "Yes",
         "no": "No",
         "addedBy": "Added by",
-        "changePrefixTo": "Successfully change server's prefix to",
-        "changeLanguageTo": "Successfully change server's language to",
+        "changePrefixTo": "Successfully change server's prefix to **{{prefix}}**",
+        "changeLanguageTo": "Successfully change server's language to **{{lang}}**",
         "reportBotError": "Report bugs",
         "clickLinkToReport": "Click link to report bot's bugs!",
         "clickHere": "Click Here!",
@@ -54,9 +54,9 @@
         "createdAt": "Created at",
         "role": "Roles",
         "permissions": "Permissions",
-        "changeSelfLanguageTo": "Successfully change your language to",
-        "languageAtThisServer": "Server's language",
-        "myLanguage": "Your language",
+        "changeSelfLanguageTo": "Successfully change your language to **{{lang}}**",
+        "languageAtThisServer": "Server's language: **{{lang}}**",
+        "myLanguage": "Your language: **{{lang}}**",
         "unset": "Unset",
         "rateLimit": "This command requires {{sec}} second(s) rate limited!",
         "releasebuild": "Release build",
@@ -64,7 +64,9 @@
         "build": "Build",
         "fromShard": "From shard {{shardId}}!",
         "voteForBot": "Vote for Bot!",
-        "voteDescription": "Vote to show your support for bot!!!"
+        "voteDescription": "Vote to show your support for bot!!!",
+        "applyTarotReversed": "Use reversed tarot card by default: **{{opt}}**",
+        "appliedTarotReversed": "Successfully change your tarot default to **{{opt}}**"
     },
     "numerology": {
         "yourRullingNumberIs": "your Ruling Number is",
@@ -134,7 +136,7 @@
         "missingNewPrefix": "Missing new prefix!",
         "wrongPrefix": "Prefix must be less than or equal to 32 character",
         "missingNewLanguage": "Missing new language!",
-        "wrongLanguage": "Language don't exist. Only:",
+        "wrongLanguage": "Language don't exist. Only: **{{langList}}**",
         "notFoundThatUser": "User not found!",
         "notFoundThatUpdate": "There is no such update!",
         "wrongColorCode": "Wrong color code!",
@@ -146,7 +148,8 @@
         "dateOverApod": "The date must not be after yesterday!",
         "nasaApodTakeTooLong": "APOD API of NASA has ran into some troubles! Please try again later!",
         "undefinedError": "Undefined error! Please report this at support server and try again later!",
-        "notUseHere": "Command {{executeCommand}} cannot be used in this channel!"
+        "notUseHere": "Command {{executeCommand}} cannot be used in this channel!",
+        "wrongYesNo": "Option don't exist. Only: `true` or `false`"
     },
     "fun": {
         "angry": " is angry ...",

@@ -2,6 +2,7 @@ const bot = require('wheat-better-cmd');
 const { SlashCommandBuilder } = require('discord.js');
 const databaseManager = require('../../modules/databaseManager');
 const { Request } = require('../../structure/Request');
+const { languageList } = require('../../modules/languageBase');
 require('dotenv').config({ path: 'secret.env' });
 
 const help = {
@@ -13,9 +14,10 @@ const help = {
         .addStringOption(option =>
             option.setName('language')
                 .setDescription('choose self language')
+                .setDescriptionLocalization('vi', 'chọn ngôn ngữ riêng')
                 .addChoices(
-                    { name: 'Tiếng Việt', value: 'vi_VN' },
-                    { name: 'English', value: 'en_US' },
+                    { name: 'Tiếng Việt', value: 'vi' },
+                    { name: 'English', value: 'en' },
                     { name: 'Không sử dụng/Unset', value: 'unset' }
                 )
         )
@@ -25,10 +27,9 @@ const help = {
  * @param {object} obj
  * @param {Request} obj.request
  * @param {String[]} obj.args
- * @param {String[]} obj.langList
  */
 
-const run = async ({ request, args, langList, lg, language, serverInfo }) => {
+const run = async ({ request, args, t, serverInfo }) => {
     const embed = bot.wheatSampleEmbedGenerate();
     const memberId = request.member.id;
     const find = await databaseManager.getMember(memberId);
@@ -43,22 +44,21 @@ const run = async ({ request, args, langList, lg, language, serverInfo }) => {
     if (!args[1]) {
         try {
             if (!find.language) {
-                embed.setDescription(`${lg.main.myLanguage}: **${lg.main.unset}**`);
+                embed.setDescription(t('main.myLanguage', { lang: t('main.unset') }));
             } else {
-                embed.setDescription(`${lg.main.myLanguage}: **${find.language}**`);
+                embed.setDescription(t('main.myLanguage', { lang: find.language }));
             }
 
             await request.reply({ embeds: [embed] });
         } catch (err) {
             console.log(err);
-            await request.reply(lg.error.undefinedError);
+            await request.reply(t('error.undefinedError'));
         }
         return;
     }
 
-    if (args[1] !== 'unset' && !langList.includes(args[1])) {
-        await request.reply(`${lg.error.wrongLanguage} **${langList.join(', ')}**`);
-        return;
+    if (args[1] !== 'unset' && !languageList.includes(args[1])) {
+        return request.reply(t('error.wrongLanguage', { langList: languageList.join(', ') }));
     }
 
     try {
@@ -75,15 +75,15 @@ const run = async ({ request, args, langList, lg, language, serverInfo }) => {
         let afterLang = args[1];
         if (args[1] === 'unset') {
             afterLang = serverInfo.language;
-            args[1] = language[serverInfo.language].main.unset;
+            args[1] = t('main.unset', {}, serverInfo.language);
         }
 
-        embed.setTitle(language[afterLang].main.successExecution);
-        embed.setDescription(`${language[afterLang].main.changeSelfLanguageTo} **` + args[1] + `**`);
+        embed.setTitle(t('main.successExecution', {}, afterLang));
+        embed.setDescription(t('main.changeSelfLanguageTo', { lang: args[1] }), args[1]);
         await request.reply({ embeds: [embed] });
     } catch (error) {
         console.log(error);
-        await request.reply(lg.error.undefinedError);
+        await request.reply(t('error.undefinedError'));
     }
 }
 

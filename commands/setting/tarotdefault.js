@@ -13,6 +13,7 @@ const help = {
         .addBooleanOption(option =>
             option.setName('option')
                 .setDescription('do you want to use reversed tarot card by default?')
+                .setDescriptionLocalization('vi', 'bạn có muốn mặc định bốc cả bài ngược?')
         )
 }
 
@@ -22,7 +23,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
     const memberId = request.member.id;
     const find = await databaseManager.getMember(memberId);
@@ -37,22 +38,21 @@ const run = async ({ request, args, lg }) => {
     if (!args[1]) {
         try {
             if (!find.tarot) {
-                embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **Không**`);
+                embed.setDescription(t('main.applyTarotReversed', { opt: t('main.no') }));
             } else {
-                embed.setDescription(`Áp dụng cả lá bài ngược khi bốc bài Tarot: **${find.tarot ? `Có` : `Không`}**`);
+                embed.setDescription(t('main.applyTarotReversed', { opt: t(`main.${find.tarot ? 'yes' : 'no'}`) }));
             }
 
             await request.reply({ embeds: [embed] });
         } catch (err) {
             console.log("tarotdefault 48:\n", err);
-            await request.reply(lg.error.undefinedError);
+            await request.reply(t('error.undefinedError'));
         }
         return;
     }
 
     if (args[1] !== 'true' && args[1] !== 'false') {
-        await request.reply("Không có lựa chọn đó, chỉ có `true` hoặc `false`");
-        return;
+        return request.reply(t('error.wrongYesNo'));
     }
 
     try {
@@ -66,12 +66,12 @@ const run = async ({ request, args, lg }) => {
             });
         }
 
-        embed.setTitle(lg.main.successExecution);
-        embed.setDescription(`Đã đặt áp dụng cả lá bài ngược khi bốc bài Tarot thành **${args[1]}**`);
+        embed.setTitle(t('main.successExecution'));
+        embed.setDescription(t('main.appliedTarotReversed', { opt: args[1] }));
         await request.reply({ embeds: [embed] });;
     } catch (error) {
         console.log("tarotdefault 74:\n", error);
-        await request.reply(lg.error.undefinedError);
+        await request.reply(t('error.undefinedError'));
     }
 }
 

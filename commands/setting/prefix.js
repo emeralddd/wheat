@@ -12,6 +12,7 @@ const help = {
         .addStringOption(option =>
             option.setName('prefix')
                 .setDescription('length < 33')
+                .setDescriptionLocalization('vi', 'độ dài prefix < 33')
                 .setMaxLength(32)
                 .setRequired(true)
         )
@@ -24,22 +25,19 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
     if (request.isMessage) {
         const perm = request.member.permissions;
         if (!(perm.has(PermissionsBitField.Flags.Administrator) || perm.has(PermissionsBitField.Flags.ManageGuild))) {
-            await request.reply(lg.error.missingPermission);
-            return;
+            return request.reply(t('error.missingPermission'));
         }
 
         if (!args[1]) {
-            await request.reply(lg.error.missingNewPrefix);
-            return;
+            return request.reply(t('error.missingNewPrefix'));
         }
         if (args[1].length > 32) {
-            await request.reply(lg.error.wrongPrefix);
-            return;
+            return request.reply(t('error.wrongPrefix'));
         }
     } else {
         args = [''];
@@ -61,12 +59,12 @@ const run = async ({ request, args, lg }) => {
             });
         }
 
-        embed.setTitle(lg.main.successExecution);
-        embed.setDescription(`${lg.main.changePrefixTo} **` + args[1] + `**`);
+        embed.setTitle(t('main.successExecution'));
+        embed.setDescription(t('main.changePrefixTo', { prefix: args[1] }));
         await request.reply({ embeds: [embed] });
     } catch (error) {
         console.log(error);
-        await request.reply(lg.error.undefinedError);
+        await request.reply(t('error.undefinedError'));
     }
 }
 

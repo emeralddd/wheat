@@ -5,13 +5,14 @@ const { readdirSync } = require("fs");
 const commandsList = new Collection();
 const aliasesList = new Collection();
 const groupMenu = {};
-const groupList = ["astronomy", "ftelling", "random", "fun", "utility", "setting", "admin"];
+const groupList = ["astronomy", "ftelling", "random", "fun", "utility", "setting"];
+const groupImportList = ["astronomy", "ftelling", "random", "fun", "utility", "setting", "admin"];
 
 const { languageList, descriptionOfCommands } = require('./languageBase');
 
 const initiate = async () => {
     const rateObj = {};
-    for (const group of groupList) {
+    for (const group of groupImportList) {
         const files = readdirSync(`./commands/${group}`);
         const jsfile = files.filter(file => file.split('.').pop() === 'js');
 
@@ -41,7 +42,7 @@ const initiate = async () => {
     }
 
     for (const lang of languageList) {
-        for (const group of groupList) {
+        for (const group of groupImportList) {
             if (!descriptionOfCommands[lang][group]) continue;
             for (const c of descriptionOfCommands[lang][group]) {
                 const helpCommand = commandsList.get(c.name);

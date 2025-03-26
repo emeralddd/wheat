@@ -2,6 +2,7 @@ const bot = require('wheat-better-cmd')
 const { PermissionsBitField, SlashCommandBuilder } = require('discord.js');
 const databaseManager = require('../../modules/databaseManager');
 const { Request } = require('../../structure/Request');
+const { languageList } = require('../../modules/languageBase');
 require('dotenv').config({ path: 'secret.env' });
 
 const help = {
@@ -13,9 +14,10 @@ const help = {
         .addStringOption(option =>
             option.setName('language')
                 .setDescription('choose language')
+                .setDescriptionLocalization('vi', 'chọn ngôn ngữ')
                 .addChoices(
-                    { name: 'Tiếng Việt', value: 'vi_VN' },
-                    { name: 'English', value: 'en_US' },
+                    { name: 'Tiếng Việt', value: 'vi' },
+                    { name: 'English', value: 'en' },
                 )
         )
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator | PermissionsBitField.Flags.ManageGuild)
@@ -25,16 +27,15 @@ const help = {
  * @param {object} obj
  * @param {Request} obj.request
  * @param {String[]} obj.args
- * @param {String[]} obj.langList
  */
 
-const run = async ({ request, args, langList, lg, language, lang }) => {
+const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
 
     if (request.isMessage) {
         const perm = request.member.permissions;
         if (!(perm.has(PermissionsBitField.Flags.Administrator) || perm.has(PermissionsBitField.Flags.ManageGuild))) {
-            await request.reply(lg.error.missingPermission);
+            await request.reply(t('error.missingPermission'));
             return;
         }
     } else {
@@ -49,22 +50,21 @@ const run = async ({ request, args, langList, lg, language, lang }) => {
     if (!args[1]) {
         try {
             if (!find.language) {
-                embed.setDescription(`${lg.main.languageAtThisServer}: **${process.env.CODE}**`);
+                embed.setDescription(t('main.languageAtThisServer', { lang: process.env.CODE }));
             } else {
-                embed.setDescription(`${lg.main.languageAtThisServer}: **${find.language}**`);
+                embed.setDescription(t('main.languageAtThisServer', { lang: find.language }));
             }
 
             await request.reply({ embeds: [embed] });
         } catch (err) {
             console.log(err);
-            await request.reply(lg.error.undefinedError);
+            await request.reply(t('error.undefinedError'));
         }
         return;
     }
 
-    if (!langList.includes(args[1])) {
-        await request.reply(`${lg.error.wrongLanguage} **${langList.join(', ')}**`);
-        return;
+    if (!languageList.includes(args[1])) {
+        return request.reply(t('error.wrongLanguage', { langList: languageList.join(', ') }));
     }
 
     try {
@@ -78,12 +78,12 @@ const run = async ({ request, args, langList, lg, language, lang }) => {
             });
         }
 
-        embed.setTitle(language[args[1]].main.successExecution);
-        embed.setDescription(`${language[args[1]].main.changeLanguageTo} **` + args[1] + `**`)
+        embed.setTitle(t('main.successExecution', {}, args[1]));
+        embed.setDescription(t('main.changeLanguageTo', { lang: args[1] }, args[1]));
         await request.reply({ embeds: [embed] });
     } catch (error) {
         console.log(error);
-        await request.reply(lg.error.undefinedError);
+        await request.reply(t('error.undefinedError'));
     }
 }
 

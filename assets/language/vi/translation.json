@@ -12,8 +12,8 @@
         "yes": "Có",
         "no": "Không",
         "addedBy": "Thêm bởi",
-        "changePrefixTo": "Đã đổi thành công prefix của server thành",
-        "changeLanguageTo": "Đã đổi thành công ngôn ngữ của server thành",
+        "changePrefixTo": "Đã đổi thành công prefix của server thành **{{prefix}}**",
+        "changeLanguageTo": "Đã đổi thành công ngôn ngữ của server thành **{{lang}}**",
         "reportBotError": "Báo cáo lỗi của bot",
         "clickLinkToReport": "Nhấn vào link để báo cáo lỗi của bot!",
         "clickHere": "Bấm vào đây!",
@@ -53,9 +53,9 @@
         "createdAt": "Lập tài khoản",
         "role": "Role",
         "permissions": "Permission",
-        "changeSelfLanguageTo": "Đã đổi thành công ngôn ngữ của bạn thành",
-        "languageAtThisServer": "Ngôn ngữ của server",
-        "myLanguage": "Ngôn ngữ của bạn",
+        "changeSelfLanguageTo": "Đã đổi thành công ngôn ngữ của bạn thành **{{lang}}**",
+        "languageAtThisServer": "Ngôn ngữ của server: **{{lang}}**",
+        "myLanguage": "Ngôn ngữ của bạn: **{{lang}}**",
         "unset": "Chưa đặt",
         "rateLimit": "Khoảng cách giữa 2 lần thực thi lệnh này tối thiểu là {{sec}} giây!",
         "releasebuild": "Bản dựng ra mắt",
@@ -63,7 +63,9 @@
         "build": "Bản dựng",
         "fromShard": "Từ shard {{shardId}}!",
         "voteForBot": "Vote cho Bot!",
-        "voteDescription": "Vote để ủng hộ thêm cho bot nha!!!"
+        "voteDescription": "Vote để ủng hộ thêm cho bot nha!!!",
+        "applyTarotReversed": "Áp dụng cả lá bài ngược khi bốc bài Tarot: **{{opt}}**",
+        "appliedTarotReversed": "Đã đặt áp dụng cả lá bài ngược khi bốc bài Tarot thành **{{opt}}**"
     },
     "numerology": {
         "yourRullingNumberIs": "số Chủ Đạo của bạn là số",
@@ -133,7 +135,7 @@
         "missingNewPrefix": "Thiếu prefix mới!",
         "wrongPrefix": "Prefix phải có độ dài nhỏ hơn hoặc bằng 32 kí tự",
         "missingNewLanguage": "Thiếu ngôn ngữ mới!",
-        "wrongLanguage": "Không tồn tại ngôn ngữ đó. Chỉ có:",
+        "wrongLanguage": "Không tồn tại ngôn ngữ đó. Chỉ có: **{{langList}}**",
         "notFoundThatUser": "Không tìm thấy người dùng đó!",
         "notFoundThatUpdate": "Không có bản cập nhật đó!",
         "wrongColorCode": "Mã màu nhập không hợp lệ!",
@@ -145,7 +147,8 @@
         "dateOverApod": "Ngày nhập không được sau ngày hôm qua!",
         "nasaApodTakeTooLong": "Hệ thống API APOD của NASA đang gặp lỗi! Vui lòng thử lại sau!",
         "undefinedError": "Đã có lỗi trong quá trình thực thi! Vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!",
-        "notUseHere": "Lệnh {{executeCommand}} không được sử dụng tại kênh này!"
+        "notUseHere": "Lệnh {{executeCommand}} không được sử dụng tại kênh này!",
+        "wrongYesNo": "Không tồn tại lựa chọn đó. Chỉ có: `true` hoặc `false`"
     },
     "fun": {
         "angry": " đang tức giận ...",
