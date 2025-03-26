@@ -12,6 +12,7 @@ const help = {
         .addStringOption(option =>
             option.setName('content')
                 .setDescription('length<1601')
+                .setDescriptionLocalization('vi', 'độ dài<1601')
                 .setRequired(true)
         )
 }

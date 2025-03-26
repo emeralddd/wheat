@@ -11,6 +11,7 @@ const help = {
         .addStringOption(option =>
             option.setName('update')
                 .setDescription('lists/update name')
+                .setDescriptionLocalization('vi', 'lists/tên bản cập nhật')
         )
 }
 

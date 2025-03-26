@@ -13,28 +13,27 @@ const help = {
             subcommand
                 .setName('random')
                 .setDescription('random color')
+                .setDescriptionLocalization('vi', 'chọn màu ngẫu nhiên')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('rgb')
                 .setDescription('get color by rgb code')
+                .setDescriptionLocalization('vi', 'tìm màu bằng mã rgb')
                 .addIntegerOption(option =>
                     option.setName('red')
-                        .setDescription('red code')
                         .setRequired(true)
                         .setMinValue(0)
                         .setMaxValue(255)
                 )
                 .addIntegerOption(option =>
                     option.setName('green')
-                        .setDescription('green code')
                         .setRequired(true)
                         .setMinValue(0)
                         .setMaxValue(255)
                 )
                 .addIntegerOption(option =>
                     option.setName('blue')
-                        .setDescription('blue code')
                         .setRequired(true)
                         .setMinValue(0)
                         .setMaxValue(255)
@@ -44,6 +43,7 @@ const help = {
             subcommand
                 .setName('hex')
                 .setDescription('get color by hex code')
+                .setDescriptionLocalization('vi', 'tìm màu bằng mã hex')
                 .addStringOption(option =>
                     option.setName('hex')
                         .setDescription('eg: #ffffff')
@@ -55,7 +55,8 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('int')
-                .setDescription('get color by int')
+                .setDescription('get color by integer')
+                .setDescriptionLocalization('vi', 'tìm màu bằng số nguyên')
                 .addIntegerOption(option =>
                     option.setName('int')
                         .setDescription('[0,16777215]')

@@ -12,6 +12,7 @@ const help = {
         .addStringOption(option =>
             option.setName('option')
                 .setDescription('command/group command')
+                .setDescriptionLocalization('vi', 'lệnh/nhóm lệnh')
         )
 }
 
@@ -35,7 +36,7 @@ const run = async ({ request, args, prefix, t }) => {
         embed.setTitle(t('help.listCommand'));
         embed.setDescription(t('help.description', { prefix }));
         embed.addFields(
-            groupList.filter(g => g !== 'admin').map(g => ({
+            groupList.map(g => ({
                 name: t(`help.${g}`),
                 value: '`' + groupMenu[g].join('` `') + '`'
             }))

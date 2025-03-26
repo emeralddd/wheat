@@ -11,7 +11,6 @@ const help = {
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('mention||id')
         )
 }
 
