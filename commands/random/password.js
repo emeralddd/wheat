@@ -11,7 +11,7 @@ const help = {
             option.setName('length')
                 .setMinValue(8)
                 .setMaxValue(100)
-                .setDescription('integer in [8,100]')
+                .setDescription('[8,100]')
                 .setRequired(true)
         )
 }
@@ -22,16 +22,16 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     const len = Number(request.isMessage ? args[1] : request.interaction.options.getInteger('length'));
 
     if (!len) {
-        await request.reply(lg.error.passwordLengthError);
+        await request.reply(t('error.passwordLengthError'));
         return;
     }
 
     if (len > 100 || len < 8) {
-        await request.reply(lg.error.passwordLengthError);
+        await request.reply(t('error.passwordLengthError'));
         return;
     }
 
@@ -52,7 +52,7 @@ const run = async ({ request, args, lg }) => {
     }
     pass = bot.wheatShuffleArray(pass);
     const str = String.fromCharCode.apply(null, pass);
-    await request.reply(`${lg.random.passwordIs}: ||${str}||`);
+    await request.reply(t('random.passwordIs', { pass: str }));
 }
 
 module.exports.run = run;

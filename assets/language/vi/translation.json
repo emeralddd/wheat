@@ -193,13 +193,11 @@
         "flipping": "Đang tung đồng xu ...",
         "heads": "Ngửa",
         "tails": "Sấp",
-        "dices": "Đổ các xúc xắc",
-        "dicesResult": "được kết quả lần lượt là",
-        "sumIs": "Tổng là",
-        "passwordIs": "Mật khẩu tự động được tạo ra là ",
-        "iPick": "Tôi chọn",
-        "randomNumInRange": "Số ngẫu nhiên trong khoảng",
-        "randomDate": "Ngày ngẫu nhiên được chọn là",
-        "randomTime": "Giờ ngẫu nhiên được chọn là"
+        "dices": "🎲 Đổ các xúc xắc {{faces}}được kết quả lần lượt là {{dices}}. Tổng là {{sum}}.",
+        "passwordIs": "🔑 Mật khẩu tự động được tạo ra là ||{{pass}}||",
+        "iPick": "Tôi chọn: **{{item}}**",
+        "randomNumInRange": "🔢 Số ngẫu nhiên trong đoạn [{{min}},{{max}}] là: **{{rand}}**.",
+        "randomDate": "📅 Ngày ngẫu nhiên được chọn là: **{{date}}**",
+        "randomTime": "⏰ Giờ ngẫu nhiên được chọn là: **{{time}}**"
     }
 }

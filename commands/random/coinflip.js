@@ -11,12 +11,12 @@ const help = {
  * @param {Request} obj.request
  */
 
-const run = async ({ request, lg }) => {
+const run = async ({ request, t }) => {
     const randomCoinFlipSeed = 1310;
     const cf = Math.floor(Math.random() * randomCoinFlipSeed);
-    await request.reply('<a:coinfliping:1351788533999996949> ' + lg.random.flipping);
+    await request.reply('<a:coinfliping:1351788533999996949> ' + t('random.flipping'));
     setTimeout(() => {
-        request.edit(`${((cf & 1) ? '<:head:1351788558008188961> ' + lg.random.heads : '<:tail:1351788577121636353> ' + lg.random.tails)}!`);
+        request.edit(`${((cf & 1) ? '<:head:1351788558008188961> ' + t('random.heads') : '<:tail:1351788577121636353> ' + t('random.tails'))}!`);
     }, 2000);
 }
 

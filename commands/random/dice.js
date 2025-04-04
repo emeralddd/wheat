@@ -8,7 +8,8 @@ const help = {
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('dices')
-                .setDescription('<dice 1> [dice 2] [dice 3] [dice 4] ... [dice n]')
+                .setDescription('<dice 1> [dice 2] [dice 3] [dice 4] ...')
+                .setDescriptionLocalization('vi', '<số mặt ở xúc xắc 1> [xúc xắc 2] [xúc xắc 3] ...')
         )
 }
 
@@ -18,7 +19,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     const rd = [];
 
     if (request.isInteraction) {
@@ -49,7 +50,7 @@ const run = async ({ request, args, lg }) => {
         sum += e.dice;
     });
 
-    await request.reply(`${lg.random.dices} ${sf}${lg.random.dicesResult} ${sd}. ${lg.random.sumIs}: ${sum}`);
+    await request.reply(t('random.dices', { faces: sf, dices: sd, sum }));
 }
 
 module.exports.run = run;

@@ -194,13 +194,11 @@
         "flipping": "Flipping a coin ...",
         "heads": "Heads",
         "tails": "Tails",
-        "dices": "Roll some dices",
-        "dicesResult": "and get results respectively",
-        "sumIs": "Sum is",
-        "passwordIs": "Random password created is ",
-        "iPick": "I picked",
-        "randomNumInRange": "Random number in range",
-        "randomDate": "Random date is",
-        "randomTime": "Random time is"
+        "dices": "🎲 Roll some dices {{faces}}and get results respectively {{dices}}. Sum is {{sum}}.",
+        "passwordIs": "🔑 Random password created is ||{{pass}}||",
+        "iPick": "I picked: **{{item}}**",
+        "randomNumInRange": "🔢 Random number in range [{{min}},{{max}}] is: {{rand}}.",
+        "randomDate": "📅 Random date is: **{{date}}**",
+        "randomTime": "⏰ Random time is: **{{time}}**"
     }
 }

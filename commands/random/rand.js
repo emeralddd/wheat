@@ -10,14 +10,17 @@ const help = {
             subcommand
                 .setName('default')
                 .setDescription('random in [1,100]')
+                .setDescriptionLocalization('vi', 'ngẫu nhiên trong đoạn [1,100]')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('1option')
                 .setDescription('random in [1,max]')
+                .setDescriptionLocalization('vi', 'ngẫu nhiên trong đoạn [1,max]')
                 .addIntegerOption(option =>
                     option.setName('max')
-                        .setDescription('integer > 1')
+                        .setDescription('max > 1')
+                        .setMinValue(2)
                         .setRequired(true)
                 )
         )
@@ -25,14 +28,15 @@ const help = {
             subcommand
                 .setName('2options')
                 .setDescription('random in [min,max]')
+                .setDescriptionLocalization('vi', 'ngẫu nhiên trong đoạn [min,max]')
                 .addIntegerOption(option =>
                     option.setName('min')
-                        .setDescription('integer > 1')
+                        .setDescription('integer')
                         .setRequired(true)
                 )
                 .addIntegerOption(option =>
                     option.setName('max')
-                        .setDescription('integer > 1')
+                        .setDescription('max >= min')
                         .setRequired(true)
                 )
         )
@@ -44,7 +48,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     let numberMIN = 0;
     let numberMAX = 0;
 
@@ -52,12 +56,12 @@ const run = async ({ request, args, lg }) => {
         numberMIN = Number(args[1]);
         numberMAX = Number(args[2]);
 
-        if (!numberMIN && numberMIN != 0) {
+        if (!numberMIN && numberMIN !== 0) {
             numberMIN = 1;
             numberMAX = 100;
         }
 
-        if (!numberMAX && numberMAX != 0) {
+        if (!numberMAX && numberMAX !== 0) {
             numberMAX = numberMIN;
             numberMIN = 1;
         }
@@ -87,7 +91,7 @@ const run = async ({ request, args, lg }) => {
     }
 
     const randomNumber = Math.floor(Math.random() * (numberMAX - numberMIN + 1) + numberMIN);
-    await request.reply(`${lg.random.randomNumInRange} [${numberMIN},${numberMAX}] ${lg.main.is}: ${randomNumber}`);
+    await request.reply(t('random.randomNumInRange', { min: numberMIN, max: numberMAX, rand: randomNumber }));
 }
 
 module.exports.run = run;
