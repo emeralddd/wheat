@@ -21,19 +21,22 @@ const help = {
                 .setDescription('get color by rgb code')
                 .setDescriptionLocalization('vi', 'tìm màu bằng mã rgb')
                 .addIntegerOption(option =>
-                    option.setName('red')
+                    option.setName('r')
+                        .setDescription('red')
                         .setRequired(true)
                         .setMinValue(0)
                         .setMaxValue(255)
                 )
                 .addIntegerOption(option =>
-                    option.setName('green')
+                    option.setName('g')
+                        .setDescription('green')
                         .setRequired(true)
                         .setMinValue(0)
                         .setMaxValue(255)
                 )
                 .addIntegerOption(option =>
-                    option.setName('blue')
+                    option.setName('b')
+                        .setDescription('blue')
                         .setRequired(true)
                         .setMinValue(0)
                         .setMaxValue(255)
@@ -82,9 +85,9 @@ const run = async ({ request, args, t }) => {
         if ((request.isInteraction && request.interaction.options.getSubcommand() === 'rgb') || ((!request.isInteraction) && code.includes(','))) {
             let red, green, blue;
             if (request.isInteraction) {
-                red = request.interaction.options.getInteger('red');
-                green = request.interaction.options.getInteger('green');
-                blue = request.interaction.options.getInteger('blue');
+                red = request.interaction.options.getInteger('r');
+                green = request.interaction.options.getInteger('g');
+                blue = request.interaction.options.getInteger('b');
             } else {
                 const rgb = code.split(',');
                 red = Number(rgb[0]);

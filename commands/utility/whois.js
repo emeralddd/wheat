@@ -11,6 +11,8 @@ const help = {
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')
+                .setDescription('select user')
+                .setDescriptionLocalization('vi', 'chọn người dùng')
         )
 }
 
