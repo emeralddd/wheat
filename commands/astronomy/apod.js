@@ -88,7 +88,7 @@ const run = async ({ request, args, t }) => {
         if (error.code === 'ECONNABORTED') {
             request.reply(t('error.nasaApodTakeTooLong'));
         } else {
-            request.reply(t('lg.error.undefinedError'));
+            request.reply(t('error.undefinedError'));
         }
     });
 }

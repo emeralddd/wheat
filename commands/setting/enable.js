@@ -30,7 +30,7 @@ const run = async ({ request, args, t }) => {
     if (request.isMessage) {
         const perm = request.member.permissions;
         if (!(perm.has(PermissionsBitField.Flags.Administrator) || perm.has(PermissionsBitField.Flags.ManageGuild))) {
-            await request.reply(lg.error.missingPermission);
+            await request.reply(t('error.missingPermission'));
             return;
         }
         args.shift();
