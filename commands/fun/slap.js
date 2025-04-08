@@ -10,7 +10,8 @@ const help = {
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('mention')
+                .setDescription('select user')
+                .setDescriptionLocalization('vi', 'chọn người dùng')
                 .setRequired(true)
         )
 }
@@ -22,16 +23,16 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ wheat, request, args, lg }) => {
+const run = async ({ wheat, request, args, t }) => {
     const mentionUsers = await bot.wheatGetUserByIdOrMention(wheat, args ? args[1] : request.interaction.options.getUser('user').id, '0');
 
     if (!mentionUsers) {
-        await request.reply(lg.error.needToTriggerAtOnePerson);
+        await request.reply(t('error.needToTriggerAtOnePerson'));
         return;
     }
     const gifArray = require('../../assets/url/gifsURL.json').slap;
     const embed = bot.wheatSampleEmbedGenerate();
-    embed.setTitle(`${request.member.displayName} ${lg.fun.slap} ${mentionUsers.username}`);
+    embed.setTitle(`${request.member.displayName} ${t('fun.slap')} ${mentionUsers.username}`);
     embed.setImage(bot.wheatRandomElementFromArray(gifArray));
     await request.reply({ embeds: [embed] });
 }

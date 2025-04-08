@@ -13,10 +13,10 @@ const help = {
  * @param {Request} obj.request
  */
 
-const run = async ({ request, lg }) => {
+const run = async ({ request, t }) => {
     const gifArray = require('../../assets/url/gifsURL.json').dizzy;
     const embed = bot.wheatSampleEmbedGenerate();
-    embed.setTitle(`${request.member.displayName} ${lg.fun.dizzy}`);
+    embed.setTitle(`${request.member.displayName} ${t('fun.dizzy')}`);
     embed.setImage(bot.wheatRandomElementFromArray(gifArray));
     await request.reply({ embeds: [embed] });
 }
