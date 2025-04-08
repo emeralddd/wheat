@@ -2,16 +2,35 @@ const bot = require('wheat-better-cmd');
 const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
 const { Request } = require('../../structure/Request');
 const moment = require('moment');
+const { dateInput, convertTo2DigitNumber } = require('../../modules/dateParse');
 
 const help = {
     name: "numerology",
     group: "ftelling",
     aliases: ["thansohoc", "tsh", "nhansohoc", "nsh"],
     data: new SlashCommandBuilder()
-        .addStringOption(option =>
-            option.setName('date')
-                .setDescription('<DD/MM/YYYY>')
+        .addIntegerOption(option =>
+            option.setName('day')
+                .setDescription('day')
+                .setDescriptionLocalization('vi', 'ngày')
                 .setRequired(true)
+                .setMinValue(1)
+                .setMaxValue(31)
+        )
+        .addIntegerOption(option =>
+            option.setName('month')
+                .setDescription('month')
+                .setDescriptionLocalization('vi', 'tháng')
+                .setRequired(true)
+                .setMinValue(1)
+                .setMaxValue(12)
+        )
+        .addIntegerOption(option =>
+            option.setName('year')
+                .setDescription('year')
+                .setDescriptionLocalization('vi', 'năm')
+                .setRequired(true)
+                .setMinValue(1)
         )
 }
 
@@ -21,85 +40,89 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
     const embed1 = bot.wheatSampleEmbedGenerate();
-    const date = request.isMessage ? args[1] : request.interaction.options.getString('date');
+    const [extractDay, extractMonth, extractYear] = dateInput(request, args ? args[2] : "", '/', ['day', 'month', 'year']);
 
-    const mmt = moment(date, 'DD/MM/YYYY', true);
+    const mmt = moment(`${convertTo2DigitNumber(extractDay)}/${convertTo2DigitNumber(extractMonth)}/${convertTo2DigitNumber(extractYear)}`, 'DD/MM/YYYY', true);
+
     if (!mmt.isValid()) {
-        await request.reply(lg.error.formatError);
+        await request.reply(t('error.formatError'));
         return;
     }
 
     const number = await bot.wheatReadJSON('./assets/content/numerologyRulingNumber_new.json');
-    let temp = mmt.format('DD/MM/YYYY');
-    let tmp = 0;
-    for (let i = 0; i < temp.length; i++) {
-        if (temp[i] !== '/') tmp += Number(temp[i]);
-    }
-    temp = tmp;
-    while (temp != 22 && temp > 11) {
-        tmp = temp;
-        temp = 0;
-        while (tmp != 0) {
-            temp += tmp % 10;
-            tmp = Math.floor(tmp / 10);
+
+    let sumOfDigit = mmt.format('DDMMYYYY').split('').reduce((prev, cur) => prev + Number(cur), 0);
+
+    while (sumOfDigit !== 22 && sumOfDigit > 11) {
+        let sumAgain = 0;
+        while (sumOfDigit !== 0) {
+            sumAgain += sumOfDigit % 10;
+            sumOfDigit = Math.floor(sumOfDigit / 10);
         }
+
+        sumOfDigit = sumAgain;
     }
 
-    const num = number[temp];
-    if (temp === 22) temp = "22/4";
+    if (sumOfDigit === 22) sumOfDigit = "22/4";
+    const rullingNumber = number[sumOfDigit];
 
-    embed.setTitle(`▩ ${request.member.displayName}, ${lg.fortune.yourRullingNumberIs} **${temp}**`);
-    if (temp === "22/4") temp = 22;
-    embed.setDescription(num.description);
+    embed.setTitle(t('numerology.yourRullingNumberIs', {
+        username: request.member.displayName,
+        number: sumOfDigit
+    }));
+
+    embed.setDescription(rullingNumber.description);
     embed.data.fields = [];
     embed1.data.fields = [];
-    embed1.setFooter({ text: lg.fortune.numerologyDetails });
+    embed1.setFooter({ text: t('numerology.numerologyDetails') });
 
     embed.addFields({
-        name: `◌ ${lg.fortune.lifePurpose}`,
-        value: num.lifePurpose
+        name: `◌ ${t('numerology.lifePurpose')}`,
+        value: rullingNumber.lifePurpose
     }, {
-        name: `◌ ${lg.fortune.good}`,
-        value: num.bestExpression
+        name: `◌ ${t('numerology.good')}`,
+        value: rullingNumber.bestExpression
     }, {
-        name: `◌ ${lg.fortune.special}`,
-        value: num.distinctiveTraits
+        name: `◌ ${t('numerology.special')}`,
+        value: rullingNumber.distinctiveTraits
     });
 
-    if (num.distinctiveTraits1) {
+    if (rullingNumber.distinctiveTraits1) {
         embed.addFields({
             name: `▿`,
-            value: num.distinctiveTraits1
+            value: rullingNumber.distinctiveTraits1
         });
     }
     embed1.addFields({
-        name: `◌ ${lg.fortune.bad}`,
-        value: num.negative
+        name: `◌ ${t('numerology.bad')}`,
+        value: rullingNumber.negative
     }, {
-        name: `◌ ${lg.fortune.sol}`,
-        value: num.sol
+        name: `◌ ${t('numerology.sol')}`,
+        value: rullingNumber.sol
     });
 
-    if (num.sol1) {
+    if (rullingNumber.sol1) {
         embed1.addFields({
             name: `▿`,
-            value: num.sol1
+            value: rullingNumber.sol1
         });
     }
 
     embed1.addFields({
-        name: `◌ ${lg.fortune.job}`,
-        value: num.job
+        name: `◌ ${t('numerology.job')}`,
+        value: rullingNumber.job
     }, {
-        name: `◌ ${lg.fortune.summary}`,
-        value: num.summary
+        name: `◌ ${t('numerology.summary')}`,
+        value: rullingNumber.summary
     });
 
-    const attachment = new AttachmentBuilder(`./assets/image/numberImage/${temp}.png`, `${temp}.png`);
-    embed.setThumbnail(`attachment://${temp}.png`);
+    if (sumOfDigit === "22/4") sumOfDigit = 22;
+
+    const attachment = new AttachmentBuilder(`./assets/image/numberImage/${sumOfDigit}.png`, `${sumOfDigit}.png`);
+    embed.setThumbnail(`attachment://${sumOfDigit}.png`);
 
     await request.reply({ embeds: [embed], files: [attachment] });
     await request.follow({ embeds: [embed1] });

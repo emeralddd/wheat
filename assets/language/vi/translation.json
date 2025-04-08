@@ -68,7 +68,7 @@
         "appliedTarotReversed": "Đã đặt áp dụng cả lá bài ngược khi bốc bài Tarot thành **{{opt}}**"
     },
     "numerology": {
-        "yourRullingNumberIs": "số Chủ Đạo của bạn là số",
+        "yourRullingNumberIs": "▩ {{username}}, số Chủ Đạo của bạn là số **{{number}}**",
         "numerologyDetails": "Mọi thông tin được nêu trên được dịch từ cuốn sách The Complete Book of Numerology của tác giả David A. Phillips!",
         "general": "Giới thiệu",
         "lifePurpose": "Mục đích sống",
@@ -90,12 +90,12 @@
     "astro": {
         "zodiacth": "Cung hoàng đạo thứ",
         "characteristic": "Đặc điểm",
-        "eclipticLongitude": "Kinh độ Hoàng đạo",
-        "time1": "Thời gian",
-        "to": "đến"
+        "personality": "Tính cách",
+        "zodiacDesc": "⋄ Thời gian: {{startTime}} đến {{endTime}}\n⋄ Kinh độ Hoàng đạo: {{startDeg}}° đến {{endDeg}}°"
     },
     "amduong": {
         "can": {
+            "giap": "Giáp",
             "at": "Ất",
             "binh": "Bính",
             "dinh": "Đinh",
@@ -118,13 +118,14 @@
             "than": "Thân",
             "dau": "Dậu",
             "tuat": "Tuất",
-            "hoi": "Hợi",
-            "giap": "Giáp"
+            "hoi": "Hợi"
         }
     },
     "calendar": {
         "gregorianCalendar": "Dương lịch",
-        "lunarCalendar": "Âm lịch"
+        "lunarCalendar": "Âm lịch",
+        "lunarDate": "{{day}}/{{month}}/{{year}} tức ngày {{lDay}}, tháng {{lMonth}}, năm {{lYear}}",
+        "gregorianDate": "dddd, [ngày] D MMMM [năm] YYYY"
     },
     "error": {
         "formatError": "Sai cấu trúc ngày hoặc ngày không hợp lệ! Sử dụng lệnh `/help` để xem cấu trúc ngày đúng",
@@ -148,7 +149,8 @@
         "nasaApodTakeTooLong": "Hệ thống API APOD của NASA đang gặp lỗi! Vui lòng thử lại sau!",
         "undefinedError": "Đã có lỗi trong quá trình thực thi! Vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!",
         "notUseHere": "Lệnh {{executeCommand}} không được sử dụng tại kênh này!",
-        "wrongYesNo": "Không tồn tại lựa chọn đó. Chỉ có: `true` hoặc `false`"
+        "wrongYesNo": "Không tồn tại lựa chọn đó. Chỉ có: `true` hoặc `false`",
+        "missingADOption": "Thiếu trường `a`/`d` để biết ngày bạn nhập là Âm lịch hay Dương lịch."
     },
     "fun": {
         "angry": " đang tức giận ...",

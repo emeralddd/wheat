@@ -2,16 +2,28 @@ const bot = require('wheat-better-cmd');
 const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
 const moment = require('moment');
 const { Request } = require('../../structure/Request');
+const { dateInput, convertTo2DigitNumber } = require('../../modules/dateParse');
 
 const help = {
     name: "zodiac",
     group: "ftelling",
     aliases: ["hoangdao"],
     data: new SlashCommandBuilder()
-        .addStringOption(option =>
-            option.setName('date')
-                .setDescription('<DD/MM>')
+        .addIntegerOption(option =>
+            option.setName('day')
+                .setDescription('day')
+                .setDescriptionLocalization('vi', 'ngày')
                 .setRequired(true)
+                .setMinValue(1)
+                .setMaxValue(31)
+        )
+        .addIntegerOption(option =>
+            option.setName('month')
+                .setDescription('month')
+                .setDescriptionLocalization('vi', 'tháng')
+                .setRequired(true)
+                .setMinValue(1)
+                .setMaxValue(12)
         )
 }
 
@@ -21,12 +33,15 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ request, args, lg }) => {
+const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
-    const date = (request.isMessage ? args[1] : request.interaction.options.getString('date')) + "/2020";
-    const mmt = moment(date, 'DD/MM/YYYY', true);
+
+    const [extractDay, extractMonth] = dateInput(request, args ? args[2] : "", '/', ['day', 'month']);
+
+    const mmt = moment(`${convertTo2DigitNumber(extractDay)}/${convertTo2DigitNumber(extractMonth)}/2020`, 'DD/MM/YYYY', true);
+
     if (!mmt.isValid()) {
-        await request.reply(lg.error.formatError);
+        await request.reply(t('error.formatError'));
         return;
     }
 
@@ -46,16 +61,21 @@ const run = async ({ request, args, lg }) => {
     }
     if (pos === 12) pos = 9;
 
-    embed.setAuthor({ name: `⋗ ${lg.fortune.zodiacth}: ${String(pos + 1)}` });
+    embed.setAuthor({ name: `⋗ ${t('astro.zodiacth')}: ${String(pos + 1)}` });
     embed.setTitle(zodiac[pos].unicode + " " + zodiac[pos].name);
     embed.addFields({
-        name: `${lg.fortune.characteristic}`,
-        value: `⋄ ${lg.fortune.time1}: ${startTime[pos].format('DD/MM')} ${lg.fortune.to} ${startTime[(pos + 1) % 12].subtract(1, 'days').format('DD/MM')}\n⋄ ${lg.fortune.eclipticLongitude}: ${pos * 30}° ${lg.fortune.to} ${(pos + 1) * 30}°`
+        name: t('astro.characteristic'),
+        value: t('astro.zodiacDesc', {
+            startTime: startTime[pos].format('DD/MM'),
+            endTime: startTime[(pos + 1) % 12].subtract(1, 'days').format('DD/MM'),
+            startDeg: pos * 30,
+            endDeg: (pos + 1) * 30
+        })
     });
 
     for (let i = 0; i < zodiac[pos].personality.length; i++) {
         embed.addFields({
-            name: i === 0 ? 'Tính cách' : '⋇',
+            name: i === 0 ? t('astro.personality') : '⋇',
             value: zodiac[pos].personality[i]
         });
     }

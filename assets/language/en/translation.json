@@ -69,7 +69,7 @@
         "appliedTarotReversed": "Successfully change your tarot default to **{{opt}}**"
     },
     "numerology": {
-        "yourRullingNumberIs": "your Ruling Number is",
+        "yourRullingNumberIs": "▩ {{username}}, your Ruling Number is **{{number}}**",
         "numerologyDetails": "All information is translated from The Complete Book of Numerology by David A. Phillips!",
         "general": "General",
         "lifePurpose": "Life Purpose",
@@ -91,9 +91,8 @@
     "astro": {
         "zodiacth": "Position of Zodiac",
         "characteristic": "Characteristic",
-        "eclipticLongitude": "Ecliptic Longitude",
-        "time1": "Time",
-        "to": "to"
+        "personality": "Personality",
+        "zodiacDesc": "⋄ Time: {{startTime}} to {{endTime}}\n⋄ Ecliptic Longitude: {{startDeg}}° to {{endDeg}}°"
     },
     "amduong": {
         "can": {
@@ -125,7 +124,9 @@
     },
     "calendar": {
         "gregorianCalendar": "Gregorian Calendar",
-        "lunarCalendar": "Lunar Calendar"
+        "lunarCalendar": "Lunar Calendar",
+        "lunarDate": "{{day}}/{{month}}/{{year}} - {{lDay}} day, {{lMonth}} month, {{lYear}} year",
+        "gregorianDate": "dddd, MMMM Do YYYY"
     },
     "error": {
         "formatError": "Wrong date format or invalid date! Use the `/help` command to see the correct date format",
@@ -149,7 +150,8 @@
         "nasaApodTakeTooLong": "APOD API of NASA has ran into some troubles! Please try again later!",
         "undefinedError": "Undefined error! Please report this at support server and try again later!",
         "notUseHere": "Command {{executeCommand}} cannot be used in this channel!",
-        "wrongYesNo": "Option don't exist. Only: `true` or `false`"
+        "wrongYesNo": "Option don't exist. Only: `true` or `false`",
+        "missingADOption": "Missing `a`/`d` option to determine typed date is Lunar or Gregorian."
     },
     "fun": {
         "angry": " is angry ...",
