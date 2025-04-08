@@ -10,7 +10,6 @@ test.js
 /secret.env
 
 # New feature HINT
-/commands/ftelling/lichvannien.js
 /commands/ftelling/bandosao.js
 /commands/ftelling/tuvi.js
 

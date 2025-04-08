@@ -21,6 +21,9 @@ module.exports.initiate = () => {
                 en: {
                     translation: enTranslation
                 }
+            },
+            interpolation: {
+                escapeValue: false
             }
         });
 }
