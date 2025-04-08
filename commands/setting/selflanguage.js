@@ -79,7 +79,7 @@ const run = async ({ request, args, t, serverInfo }) => {
         }
 
         embed.setTitle(t('main.successExecution', {}, afterLang));
-        embed.setDescription(t('main.changeSelfLanguageTo', { lang: args[1] }), args[1]);
+        embed.setDescription(t('main.changeSelfLanguageTo', { lang: args[1] }), afterLang);
         await request.reply({ embeds: [embed] });
     } catch (error) {
         console.log(error);
