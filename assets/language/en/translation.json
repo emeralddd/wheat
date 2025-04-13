@@ -81,7 +81,9 @@
         "summary": "Summary"
     },
     "tarot": {
-        "yourTarotCardIs": "your Tarot card is",
+        "yourTarotCardIs": "{{user}}, your Tarot card is ...",
+        "reverseCard": "reversed",
+        "uprightCard": "upright",
         "minorArcana": "Minor Arcana",
         "majorArcana": "Major Arcana",
         "keywords": "Keywords",

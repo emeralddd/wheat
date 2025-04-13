@@ -8,6 +8,7 @@ const help = {
     name: "tarotdefault",
     group: "setting",
     aliases: ["tarotset"],
+    example: ["", " true", " false"],
     rate: 2000,
     data: new SlashCommandBuilder()
         .addBooleanOption(option =>

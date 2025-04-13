@@ -6,6 +6,7 @@ require('dotenv').config;
 const help = {
     name: "bite",
     group: "fun",
+    example: [" 786234973308715008"],
     aliases: [],
     data: new SlashCommandBuilder()
         .addUserOption(option =>

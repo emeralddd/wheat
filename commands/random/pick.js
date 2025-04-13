@@ -5,6 +5,7 @@ const help = {
 	name: "pick",
 	group: "random",
 	aliases: ["choose", "chon"],
+	example: [" bun bo hue, pho ga, pho bo, xup luon"],
 	data: new SlashCommandBuilder()
 		.addStringOption(option =>
 			option.setName('choices')

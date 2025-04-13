@@ -5,11 +5,12 @@ const help = {
     name: "dice",
     group: "random",
     aliases: ["xucxac", "xingau", "doxingau", "tungxucxac", "xn", "xx"],
+    example: ["", " 6 10 3"],
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('dices')
-                .setDescription('<dice 1> [dice 2] [dice 3] [dice 4] ...')
-                .setDescriptionLocalization('vi', '<số mặt ở xúc xắc 1> [xúc xắc 2] [xúc xắc 3] ...')
+                .setDescription('[dice 1] [dice 2] [dice 3] [dice 4] ...')
+                .setDescriptionLocalization('vi', '[số mặt ở xúc xắc 1] [xúc xắc 2] [xúc xắc 3] ...')
         )
 }
 

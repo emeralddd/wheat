@@ -80,7 +80,9 @@
         "summary": "Tổng kết"
     },
     "tarot": {
-        "yourTarotCardIs": "lá bài Tarot của bạn là",
+        "yourTarotCardIs": "{{user}}, lá bài Tarot của bạn là ...",
+        "reverseCard": "ngược",
+        "uprightCard": "xuôi",
         "minorArcana": "Bộ ẩn phụ",
         "majorArcana": "Bộ ẩn chính",
         "keywords": "Từ khóa",

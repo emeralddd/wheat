@@ -10,6 +10,7 @@ const help = {
     name: "apod",
     group: "astronomy",
     aliases: ['astropic', 'nasapic', 'picday'],
+    example: [' 1/1/2012'],
     rate: 3000,
     data: new SlashCommandBuilder()
         .addIntegerOption(option =>

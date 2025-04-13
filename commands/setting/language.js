@@ -9,6 +9,7 @@ const help = {
     name: "language",
     group: "setting",
     aliases: ["lang", "ngonngu"],
+    example: ["", " vi", " en"],
     rate: 3000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>

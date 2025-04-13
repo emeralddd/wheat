@@ -6,6 +6,7 @@ const help = {
     name: "password",
     group: "random",
     aliases: ["pass", "mk", "passgen", "autopass", "taomk", "matkhau"],
+    example: [" 12"],
     data: new SlashCommandBuilder()
         .addIntegerOption(option =>
             option.setName('length')

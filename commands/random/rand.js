@@ -5,6 +5,7 @@ const help = {
     name: "rand",
     group: "random",
     aliases: ["rd", "ngaunhien", "batky", "rdm", "r"],
+    example: ["", " 10", " 5 10"],
     data: new SlashCommandBuilder()
         .addSubcommand(subcommand =>
             subcommand

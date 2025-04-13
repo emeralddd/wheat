@@ -2,7 +2,7 @@
     "astronomy": [
         {
             "name": "apod",
-            "syntax": " [DD/MM/YYYY]",
+            "syntax": " [ngày/tháng/năm]",
             "desc": "Xem một bức ảnh thiên văn của một ngày bất kì cung cấp bởi NASA",
             "note": "Nếu bạn không cung cấp ngày tháng, mặc định sẽ là ngày đó.\nNgày nhập vào phải sau hoặc ngày 16/06/1995."
         }
@@ -10,19 +10,19 @@
     "ftelling": [
         {
             "name": "tarot",
-            "syntax": " [r] [số lượng]",
+            "syntax": " [r] [trải bài]",
             "desc": "Chọn ngẫu nhiên 1 lá bài từ bộ Rider Waite Tarot và đưa ra ý nghĩa!",
-            "note": "Thêm kí tự `r` phía sau lệnh để chọn cả lá ngược. Thêm một số nguyên trong đoạn [1,10] để lựa chọn số lượng bài cần bốc."
+            "note": "Thêm kí tự `r` phía sau lệnh để chọn cả lá ngược, `nr` để không sử dụng lá ngược. Thêm `1` (một lá), `3` (ba lá), `5` (năm lá) hoặc `c` (Celtic Cross) để chọn trải bài mong muốn."
         },
         {
             "name": "numerology",
-            "syntax": " <DD/MM/YYYY>",
+            "syntax": " <ngày/tháng/năm>",
             "desc": "Xem ý nghĩa con số chủ đạo của một ngày sinh!",
             "note": "Ngày bắt buộc phải được nhập."
         },
         {
             "name": "zodiac",
-            "syntax": " <DD/MM>",
+            "syntax": " <ngày/tháng>",
             "desc": "Đưa ra thông tin hoàng đạo về một ngày bất kì!",
             "note": "Ngày bắt buộc phải được nhập."
         },
@@ -182,7 +182,7 @@
         },
         {
             "name": "rdate",
-            "syntax": " [DD/MM/YYYY] [DD/MM/YYYY]",
+            "syntax": " [ngày/tháng/năm] [ngày/tháng/năm]",
             "desc": "Đưa ra một ngày bất kỳ trong khoảng thời gian",
             "note": "Nếu bạn không đưa ra thông tin gì, ngày mặc định sẽ lấy sau ngày 01/01/1970.\nNếu bạn nhập một thông tin ngày, ngày sẽ được lấy sau ngày 01/01/1970 và trước ngày bạn nhập."
         },
@@ -194,7 +194,7 @@
         },
         {
             "name": "rtime",
-            "syntax": " [hh:mm] [hh:mm]",
+            "syntax": " [giờ:phút] [giờ:phút]",
             "desc": "Đưa ra một thời gian ngẫu nhiên trong khoảng thời gian",
             "note": "Nếu bạn không đưa ra thông tin gì, thời gian mặc định sẽ lấy sau 0 giờ 0 phút và trước 23 giờ 59 phút.\nNếu bạn nhập một thông tin giờ, thời gian sẽ được lấy sau 0 giờ 0 phút và trước thời gian bạn nhập."
         }
@@ -208,15 +208,15 @@
         },
         {
             "name": "language",
-            "syntax": " <ngôn ngữ mới>",
+            "syntax": " [ngôn ngữ mới]",
             "desc": "Cập nhật lại ngôn ngữ của bot tại server",
-            "note": "Bạn cần quyền Administrator hoặc Manager Server.\nNgôn ngữ mới phải được nhập"
+            "note": "Bạn cần quyền Administrator hoặc Manager Server."
         },
         {
             "name": "selflanguage",
-            "syntax": " <ngôn ngữ mới>",
+            "syntax": " [ngôn ngữ mới]",
             "desc": "Cập nhật lại ngôn ngữ của bot dành cho bạn",
-            "note": "Thứ tự ưu tiên của ngôn ngữ: Ngôn ngữ của bạn -> Ngôn ngữ của Server -> Ngôn ngữ mặc định (`en_US`)"
+            "note": "Thứ tự ưu tiên của ngôn ngữ: Ngôn ngữ của bạn -> Ngôn ngữ của Server -> Ngôn ngữ mặc định (`vi`)"
         },
         {
             "name": "disable",

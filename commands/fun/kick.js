@@ -7,6 +7,7 @@ const help = {
     name: "kick",
     group: "fun",
     aliases: [],
+    example: [" 786234973308715008"],
     data: new SlashCommandBuilder()
         .addUserOption(option =>
             option.setName('user')

@@ -8,6 +8,7 @@ const help = {
     name: "disable",
     group: "setting",
     aliases: ["ignore", "photlo", "lamlo"],
+    example: ["", " all", " fun ping"],
     rate: 4000,
     data: new SlashCommandBuilder()
         .addStringOption(option =>

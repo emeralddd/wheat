@@ -8,6 +8,7 @@ const help = {
     name: "rdate",
     group: "random",
     aliases: ["randomdate", "ngaunhienngay", "datebetween"],
+    example: ["", " 1/12/2012", " 4/5/2020 12/6/2023"],
     data: new SlashCommandBuilder()
         .addSubcommand(subcommand =>
             subcommand

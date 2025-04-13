@@ -2,7 +2,7 @@
     "astronomy": [
         {
             "name": "apod",
-            "syntax": " [DD/MM/YYYY]",
+            "syntax": " [day/month/year]",
             "desc": "View an astronomical image of any given in a day provided by NASA",
             "note": "If you don't provide a date, the default date will be date.\nInput date must be after 16/06/1995"
         }
@@ -10,19 +10,19 @@
     "ftelling": [
         {
             "name": "tarot",
-            "syntax": " [r] [quantity]",
+            "syntax": " [r/nr] [spread]",
             "desc": "Pick a random card from Rider Waite Tarot and give meaning!",
-            "note": "Type letter `r` to add the reverse cards. Type an integer in range [1,10] to choose how many cards to pick."
+            "note": "Type letter `r` to add the reverse cards, `nr` to not to use reverse cards. Type `1` (one card), `3` (three cards), `5` (five cards) or `c` (Celtic Cross) to choose the spread."
         },
         {
             "name": "numerology",
-            "syntax": " <DD/MM/YYYY>",
+            "syntax": " <day/month/year>",
             "desc": "See the meaning of The Ruling Number of a birth!",
             "note": "The date must be entered."
         },
         {
             "name": "zodiac",
-            "syntax": " <DD/MM>",
+            "syntax": " <day/month>",
             "desc": "Give zodiac information about any date!",
             "note": "The date must be entered."
         },
@@ -182,7 +182,7 @@
         },
         {
             "name": "rdate",
-            "syntax": " [DD/MM/YYYY] [DD/MM/YYYY]",
+            "syntax": " [day/month/year] [day/month/year]",
             "desc": "Give a random date in range",
             "note": "If you don't provide any arguments, default will be after 01/01/1970.\nIf you only provided one argument, the range will be after 01/01/1970 and before the date you provided."
         },
@@ -194,7 +194,7 @@
         },
         {
             "name": "rtime",
-            "syntax": " [hh:mm] [hh:mm]",
+            "syntax": " [hour:minute] [hour:minute]",
             "desc": "Give a random time in range",
             "note": "If you don't provide any arguments, default will be after 00: 00 and before 23: 59.\nIf you only provided one argument, the range will be after 00: 00 and before the time you provided."
         }
@@ -208,15 +208,15 @@
         },
         {
             "name": "language",
-            "syntax": " <new <language>",
+            "syntax": " [new language]",
             "desc": "Update the language of the bot at the server",
-            "note": "You need Administrator or Manager Server permission.\nNew language must be provided"
+            "note": "You need Administrator or Manager Server permission."
         },
         {
             "name": "selflanguage",
-            "syntax": " <new language>",
+            "syntax": " [new language]",
             "desc": "Update the language of the bot for you",
-            "note": "Language preference: Your language → Server language → Default language (`en_US`)"
+            "note": "Language preference: Your language → Server language → Default language (`vi`)"
         },
         {
             "name": "disable",

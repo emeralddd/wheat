@@ -8,6 +8,7 @@ const help = {
     name: "numerology",
     group: "ftelling",
     aliases: ["thansohoc", "tsh", "nhansohoc", "nsh"],
+    example: [" 5/12/2013"],
     data: new SlashCommandBuilder()
         .addIntegerOption(option =>
             option.setName('day')

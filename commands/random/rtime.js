@@ -8,6 +8,7 @@ const help = {
     name: "rtime",
     group: "random",
     aliases: ["randomtime", "ngaunhiengio", "timebetween"],
+    example: ["", " 05:30", " 8:10 22:45"],
     data: new SlashCommandBuilder()
         .addSubcommand(subcommand =>
             subcommand

@@ -8,6 +8,7 @@ const help = {
     group: "setting",
     aliases: ["pf"],
     rate: 3000,
+    example: [" !"],
     data: new SlashCommandBuilder()
         .addStringOption(option =>
             option.setName('prefix')
