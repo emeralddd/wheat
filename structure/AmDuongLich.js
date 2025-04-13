@@ -395,6 +395,13 @@ class AmDuongLich {
          * @type {GuildMember}
          */
 
+        if (!isFinite(day) || !isFinite(month) || !isFinite(year) || day < 1 || month < 1 || year < 1) {
+            this.ngayAmLich = {
+                day: 0
+            }
+            return;
+        }
+
         if (amduong === AmDuongLich.AmLich) {
             const tmp = convertAmDuong(day, month, year, leap, 7);
 
@@ -403,18 +410,27 @@ class AmDuongLich {
                     day: 0
                 }
             } else {
-                this.ngayAmLich = {
-                    day,
-                    month,
-                    year,
-                    leap
+                const reCheck = convertDuongAm(tmp[0], tmp[1], tmp[2]);
+
+                if (reCheck.day !== day || reCheck.month !== month || reCheck.year !== year || reCheck.leap !== leap) {
+                    this.ngayAmLich = {
+                        day: 0
+                    }
+                } else {
+                    this.ngayAmLich = {
+                        day,
+                        month,
+                        year,
+                        leap
+                    }
+
+                    this.ngayDuongLich = {
+                        day: tmp[0],
+                        month: tmp[1],
+                        year: tmp[2]
+                    }
                 }
 
-                this.ngayDuongLich = {
-                    day: tmp[0],
-                    month: tmp[1],
-                    year: tmp[2]
-                }
             }
         } else {
             const tmp = convertDuongAm(day, month, year);
@@ -453,7 +469,7 @@ class AmDuongLich {
      */
 
     isValid() {
-        return this.ngayAmLich.day !== 0;
+        return isFinite(this.ngayAmLich.day) && this.ngayAmLich.day !== 0;
     }
 
     setLanguage(lang) {
@@ -474,11 +490,11 @@ class AmDuongLich {
     }
 
     getCanChiMonth() {
-        return this.nameOfCan[this.language][(((this.ngayAmLich.year % 5 + 1) * 2) % 10 + this.ngayAmLich.month - 1) % 10] + " " + this.nameOfChi[this.language][(this.ngayAmLich.month + 1) % 12];
+        return this.nameOfCan[this.language][(((this.ngayAmLich.year % 5 + 2) * 2) % 10 + this.ngayAmLich.month - 1) % 10] + " " + this.nameOfChi[this.language][(this.ngayAmLich.month + 1) % 12];
     }
 
     getCanChiYear() {
-        return this.nameOfCan[this.language][(this.ngayAmLich.year + 7) % 10] + " " + this.nameOfChi[this.language][(this.ngayAmLich.year + 8) % 12];
+        return this.nameOfCan[this.language][(this.ngayAmLich.year + 6) % 10] + " " + this.nameOfChi[this.language][(this.ngayAmLich.year + 8) % 12];
     }
 }
 
