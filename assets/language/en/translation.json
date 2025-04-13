@@ -82,6 +82,10 @@
     },
     "tarot": {
         "yourTarotCardIs": "{{user}}, your Tarot card is ...",
+        "35cards": "{{user}}, this is your {{num}} cards spread!",
+        "celtic": "{{user}}, this is your Celtic Cross spread!",
+        "celticList": "Cards in spread:",
+        "lefttoright": "From left to right: ",
         "reverseCard": "reversed",
         "uprightCard": "upright",
         "minorArcana": "Minor Arcana",

@@ -90,37 +90,37 @@ const run = async ({ request, args, t }) => {
 		}
 	}
 
-	let speard = 1;
+	let spread = 1;
 
 	if (request.isMessage) {
-		const speardArgs = (args[1] === 'r' || args[1] === 'nr') ? args[2] : args[1];
+		const spreadArgs = (args[1] === 'r' || args[1] === 'nr') ? args[2] : args[1];
 
-		if (speardArgs) {
-			if (speardArgs === '3') {
-				speard = 3;
-			} else if (speardArgs === '5') {
-				speard = 5;
-			} else if (speardArgs === 'c') {
-				speard = 'c';
+		if (spreadArgs) {
+			if (spreadArgs === '3') {
+				spread = 3;
+			} else if (spreadArgs === '5') {
+				spread = 5;
+			} else if (spreadArgs === 'c') {
+				spread = 'c';
 			}
 		}
 	} else {
-		const speardOpt = request.interaction.options.getString('spread');
+		const spreadOpt = request.interaction.options.getString('spread');
 
-		if (speardOpt) {
-			if (speardOpt === '3') {
-				speard = 3;
-			} else if (speardOpt === '5') {
-				speard = 5;
-			} else if (speardOpt === 'c') {
-				speard = 'c';
+		if (spreadOpt) {
+			if (spreadOpt === '3') {
+				spread = 3;
+			} else if (spreadOpt === '5') {
+				spread = 5;
+			} else if (spreadOpt === 'c') {
+				spread = 'c';
 			}
 		}
 	}
 
 	const embed = bot.wheatSampleEmbedGenerate();
 
-	if (speard === 1) {
+	if (spread === 1) {
 		const [[cardId, type]] = pickTarotCards(1, reversed);
 		const tarotCard = tarotMeaning[cardId];
 
@@ -157,19 +157,29 @@ const run = async ({ request, args, t }) => {
 		const attachment = new AttachmentBuilder(`./assets/image/tarotImage/${type ? 'u' : 'r'}/${tarotCard.image}`, tarotCard.image);
 		embed.setImage(`attachment://${tarotCard.image}`);
 		request.reply({ embeds: [embed], files: [attachment] });
-	} else if (speard === 3 || speard === 5) {
-		const tarotCards = pickTarotCards(speard, reversed);
+	} else if (spread === 3 || spread === 5) {
+		const tarotCards = pickTarotCards(spread, reversed);
 
 		const gap = 50;
 
-		const canvas = createCanvas(293 * speard + gap * (speard - 1), 512);
+		const canvas = createCanvas(293 * spread + gap * (spread - 1), 512);
 		const ctx = canvas.getContext('2d');
 
 		for (let i = 0; i < tarotCards.length; i++) {
 			ctx.drawImage(CanvasImages[tarotCards[i][1] ? 'u' : 'r'][tarotCards[i][0] - 1], (293 + gap) * i, 0);
 		}
 
-		const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: `spreads.png` });
+		embed.setTitle(t('tarot.35cards', {
+			user: request.member.displayName,
+			num: spread
+		}));
+
+		embed.addFields({
+			name: t('tarot.lefttoright'),
+			value: tarotCards.map((card, ind) => `${ind + 1}. **${tarotMeaning[card[0]].name}** ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`).join('\n')
+		});
+
+		const attachment = new AttachmentBuilder(canvas.toBuffer('image/webp'), { name: `spreads.png` });
 		embed.setImage(`attachment://spreads.png`);
 		request.reply({ embeds: [embed], files: [attachment] });
 	} else {
@@ -178,23 +188,40 @@ const run = async ({ request, args, t }) => {
 		const canvas = createCanvas(1742, 2198);
 		const ctx = canvas.getContext('2d');
 
-		ctx.drawImage(CanvasImages[tarotCards[0][1] ? 'u' : 'r'][tarotCards[0][0] - 1], 453, 746); //1
-		ctx.rotate(-90 * Math.PI / 180);
+		ctx.font = '60px sans-serif';
+		ctx.fillStyle = '#ffffff';
+		ctx.textBaseline = "hanging";
 
-		ctx.drawImage(CanvasImages[tarotCards[1][1] ? 'u' : 'r'][tarotCards[1][0] - 1], -1451, 343); //2
+		const coordOfCards = [[453, 746], [-1451, 343], [0, 746], [906, 746], [453, 184], [453, 1501], [1449, 0], [1449, 562], [1449, 1124], [1449, 1686]];
 
-		ctx.rotate(90 * Math.PI / 180);
+		for (let i = 1; i <= 10; i++) {
+			if (i === 2) {
+				ctx.rotate(-90 * Math.PI / 180);
+			}
+			ctx.drawImage(CanvasImages[tarotCards[i - 1][1] ? 'u' : 'r'][tarotCards[i - 1][0] - 1], coordOfCards[i - 1][0], coordOfCards[i - 1][1]);
 
-		ctx.drawImage(CanvasImages[tarotCards[2][1] ? 'u' : 'r'][tarotCards[2][0] - 1], 0, 746); //3
-		ctx.drawImage(CanvasImages[tarotCards[3][1] ? 'u' : 'r'][tarotCards[3][0] - 1], 906, 746); //4
-		ctx.drawImage(CanvasImages[tarotCards[4][1] ? 'u' : 'r'][tarotCards[4][0] - 1], 453, 184); //5
-		ctx.drawImage(CanvasImages[tarotCards[5][1] ? 'u' : 'r'][tarotCards[5][0] - 1], 453, 1501); //6
-		ctx.drawImage(CanvasImages[tarotCards[6][1] ? 'u' : 'r'][tarotCards[6][0] - 1], 1449, 0); //7
-		ctx.drawImage(CanvasImages[tarotCards[7][1] ? 'u' : 'r'][tarotCards[7][0] - 1], 1449, 562); //8
-		ctx.drawImage(CanvasImages[tarotCards[8][1] ? 'u' : 'r'][tarotCards[8][0] - 1], 1449, 1124); //9
-		ctx.drawImage(CanvasImages[tarotCards[9][1] ? 'u' : 'r'][tarotCards[9][0] - 1], 1449, 1686); //10
+			ctx.fillStyle = '#fff';
+			ctx.fillRect(coordOfCards[i - 1][0], coordOfCards[i - 1][1], i === 10 ? 80 : 40, 50);
 
-		const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: `spreads.png` });
+			ctx.fillStyle = '#edc809';
+			ctx.fillText('' + i, coordOfCards[i - 1][0] + 3, coordOfCards[i - 1][1] + 3);
+
+			if (i === 2) {
+				ctx.rotate(90 * Math.PI / 180);
+			}
+		}
+
+		const attachment = new AttachmentBuilder(canvas.toBuffer('image/webp'), { name: `spreads.png` });
+
+		embed.setTitle(t('tarot.celtic', {
+			user: request.member.displayName
+		}));
+
+		embed.addFields({
+			name: t('tarot.celticList'),
+			value: tarotCards.map((card, ind) => `${ind + 1}. **${tarotMeaning[card[0]].name}** ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`).join('\n')
+		});
+
 		embed.setImage(`attachment://spreads.png`);
 		request.reply({ embeds: [embed], files: [attachment] });
 	}

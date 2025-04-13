@@ -81,6 +81,10 @@
     },
     "tarot": {
         "yourTarotCardIs": "{{user}}, lá bài Tarot của bạn là ...",
+        "35cards": "{{user}}, đây là trải bài {{num}} lá của bạn!",
+        "lefttoright": "Từ trái sang phải: ",
+        "celtic": "{{user}}, đây là trải bài Celtic Cross của bạn!",
+        "celticList": "Các lá bài:",
         "reverseCard": "ngược",
         "uprightCard": "xuôi",
         "minorArcana": "Bộ ẩn phụ",
