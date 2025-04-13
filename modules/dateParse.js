@@ -4,7 +4,7 @@ module.exports.dateInput = (request, message, sep, options) => {
     const res = [];
 
     options.forEach((o, index) => {
-        res.push(request.isMessage ? Number(dateInput[index]) : request.interaction.options.getInteger(o))
+        res.push(request.isMessage ? Number(dateInput[index]) : request.interaction.options.getInteger(o));
     });
 
     return res;

@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const bot = require('wheat-better-cmd');
 const moment = require('moment');
 const { Request } = require('../../structure/Request');
-const { dateInput, convertTo2DigitNumber } = require('../../modules/dateParse');
+const { dateInput } = require('../../modules/dateParse');
 const { AmDuongLich } = require('../../structure/AmDuongLich');
 
 const help = {
@@ -11,39 +11,52 @@ const help = {
     example: [" a 25/11/2022", " d 1/1/2022"],
     aliases: ["xemngay", "duongam", "amduong", "doingayamduong", "doingayduongam"],
     data: new SlashCommandBuilder()
-        .addStringOption(option =>
-            option.setName('type')
-                .setDescription('the typed date is Lunar or Gregorian?')
-                .setDescriptionLocalization('vi', "ngày được nhập là Âm lịch hay Dương lịch?")
-                .setRequired(true)
-                .setChoices(
-                    { name: 'Âm lịch (Lunar)', value: 'a' },
-                    { name: 'Dương lịch (Gregorian)', value: 'd' },
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('today')
+                .setDescription('Van Nien for today')
+                .setDescriptionLocalization('vi', 'xem ngày hôm nay')
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('anydate')
+                .setDescription('Van Nien for another date')
+                .setDescriptionLocalization('vi', 'xem một ngày khác')
+                .addStringOption(option =>
+                    option.setName('type')
+                        .setDescription('the typed date is Lunar or Gregorian?')
+                        .setDescriptionLocalization('vi', "ngày được nhập là Âm lịch hay Dương lịch?")
+                        .setRequired(true)
+                        .setChoices(
+                            { name: 'Âm lịch (Lunar)', value: 'a' },
+                            { name: 'Dương lịch (Gregorian)', value: 'd' },
+                        )
+                )
+                .addIntegerOption(option =>
+                    option.setName('day')
+                        .setDescription('day')
+                        .setDescriptionLocalization('vi', 'ngày')
+                        .setMinValue(1)
+                        .setMaxValue(31)
+                        .setRequired(true)
+                )
+                .addIntegerOption(option =>
+                    option.setName('month')
+                        .setDescription('month')
+                        .setDescriptionLocalization('vi', 'tháng')
+                        .setMinValue(1)
+                        .setMaxValue(12)
+                        .setRequired(true)
+                )
+                .addIntegerOption(option =>
+                    option.setName('year')
+                        .setDescription('year')
+                        .setDescriptionLocalization('vi', 'năm')
+                        .setMinValue(1)
+                        .setRequired(true)
                 )
         )
-        .addIntegerOption(option =>
-            option.setName('day')
-                .setDescription('day')
-                .setDescriptionLocalization('vi', 'ngày')
-                .setRequired(true)
-                .setMinValue(1)
-                .setMaxValue(31)
-        )
-        .addIntegerOption(option =>
-            option.setName('month')
-                .setDescription('month')
-                .setDescriptionLocalization('vi', 'tháng')
-                .setRequired(true)
-                .setMinValue(1)
-                .setMaxValue(12)
-        )
-        .addIntegerOption(option =>
-            option.setName('year')
-                .setDescription('year')
-                .setDescriptionLocalization('vi', 'năm')
-                .setRequired(true)
-                .setMinValue(1)
-        )
+
 }
 
 /**
@@ -52,13 +65,19 @@ const help = {
 */
 
 const run = async ({ request, args, t }) => {
-    const type = request.isMessage ? args[1] : request.interaction.options.getString('type');
+    let type, extractDay, extractMonth, extractYear;
 
-    if (type !== 'd' && type !== 'a') {
-        return request.reply(t('error.missingADOption'));
+    if ((request.isMessage && args.length === 1) || (request.isInteraction && request.interaction.options.getSubcommand(false) === 'today')) {
+        type = 'd';
+        [extractDay, extractMonth, extractYear] = dateInput({ isMessage: true }, moment().format('DD/MM/YYYY'), '/', ['day', 'month', 'year']);
+    } else {
+        type = request.isMessage ? args[1] : request.interaction.options.getString('type');
+        if (type !== 'd' && type !== 'a') {
+            return request.reply(t('error.missingADOption'));
+        }
+
+        [extractDay, extractMonth, extractYear] = dateInput(request, args && args.length > 2 ? args[2] : "", '/', ['day', 'month', 'year']);
     }
-
-    const [extractDay, extractMonth, extractYear] = dateInput(request, args ? args[2] : "", '/', ['day', 'month', 'year']);
 
     const embeds = [];
 
@@ -104,42 +123,35 @@ const run = async ({ request, args, t }) => {
                 value: t('calendar.lunarDate', { ...typedDate.ngayAmLich, lDay: typedDate.getCanChiDay(), lMonth: typedDate.getCanChiMonth(), lYear: typedDate.getCanChiYear() })
             },
             {
-                name: `Ngày ${saoList[indexOfSao]} ${hoangHacList[indexOfSao] ? 'Hoàng' : 'Hắc'} Đạo`,
-                value: 'Tốt mọi việc'
+                name: `Ngày ${hoangHacList[indexOfSao] ? 'Hoàng' : 'Hắc'} Đạo`,
+                value: `${saoList[indexOfSao]} ${hoangHacList[indexOfSao] ? 'Hoàng' : 'Hắc'} Đạo`
             },
             {
                 name: 'Giờ Hoàng Đạo',
-                value: 'Ngay Thanh Long Hoang Dao'
+                value: 'Tý (23h-1h), **Tý (23h-1h)**, Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h)'
             },
             {
                 name: 'Giờ Hắc Đạo',
-                value: 'Ngay Thanh Long Hoang Dao'
+                value: 'Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h)'
             },
             {
                 name: 'Tiết khí',
-                value: 'Ngay Thanh Long Hoang Dao'
+                value: 'Lập Xuân',
+                inline: true
             },
             {
                 name: 'Trực',
-                value: 'Thành'
+                value: 'Thành',
+                inline: true
             },
             {
                 name: 'Nhị thập bát tú',
-                value: 'Dực'
-            },
-            {
-                name: 'Hướng xuất hành',
-                value: 'Hỷ thần: Đông Bắc\nTài thần: Bắc\nHạc thần: Nam'
-            },
-            {
-                name: 'Sao tốt',
-                value: 'Thành'
-            },
-            {
-                name: 'Sao xấu',
-                value: 'Thành'
+                value: 'Chi',
+                inline: true
             }
         );
+
+        //To-do: Sao tốt, Sao xấu
 
         embeds.push(embed);
     }
