@@ -3,7 +3,7 @@ const bot = require('wheat-better-cmd');
 const moment = require('moment');
 const { Request } = require('../../structure/Request');
 const { dateInput } = require('../../modules/dateParse');
-const { AmDuongLich } = require('../../structure/AmDuongLich');
+const { AmDuongLich, getSunLongitudeOfDate } = require('../../structure/AmDuongLich');
 
 const help = {
     name: "lichvannien",
@@ -19,8 +19,8 @@ const help = {
         )
         .addSubcommand(subcommand =>
             subcommand
-                .setName('anydate')
-                .setDescription('Van Nien for another date')
+                .setName('anotherday')
+                .setDescription('Van Nien for another day')
                 .setDescriptionLocalization('vi', 'xem một ngày khác')
                 .addStringOption(option =>
                     option.setName('type')
@@ -94,7 +94,7 @@ const run = async ({ request, args, t }) => {
         }
         typedDate.setLanguage(request.language);
 
-        //Ngay Hoang Dao/Hac Dao
+        //Name of Hoang Dao/Hac Dao
         const saoList = [
             "Thanh Long",
             "Minh Đường",
@@ -110,11 +110,139 @@ const run = async ({ request, args, t }) => {
             "Câu Trận"
         ];
 
+        // 1 for Hoang Dao, 0 for Hac Dao
         const hoangHacList = [1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0];
 
-        const indexOfSao = 0;
+        // Index of Chi of Thanh Long day of that month
+        const indexOfChiOfThanhLongDay = (typedDate.ngayAmLich.month - 1) % 6 * 2;
+
+        // Index of Chi of that day
+        const indexOfChiDay = typedDate.getChiIndexOfDay();
+
+        //If Thanh Long is Ty day, then next Minh Duong for Suu day, ...
+        const indexOfSao = (indexOfChiDay - indexOfChiOfThanhLongDay + 12) % 12;
 
         const embed = bot.wheatSampleEmbedGenerate();
+
+        const gioHoangDao = [], gioHacDao = [];
+        let hour = 23;
+
+        const indexOfChiOfThanhLongHour = (indexOfChiDay + 4) % 6 * 2;
+
+        let indexOfFirstSaoInDay = (12 - indexOfChiOfThanhLongHour) % 12;
+
+        for (let chiIndex = 0; chiIndex < 12; chiIndex++) {
+            if (hoangHacList[indexOfFirstSaoInDay]) {
+                gioHoangDao.push(`${typedDate.nameOfChi[request.language][chiIndex]} (${hour}h-${(hour + 2) % 24}h)`);
+            } else {
+                gioHacDao.push(`${typedDate.nameOfChi[request.language][chiIndex]} (${hour}h-${(hour + 2) % 24}h)`);
+            }
+
+            indexOfFirstSaoInDay = (indexOfFirstSaoInDay + 1) % 12;
+            hour = (hour + 2) % 24;
+        }
+
+        const nhiThapBatTuList = [
+            "Giác (Thuồng luồng)",
+            "Cang (Rồng)",
+            "Đê (Nhím)",
+            "Phòng (Thỏ)",
+            "Tâm (Chồn)",
+            "Vĩ (Cọp)",
+            "Cơ (Beo)",
+            "Đẩu (Cua)",
+            "Ngưu (Trâu)",
+            "Nữ (Dơi)",
+            "Hư (Chuột)",
+            "Nguy (Én)",
+            "Thất (Lợn)",
+            "Bích (Rái cá)",
+            "Khuê (Sói)",
+            "Lâu (Chó)",
+            "Vị (Trĩ)",
+            "Mão (Gà)",
+            "Tất (Chim)",
+            "Chủy (Khỉ)",
+            "Sâm (Vượn)",
+            "Tỉnh (Hươu bướu)",
+            "Quỷ (Dê)",
+            "Liễu (Hoẵng)",
+            "Tinh (Ngựa)",
+            "Trương (Hươu)",
+            "Dực (Rắn)",
+            "Chẩn (Giun)"
+        ]
+
+        // 03/04/2025 is a day with Giac star
+        const giacDay = moment('03/04/2025', 'DD/MM/YYYY', true);
+        const dayBetweenGiacDay = giacDay.isBefore(typedDate.moment) ? typedDate.moment.diff(giacDay, 'days') % 28 : (28 - giacDay.diff(typedDate.moment, 'days') % 28) % 28;
+
+        const kienTruThapNhiList = [
+            "Kiến",
+            "Trừ",
+            "Mãn",
+            "Bình",
+            "Định",
+            "Chấp",
+            "Phá",
+            "Nguy",
+            "Thành",
+            "Thu",
+            "Khai",
+            "Bế"
+        ];
+
+        //Thang 1 Kien Dan, Thang 2 Kien Mao, Thang 3 Kien Thin, ...
+        const chiOfKienThatMonth = (typedDate.ngayAmLich.month + 1) % 12;
+
+        const kienOfDay = (indexOfChiDay - chiOfKienThatMonth + 12) % 12;
+
+        const tietKhiList = [
+            "Xuân phân",
+            "Thanh minh",
+            "Cốc vũ",
+            "Lập hạ",
+            "Tiểu mãn",
+            "Mang chủng",
+            "Hạ chí",
+            "Tiểu thử",
+            "Đại thử",
+            "Lập thu",
+            "Xử thử",
+            "Bạch lộ",
+            "Thu phân",
+            "Hàn lộ",
+            "Sương giáng",
+            "Lập đông",
+            "Tiểu tuyết",
+            "Đại tuyết",
+            "Đông chí",
+            "Tiểu hàn",
+            "Đại hàn",
+            "Lập xuân",
+            "Vũ thủy",
+            "Kinh trập"
+        ];
+
+        const sunLongToday = getSunLongitudeOfDate(typedDate.ngayDuongLich.day, typedDate.ngayDuongLich.month, typedDate.ngayDuongLich.year, 7);
+
+        const momentOfTomorrow = typedDate.moment.clone();
+        momentOfTomorrow.add(1, 'day');
+
+        const sunLongTomorrow = getSunLongitudeOfDate(Number(momentOfTomorrow.format("DD")), Number(momentOfTomorrow.format("MM")), Number(momentOfTomorrow.format("YYYY")), 7);
+
+        let indexOfTietKhi = 0;
+        for (; indexOfTietKhi < 24; indexOfTietKhi++) {
+            const firstDeg = indexOfTietKhi * 15;
+            const nextDeg = (indexOfTietKhi + 1) * 15;
+
+            if (firstDeg <= sunLongToday && sunLongToday < nextDeg) {
+                if (sunLongTomorrow + (sunLongTomorrow < 15 ? 360 : 0) > nextDeg + 0.001) {
+                    indexOfTietKhi++;
+                }
+                break;
+            }
+        }
 
         embed.setTitle(typedDate.getNgayDuongLich());
         embed.addFields(
@@ -128,25 +256,25 @@ const run = async ({ request, args, t }) => {
             },
             {
                 name: 'Giờ Hoàng Đạo',
-                value: 'Tý (23h-1h), **Tý (23h-1h)**, Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h)'
+                value: gioHoangDao.join(', ')
             },
             {
                 name: 'Giờ Hắc Đạo',
-                value: 'Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h), Tý (23h-1h)'
+                value: gioHacDao.join(', ')
             },
             {
                 name: 'Tiết khí',
-                value: 'Lập Xuân',
+                value: tietKhiList[indexOfTietKhi],
                 inline: true
             },
             {
                 name: 'Trực',
-                value: 'Thành',
+                value: kienTruThapNhiList[kienOfDay],
                 inline: true
             },
             {
                 name: 'Nhị thập bát tú',
-                value: 'Chi',
+                value: nhiThapBatTuList[dayBetweenGiacDay],
                 inline: true
             }
         );

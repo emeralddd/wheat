@@ -253,6 +253,12 @@ function getSunLongitude(dayNumber, timeZone) {
     return INT(SunLongitude(dayNumber - 0.5 - timeZone / 24) / PI * 6);
 }
 
+const getSunLongitudeOfDate = (dd, mm, yyyy, timeZone) => {
+    return SunLongitude(jdn(dd, mm, yyyy) - 0.5 - timeZone / 24) / PI * 180;
+}
+
+exports.getSunLongitudeOfDate = getSunLongitudeOfDate;
+
 /* Compute the day of the k-th new moon in the given time zone.
  * The time zone if the time difference between local time and UTC: 7.0 for UTC+7:00
  */
@@ -487,6 +493,12 @@ class AmDuongLich {
         const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
         const dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
         return this.nameOfCan[this.language][(dayBetween + 6) % 10] + " " + this.nameOfChi[this.language][(dayBetween + 8) % 12];
+    }
+
+    getChiIndexOfDay() {
+        const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
+        const dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
+        return (dayBetween + 8) % 12;
     }
 
     getCanChiMonth() {
