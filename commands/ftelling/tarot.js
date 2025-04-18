@@ -155,7 +155,7 @@ const run = async ({ request, args, t }) => {
 
 
 		for (let i = 0; i < tarotCards.length; i++) {
-			const tarotCanvas = await loadImage(join(__dirname, `/../../assets/image/tarotImage/${tarotCards[i][1] ? 'u' : 'r'}/${tarotCards[i][0] - 1}.png`));
+			const tarotCanvas = await loadImage(join(__dirname, `/../../assets/image/tarotImage/${tarotCards[i][1] ? 'u' : 'r'}/${tarotCards[i][0]}.png`));
 
 			ctx.drawImage(tarotCanvas, (293 + gap) * i, 0);
 		}
@@ -190,7 +190,7 @@ const run = async ({ request, args, t }) => {
 				ctx.rotate(-90 * Math.PI / 180);
 			}
 
-			const tarotCanvas = await loadImage(join(__dirname, `/../../assets/image/tarotImage/${tarotCards[i - 1][1] ? 'u' : 'r'}/${tarotCards[i - 1][0] - 1}.png`))
+			const tarotCanvas = await loadImage(join(__dirname, `/../../assets/image/tarotImage/${tarotCards[i - 1][1] ? 'u' : 'r'}/${tarotCards[i - 1][0]}.png`))
 
 			ctx.drawImage(tarotCanvas, coordOfCards[i - 1][0], coordOfCards[i - 1][1]);
 
