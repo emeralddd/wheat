@@ -133,9 +133,9 @@ const run = async ({ request, args, t }) => {
 
         for (let chiIndex = 0; chiIndex < 12; chiIndex++) {
             if (hoangHacList[indexOfFirstSaoInDay]) {
-                gioHoangDao.push(`${typedDate.nameOfChi[request.language][chiIndex]} (${hour}h-${(hour + 2) % 24}h)`);
+                gioHoangDao.push(`${typedDate.nameOfChi[chiIndex]} (${hour}h-${(hour + 2) % 24}h)`);
             } else {
-                gioHacDao.push(`${typedDate.nameOfChi[request.language][chiIndex]} (${hour}h-${(hour + 2) % 24}h)`);
+                gioHacDao.push(`${typedDate.nameOfChi[chiIndex]} (${hour}h-${(hour + 2) % 24}h)`);
             }
 
             indexOfFirstSaoInDay = (indexOfFirstSaoInDay + 1) % 12;
@@ -177,7 +177,7 @@ const run = async ({ request, args, t }) => {
         const giacDay = moment('03/04/2025', 'DD/MM/YYYY', true);
         const dayBetweenGiacDay = giacDay.isBefore(typedDate.moment) ? typedDate.moment.diff(giacDay, 'days') % 28 : (28 - giacDay.diff(typedDate.moment, 'days') % 28) % 28;
 
-        const kienTruThapNhiList = [
+        const kienTruThapNhiKhachList = [
             "Kiến",
             "Trừ",
             "Mãn",
@@ -197,33 +197,62 @@ const run = async ({ request, args, t }) => {
 
         const kienOfDay = (indexOfChiDay - chiOfKienThatMonth + 12) % 12;
 
-        const tietKhiList = [
-            "Xuân phân",
-            "Thanh minh",
-            "Cốc vũ",
-            "Lập hạ",
-            "Tiểu mãn",
-            "Mang chủng",
-            "Hạ chí",
-            "Tiểu thử",
-            "Đại thử",
-            "Lập thu",
-            "Xử thử",
-            "Bạch lộ",
-            "Thu phân",
-            "Hàn lộ",
-            "Sương giáng",
-            "Lập đông",
-            "Tiểu tuyết",
-            "Đại tuyết",
-            "Đông chí",
-            "Tiểu hàn",
-            "Đại hàn",
-            "Lập xuân",
-            "Vũ thủy",
-            "Kinh trập"
-        ];
+        const tietKhiList = {
+            'vi': [
+                "Xuân phân",
+                "Thanh minh",
+                "Cốc vũ",
+                "Lập hạ",
+                "Tiểu mãn",
+                "Mang chủng",
+                "Hạ chí",
+                "Tiểu thử",
+                "Đại thử",
+                "Lập thu",
+                "Xử thử",
+                "Bạch lộ",
+                "Thu phân",
+                "Hàn lộ",
+                "Sương giáng",
+                "Lập đông",
+                "Tiểu tuyết",
+                "Đại tuyết",
+                "Đông chí",
+                "Tiểu hàn",
+                "Đại hàn",
+                "Lập xuân",
+                "Vũ thủy",
+                "Kinh trập"
+            ],
+            "en": [
+                "Spring Equinox",
+                "Pure Brightness",
+                "Grain Rain",
+                "Beginning of Summer",
+                "Grain Buds",
+                "Grain In Ear",
+                "Summer Solstice",
+                "Moderate Heat",
+                "Major Heat",
+                "Beginning of Autumn",
+                "End of Heat",
+                "White Dew",
+                "Autumn Equinox",
+                "Cold Dew",
+                "Frost's Descent",
+                "Beginning of Winter",
+                "Minor Snow",
+                "Major Snow",
+                "Winter Solstice",
+                "Minor Cold",
+                "Major Cold",
+                "Beginning of Spring",
+                "Rain Water",
+                "Awakening of Insects"
+            ]
+        };
 
+        //Xuan Phan: 0deg - 15deg ...
         const sunLongToday = getSunLongitudeOfDate(typedDate.ngayDuongLich.day, typedDate.ngayDuongLich.month, typedDate.ngayDuongLich.year, 7);
 
         const momentOfTomorrow = typedDate.moment.clone();
@@ -248,32 +277,34 @@ const run = async ({ request, args, t }) => {
         embed.addFields(
             {
                 name: t('calendar.lunarCalendar'),
-                value: t('calendar.lunarDate', { ...typedDate.ngayAmLich, lDay: typedDate.getCanChiDay(), lMonth: typedDate.getCanChiMonth(), lYear: typedDate.getCanChiYear() })
+                value: t('calendar.lunarDate', {
+                    ...typedDate.ngayAmLich, lDay: typedDate.getCanChiDay(), lMonth: typedDate.getCanChiMonth() + (leap ? ' (' + t('calendar.leap') + ')' : ''), lYear: typedDate.getCanChiYear()
+                })
             },
             {
-                name: `Ngày ${hoangHacList[indexOfSao] ? 'Hoàng' : 'Hắc'} Đạo`,
+                name: t(`calendar.ngay${hoangHacList[indexOfSao] ? 'Hoang' : 'Hac'}Dao`),
                 value: `${saoList[indexOfSao]} ${hoangHacList[indexOfSao] ? 'Hoàng' : 'Hắc'} Đạo`
             },
             {
-                name: 'Giờ Hoàng Đạo',
+                name: t('calendar.gioHoangDao'),
                 value: gioHoangDao.join(', ')
             },
             {
-                name: 'Giờ Hắc Đạo',
+                name: t('calendar.gioHacDao'),
                 value: gioHacDao.join(', ')
             },
             {
-                name: 'Tiết khí',
-                value: tietKhiList[indexOfTietKhi],
+                name: t('calendar.tietKhi'),
+                value: tietKhiList[request.language][indexOfTietKhi],
                 inline: true
             },
             {
-                name: 'Trực',
-                value: kienTruThapNhiList[kienOfDay],
+                name: t('calendar.truc'),
+                value: kienTruThapNhiKhachList[kienOfDay],
                 inline: true
             },
             {
-                name: 'Nhị thập bát tú',
+                name: t('calendar.nhiThapBatTu'),
                 value: nhiThapBatTuList[dayBetweenGiacDay],
                 inline: true
             }

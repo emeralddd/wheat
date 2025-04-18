@@ -131,7 +131,15 @@
         "gregorianCalendar": "Dương lịch",
         "lunarCalendar": "Âm lịch",
         "lunarDate": "{{day}}/{{month}}/{{year}} tức ngày {{lDay}}, tháng {{lMonth}}, năm {{lYear}}",
-        "gregorianDate": "dddd, [ngày] D MMMM [năm] YYYY"
+        "gregorianDate": "dddd, [ngày] D MMMM [năm] YYYY",
+        "leap": "nhuận",
+        "ngayHoangDao": "Ngày Hoàng Đạo",
+        "ngayHacDao": "Ngày Hắc Đạo",
+        "gioHoangDao": "Giờ Hoàng Đạo",
+        "gioHacDao": "Giờ Hắc Đạo",
+        "tietKhi": "Tiết khí",
+        "truc": "Trực",
+        "nhiThapBatTu": "Nhị thập bát tú"
     },
     "error": {
         "formatError": "Sai cấu trúc ngày hoặc ngày không hợp lệ! Sử dụng lệnh `/help` để xem cấu trúc ngày đúng",

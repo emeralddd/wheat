@@ -385,15 +385,9 @@ class AmDuongLich {
         "en": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     }
 
-    nameOfCan = {
-        "vi": Object.values(i18next.options.resources.vi.translation.amduong.can),
-        "en": Object.values(i18next.options.resources.en.translation.amduong.can)
-    }
+    nameOfCan = Object.values(i18next.options.resources.vi.translation.amduong.can);
 
-    nameOfChi = {
-        "vi": Object.values(i18next.options.resources.vi.translation.amduong.chi),
-        "en": Object.values(i18next.options.resources.en.translation.amduong.chi)
-    }
+    nameOfChi = Object.values(i18next.options.resources.vi.translation.amduong.chi);
 
     constructor(day, month, year, amduong, leap = 0) {
         /**
@@ -492,7 +486,7 @@ class AmDuongLich {
         // 06/07/2022 la Ngay Canh Than
         const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
         const dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
-        return this.nameOfCan[this.language][(dayBetween + 6) % 10] + " " + this.nameOfChi[this.language][(dayBetween + 8) % 12];
+        return this.nameOfCan[(dayBetween + 6) % 10] + " " + this.nameOfChi[(dayBetween + 8) % 12];
     }
 
     getChiIndexOfDay() {
@@ -502,11 +496,11 @@ class AmDuongLich {
     }
 
     getCanChiMonth() {
-        return this.nameOfCan[this.language][(((this.ngayAmLich.year % 5 + 2) * 2) % 10 + this.ngayAmLich.month - 1) % 10] + " " + this.nameOfChi[this.language][(this.ngayAmLich.month + 1) % 12];
+        return this.nameOfCan[(((this.ngayAmLich.year % 5 + 2) * 2) % 10 + this.ngayAmLich.month - 1) % 10] + " " + this.nameOfChi[(this.ngayAmLich.month + 1) % 12];
     }
 
     getCanChiYear() {
-        return this.nameOfCan[this.language][(this.ngayAmLich.year + 6) % 10] + " " + this.nameOfChi[this.language][(this.ngayAmLich.year + 8) % 12];
+        return this.nameOfCan[(this.ngayAmLich.year + 6) % 10] + " " + this.nameOfChi[(this.ngayAmLich.year + 8) % 12];
     }
 }
 
