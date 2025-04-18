@@ -219,7 +219,7 @@ wheat.on(Events.MessageCreate, async (message) => {
                     serverInfo
                 });
 
-                if (announcement.status === 'active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(helpMenu[executeCommand].group)) {
+                if (announcement.status === 'active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(command.help.group)) {
                     const embed = bot.wheatSampleEmbedGenerate();
                     embed.setTitle(announcement.title);
                     embed.setDescription(announcement.description);
