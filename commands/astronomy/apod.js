@@ -4,7 +4,7 @@ const axios = require('axios').default;
 require('dotenv').config({ path: 'secret.env' });
 const moment = require('moment');
 const { Request } = require('../../structure/Request');
-const { convertTo2DigitNumber } = require('../../modules/dateParse');
+const { convertTo2DigitNumber, dateInput } = require('../../modules/dateParse');
 
 const help = {
     name: "apod",
@@ -13,25 +13,40 @@ const help = {
     example: [' 1/1/2012'],
     rate: 3000,
     data: new SlashCommandBuilder()
-        .addIntegerOption(option =>
-            option.setName('day')
-                .setDescription('day')
-                .setDescriptionLocalization('vi', "ngày")
-                .setMinValue(1)
-                .setMaxValue(31)
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('yesterday')
+                .setDescription('a picture of yesterday')
+                .setDescriptionLocalization('vi', "hình ảnh của ngày hôm qua")
         )
-        .addIntegerOption(option =>
-            option.setName('month')
-                .setDescription('month')
-                .setDescriptionLocalization('vi', "tháng")
-                .setMinValue(1)
-                .setMaxValue(12)
-        )
-        .addIntegerOption(option =>
-            option.setName('year')
-                .setDescription('year')
-                .setDescriptionLocalization('vi', "năm")
-                .setMinValue(1970)
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('anotherday')
+                .setDescription('a picture of another day')
+                .setDescriptionLocalization('vi', "hình ảnh của một ngày khác")
+                .addIntegerOption(option =>
+                    option.setName('day')
+                        .setDescription('day')
+                        .setDescriptionLocalization('vi', "ngày")
+                        .setMinValue(1)
+                        .setMaxValue(31)
+                        .setRequired(true)
+                )
+                .addIntegerOption(option =>
+                    option.setName('month')
+                        .setDescription('month')
+                        .setDescriptionLocalization('vi', "tháng")
+                        .setMinValue(1)
+                        .setMaxValue(12)
+                        .setRequired(true)
+                )
+                .addIntegerOption(option =>
+                    option.setName('year')
+                        .setDescription('year')
+                        .setDescriptionLocalization('vi', "năm")
+                        .setMinValue(1970)
+                        .setRequired(true)
+                )
         )
 }
 
@@ -41,13 +56,14 @@ const help = {
  */
 
 const run = async ({ request, args, t }) => {
-    const [extractDay, extractMonth, extractYear] = dateInput(request, args ? args[1] : "", '/', ['day', 'month', 'year']);
+    let mmt = moment().subtract(1, 'days');
 
-    let mmt = null;
+    mmt.set('hour', 0);
+    mmt.set('minute', 0);
 
-    if ((request.isMessage && args.length === 1) || (request.isInteraction && (!extractDay || !extractMonth || !extractYear))) {
-        mmt = moment().subtract(1, 'days');
-    } else {
+    if (!(request.isMessage && args.length === 1) && !(request.isInteraction && request.interaction.options.getSubcommand(false) === 'yesterday')) {
+        const [extractDay, extractMonth, extractYear] = dateInput(request, args ? args[1] : "", '/', ['day', 'month', 'year']);
+
         mmt = moment(`${convertTo2DigitNumber(extractDay)}/${convertTo2DigitNumber(extractMonth)}/${convertTo2DigitNumber(extractYear)}`, 'DD/MM/YYYY', true);
         if (!mmt.isValid()) {
             await request.reply(t('error.formatError'));
