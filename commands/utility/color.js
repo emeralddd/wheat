@@ -12,14 +12,14 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('random')
-                .setDescription('random color')
-                .setDescriptionLocalization('vi', 'chọn màu ngẫu nhiên')
+                .setDescription('Choose a random color')
+                .setDescriptionLocalization('vi', 'Chọn màu ngẫu nhiên')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('rgb')
-                .setDescription('get color by rgb code')
-                .setDescriptionLocalization('vi', 'tìm màu bằng mã rgb')
+                .setDescription('Get color via RGB code')
+                .setDescriptionLocalization('vi', 'Tìm màu bằng mã RGB')
                 .addIntegerOption(option =>
                     option.setName('r')
                         .setDescription('red')
@@ -45,8 +45,8 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('hex')
-                .setDescription('get color by hex code')
-                .setDescriptionLocalization('vi', 'tìm màu bằng mã hex')
+                .setDescription('Get color via hex code')
+                .setDescriptionLocalization('vi', 'Tìm màu bằng mã hex')
                 .addStringOption(option =>
                     option.setName('hex')
                         .setDescription('eg: #ffffff')
@@ -58,8 +58,8 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('int')
-                .setDescription('get color by integer')
-                .setDescriptionLocalization('vi', 'tìm màu bằng số nguyên')
+                .setDescription('Get color via integer')
+                .setDescriptionLocalization('vi', 'Tìm màu bằng số nguyên')
                 .addIntegerOption(option =>
                     option.setName('int')
                         .setDescription('[0,16777215]')

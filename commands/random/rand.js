@@ -10,14 +10,14 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('default')
-                .setDescription('random in [1,100]')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên trong đoạn [1,100]')
+                .setDescription('Choose a random number in [1,100]')
+                .setDescriptionLocalization('vi', 'Chọn một số ngẫu nhiên trong đoạn [1,100]')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('1option')
-                .setDescription('random in [1,max]')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên trong đoạn [1,max]')
+                .setDescription('Choose a random number in [1,max]')
+                .setDescriptionLocalization('vi', 'Chọn một số ngẫu nhiên trong đoạn [1,max]')
                 .addIntegerOption(option =>
                     option.setName('max')
                         .setDescription('max > 1')
@@ -28,8 +28,8 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('2options')
-                .setDescription('random in [min,max]')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên trong đoạn [min,max]')
+                .setDescription('Choose a random number in [min,max]')
+                .setDescriptionLocalization('vi', 'Chọn một số ngẫu nhiên trong đoạn [min,max]')
                 .addIntegerOption(option =>
                     option.setName('min')
                         .setDescription('integer')

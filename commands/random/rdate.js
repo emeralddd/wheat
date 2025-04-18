@@ -13,14 +13,14 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('default')
-                .setDescription('random from 01/01/1970 to today')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên từ ngày 01/01/1970 đến hôm nay')
+                .setDescription('Choose a random date from 01/01/1970 to today')
+                .setDescriptionLocalization('vi', 'Chọn một ngày ngẫu nhiên từ ngày 01/01/1970 đến hôm nay')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('1option')
-                .setDescription('random from 01/01/1970 to last date inclusive')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên từ 01/01/1970 đến ngày được nhập')
+                .setDescription('Choose a random date from 01/01/1970 to last date inclusive')
+                .setDescriptionLocalization('vi', 'Chọn một ngày ngẫu nhiên từ 01/01/1970 đến ngày được nhập')
                 .addIntegerOption(option =>
                     option.setName('day')
                         .setDescription('day')
@@ -48,8 +48,8 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('2options')
-                .setDescription('random from first date to last date inclusive')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên giữa 2 ngày được nhập')
+                .setDescription('Choose a random date from first date to last date inclusive')
+                .setDescriptionLocalization('vi', 'Chọn một ngày ngẫu nhiên giữa 2 ngày được nhập')
                 .addIntegerOption(option =>
                     option.setName('sday')
                         .setDescription('start day')

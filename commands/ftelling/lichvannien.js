@@ -14,14 +14,14 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('today')
-                .setDescription('Van Nien for today')
-                .setDescriptionLocalization('vi', 'xem ngày hôm nay')
+                .setDescription('See Vietnamese "Van Nien" calendar for today')
+                .setDescriptionLocalization('vi', 'Xem lịch Vạn Niên hôm nay')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('anotherday')
-                .setDescription('Van Nien for another day')
-                .setDescriptionLocalization('vi', 'xem một ngày khác')
+                .setDescription('See Vietnamese "Van Nien" calendar for another day')
+                .setDescriptionLocalization('vi', 'Xem lịch Vạn Niên cho một ngày khác')
                 .addStringOption(option =>
                     option.setName('type')
                         .setDescription('the typed date is Lunar or Gregorian?')

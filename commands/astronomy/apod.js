@@ -16,14 +16,14 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('yesterday')
-                .setDescription('a picture of yesterday')
-                .setDescriptionLocalization('vi', "hình ảnh của ngày hôm qua")
+                .setDescription('View an astronomical image of yesterday in a day provided by NASA')
+                .setDescriptionLocalization('vi', "Xem bức ảnh thiên văn của ngày hôm qua cung cấp bởi NASA")
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('anotherday')
-                .setDescription('a picture of another day')
-                .setDescriptionLocalization('vi', "hình ảnh của một ngày khác")
+                .setDescription('View an astronomical image of any given in a day provided by NASA')
+                .setDescriptionLocalization('vi', "Xem một bức ảnh thiên văn của một ngày bất kì cung cấp bởi NASA")
                 .addIntegerOption(option =>
                     option.setName('day')
                         .setDescription('day')
@@ -44,7 +44,7 @@ const help = {
                     option.setName('year')
                         .setDescription('year')
                         .setDescriptionLocalization('vi', "năm")
-                        .setMinValue(1970)
+                        .setMinValue(1995)
                         .setRequired(true)
                 )
         )

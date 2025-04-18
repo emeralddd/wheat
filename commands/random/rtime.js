@@ -13,14 +13,14 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('default')
-                .setDescription('random from 00:00 to 23:59 inclusive')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên từ 00:00 đến 23:59')
+                .setDescription('Choose a random time from 00:00 to 23:59 inclusive')
+                .setDescriptionLocalization('vi', 'Chọn một giờ ngẫu nhiên từ 00:00 đến 23:59')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('1option')
-                .setDescription('random from 00:00 to time chosen')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên từ 00:00 đến thời điểm được nhập')
+                .setDescription('Choose a random time from 00:00 to time chosen')
+                .setDescriptionLocalization('vi', 'Chọn một giờ ngẫu nhiên từ 00:00 đến thời điểm được nhập')
                 .addIntegerOption(option =>
                     option.setName('hour')
                         .setDescription('hour')
@@ -41,8 +41,8 @@ const help = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('2options')
-                .setDescription('random from first time to last time')
-                .setDescriptionLocalization('vi', 'ngẫu nhiên giữa hai thời điểm được nhập')
+                .setDescription('Choose a random time from first time to last time')
+                .setDescriptionLocalization('vi', 'Chọn một giờ ngẫu nhiên giữa hai thời điểm được nhập')
                 .addIntegerOption(option =>
                     option.setName('shour')
                         .setDescription('start hour')
