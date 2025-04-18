@@ -62,7 +62,7 @@ const run = async ({ request, args, t }) => {
     mmt.set('minute', 0);
 
     if (!(request.isMessage && args.length === 1) && !(request.isInteraction && request.interaction.options.getSubcommand(false) === 'yesterday')) {
-        const [extractDay, extractMonth, extractYear] = dateInput(request, args ? args[1] : "", '/', ['day', 'month', 'year']);
+        const [extractDay, extractMonth, extractYear] = dateInput(request, args && args.length > 1 ? args[1] : "", '/', ['day', 'month', 'year']);
 
         mmt = moment(`${convertTo2DigitNumber(extractDay)}/${convertTo2DigitNumber(extractMonth)}/${convertTo2DigitNumber(extractYear)}`, 'DD/MM/YYYY', true);
         if (!mmt.isValid()) {

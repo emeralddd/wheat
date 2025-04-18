@@ -44,7 +44,7 @@ const help = {
 const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
     const embed1 = bot.wheatSampleEmbedGenerate();
-    const [extractDay, extractMonth, extractYear] = dateInput(request, args ? args[2] : "", '/', ['day', 'month', 'year']);
+    const [extractDay, extractMonth, extractYear] = dateInput(request, args && args.length > 1 ? args[1] : "", '/', ['day', 'month', 'year']);
 
     const mmt = moment(`${convertTo2DigitNumber(extractDay)}/${convertTo2DigitNumber(extractMonth)}/${convertTo2DigitNumber(extractYear)}`, 'DD/MM/YYYY', true);
 
