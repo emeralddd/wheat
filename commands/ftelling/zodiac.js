@@ -37,7 +37,7 @@ const help = {
 const run = async ({ request, args, t }) => {
     const embed = bot.wheatSampleEmbedGenerate();
 
-    const [extractDay, extractMonth] = dateInput(request, args ? args[2] : "", '/', ['day', 'month']);
+    const [extractDay, extractMonth] = dateInput(request, args && args.length > 2 ? args[2] : "", '/', ['day', 'month']);
 
     const mmt = moment(`${convertTo2DigitNumber(extractDay)}/${convertTo2DigitNumber(extractMonth)}/2020`, 'DD/MM/YYYY', true);
 
