@@ -5,19 +5,6 @@ const { Request } = require('../../structure/Request');
 const { loadImage, createCanvas } = require('@napi-rs/canvas');
 const { join } = require('path');
 
-const CanvasImages = {
-	r: [],
-	u: []
-};
-
-const readTarotImages = async () => {
-	for (let i = 1; i <= 78; i++) {
-		CanvasImages.r.push(await loadImage(join(__dirname, `/../../assets/image/tarotImage/r/${i}.png`)));
-		CanvasImages.u.push(await loadImage(join(__dirname, `/../../assets/image/tarotImage/u/${i}.png`)));
-	}
-}
-
-readTarotImages();
 
 const pickTarotCards = (amount, rev) => {
 	const pickList = [];
@@ -165,8 +152,12 @@ const run = async ({ request, args, t }) => {
 		const canvas = createCanvas(293 * spread + gap * (spread - 1), 512);
 		const ctx = canvas.getContext('2d');
 
+
+
 		for (let i = 0; i < tarotCards.length; i++) {
-			ctx.drawImage(CanvasImages[tarotCards[i][1] ? 'u' : 'r'][tarotCards[i][0] - 1], (293 + gap) * i, 0);
+			const tarotCanvas = await loadImage(join(__dirname, `/../../assets/image/tarotImage/${tarotCards[i][1] ? 'u' : 'r'}/${tarotCards[i][0] - 1}.png`));
+
+			ctx.drawImage(tarotCanvas, (293 + gap) * i, 0);
 		}
 
 		embed.setTitle(t('tarot.35cards', {
@@ -198,7 +189,10 @@ const run = async ({ request, args, t }) => {
 			if (i === 2) {
 				ctx.rotate(-90 * Math.PI / 180);
 			}
-			ctx.drawImage(CanvasImages[tarotCards[i - 1][1] ? 'u' : 'r'][tarotCards[i - 1][0] - 1], coordOfCards[i - 1][0], coordOfCards[i - 1][1]);
+
+			const tarotCanvas = await loadImage(join(__dirname, `/../../assets/image/tarotImage/${tarotCards[i - 1][1] ? 'u' : 'r'}/${tarotCards[i - 1][0] - 1}.png`))
+
+			ctx.drawImage(tarotCanvas, coordOfCards[i - 1][0], coordOfCards[i - 1][1]);
 
 			ctx.fillStyle = '#fff';
 			ctx.fillRect(coordOfCards[i - 1][0], coordOfCards[i - 1][1], i === 10 ? 80 : 40, 50);
