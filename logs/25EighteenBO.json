@@ -1,0 +1,15 @@
+{
+    "version": "25EighteenBO",
+    "before": "25FifteenBA",
+    "gen": "Wheat 3",
+    "date": "18/04/2025",
+    "release": "3.7.33",
+    "add": [
+        "Thêm chức năng xem **Lịch vạn niên** vào lệnh `doingayduongam` và đổi tên lệnh `doingayduongam` thành lệnh `lichvannien`.",
+        "Trải bài Tarot",
+        "Cập nhật chức năng nhập ngày tháng theo hướng linh hoạt hơn (có thể bỏ số 0 đứng đầu khi nhập giờ giấc, ngày tháng)",
+        "<DEV> Thay đổi hệ thống quản lí ngôn ngữ",
+        "<DEV> Thay đổi code ngôn ngữ toàn hệ thống, code mới: `vi`, `en` thay thế cho `vi-VN`, `en-US`"
+    ],
+    "remove": []
+}
