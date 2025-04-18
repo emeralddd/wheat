@@ -133,6 +133,7 @@
         "lunarCalendar": "Lunar Calendar",
         "lunarDate": "{{day}}/{{month}}/{{year}} - {{lDay}} day, {{lMonth}} month, {{lYear}} year",
         "leap": "leap",
+        "nguHanh": "Ngu Hanh (Five Agents)",
         "gregorianDate": "dddd, MMMM Do YYYY",
         "ngayHoangDao": "Hoàng Đạo day",
         "ngayHacDao": "Hắc Đạo day",
@@ -140,7 +141,8 @@
         "gioHacDao": "Hắc Đạo hours",
         "tietKhi": "Solar term",
         "truc": "Jianchu",
-        "nhiThapBatTu": "Twenty-eight mansions"
+        "nhiThapBatTu": "Twenty-eight mansions",
+        "nguHanhDate": "Year: {{year}} ({{myear}})\nMonth: {{month}} ({{mmonth}})\nDay: {{day}} ({{mday}})"
     },
     "error": {
         "formatError": "Wrong date format or invalid date! Use the `/help` command to see the correct date format",

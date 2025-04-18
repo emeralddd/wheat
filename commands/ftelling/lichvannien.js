@@ -94,6 +94,108 @@ const run = async ({ request, args, t }) => {
         }
         typedDate.setLanguage(request.language);
 
+        //Name of Nap Am
+
+        const napAmList = [
+            "Hải Trung Kim",
+            "Lô Trung Hỏa",
+            "Đại Lâm Mộc",
+            "Lộ Bàng Thổ",
+            "Kiếm Phong Kim",
+            "Sơn Đầu Hỏa",
+            "Giản Hạ Thủy",
+            "Thành Đầu Thổ",
+            "Bạch Lạp Kim",
+            "Dương Liễu Mộc",
+            "Tuyền Trung Thủy",
+            "Ốc Thượng Thổ",
+            "Tích Lịch Hỏa",
+            "Tùng Bách Mộc",
+            "Trường Lưu Thủy",
+            "Sa Trung Kim",
+            "Sơn Hạ Hỏa",
+            "Bình Địa Mộc",
+            "Bích Thượng Thổ",
+            "Kim Bạc Kim",
+            "Phú Đăng Hỏa",
+            "Thiên Hà Thủy",
+            "Đại Trạch Thổ",
+            "Thoa Xuyến Kim",
+            "Tang Đố Mộc",
+            "Đại Khê Thủy",
+            "Sa Trung Thổ",
+            "Thiên Thượng Hỏa",
+            "Thạch Lựu Mộc",
+            "Đại Hải Thủy"
+        ];
+
+        const napAmMeaningList = {
+            "vi": [
+                "Vàng dưới biển",
+                "Lửa trong lò",
+                "Cây trong rừng",
+                "Đất ven đường",
+                "Vàng mũi kiếm",
+                "Lửa đỉnh núi",
+                "Nước khe ngầm",
+                "Đất trên thành",
+                "Vàng trong nến",
+                "Cây dương liễu",
+                "Nước giữa suối",
+                "Đất trên mái",
+                "Lửa sấm sét",
+                "Cây tùng bách",
+                "Nước sông dài",
+                "Vàng trong cát",
+                "Lửa dưới núi",
+                "Cây đồng bằng",
+                "Đất trên vách",
+                "Bạch kim",
+                "Lửa đèn dầu",
+                "Nước trên trời",
+                "Đất đầm lớn",
+                "Vàng trang sức",
+                "Cây dâu tằm",
+                "Nước suối lớn",
+                "Đất trong cát",
+                "Lửa trên trời",
+                "Cây thạch lựu",
+                "Nước biển lớn"
+            ],
+            "en": [
+                "Sea metal",
+                "Furnance fire",
+                "Forest wood",
+                "Road earth",
+                "Sword metal",
+                "Volcanic fire",
+                "Creek water",
+                "Fortress earth",
+                "Pewter metal",
+                "Willow wood",
+                "Stream water",
+                "Roof tiles earth",
+                "Lightning fire",
+                "Conifer wood",
+                "River water",
+                "Sand metal",
+                "Forest fire",
+                "Meadow wood",
+                "Adobe earth",
+                "Platinum",
+                "Lamp fire",
+                "Sky water",
+                "Stage station earth",
+                "Jewellery metal",
+                "Mulberry wood",
+                "Rapids water",
+                "Desert earth",
+                "Sun fire",
+                "Pomegranate wood",
+                "Great ocean water",
+            ]
+        }
+
         //Name of Hoang Dao/Hac Dao
         const saoList = [
             "Thanh Long",
@@ -279,6 +381,17 @@ const run = async ({ request, args, t }) => {
                 name: t('calendar.lunarCalendar'),
                 value: t('calendar.lunarDate', {
                     ...typedDate.ngayAmLich, lDay: typedDate.getCanChiDay(), lMonth: typedDate.getCanChiMonth() + (leap ? ' (' + t('calendar.leap') + ')' : ''), lYear: typedDate.getCanChiYear()
+                })
+            },
+            {
+                name: t('calendar.nguHanh'),
+                value: t('calendar.nguHanhDate', {
+                    day: napAmList[Math.floor(typedDate.getDayId() / 2)],
+                    mday: napAmMeaningList[request.language][Math.floor(typedDate.getDayId() / 2)],
+                    month: napAmList[Math.floor(typedDate.getMonthId() / 2)],
+                    mmonth: napAmMeaningList[request.language][Math.floor(typedDate.getMonthId() / 2)],
+                    year: napAmList[Math.floor(typedDate.getYearId() / 2)],
+                    myear: napAmMeaningList[request.language][Math.floor(typedDate.getYearId() / 2)]
                 })
             },
             {

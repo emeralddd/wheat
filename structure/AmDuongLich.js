@@ -373,6 +373,20 @@ function convertAmDuong(lunarDay, lunarMonth, lunarYear, lunarLeap, timeZone) {
 
 // console.log(i18next.options);
 
+function calculateIdOfCanChi(can, chi) {
+    let canId = 0, chiId = 0;
+    for (let i = 0; i < 60; i++) {
+        if (can === canId && chi === chiId) {
+            return i;
+        }
+        canId++;
+        chiId++;
+
+        if (canId === 10) canId = 0;
+        if (chiId === 12) chiId = 0;
+    }
+}
+
 class AmDuongLich {
     static AmLich = 0;
     static DuongLich = 1;
@@ -459,6 +473,12 @@ class AmDuongLich {
         }
 
         this.language = 'vi'
+
+        // 06/07/2022 la Ngay Canh Than
+        const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
+
+        //Day between 06/07/2022 to typed date
+        this.dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
     }
 
 
@@ -483,16 +503,11 @@ class AmDuongLich {
     }
 
     getCanChiDay() {
-        // 06/07/2022 la Ngay Canh Than
-        const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
-        const dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
-        return this.nameOfCan[(dayBetween + 6) % 10] + " " + this.nameOfChi[(dayBetween + 8) % 12];
+        return this.nameOfCan[(this.dayBetween + 6) % 10] + " " + this.nameOfChi[(this.dayBetween + 8) % 12];
     }
 
     getChiIndexOfDay() {
-        const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
-        const dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
-        return (dayBetween + 8) % 12;
+        return (this.dayBetween + 8) % 12;
     }
 
     getCanChiMonth() {
@@ -501,6 +516,18 @@ class AmDuongLich {
 
     getCanChiYear() {
         return this.nameOfCan[(this.ngayAmLich.year + 6) % 10] + " " + this.nameOfChi[(this.ngayAmLich.year + 8) % 12];
+    }
+
+    getDayId() {
+        return calculateIdOfCanChi((this.dayBetween + 6) % 10, (this.dayBetween + 8) % 12);
+    }
+
+    getMonthId() {
+        return calculateIdOfCanChi((((this.ngayAmLich.year % 5 + 2) * 2) % 10 + this.ngayAmLich.month - 1) % 10, (this.ngayAmLich.month + 1) % 12);
+    }
+
+    getYearId() {
+        return calculateIdOfCanChi((this.ngayAmLich.year + 6) % 10, (this.ngayAmLich.year + 8) % 12);
     }
 }
 
