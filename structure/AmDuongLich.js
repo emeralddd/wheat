@@ -470,15 +470,15 @@ class AmDuongLich {
 
         if (this.ngayAmLich.day) {
             this.moment = moment(`${convertTo2DigitNumber(this.ngayDuongLich.day)}/${convertTo2DigitNumber(this.ngayDuongLich.month)}/${convertTo2DigitNumber(this.ngayDuongLich.year)}`, 'DD/MM/YYYY', true);
+
+            this.language = 'vi'
+
+            // 06/07/2022 la Ngay Canh Than
+            const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
+
+            //Day between 06/07/2022 to typed date
+            this.dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
         }
-
-        this.language = 'vi'
-
-        // 06/07/2022 la Ngay Canh Than
-        const rootDate = moment('06/07/2022', 'DD/MM/YYYY', true);
-
-        //Day between 06/07/2022 to typed date
-        this.dayBetween = rootDate.isBefore(this.moment) ? this.moment.diff(rootDate, 'days') % 60 : (60 - rootDate.diff(this.moment, 'days') % 60) % 60;
     }
 
 
