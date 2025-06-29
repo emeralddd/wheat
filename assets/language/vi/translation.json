@@ -91,7 +91,9 @@
         "majorArcana": "Bộ ẩn chính",
         "keywords": "Từ khóa",
         "meaning": "Ý nghĩa",
-        "cardDescription": "Mô tả bài"
+        "cardDescription": "Mô tả bài",
+        "thisCardMeaningIs": "Giải nghĩa lá",
+        "selectCardInSpread": "Giải nghĩa lá bài trong trải"
     },
     "astro": {
         "zodiacth": "Cung hoàng đạo thứ",
