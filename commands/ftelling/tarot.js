@@ -28,10 +28,17 @@ const selectCardInSpeard = {
 	 * @param {StringSelectMenuInteraction} interaction 
 	 */
 	async run(interaction, t) {
+		if (!interaction.values || interaction.values.length === 0) return;
+
+		const splitInteractionArray = interaction.values[0].split('.').map(item => Number(item));
+
+		if (splitInteractionArray.length !== 3) return;
+
+		const [cardId, reversed, type] = splitInteractionArray;
+
+		if (cardId > NO_CARDS || cardId < 0) return;
+
 		const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json');
-
-		const [cardId, reversed, type] = interaction.values[0].split('.').map(item => Number(item));
-
 		const tarotCard = tarotMeaning[cardId];
 
 		const embed = bot.wheatSampleEmbedGenerate();
@@ -284,8 +291,8 @@ const run = async ({ request, args, t }) => {
 		embed.setImage(`attachment://spreads.png`);
 
 		const selectCardMenu = new StringSelectMenuBuilder()
-			.setCustomId('tarot.selectCardInSpeard')
-			.setPlaceholder('View meaning of any card in spread')
+			.setCustomId('tarot.selectCardInSpread')
+			.setPlaceholder(t('tarot.selectCardInSpread'))
 			.setOptions(
 				tarotCards.map((card, ind) => new StringSelectMenuOptionBuilder()
 					.setLabel(`${ind + 1}. ${tarotMeaning[card[0]].name} ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`)
