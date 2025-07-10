@@ -66,9 +66,9 @@ const run = async ({ request, args, t }) => {
 
         sumOfDigit = sumAgain;
     }
+    const rullingNumber = number[sumOfDigit];
 
     if (sumOfDigit === 22) sumOfDigit = "22/4";
-    const rullingNumber = number[sumOfDigit];
 
     embed.setTitle(t('numerology.yourRullingNumberIs', {
         username: request.member.displayName,

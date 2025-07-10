@@ -4,6 +4,7 @@ const { readdirSync } = require("fs");
 
 const commandsList = new Collection();
 const aliasesList = new Collection();
+const interactionList = new Collection();
 const groupMenu = {};
 const groupList = ["astronomy", "ftelling", "random", "fun", "utility", "setting"];
 const groupImportList = ["astronomy", "ftelling", "random", "fun", "utility", "setting", "admin"];
@@ -36,6 +37,12 @@ const initiate = async () => {
 
                 for (const alias of command.help.aliases) {
                     aliasesList.set(alias, commandName);
+                }
+
+                if (command.interactions) {
+                    for (const interaction of command.interactions) {
+                        interactionList.set(commandName + '.' + interaction.name, interaction);
+                    }
                 }
             }
         }
@@ -81,6 +88,14 @@ const aliaseHas = (command) => {
     return aliasesList.has(command);
 }
 
+const interactionHas = (interactionCustomId) => {
+    return interactionList.has(interactionCustomId);
+}
+
+const interactionGet = (interactionCustomId) => {
+    return interactionList.get(interactionCustomId);
+}
+
 module.exports = {
     get commandsList() {
         return commandsList;
@@ -96,7 +111,9 @@ module.exports = {
     },
     commandGet,
     aliaseGet,
+    interactionGet,
     commandHas,
     aliaseHas,
+    interactionHas,
     initiate
 }

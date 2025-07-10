@@ -92,7 +92,9 @@
         "majorArcana": "Major Arcana",
         "keywords": "Keywords",
         "meaning": "Meaning",
-        "cardDescription": "Description"
+        "cardDescription": "Description",
+        "thisCardMeaningIs": "Meaning of",
+        "selectCardInSpread": "View meaning of any card in spread"
     },
     "astro": {
         "zodiacth": "Position of Zodiac",

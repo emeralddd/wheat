@@ -61,6 +61,42 @@ wheat.on(Events.GuildCreate, async (guild) => {
 });
 
 wheat.on(Events.InteractionCreate, async interaction => {
+    if (interaction.isChatInputCommand()) return;
+
+    if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
+
+        const allowUsers = ['687301490238554160'];
+
+        if (!interaction.member) return;
+        if (!allowUsers.includes(interaction.member.id)) return;
+    }
+
+    try {
+        const memberId = interaction.user.id;
+        const guildId = interaction.guildId;
+        const channelId = interaction.channelId;
+
+        const executeInteractionId = interaction.customId;
+
+        if (commandBase.interactionHas(executeInteractionId)) {
+            const interactionHandler = commandBase.interactionGet(executeInteractionId);
+            const serverInfo = await databaseManager.getServer(guildId);
+            const memberInfo = await databaseManager.getMember(memberId);
+
+            const language = memberInfo?.language ?? serverInfo?.language ?? process.env.CODE;
+
+            const t = (str, opt = {}, lang = language) => {
+                return i18next.t(str, { ...opt, lng: lang });
+            }
+
+            interactionHandler.run(interaction, t);
+        }
+    } catch (error) {
+        console.log(error.message === 'Unknown interaction' ? 'Unknown interaction' : error);
+    };
+})
+
+wheat.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
