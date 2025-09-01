@@ -58,7 +58,7 @@ const run = async ({ request, prefix, t }) => {
 
 	let item = list[Math.floor(Math.random() * list.length)];
 	if (item === "") item = " ";
-	await request.reply(t('random.iPick', { item }));
+	await request.reply({content: t('random.iPick', { item }), allowedMentions: { parse: [] }});
 }
 
 module.exports.run = run;
