@@ -182,6 +182,7 @@ class Request {
             if (typeof (options) === 'string') options = { content: options };
             options.enforceNonce = true;
             options.nonce = SnowflakeUtil.generate().toString();
+            options.allowedMentions = { parse: [] };
             return this.lastReply = this.isInteraction ? await this.interaction.editReply(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -199,6 +200,7 @@ class Request {
             if (typeof (options) === 'string') options = { content: options };
             options.enforceNonce = true;
             options.nonce = SnowflakeUtil.generate().toString();
+            options.allowedMentions = { parse: [] };
             return this.lastReply = this.isInteraction ? await this.interaction.followUp(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -216,6 +218,7 @@ class Request {
             if (typeof (options) === 'string') options = { content: options };
             options.enforceNonce = true;
             options.nonce = SnowflakeUtil.generate().toString();
+            options.allowedMentions = { parse: [] };
             return this.isInteraction ? await this.interaction.editReply(options) : await this.lastReply.edit(options);
         } catch (error) {
             await this.errorHandle(error);
