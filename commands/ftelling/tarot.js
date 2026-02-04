@@ -38,7 +38,7 @@ const selectCardInSpeard = {
 
 		if (cardId > NO_CARDS || cardId < 0) return;
 
-		const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json');
+		const tarotMeaning = await bot.wheatReadJSON(`./assets/content/${t('main.code')}/tarotMeaning.json`);
 		const tarotCard = tarotMeaning[cardId];
 
 		const embed = bot.wheatSampleEmbedGenerate();
@@ -46,7 +46,7 @@ const selectCardInSpeard = {
 			name: t('tarot.thisCardMeaningIs')
 		});
 
-		embed.setTitle(`<a:t_v3:1140505323438874664> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}**`);
+		embed.setTitle(`<a:t_v4:1140505547221766195> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}**`);
 		embed.setDescription(tarotCard.type === '1' ? t('tarot.majorArcana') : t('tarot.minorArcana'));
 
 		embed.addFields({
@@ -113,7 +113,7 @@ const help = {
  */
 
 const run = async ({ request, args, t }) => {
-	const tarotMeaning = await bot.wheatReadJSON('./assets/content/tarotMeaning.json');
+	const tarotMeaning = await bot.wheatReadJSON(`./assets/content/${request.language}/tarotMeaning.json`);
 
 	const memberId = request.member.id;
 
@@ -177,7 +177,7 @@ const run = async ({ request, args, t }) => {
 			})
 		});
 
-		embed.setTitle(`<a:t_v3:1140505323438874664> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}!**`);
+		embed.setTitle(`<a:t_v4:1140505547221766195> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}!**`);
 		embed.setDescription(tarotCard.type === '1' ? t('tarot.majorArcana') : t('tarot.minorArcana'));
 
 		embed.addFields({
