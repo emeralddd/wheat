@@ -1,6 +1,6 @@
 const bot = require('wheat-better-cmd');
 const databaseManager = require('../../modules/databaseManager');
-const { AttachmentBuilder, SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, StringSelectMenuInteraction, SnowflakeUtil } = require('discord.js');
+const { AttachmentBuilder, SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, StringSelectMenuInteraction, SnowflakeUtil, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { Request } = require('../../structure/Request');
 const { loadImage, createCanvas } = require('@napi-rs/canvas');
 const { join } = require('path');
@@ -21,65 +21,6 @@ const pickTarotCards = (amount, rev) => {
 		return [c + 1, (rev ? Math.floor(Math.random() * 2) : 1)]
 	});
 }
-
-const selectCardInSpeard = {
-	name: "selectCardInSpread",
-	/**
-	 * @param {StringSelectMenuInteraction} interaction 
-	 */
-	async run(interaction, t) {
-		if (!interaction.values || interaction.values.length === 0) return;
-
-		const splitInteractionArray = interaction.values[0].split('.').map(item => Number(item));
-
-		if (splitInteractionArray.length !== 3) return;
-
-		const [cardId, reversed, type] = splitInteractionArray;
-
-		if (cardId > NO_CARDS || cardId < 0) return;
-
-		const tarotMeaning = await bot.wheatReadJSON(`./assets/content/${t('main.code')}/tarotMeaning.json`);
-		const tarotCard = tarotMeaning[cardId];
-
-		const embed = bot.wheatSampleEmbedGenerate();
-		embed.setAuthor({
-			name: t('tarot.thisCardMeaningIs')
-		});
-
-		embed.setTitle(`<a:t_v4:1140505547221766195> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}**`);
-		embed.setDescription(tarotCard.type === '1' ? t('tarot.majorArcana') : t('tarot.minorArcana'));
-
-		embed.addFields({
-			name: t('tarot.keywords'),
-			value: type ? tarotCard.keywords : tarotCard.reKeywords
-		});
-
-		for (let i = 0; i < tarotCard.description.length; i++) {
-			embed.addFields({
-				name: (i === 0 ? t('tarot.cardDescription') : '▿'),
-				value: tarotCard.description[i]
-			});
-		}
-
-		const meaning = type ? tarotCard.meaning : tarotCard.reMeaning;
-
-		for (let i = 0; i < meaning.length; i++) {
-			embed.addFields({
-				name: (i === 0 ? t('tarot.meaning') : '▿'),
-				value: meaning[i]
-			});
-		}
-
-		interaction.reply({
-			enforceNonce: true,
-			nonce: SnowflakeUtil.generate().toString(),
-			embeds: [embed],
-			ephemeral: true
-		});
-	}
-}
-
-module.exports.interactions = [selectCardInSpeard];
 
 const help = {
 	name: "tarot",
@@ -118,10 +59,17 @@ const run = async ({ request, args, t }) => {
 	const memberId = request.member.id;
 
 	let reversed = 0;
+	let hideMeaning = 0;
 
 	const find = await databaseManager.getMember(memberId);
-	if (find && find.tarot) {
-		reversed = 1;
+	if (find) {
+		if(find.tarot) {
+			reversed = 1;
+		}
+
+		if(find.hideTarotMeaning) {
+			hideMeaning = 1;
+		}
 	}
 
 	//r: reversed
@@ -179,30 +127,37 @@ const run = async ({ request, args, t }) => {
 
 		embed.setTitle(`<a:t_v4:1140505547221766195> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}!**`);
 		embed.setDescription(tarotCard.type === '1' ? t('tarot.majorArcana') : t('tarot.minorArcana'));
+		
+		const row = new ActionRowBuilder();
 
-		embed.addFields({
-			name: t('tarot.keywords'),
-			value: type ? tarotCard.keywords : tarotCard.reKeywords
-		});
+		hideMeaning = 1;
 
-		for (let i = 0; i < tarotCard.description.length; i++) {
+		if(!hideMeaning) {
 			embed.addFields({
-				name: (i === 0 ? t('tarot.cardDescription') : '▿'),
-				value: tarotCard.description[i]
+				name: t('tarot.keywords'),
+				value: type ? tarotCard.keywords : tarotCard.reKeywords
 			});
-		}
 
-		const meaning = type ? tarotCard.meaning : tarotCard.reMeaning;
-
-		for (let i = 0; i < meaning.length; i++) {
-			embed.addFields({
-				name: (i === 0 ? t('tarot.meaning') : '▿'),
-				value: meaning[i]
-			});
+			for (let i = 0; i < tarotCard.description.length; i++) {
+				embed.addFields({
+					name: (i === 0 ? t('tarot.cardDescription') : '▿'),
+					value: tarotCard.description[i]
+				});
+			}
+	
+			const meaning = type ? tarotCard.meaning : tarotCard.reMeaning;
+	
+			for (let i = 0; i < meaning.length; i++) {
+				embed.addFields({
+					name: (i === 0 ? t('tarot.meaning') : '▿'),
+					value: meaning[i]
+				});
+			}
 		}
 
 		const attachment = new AttachmentBuilder(`./assets/image/tarotImage/${type ? 'u' : 'r'}/${tarotCard.image}`, tarotCard.image);
 		embed.setImage(`attachment://${tarotCard.image}`);
+		
 		request.reply({ embeds: [embed], files: [attachment] });
 	} else if (spread === 3 || spread === 5) {
 		const tarotCards = pickTarotCards(spread, reversed);
