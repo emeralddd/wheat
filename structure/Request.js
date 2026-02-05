@@ -182,7 +182,12 @@ class Request {
             if (typeof (options) === 'string') options = { content: options };
             options.enforceNonce = true;
             options.nonce = SnowflakeUtil.generate().toString();
-            return this.lastReply = this.isInteraction ? await this.interaction.editReply(options) : await this.channel.send(options);
+            return this.lastReply = this.isInteraction ? 
+                (this.interaction.deferred ? 
+                    await this.interaction.editReply(options) : 
+                    await this.interaction.reply(options)
+                ) : 
+                await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
         }
