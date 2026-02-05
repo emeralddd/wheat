@@ -1,5 +1,6 @@
 const bot = require('wheat-better-cmd');
 const databaseManager = require('../../modules/databaseManager');
+const interactionDataBase = require('../../modules/interactionDataBase');
 const { AttachmentBuilder, SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, StringSelectMenuInteraction, SnowflakeUtil, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { Request } = require('../../structure/Request');
 const { loadImage, createCanvas } = require('@napi-rs/canvas');
@@ -127,10 +128,7 @@ const run = async ({ request, args, t }) => {
 
 		embed.setTitle(`<a:t_v4:1140505547221766195> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}!**`);
 		embed.setDescription(tarotCard.type === '1' ? t('tarot.majorArcana') : t('tarot.minorArcana'));
-		
 		const row = new ActionRowBuilder();
-
-		hideMeaning = 1;
 
 		if(!hideMeaning) {
 			embed.addFields({
@@ -153,12 +151,25 @@ const run = async ({ request, args, t }) => {
 					value: meaning[i]
 				});
 			}
+		} else {
+			const dataId = interactionDataBase.set({
+				cardId: cardId,
+				reversed: reversed,
+				type: type
+			});
+
+			const showMeaningButton = new ButtonBuilder()
+				.setCustomId(`tarot.showMeaning_${dataId}`)
+				.setLabel(t('tarot.showMeaning'))
+				.setStyle(ButtonStyle.Primary);
+			
+			row.addComponents(showMeaningButton);
 		}
 
 		const attachment = new AttachmentBuilder(`./assets/image/tarotImage/${type ? 'u' : 'r'}/${tarotCard.image}`, tarotCard.image);
 		embed.setImage(`attachment://${tarotCard.image}`);
 		
-		request.reply({ embeds: [embed], files: [attachment] });
+		request.reply({ embeds: [embed], files: [attachment], components: row.components.length > 0 ? [row] : undefined });
 	} else if (spread === 3 || spread === 5) {
 		const tarotCards = pickTarotCards(spread, reversed);
 
