@@ -1,0 +1,18 @@
+{
+    "version": "26SevenHA",
+    "before": "25EighteenBO",
+    "gen": "Wheat 4",
+    "date": "07/02/2026",
+    "release": "4.0.x",
+    "add": [
+        "Ra mắt bộ ý nghĩa bài Tarot phiên bản 4",
+        "Thử nghiệm Tarot phiên bản tiếng Anh",
+        "Tính năng ẩn ý nghĩa khi bốc bài Tarot",
+        "Lệnh `mysettings` để thay đổi cài đặt cá nhân",
+        "<DEV> Chia các hàm xử lí interaction (trừ slash command) vào thư mục mới",
+        "<DEV> Nâng cấp hệ thống lưu data của interaction"
+    ],
+    "remove": [
+        "Dừng hoạt động của lệnh `tarotdefault` và `selflanguage`, chuyển các nhiệm vụ sang lệnh `mysettings`."
+    ]
+}
