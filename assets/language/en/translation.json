@@ -229,7 +229,7 @@
         "title": "Your Personal Settings",
         "description": "Manage your personal settings here! Use the menu below to change settings.",
         "overview": "Overview",
-        "language": "Your Language",
+        "language": "Your Language (Priority order of language: Your language > Server language > Default language `vi`)",
         "tarot": "Tarot",
         "applyTarotReversed": "Apply reversed Tarot cards when drawing Tarot cards",
         "hideTarotMeaning": "Hide the meaning of Tarot cards when drawing Tarot cards",

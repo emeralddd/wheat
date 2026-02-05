@@ -228,7 +228,7 @@
         "title": "Cài đặt của bạn",
         "description": "Quản lý các cài đặt cá nhân của bạn tại đây! Sử dụng menu bên dưới để thay đổi các cài đặt.",
         "overview": "Tổng quan",
-        "language": "Ngôn ngữ của bạn",
+        "language": "Ngôn ngữ của bạn (Thứ tự ưu tiên của ngôn ngữ: Ngôn ngữ của bạn > Ngôn ngữ của Server > Ngôn ngữ mặc định `vi`)",
         "tarot": "Tarot",
         "applyTarotReversed": "Áp dụng lá bài ngược khi bốc bài Tarot",
         "hideTarotMeaning": "Ẩn ý nghĩa lá bài Tarot khi bốc bài",
