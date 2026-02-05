@@ -2,7 +2,7 @@ const { SnowflakeUtil } = require("discord.js");
 const NodeCache = require("node-cache");
 const wheatCache = new NodeCache();
 
-const TIME_LIMIT = 15;
+const TIME_LIMIT = 5; // minutes
 
 module.exports.get = (id) => {
     if (wheatCache.has(id)) {
