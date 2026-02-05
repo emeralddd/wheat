@@ -161,7 +161,11 @@ class Request {
             console.log(error);
             try {
                 if (this.isInteraction) {
-                    await this.editReply(t('error.undefinedError', { lng: this.language }));
+                    if(this.interaction.deferred || this.interaction.replied) {
+                        await this.interaction.editReply(t('error.undefinedError', { lng: this.language }));
+                    } else {
+                        await this.interaction.reply(t('error.undefinedError', { lng: this.language }));
+                    }
                 } else {
                     await this.channel.send(t('error.undefinedError', { lng: this.language }));
                 }
