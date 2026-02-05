@@ -1,6 +1,7 @@
 {
     "main": {
         "code": "vi",
+        "thisLanguage": "Tiếng Việt",
         "author": "emeralddd",
         "myPrefix": "Prefix của bot tại server là **{{prefix}}**!",
         "failExecution": "Thực Thi Thất Bại!",
@@ -219,5 +220,26 @@
         "randomNumInRange": "🔢 Số ngẫu nhiên trong đoạn [{{min}},{{max}}] là: **{{rand}}**.",
         "randomDate": "📅 Ngày ngẫu nhiên được chọn là: **{{date}}**",
         "randomTime": "⏰ Giờ ngẫu nhiên được chọn là: **{{time}}**"
+    },
+    "mysettings": {
+        "title": "Cài đặt của bạn",
+        "description": "Quản lý các cài đặt cá nhân của bạn tại đây! Sử dụng menu bên dưới để thay đổi các cài đặt.",
+        "overview": "Tổng quan",
+        "language": "Ngôn ngữ của bạn",
+        "tarot": "Tarot",
+        "applyTarotReversed": "Áp dụng lá bài ngược khi bốc bài Tarot",
+        "hideTarotMeaning": "Ẩn ý nghĩa lá bài Tarot khi bốc bài",
+        "selectPlaceholder": "Chọn một cài đặt để thay đổi",
+        "languageSetting": "Thay đổi ngôn ngữ của bạn",
+        "tarotReversedSetting": "Thay đổi mặc định sử dụng lá bài ngược khi bốc bài Tarot",
+        "confirmChange": "Xác nhận thay đổi",
+        "confirm":"Xác nhận",
+        "hideTarotMeaningSetting": "Thay đổi mặc định ẩn ý nghĩa lá bài Tarot khi bốc bài",
+        "hideTarotMeaningSettingDesc": "Thay đổi mặc định ẩn ý nghĩa lá bài Tarot khi bốc bài thành **{{newSetting}}**",
+        "successHideTarotMeaning": "Đã thay đổi thành công cài đặt ẩn ý nghĩa lá bài Tarot khi bốc bài.",
+        "tarotReversedSettingDesc": "Thay đổi mặc định sử dụng lá bài ngược khi bốc bài Tarot thành **{{newSetting}}**",
+        "successTarotReversed": "Đã thay đổi thành công cài đặt sử dụng lá bài ngược khi bốc bài Tarot.",
+        "selectLanguagePlaceholder": "Chọn ngôn ngữ bạn muốn sử dụng",
+        "unsetDesc": "Ngôn ngữ tuân theo cài đặt của server"
     }
 }

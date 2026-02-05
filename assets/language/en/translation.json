@@ -1,6 +1,7 @@
 {
     "main": {
         "code": "en",
+        "thisLanguage": "English",
         "author": "emeralddd & VTD12",
         "myPrefix": "My prefix at this server is **{{prefix}}**!",
         "failExecution": "Execute Unsuccessfully!",
@@ -220,5 +221,26 @@
         "randomNumInRange": "🔢 Random number in range [{{min}},{{max}}] is: {{rand}}.",
         "randomDate": "📅 Random date is: **{{date}}**",
         "randomTime": "⏰ Random time is: **{{time}}**"
+    },
+    "mysettings": {
+        "title": "Your Personal Settings",
+        "description": "Manage your personal settings here! Use the menu below to change settings.",
+        "overview": "Overview",
+        "language": "Your Language",
+        "tarot": "Tarot",
+        "applyTarotReversed": "Apply reversed Tarot cards when drawing Tarot cards",
+        "hideTarotMeaning": "Hide the meaning of Tarot cards when drawing Tarot cards",
+        "selectPlaceholder": "Select a setting to change",
+        "languageSetting": "Change your language",
+        "tarotReversedSetting": "Change the default use of reversed Tarot cards when drawing Tarot cards",
+        "confirmChange": "Are you sure you want to change this setting?",
+        "confirm":"Confirm",
+        "hideTarotMeaningSetting": "Change the default to hide the meaning of Tarot cards when drawing Tarot cards",
+        "hideTarotMeaningSettingDesc": "Change the default to hide the meaning of Tarot cards when drawing Tarot cards {{newSetting}}",
+        "successHideTarotMeaning": "Successfully changed the setting to hide the meaning of Tarot cards when drawing Tarot cards.",
+        "tarotReversedSettingDesc": "Change the default use of reversed Tarot cards when drawing Tarot cards to **{{newSetting}}**",
+        "successTarotReversed": "Successfully changed the setting to use reversed Tarot cards when drawing Tarot cards.",
+        "selectLanguagePlaceholder": "Select the language you want to use",
+        "unsetDesc": "Language follows the server's settings"
     }
 }
