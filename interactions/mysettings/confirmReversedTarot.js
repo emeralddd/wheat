@@ -24,7 +24,7 @@ module.exports = {
             }
     
             embed.setTitle(t('main.successExecution'));
-            embed.setDescription(t('main.successTarotReversed'));
+            embed.setDescription(t('mysettings.successTarotReversed'));
             await request.reply({ embeds: [embed], ephemeral: true });
         } catch (error) {
             await request.reply(t('error.undefinedError'));

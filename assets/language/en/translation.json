@@ -95,7 +95,8 @@
         "meaning": "Meaning",
         "cardDescription": "Description",
         "thisCardMeaningIs": "Meaning of",
-        "selectCardInSpread": "View meaning of any card in spread"
+        "selectCardInSpread": "View meaning of any card in spread",
+        "showMeaning": "Show Meaning"
     },
     "astro": {
         "zodiacth": "Position of Zodiac",
@@ -170,7 +171,9 @@
         "undefinedError": "Undefined error! Please report this at support server and try again later!",
         "notUseHere": "Command {{executeCommand}} cannot be used in this channel!",
         "wrongYesNo": "Option don't exist. Only: `true` or `false`",
-        "missingADOption": "Missing `a`/`d` option to determine typed date is Lunar or Gregorian."
+        "missingADOption": "Missing `a`/`d` option to determine typed date is Lunar or Gregorian.",
+        "unableToGetCardData": "Unable to get card data. Please draw a new card!",
+        "interactionExpired": "Interaction has expired. Please perform a new interaction!"
     },
     "fun": {
         "angry": " is angry ...",

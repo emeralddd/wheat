@@ -94,7 +94,8 @@
         "meaning": "Ý nghĩa",
         "cardDescription": "Mô tả bài",
         "thisCardMeaningIs": "Giải nghĩa lá",
-        "selectCardInSpread": "Giải nghĩa lá bài trong trải"
+        "selectCardInSpread": "Giải nghĩa lá bài trong trải",
+        "showMeaning": "Hiện ý nghĩa"
     },
     "astro": {
         "zodiacth": "Cung hoàng đạo thứ",
@@ -169,7 +170,9 @@
         "undefinedError": "Đã có lỗi trong quá trình thực thi! Vui lòng thông báo về lỗi tại server hỗ trợ và thử lại sau ít phút!",
         "notUseHere": "Lệnh {{executeCommand}} không được sử dụng tại kênh này!",
         "wrongYesNo": "Không tồn tại lựa chọn đó. Chỉ có: `true` hoặc `false`",
-        "missingADOption": "Thiếu trường `a`/`d` để biết ngày bạn nhập là Âm lịch hay Dương lịch."
+        "missingADOption": "Thiếu trường `a`/`d` để biết ngày bạn nhập là Âm lịch hay Dương lịch.",
+        "unableToGetCardData": "Không thể lấy dữ liệu bài. Vui lòng bốc lá mới!",
+        "interactionExpired": "Interaction đã hết hạn. Vui lòng thực hiện thao tác mới!"
     },
     "fun": {
         "angry": " đang tức giận ...",

@@ -1,4 +1,3 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, SnowflakeUtil, ButtonInteraction } = require("discord.js");
 const databaseManager = require('../../modules/databaseManager');
 const bot = require('wheat-better-cmd');
 const { Request } = require("../../structure/Request");
@@ -25,7 +24,7 @@ module.exports = {
             }
     
             embed.setTitle(t('main.successExecution'));
-            embed.setDescription(t('main.successHideTarotMeaning'));
+            embed.setDescription(t('mysettings.successHideTarotMeaning'));
             await request.reply({ embeds: [embed], ephemeral: true });
         } catch (error) {
             await request.reply(t('error.undefinedError'));
