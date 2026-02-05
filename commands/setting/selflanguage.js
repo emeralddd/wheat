@@ -31,61 +31,7 @@ const help = {
  */
 
 const run = async ({ request, args, t, serverInfo }) => {
-    const embed = bot.wheatSampleEmbedGenerate();
-    const memberId = request.member.id;
-    const find = await databaseManager.getMember(memberId);
-
-    if (request.isInteraction) {
-        args = [''];
-        if (request.interaction.options.getString('language')) {
-            args.push(request.interaction.options.getString('language'));
-        }
-    }
-
-    if (!args[1]) {
-        try {
-            if (!find.language) {
-                embed.setDescription(t('main.myLanguage', { lang: t('main.unset') }));
-            } else {
-                embed.setDescription(t('main.myLanguage', { lang: find.language }));
-            }
-
-            await request.reply({ embeds: [embed] });
-        } catch (err) {
-            console.log(err);
-            await request.reply(t('error.undefinedError'));
-        }
-        return;
-    }
-
-    if (args[1] !== 'unset' && !languageList.includes(args[1])) {
-        return request.reply(t('error.wrongLanguage', { langList: languageList.join(', ') }));
-    }
-
-    try {
-        if (find.id) {
-            await databaseManager.updateMember(memberId, {
-                language: args[1]
-            });
-        } else {
-            await databaseManager.newMember(memberId, {
-                language: args[1]
-            });
-        }
-
-        let afterLang = args[1];
-        if (args[1] === 'unset') {
-            afterLang = serverInfo.language;
-            args[1] = t('main.unset', {}, serverInfo.language);
-        }
-
-        embed.setTitle(t('main.successExecution', {}, afterLang));
-        embed.setDescription(t('main.changeSelfLanguageTo', { lang: args[1] }), afterLang);
-        await request.reply({ embeds: [embed] });
-    } catch (error) {
-        console.log(error);
-        await request.reply(t('error.undefinedError'));
-    }
+    request.reply("Vui lòng sử dụng /mysettings để thay đổi ngôn ngữ riêng của bạn.\nPlease use /mysettings to change your self language.");
 }
 
 module.exports.run = run;
