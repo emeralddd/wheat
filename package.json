@@ -1,11 +1,11 @@
 {
   "name": "wheat",
-  "version": "4.0.1",
+  "version": "4.0.6",
   "description": "wheatbot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "SET NODE_ENV=dev&&nodemon --watch commands --watch mainbot.js --watch modules",
+    "dev": "SET NODE_ENV=dev&&nodemon --watch commands --watch mainbot.js --watch modules --watch interactions index.js",
     "live": "SET NODE_ENV=live&&node index.js",
     "start": "SET NODE_ENV=production&&node index.js"
   },
