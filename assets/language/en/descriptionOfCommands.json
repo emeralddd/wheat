@@ -216,7 +216,7 @@
             "name": "selflanguage",
             "syntax": " [new language]",
             "desc": "Update the language of the bot for you",
-            "note": "Language preference: Your language → Server language → Default language (`vi`)"
+            "note": "Language preference: Your language → Server language → Default language (`vi`). **This command is deprecated. Please use the `mysettings` command instead.**"
         },
         {
             "name": "disable",
@@ -234,7 +234,13 @@
             "name": "tarotdefault",
             "syntax": " [true/false]",
             "desc": "Use reverse Tarot card by default",
-            "note": "Type `true` to use reverse Tarot card by default."
+            "note": "Type `true` to use reverse Tarot card by default. **This command is deprecated. Please use the `mysettings` command instead.**"
+        },
+        {
+            "name": "mysettings",
+            "syntax": "",
+            "desc": "Change your personal settings",
+            "note": ""
         }
     ],
     "utility": [

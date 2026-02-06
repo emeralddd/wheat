@@ -48,6 +48,18 @@ const initiate = async () => {
         }
     }
 
+    const interactionFiles = readdirSync(`./interactions`, { withFileTypes: true });
+    const interactionCommands = interactionFiles.filter(file => file.isDirectory());
+
+    for(const command of interactionCommands) {
+        const interactionJsFiles = readdirSync(`./interactions/${command.name}`).filter(file => file.split('.').pop() === 'js');
+        
+        for(const file of interactionJsFiles) {
+            const interaction = require(`../interactions/${command.name}/${file}`);
+            interactionList.set(command.name + '.' + interaction.name, interaction);
+        }
+    }
+
     for (const lang of languageList) {
         for (const group of groupImportList) {
             if (!descriptionOfCommands[lang][group]) continue;

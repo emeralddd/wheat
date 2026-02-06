@@ -46,7 +46,7 @@ const run = async ({ request, args, t }) => {
         return;
     }
 
-    const zodiac = await bot.wheatReadJSON('./assets/content/zodiacMeaning.json');
+    const zodiac = await bot.wheatReadJSON('./assets/content/vi/zodiacMeaning.json');
 
     const startTime = ["21/03", "20/04", "21/05", "22/06", "23/07", "23/08", "23/09", "23/10", "23/11", "22/12", "20/01", "19/02"];
 

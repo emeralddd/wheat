@@ -216,7 +216,7 @@
             "name": "selflanguage",
             "syntax": " [ngôn ngữ mới]",
             "desc": "Cập nhật lại ngôn ngữ của bot dành cho bạn",
-            "note": "Thứ tự ưu tiên của ngôn ngữ: Ngôn ngữ của bạn -> Ngôn ngữ của Server -> Ngôn ngữ mặc định (`vi`)"
+            "note": "Thứ tự ưu tiên của ngôn ngữ: Ngôn ngữ của bạn -> Ngôn ngữ của Server -> Ngôn ngữ mặc định (`vi`).\n**Lệnh dừng hoạt động. Vui lòng sử dụng lệnh `mysettings` thay thế.**"
         },
         {
             "name": "disable",
@@ -234,7 +234,13 @@
             "name": "tarotdefault",
             "syntax": " [true/false]",
             "desc": "Áp dụng cả lá bài ngược khi bốc bài Tarot",
-            "note": "Nhập true để thêm lá bài ngược theo mặc định."
+            "note": "Nhập true để thêm lá bài ngược theo mặc định.\n**Lệnh dừng hoạt động. Vui lòng sử dụng lệnh `mysettings` thay thế.**"
+        },
+        {
+            "name": "mysettings",
+            "syntax": "",
+            "desc": "Thay đổi cài đặt cá nhân",
+            "note": ""
         }
     ],
     "utility": [

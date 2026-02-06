@@ -1,6 +1,6 @@
-const mongo = require('mongoose');
-const member = require('../models/member');
-const server = require('../models/server');
+// const mongo = require('mongoose');
+// const member = require('../models/member');
+// const server = require('../models/server');
 require('dotenv').config({ path: 'secret.env' });
 const sqlite3 = require('sqlite3').verbose();
 let db;
@@ -100,11 +100,17 @@ const fixLanguage = async () => {
     await queryDB("update server set language='en' where language='en_US'");
 }
 
+const addHideTarotMeaningColumn = async () => {
+    await queryDB("alter table member add column hideTarotMeaning INTEGER DEFAULT 0;");
+}
+
 const start = async () => {
     // connectMongoDB();
     connectSQLite();
 
-    fixLanguage();
+    addHideTarotMeaningColumn();
+
+    // fixLanguage();
     // fixStatistic();
     // getMembers();
     // getServers();

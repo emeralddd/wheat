@@ -161,7 +161,11 @@ class Request {
             console.log(error);
             try {
                 if (this.isInteraction) {
-                    await this.editReply(t('error.undefinedError', { lng: this.language }));
+                    if(this.interaction.deferred || this.interaction.replied) {
+                        await this.interaction.editReply(t('error.undefinedError', { lng: this.language }));
+                    } else {
+                        await this.interaction.reply(t('error.undefinedError', { lng: this.language }));
+                    }
                 } else {
                     await this.channel.send(t('error.undefinedError', { lng: this.language }));
                 }
@@ -183,7 +187,12 @@ class Request {
             options.enforceNonce = true;
             options.nonce = SnowflakeUtil.generate().toString();
             options.allowedMentions = { parse: [] };
-            return this.lastReply = this.isInteraction ? await this.interaction.editReply(options) : await this.channel.send(options);
+            return this.lastReply = this.isInteraction ? 
+                (this.interaction.deferred ? 
+                    await this.interaction.editReply(options) : 
+                    await this.interaction.reply(options)
+                ) : 
+                await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
         }

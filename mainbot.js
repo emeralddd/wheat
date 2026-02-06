@@ -19,6 +19,8 @@ const wheat = new Client({
 const languageBase = require('./modules/languageBase');
 const commandBase = require('./modules/commandBase');
 const rateLimiter = require('./modules/rateLimiter');
+const interactionDataBase = require('./modules/interactionDataBase');
+
 const { Request } = require('./structure/Request');
 const i18next = require('i18next');
 
@@ -36,11 +38,13 @@ const firstInit = () => {
     }
 }
 
+// Login and ready
 wheat.once(Events.ClientReady, async () => {
     firstInit();
     console.log(`[${wheat.shard.ids[0]}] Da dang nhap duoi ten ${wheat.user.tag}!`);
 });
 
+// Welcome DM to server owner
 wheat.on(Events.GuildCreate, async (guild) => {
     const ownerId = await guild.fetchOwner();
     const embed = bot.wheatSampleEmbedGenerate();
@@ -60,23 +64,26 @@ wheat.on(Events.GuildCreate, async (guild) => {
     };
 });
 
+
+// Handle interactions which are not slash commands
 wheat.on(Events.InteractionCreate, async interaction => {
     if (interaction.isChatInputCommand()) return;
 
+    
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
-
+        
         const allowUsers = ['687301490238554160'];
-
+        
         if (!interaction.member) return;
         if (!allowUsers.includes(interaction.member.id)) return;
     }
-
+    
     try {
         const memberId = interaction.user.id;
         const guildId = interaction.guildId;
         const channelId = interaction.channelId;
 
-        const executeInteractionId = interaction.customId;
+        const [executeInteractionId, dataId] = interaction.customId.split('_');
 
         if (commandBase.interactionHas(executeInteractionId)) {
             const interactionHandler = commandBase.interactionGet(executeInteractionId);
@@ -89,13 +96,18 @@ wheat.on(Events.InteractionCreate, async interaction => {
                 return i18next.t(str, { ...opt, lng: lang });
             }
 
-            interactionHandler.run(interaction, t);
+            const request = new Request(interaction, language, true);
+
+            request.interactionDataId = dataId;
+
+            interactionHandler.run(request, t);
         }
     } catch (error) {
         console.log(error.message === 'Unknown interaction' ? 'Unknown interaction' : error);
     };
 })
 
+// Handle interactions which are slash commands
 wheat.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
