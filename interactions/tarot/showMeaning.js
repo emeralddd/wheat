@@ -33,8 +33,8 @@ module.exports = {
         const tarotCard = tarotMeaning[cardId];
 
         const embed = bot.wheatSampleEmbedGenerate();
-
-        embed.setTitle(`<a:t_v4:1140505547221766195> ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}**`);
+        embed.setFooter({ text: request.language==='en'?'To show/hide meaning by default when drawing cards, use the /mysettings command.\n**Note: This English version of Tarot Meaning is in experimental stage and may contain inaccuracies due to automatic translation by GenAI. We are working on enhancing the quality of the translation. **':'Để mặc định ẩn/hiện ý nghĩa khi bốc bài, sử dụng lệnh /mysettings.' });
+        embed.setTitle(`${request.language==='vi'?'<a:t_v4:1140505547221766195>':''} ** ${tarotCard.name} ${reversed ? (type ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}**`);
         embed.setDescription(tarotCard.type === '1' ? t('tarot.majorArcana') : t('tarot.minorArcana'));
 
         embed.addFields({
