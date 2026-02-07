@@ -53,7 +53,7 @@ const run = async ({ request, args, t }) => {
         return;
     }
 
-    const number = await bot.wheatReadJSON('./assets/content/vi/numerologyRulingNumber_new.json');
+    const number = await bot.wheatReadJSON('./assets/content/vi/numerologyRulingNumber.json');
 
     let sumOfDigit = mmt.format('DDMMYYYY').split('').reduce((prev, cur) => prev + Number(cur), 0);
 
