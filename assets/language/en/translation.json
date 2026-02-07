@@ -239,7 +239,7 @@
         "confirmChange": "Are you sure you want to change this setting?",
         "confirm":"Confirm",
         "hideTarotMeaningSetting": "Change the default to hide the meaning of Tarot cards when drawing Tarot cards",
-        "hideTarotMeaningSettingDesc": "Change the default to hide the meaning of Tarot cards when drawing Tarot cards {{newSetting}}",
+        "hideTarotMeaningSettingDesc": "Change the default to hide the meaning of Tarot cards when drawing Tarot cards to **{{newSetting}}**",
         "successHideTarotMeaning": "Successfully changed the setting to hide the meaning of Tarot cards when drawing Tarot cards.",
         "tarotReversedSettingDesc": "Change the default use of reversed Tarot cards when drawing Tarot cards to **{{newSetting}}**",
         "successTarotReversed": "Successfully changed the setting to use reversed Tarot cards when drawing Tarot cards.",

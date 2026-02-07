@@ -108,8 +108,8 @@ module.exports.updateServer = async (serverId, newData) => {
 
 module.exports.newMember = async (memberId, newData) => {
     try {
-        queryWithoutRow(`insert into member values(?, ?, ?, ?, ?)`, 
-            [memberId, newData.verify ? 1 : 0, newData.premium ? 1 : 0, newData.language && newData.language !== 'unset' ? newData.language : null, newData.tarot ? 1 : 0]);
+        queryWithoutRow(`insert into member values(?, ?, ?, ?, ?, ?)`, 
+            [memberId, newData.verify ? 1 : 0, newData.premium ? 1 : 0, newData.language && newData.language !== 'unset' ? newData.language : null, newData.tarot ? 1 : 0, newData.hideTarotMeaning ? 1 : 0]);
     } catch (err) {
         throw err;
     }

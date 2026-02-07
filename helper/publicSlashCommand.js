@@ -1,14 +1,15 @@
 const { REST, Routes } = require('discord.js');
 require('dotenv').config({ path: 'secret.env' })
 const { SlashCommandBuilder } = require('discord.js');
-const langList = ['vi_VN', 'en_US']
+const langList = ['vi', 'en']
 const bot = require('wheat-better-cmd')
 const { readdirSync } = require("fs")
 
 const commands = []
 
-const clientId = '123456789000000000'
-// const guildId = '747714988503859221'
+const clientId2 = '860599818103422978'
+const clientId = '786234973308715008'
+const guildId = '747714988503859221'
 
 const groups = ["astronomy", "ftelling", "random", "fun", "utility", "setting"]
 
@@ -47,7 +48,7 @@ const get = async () => {
         }
 
         for (const file of jsfile) {
-            const module = require(`./commands/${str}/${file}`)
+            const module = require(`../commands/${str}/${file}`)
 
             if (module.help && module.help.name !== 'test') {
 
@@ -59,10 +60,9 @@ const get = async () => {
 
                     slashcommand.setName(module.help.name)
 
-                    slashcommand.setDescription(LANG[module.help.name].desc['vi_VN'])
+                    slashcommand.setDescription(LANG[module.help.name].desc['en'])
                     slashcommand.setDescriptionLocalizations({
-                        "en-US": LANG[module.help.name].desc['en_US'],
-                        "vi": LANG[module.help.name].desc['vi_VN'],
+                        "vi": LANG[module.help.name].desc['vi']
                     })
 
                     commands.push(slashcommand.toJSON())
@@ -73,7 +73,7 @@ const get = async () => {
 }
 
 get().then(async () => {
-    const rest = new REST({ version: '10' }).setToken(process.env.TOKEN)
+    const rest = new REST({ version: '10' }).setToken(process.env.TOKEN2)
     try {
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
