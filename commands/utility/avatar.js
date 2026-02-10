@@ -23,7 +23,7 @@ const help = {
  * @param {String[]} obj.args
  */
 
-const run = async ({ wheat, request, args }) => {
+const run = async ({ wheat, request, args, t}) => {
     const embed = bot.wheatSampleEmbedGenerate();
 
     try {
