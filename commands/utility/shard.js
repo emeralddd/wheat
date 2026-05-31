@@ -31,23 +31,33 @@ const run = async ({ wheat, request, t }) => {
         }
     });
 
-    const embed = bot.wheatSampleEmbedGenerate();
-    embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
-    embed.setTitle('Shard list');
+    const embedList = [];
 
+    let shardPage = 0;
+    
     for (let i = 0; i < shardList.length; i++) {
-        embed.addFields({
+        if (i % 25 === 0) {
+            shardPage++;
+
+            const embed = bot.wheatSampleEmbedGenerate();
+            embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
+            embed.setTitle(`Shard list - Page ${shardPage}`);
+
+            embedList.push(embed);
+        }
+
+        embedList[shardPage - 1].addFields({
             name: `Shard ${i}`,
             value: `Guilds: ${shardList[i].guilds}\nUptime: ${shardList[i].uptime}`,
             inline: true
         });
     }
 
-    embed.setFooter({
+    embedList[shardPage - 1].setFooter({
         text: t('main.fromShard', { shardId: wheat.shard.ids[0] })
     });
 
-    await request.reply({ embeds: [embed] });
+    await request.reply({ embeds: embedList });
 }
 
 module.exports.run = run;
