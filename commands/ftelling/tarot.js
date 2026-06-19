@@ -5,6 +5,14 @@ const { AttachmentBuilder, SlashCommandBuilder, ActionRowBuilder, StringSelectMe
 const { Request } = require('../../structure/Request');
 const { loadImage, createCanvas } = require('@napi-rs/canvas');
 const { join } = require('path');
+const { answer } = require('../../modules/ExplainTarotCardAI');
+
+const SpreadType = {
+	ONE_CARD: 1,
+	THREE_CARDS: 3,
+	FIVE_CARDS: 5,
+	CELTIC_CROSS: 'c'
+}
 
 const NO_CARDS = 78;
 
@@ -16,6 +24,7 @@ const pickTarotCards = (amount, rev) => {
 		if (!pickList.includes(randomCard)) {
 			pickList.push(randomCard);
 		}
+
 	}
 
 	return pickList.map(c => {
@@ -27,6 +36,7 @@ const help = {
 	name: "tarot",
 	group: "ftelling",
 	aliases: [],
+	rate: 5000,
 	example: ["", " r", " nr 3", " c"],
 	data: new SlashCommandBuilder()
 		.addBooleanOption(option =>
@@ -46,6 +56,13 @@ const help = {
 					{ name: 'Trải 5 lá (Five cards spread)', value: '5' },
 					{ name: 'Trải Celtic Cross (Celtic Cross spread)', value: 'c' }
 				)
+		)
+		.addStringOption(option =>
+			option.setName('question')
+				.setDescription('your question for the tarot reading (only avaiable for 1 or 3 cards spread)')
+				.setDescriptionLocalization('vi', 'câu hỏi của bạn cho trải bài (chỉ áp dụng cho trải 1 và 3 lá)')
+				.setRequired(false)
+				.setMaxLength(500)
 		)
 }
 
@@ -117,8 +134,10 @@ const run = async ({ request, args, t }) => {
 	const embed = bot.wheatSampleEmbedGenerate();
 	embed.setFooter({ text: request.language==='en'?'To show/hide meaning by default when drawing cards, use the /mysettings command.\n**Note: This English version of Tarot Meaning is in experimental stage and may contain inaccuracies due to automatic translation by GenAI. We are working on enhancing the quality of the translation. **':'Để mặc định ẩn/hiện ý nghĩa khi bốc bài, sử dụng lệnh /mysettings.' });
 
+	const tarotCards = pickTarotCards(spread === 'c' ? 10 : spread, reversed);
+
 	if (spread === 1) {
-		const [[cardId, type]] = pickTarotCards(1, reversed);
+		const [[cardId, type]] = tarotCards;
 		const tarotCard = tarotMeaning[cardId];
 
 		embed.setAuthor({
@@ -171,10 +190,8 @@ const run = async ({ request, args, t }) => {
 		const attachment = new AttachmentBuilder(`./assets/image/tarotImage/${type ? 'u' : 'r'}/${tarotCard.image}`, tarotCard.image);
 		embed.setImage(`attachment://${tarotCard.image}`);
 		
-		request.reply({ embeds: [embed], files: [attachment], components: row.components.length > 0 ? [row] : undefined });
+		await request.reply({ embeds: [embed], files: [attachment], components: row.components.length > 0 ? [row] : undefined });
 	} else if (spread === 3 || spread === 5) {
-		const tarotCards = pickTarotCards(spread, reversed);
-
 		const gap = 50;
 
 		const canvas = createCanvas(293 * spread + gap * (spread - 1), 512);
@@ -212,10 +229,8 @@ const run = async ({ request, args, t }) => {
 		const row = new ActionRowBuilder()
 			.addComponents(selectCardMenu);
 
-		request.reply({ embeds: [embed], files: [attachment], components: [row] });
+		await request.reply({ embeds: [embed], files: [attachment], components: [row] });
 	} else {
-		const tarotCards = pickTarotCards(10, reversed);
-
 		const canvas = createCanvas(1742, 2198);
 		const ctx = canvas.getContext('2d');
 
@@ -270,9 +285,33 @@ const run = async ({ request, args, t }) => {
 
 		const row = new ActionRowBuilder()
 			.addComponents(selectCardMenu);
-
-		request.reply({ embeds: [embed], files: [attachment], components: [row] });
+			
+		await request.reply({ embeds: [embed], files: [attachment], components: [row] });
 	}
+
+	const questionToAI = request.isInteraction ? request.interaction.options.getString('question') : null;
+
+	if(questionToAI) {
+		const AIAnswerEmbed = bot.wheatSampleEmbedGenerate();
+		if(spread !== 'c') {
+			AIAnswerEmbed.setDescription(t('tarot.AIAnswerGenerating'));
+		} else {
+			AIAnswerEmbed.setDescription(t('tarot.celticCrossNoAI'));
+		}
+
+		const AIAnswerMessage = await request.follow({ embeds: [AIAnswerEmbed] });
+
+		if(spread !== 'c') {
+			const answerFromAI = await answer(t, questionToAI, tarotCards.map(c => `${tarotMeaning[c[0]].name} ${reversed ? (c[1] ? 'upright' : 'reversed') : ''}`));
+			AIAnswerEmbed.setTitle(t('tarot.AIAnswerTitle'));
+			AIAnswerEmbed.setDescription(answerFromAI);
+			AIAnswerEmbed.setFooter( {text: t('tarot.AIAnswerDisclaimer')} );
+
+			AIAnswerMessage.edit({ embeds: [AIAnswerEmbed] });
+		}
+		
+	}
+
 }
 
 module.exports.run = run;
