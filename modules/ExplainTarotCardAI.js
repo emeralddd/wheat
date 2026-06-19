@@ -14,10 +14,7 @@ const systemInstruction = `Bạn là một Tarot Reader huyền bí trên Discor
 - Dùng ngôn ngữ của câu hỏi để trả lời, nếu không xác định được thì dùng tiếng Anh.
 - Lưu ý: upright là xuôi và reversed là ngược khi giải bài.`
 
-const MODELS = [
-    "qwen/qwen3.6-plus-preview:free", 
-    "meta-llama/llama-3.3-70b-instruct:free"
-];
+const modelsList = require('../config').MODELS;
 
 module.exports.answer = async (t, question, cards) => {
     const prompt = `Kiểu trải: ${cards.length} lá
@@ -26,9 +23,7 @@ Câu hỏi: "${question}"
 Hãy bắt đầu luận giải.
     `;
 
-    console.log("Prompt to AI:", prompt);
-
-    for (const modelName of MODELS) {
+    for (const modelName of modelsList) {
         try {
             const response = await axios.post(
                 "https://openrouter.ai/api/v1/chat/completions",
@@ -40,13 +35,13 @@ Hãy bắt đầu luận giải.
                     ],
                     temperature: 0.6,
                     max_tokens: 2000,
-                    include_reasoning: false 
                 },
                 {
                     headers: {
                         "Authorization": `Bearer ${process.env.OPENROUTER_API}`,
                         "HTTP-Referer": "https://wheatbot.xyz",
                         "X-Title": "Wheat Discord Bot",
+                        "Content-Type": "application/json"
                     },
                     timeout: 25000
                 }
@@ -58,13 +53,11 @@ Hãy bắt đầu luận giải.
                 throw new Error("AI response contains system instruction, possible leak detected.");
             }
 
-            console.log(`AI response (${modelName}):`, aiResponse);
             return aiResponse;
-
         } catch (error) {
-            console.error(`Lỗi khi gọi model ${modelName}:`, error.message);
-            if (modelName === MODELS[MODELS.length - 1]) {
-                return t("tarot.tarotAIAnswerError");
+            console.error(`Error in call AI API: ${modelName}:`, error.message);
+            if (modelName === modelsList[modelsList.length - 1]) {
+                return t("tarot.AIAnswerError");
             }
         }
     }
