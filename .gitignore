@@ -16,7 +16,7 @@ test.js
 slash.js
 
 # Data
-wheat.db
-wheat.db-shm
-wheat.db-wal
+*.db
+*.db-shm
+*.db-wal
 announcement.json
