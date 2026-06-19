@@ -96,7 +96,12 @@
         "cardDescription": "Description",
         "thisCardMeaningIs": "Meaning of",
         "selectCardInSpread": "View meaning of any card in spread",
-        "showMeaning": "Show Meaning"
+        "showMeaning": "Show Meaning",
+        "AIAnswerTitle": "🧙 Mystery Tarot Reader said that: ",
+        "AIAnswerDisclaimer": "Disclaimer: The answer provided by GenAI is generated based on the question and the drawn Tarot cards. It may not always be accurate or relevant. Please use your own judgment and intuition when interpreting the answer in relation to your Tarot reading.",
+        "celticCrossNoAI": "The Celtic Cross spread does not support AI-powered interpretations at this time.",
+        "AIAnswerError": "The Tarot AI reader has encountered some issues! Please try again later or draw new cards!",
+        "AIAnswerGenerating": "🔮 Connecting the energy with the Universe..."
     },
     "astro": {
         "zodiacth": "Position of Zodiac",
