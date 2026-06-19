@@ -101,7 +101,8 @@
         "AIAnswerDisclaimer": "Disclaimer: The answer provided by GenAI is generated based on the question and the drawn Tarot cards. It may not always be accurate or relevant. Please use your own judgment and intuition when interpreting the answer in relation to your Tarot reading.",
         "celticCrossNoAI": "The Celtic Cross spread does not support AI-powered interpretations at this time.",
         "AIAnswerError": "The Tarot AI reader has encountered some issues! Please try again later or draw new cards!",
-        "AIAnswerGenerating": "🔮 Connecting the energy with the Universe..."
+        "AIAnswerGenerating": "🔮 Connecting the energy with the Universe...",
+        "AIAnswerRateLimit": "The Tarot AI reader is currently recharging its energy! Please wait {{time}} second(s) since your last request and try again!"
     },
     "astro": {
         "zodiacth": "Position of Zodiac",

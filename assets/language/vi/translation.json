@@ -100,7 +100,8 @@
         "AIAnswerDisclaimer": "Lưu ý: Câu trả lời được GenAI cung cấp dựa trên câu hỏi và các lá bài Tarot được bốc. Nội dung có thể không phải lúc nào cũng chính xác hoặc liên quan. Vui lòng sử dụng sự phán đoán và trực giác của bạn khi diễn giải câu trả lời liên quan đến trải bài Tarot của bạn.",
         "celticCrossNoAI": "Trải bài Celtic Cross không hỗ trợ giải thích bằng AI tại thời điểm này.",
         "AIAnswerError": "Tarot Reader AI đã gặp một số vấn đề! Vui lòng thử lại sau hoặc bốc lá bài mới!",
-        "AIAnswerGenerating": "🔮 Đang kết nối năng lượng với Vũ trụ..."
+        "AIAnswerGenerating": "🔮 Đang kết nối năng lượng với Vũ trụ...",
+        "AIAnswerRateLimit": "Tarot Reader AI hiện đang nạp lại năng lượng! Vui lòng chờ {{time}} giây từ khi gửi yêu cầu cuối cùng và thử lại!"
     },
     "astro": {
         "zodiacth": "Cung hoàng đạo thứ",
