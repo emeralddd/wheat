@@ -145,13 +145,13 @@ const findLunarDate = (jd, ly) => {
     }
 
     const off = jd - ly[i].jd
-    ret = LunarDate(ly[i].day + off, ly[i].month, ly[i].year, ly[i].leap, jd)
+    const ret = LunarDate(ly[i].day + off, ly[i].month, ly[i].year, ly[i].leap, jd)
     return ret
 }
 
 function convertDuongAm(dd, mm, yyyy) {
     if (yyyy < 1800 || 2199 < yyyy) {
-        return new LunarDate(0, 0, 0, 0, 0);
+        return LunarDate(0, 0, 0, 0, 0);
     }
 
     let ly = getYearInfo(yyyy), jd = jdn(dd, mm, yyyy)
@@ -391,9 +391,6 @@ class AmDuongLich {
     static AmLich = 0;
     static DuongLich = 1;
 
-    /**
-     * Will implement soon
-     **/
     nameOfLunarMonths = {
         "vi": ["Giêng", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Một", "Chạp"],
         "en": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
