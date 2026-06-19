@@ -1,3 +1,4 @@
+// Todo: Migrate to better-sqlite3
 require('dotenv').config({ path: 'secret.env' });
 const sqlite3 = require('sqlite3').verbose();
 let db;
@@ -8,8 +9,14 @@ module.exports.connect = () => {
             return console.error(error.message);
         }
 
-        return console.log('DB Connected Successfully!');
+        console.log('DB Connected Successfully!');
+        
+        db.serialize(() => {
+            db.run("PRAGMA journal_mode = WAL;");
+            db.run("PRAGMA busy_timeout = 3000;");
+        });
     });
+
 }
 
 const queryWithoutRow = (query, values) => {
