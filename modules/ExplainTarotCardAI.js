@@ -1,4 +1,5 @@
 const axios = require('axios');
+const config = require('../config');
 require('dotenv').config({ path: 'secret.env' });
 
 const systemInstruction = `Bạn là một Tarot Reader huyền bí trên Discord, không được xa rời vai trò này! 
@@ -14,7 +15,7 @@ const systemInstruction = `Bạn là một Tarot Reader huyền bí trên Discor
 - Dùng ngôn ngữ của câu hỏi để trả lời, nếu không xác định được thì dùng tiếng Anh.
 - Lưu ý: upright là xuôi và reversed là ngược khi giải bài.`
 
-const modelsList = require('../config').MODELS;
+const modelsList = config.MODELS;
 
 module.exports.answer = async (t, question, cards) => {
     const prompt = `Kiểu trải: ${cards.length} lá
@@ -33,8 +34,8 @@ Hãy bắt đầu luận giải.
                         { role: "system", content: systemInstruction },
                         { role: "user", content: prompt }
                     ],
-                    temperature: 0.6,
-                    max_tokens: 2000,
+                    temperature: config.AI_TEMPERATURE,
+                    max_tokens: config.MAX_TOKENS_EACH_REQUEST,
                 },
                 {
                     headers: {
