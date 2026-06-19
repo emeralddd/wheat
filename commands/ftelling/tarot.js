@@ -6,6 +6,8 @@ const { Request } = require('../../structure/Request');
 const { loadImage, createCanvas } = require('@napi-rs/canvas');
 const { join } = require('path');
 const { answer } = require('../../modules/ExplainTarotCardAI');
+const rateLimiter = require('../../modules/rateLimiter');
+const config = require('../../config');
 
 const SpreadType = {
 	ONE_CARD: 1,
@@ -293,12 +295,22 @@ const run = async ({ request, args, t }) => {
 
 	if(questionToAI) {
 		const AIAnswerEmbed = bot.wheatSampleEmbedGenerate();
-		if(spread !== 'c') {
-			AIAnswerEmbed.setDescription(t('tarot.AIAnswerGenerating'));
-		} else {
+
+		const rateLimitCheck = rateLimiter.validateCustom(memberId, `tarot_ai`, config.TAROT_AI_RATE);
+
+		if(spread === 'c') {
 			AIAnswerEmbed.setDescription(t('tarot.celticCrossNoAI'));
+			return request.follow({ embeds: [AIAnswerEmbed] });
 		}
 
+		if (rateLimitCheck) {
+			AIAnswerEmbed.setDescription(t('tarot.AIAnswerRateLimit', {
+				time: Math.ceil(rateLimitCheck)
+			}));
+			return request.follow({ embeds: [AIAnswerEmbed] });
+		}
+		
+		AIAnswerEmbed.setDescription(t('tarot.AIAnswerGenerating'));
 		const AIAnswerMessage = await request.follow({ embeds: [AIAnswerEmbed] });
 
 		if(spread !== 'c') {
