@@ -90,7 +90,7 @@ module.exports.updateMember = async (memberId, newData) => {
             values.push(value === 'unset' ? null : value);
         }
 
-        queryWithoutRow(`update member set ${setList.join(',')} where id = ?`, 
+        await queryWithoutRow(`update member set ${setList.join(',')} where id = ?`, 
             [...values, String(memberId)]);
     } catch (err) {
         throw err;
@@ -106,7 +106,7 @@ module.exports.updateServer = async (serverId, newData) => {
             values.push(value);
         }
 
-        queryWithoutRow(`update server set ${setList.join(',')} where id = ?`, 
+        await queryWithoutRow(`update server set ${setList.join(',')} where id = ?`, 
             [...values, String(serverId)]);
     } catch (err) {
         throw err;
@@ -115,7 +115,7 @@ module.exports.updateServer = async (serverId, newData) => {
 
 module.exports.newMember = async (memberId, newData) => {
     try {
-        queryWithoutRow(`insert into member values(?, ?, ?, ?, ?, ?)`, 
+        await queryWithoutRow(`insert into member values(?, ?, ?, ?, ?, ?)`, 
             [memberId, newData.verify ? 1 : 0, newData.premium ? 1 : 0, newData.language && newData.language !== 'unset' ? newData.language : null, newData.tarot ? 1 : 0, newData.hideTarotMeaning ? 1 : 0]);
     } catch (err) {
         throw err;
@@ -124,7 +124,7 @@ module.exports.newMember = async (memberId, newData) => {
 
 module.exports.newServer = async (serverId, newData) => {
     try {
-        queryWithoutRow(`insert into server values(?, ?, ? ,?)`, 
+        await queryWithoutRow(`insert into server values(?, ?, ? ,?)`, 
             [serverId, newData.premium ? 1 : 0, newData.prefix || 'e', newData.language || 'vi']);
     } catch (err) {
         throw err;
