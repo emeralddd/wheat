@@ -100,7 +100,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
             request.interactionDataId = dataId;
 
-            interactionHandler.run(request, t);
+            await interactionHandler.run(request, t);
         }
     } catch (error) {
         console.log(error.message === 'Unknown interaction' ? 'Unknown interaction' : error);
@@ -172,7 +172,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 
             databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 1);
 
-            command.run({
+            await command.run({
                 wheat,
                 t,
                 request,
