@@ -1,6 +1,6 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity;
 require('events').defaultMaxListeners = Infinity;
-const { Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes } = require('discord.js');
+const { ChannelType, Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes } = require('discord.js');
 const databaseManager = require('./modules/databaseManager');
 const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
@@ -187,7 +187,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
 });
 
 wheat.on(Events.MessageCreate, async (message) => {
-    if (message.channel.type === "dm") return;
+    if (message.channel.type === ChannelType.DM) return;
 
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
         const allowUsers = ['687301490238554160'];
