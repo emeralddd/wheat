@@ -108,6 +108,11 @@ const interactionGet = (interactionCustomId) => {
     return interactionList.get(interactionCustomId);
 }
 
+const checkCommandInString = (str) => {
+    return commandsList.some(command => command?.help?.name && str.includes(command.help.name)) ||
+        [...aliasesList.keys()].some(alias => str.includes(alias));
+}
+
 module.exports = {
     get commandsList() {
         return commandsList;
@@ -127,5 +132,6 @@ module.exports = {
     commandHas,
     aliaseHas,
     interactionHas,
-    initiate
+    initiate,
+    checkCommandInString
 }
