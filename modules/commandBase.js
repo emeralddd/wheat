@@ -108,6 +108,11 @@ const interactionGet = (interactionCustomId) => {
     return interactionList.get(interactionCustomId);
 }
 
+/**
+ * Check if a command or alias exists in the commandsList or aliasesList.
+ * @param {string} str - The string to check for a command or alias.
+ * @returns {boolean} - Returns true if a command or alias exists, otherwise false.
+ */
 const checkCommandInString = (str) => {
     return commandsList.some(command => command?.help?.name && str.includes(command.help.name)) ||
         [...aliasesList.keys()].some(alias => str.includes(alias));

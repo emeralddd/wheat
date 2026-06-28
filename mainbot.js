@@ -187,7 +187,13 @@ wheat.on(Events.InteractionCreate, async interaction => {
 });
 
 wheat.on(Events.MessageCreate, async (message) => {
-    if (message.channel.type === ChannelType.DM) return;
+    if (message.channel.type === ChannelType.DM) {
+        return;
+    }
+
+    if (message.author.bot) {
+        return;
+    }
 
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
         const allowUsers = ['687301490238554160'];
@@ -200,86 +206,116 @@ wheat.on(Events.MessageCreate, async (message) => {
         const guildId = message.guildId;
         const channelId = message.channel.id;
 
+        // Check if message is empty
         if (!msg) return;
 
+        // Note: removed and replaced in future update
         if (memberId === '687301490238554160' && msg === 'ereload') {
             announcement = require('./announcement.json');
         }
 
+        // Check if message contains command
+        if (!commandBase.checkCommandInString(msg.toLowerCase())) {
+            return;
+        }
+
         const serverInfo = await databaseManager.getServer(guildId);
-        const memberInfo = await databaseManager.getMember(memberId);
-
         const prefix = serverInfo?.prefix ?? process.env.PREFIX;
-        const language = memberInfo?.language ?? serverInfo?.language ?? process.env.CODE;
 
+        // Check if message is a mention of the bot
+        const isMention = msg === `<@${wheat.user.id}>` || msg === `<@!${wheat.user.id}>`;
+        if (isMention) {
+            const memberInfo = await databaseManager.getMember(memberId);
+            const language = memberInfo?.language ?? serverInfo?.language ?? process.env.CODE;
+            const t = (str, opt = {}, lang = language) => {
+                return i18next.t(str, { ...opt, lng: lang });
+            }
+
+            const request = new Request(message, language, false);
+
+            await request.reply(t('main.myPrefix', { prefix }));
+            return;
+        }
+
+        // Check if message starts with prefix
+        if (!msg.toLowerCase().startsWith(prefix.toLowerCase())) {
+            return;
+        }
+
+        const S = msg
+            .substring(prefix.length)
+            .split(' ');
+
+        // Split message into command and arguments
+        const args = S.filter(arg => arg !== '');
+
+        // Check if there are any arguments
+        if (args.length === 0) return;
+
+        // Get command name and check if it exists
+        const cmd = args[0].toLowerCase();
+
+        // Check if command exists in command list or alias list
+        // or mention bot 
+        if (!commandBase.commandHas(cmd) && !commandBase.aliaseHas(cmd)) {
+            return;
+        }
+
+        // Check if command is alias
+        let executeCommand = cmd;
+        if (commandBase.aliaseHas(executeCommand)) {
+            executeCommand = commandBase.aliaseGet(executeCommand);
+        }
+
+        // Get command object
+        const command = commandBase.commandGet(executeCommand);
+
+        // Check if command is disabled in this channel
+        if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
+            return;
+        }
+
+        // Get member info and language
+        const memberInfo = await databaseManager.getMember(memberId);
+        const language = memberInfo?.language ?? serverInfo?.language ?? process.env.CODE;
         const t = (str, opt = {}, lang = language) => {
             return i18next.t(str, { ...opt, lng: lang });
         }
 
         const request = new Request(message, language, false);
 
-        if (msg === '<@786234973308715008>') {
-            return request.reply(t('main.myPrefix', { prefix }));
+        // Check if user with this command is rate limited
+        const status = rateLimiter.validate(memberId, executeCommand);
+        if (status !== 0) {
+            await request.reply(t('main.rateLimit', { sec: status }));
+            return;
         }
 
-        if (!msg.toLowerCase().startsWith(prefix.toLowerCase())) return;
+        // Log request to database
+        databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 0);
 
-        const S = msg.substring(prefix.length).split(' ');
-        let args = [];
+        // Run command
+        await command.run({
+            wheat,
+            t,
+            request,
+            cmd,
+            S,
+            args,
+            prefix,
+            memberInfo,
+            serverInfo
+        });
 
-        for (const i of S) {
-            if (i !== '') args.push(i);
-        }
-
-        if (args.length === 0) return;
-
-        const cmd = args[0].toLowerCase();
-        let executeCommand = cmd;
-        if (commandBase.aliaseHas(executeCommand)) {
-            executeCommand = commandBase.aliaseGet(executeCommand);
-        }
-
-        if (commandBase.commandHas(executeCommand)) {
-            const command = commandBase.commandGet(executeCommand);
-
-            if (await databaseManager.getDisableCommand(channelId, executeCommand)) {
-                return;
-            }
-
-            const status = rateLimiter.validate(memberId, executeCommand);
-
-            if (status !== 0) {
-                await request.reply(t('main.rateLimit', { sec: status }));
-                return;
-            }
-
-            try {
-                databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 0);
-                await command.run({
-                    wheat,
-                    t,
-                    request,
-                    cmd,
-                    S,
-                    args,
-                    prefix,
-                    memberInfo,
-                    serverInfo
-                });
-
-                if (announcement.status === 'active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(command.help.group)) {
-                    const embed = bot.wheatSampleEmbedGenerate();
-                    embed.setTitle(announcement.title);
-                    embed.setDescription(announcement.description);
-                    await request.reply({ embeds: [embed] });
-                }
-
-            } catch (error) {
-                console.log(error);
-            }
+        // Check if announcement is active and not ignored for this command or group
+        if (announcement.status === 'active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(command.help.group)) {
+            const embed = bot.wheatSampleEmbedGenerate();
+            embed.setTitle(announcement.title);
+            embed.setDescription(announcement.description);
+            await request.reply({ embeds: [embed] });
         }
     } catch (error) {
-        console.log(error);
+        console.log("Error while executing command: ", error);
     }
 });
 
