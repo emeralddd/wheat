@@ -44,5 +44,5 @@ module.exports.help = {
     htu: "",
     des: "abc",
     group: "",
-    aliases: [""]
+    aliases: []
 }
