@@ -8,6 +8,11 @@ const { join } = require('path');
 
 const NO_CARDS = 78;
 
+let tarotMeaning = {
+	vi: null,
+	en: null
+};
+
 const pickTarotCards = (amount, rev) => {
 	const pickList = [];
 
@@ -21,6 +26,12 @@ const pickTarotCards = (amount, rev) => {
 	return pickList.map(c => {
 		return [c + 1, (rev ? Math.floor(Math.random() * 2) : 1)]
 	});
+}
+
+const loadTarotMeaning = async (language) => {
+	if (!tarotMeaning[language]) {
+		tarotMeaning[language] = await bot.wheatReadJSON(`./assets/content/${language}/tarotMeaning.json`);
+	}
 }
 
 const help = {
@@ -55,7 +66,7 @@ const help = {
  */
 
 const run = async ({ request, args, t }) => {
-	const tarotMeaning = await bot.wheatReadJSON(`./assets/content/${request.language}/tarotMeaning.json`);
+	await loadTarotMeaning(request.language);
 
 	const memberId = request.member.id;
 
@@ -119,7 +130,7 @@ const run = async ({ request, args, t }) => {
 
 	if (spread === 1) {
 		const [[cardId, type]] = pickTarotCards(1, reversed);
-		const tarotCard = tarotMeaning[cardId];
+		const tarotCard = tarotMeaning[request.language][cardId];
 
 		embed.setAuthor({
 			name: t('tarot.yourTarotCardIs', {
@@ -193,7 +204,7 @@ const run = async ({ request, args, t }) => {
 
 		embed.addFields({
 			name: t('tarot.lefttoright'),
-			value: tarotCards.map((card, ind) => `${ind + 1}. **${tarotMeaning[card[0]].name}** ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`).join('\n')
+			value: tarotCards.map((card, ind) => `${ind + 1}. **${tarotMeaning[request.language][card[0]].name}** ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`).join('\n')
 		});
 
 		const attachment = new AttachmentBuilder(canvas.toBuffer('image/webp'), { name: `spreads.png` });
@@ -204,7 +215,7 @@ const run = async ({ request, args, t }) => {
 			.setPlaceholder(t('tarot.selectCardInSpread'))
 			.setOptions(
 				tarotCards.map((card, ind) => new StringSelectMenuOptionBuilder()
-					.setLabel(`${ind + 1}. ${tarotMeaning[card[0]].name} ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`)
+					.setLabel(`${ind + 1}. ${tarotMeaning[request.language][card[0]].name} ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`)
 					.setValue(card[0] + '.' + reversed + '.' + card[1])
 				)
 			);
@@ -253,7 +264,7 @@ const run = async ({ request, args, t }) => {
 
 		embed.addFields({
 			name: t('tarot.celticList'),
-			value: tarotCards.map((card, ind) => `${ind + 1}. **${tarotMeaning[card[0]].name}** ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`).join('\n')
+			value: tarotCards.map((card, ind) => `${ind + 1}. **${tarotMeaning[request.language][card[0]].name}** ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`).join('\n')
 		});
 
 		embed.setImage(`attachment://spreads.png`);
@@ -263,7 +274,7 @@ const run = async ({ request, args, t }) => {
 			.setPlaceholder(t('tarot.selectCardInSpread'))
 			.setOptions(
 				tarotCards.map((card, ind) => new StringSelectMenuOptionBuilder()
-					.setLabel(`${ind + 1}. ${tarotMeaning[card[0]].name} ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`)
+					.setLabel(`${ind + 1}. ${tarotMeaning[request.language][card[0]].name} ${reversed ? (card[1] ? t('tarot.uprightCard') : t('tarot.reverseCard')) : ''}`)
 					.setValue(card[0] + '.' + reversed + '.' + card[1])
 				)
 			);
