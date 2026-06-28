@@ -4,7 +4,6 @@ const { ChannelType, Client, GatewayIntentBits, ActivityType, Events, SnowflakeU
 const databaseManager = require('./modules/databaseManager');
 const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
-let announcement = require('./announcement.json');
 
 const wheat = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent], presence: {
@@ -20,6 +19,7 @@ const languageBase = require('./modules/languageBase');
 const commandBase = require('./modules/commandBase');
 const rateLimiter = require('./modules/rateLimiter');
 const interactionDataBase = require('./modules/interactionDataBase');
+const announcementManager = require('./modules/announcementManager');
 
 const { Request } = require('./structure/Request');
 const i18next = require('i18next');
@@ -209,11 +209,6 @@ wheat.on(Events.MessageCreate, async (message) => {
         // Check if message is empty
         if (!msg) return;
 
-        // Note: removed and replaced in future update
-        if (memberId === '687301490238554160' && msg === 'ereload') {
-            announcement = require('./announcement.json');
-        }
-
         // Check if message contains command
         if (!commandBase.checkCommandInString(msg.toLowerCase())) {
             return;
@@ -308,10 +303,13 @@ wheat.on(Events.MessageCreate, async (message) => {
         });
 
         // Check if announcement is active and not ignored for this command or group
-        if (announcement.status === 'active' && !announcement.ignoredcommand.includes(executeCommand) && !announcement.ignoredparents.includes(command.help.group)) {
+        if (announcementManager.isActive 
+            && !announcementManager.checkIgnoreCommand(executeCommand) 
+            && !announcementManager.checkIgnoreParent(command.help.group)
+        ) {
             const embed = bot.wheatSampleEmbedGenerate();
-            embed.setTitle(announcement.title);
-            embed.setDescription(announcement.description);
+            embed.setTitle(announcementManager.announcementData.title);
+            embed.setDescription(announcementManager.announcementData.description);
             await request.reply({ embeds: [embed] });
         }
     } catch (error) {

@@ -42,7 +42,7 @@ module.exports.run = async ({ wheat, request, args }) => {
 module.exports.help = {
     name: "admin",
     htu: "",
-    des: "abc",
+    des: "",
     group: "",
     aliases: []
 }
