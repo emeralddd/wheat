@@ -4,6 +4,17 @@ const interactionDataBase = require('../../modules/interactionDataBase');
 
 const NO_CARDS = 78;
 
+let tarotMeaning = {
+    vi: null,
+    en: null
+};
+
+const loadTarotMeaning = async (language) => {
+    if (!tarotMeaning[language]) {
+        tarotMeaning[language] = await bot.wheatReadJSON(`./assets/content/${language}/tarotMeaning.json`);
+    }
+}
+
 module.exports = {
     name: "showMeaning",
     /**
@@ -29,8 +40,8 @@ module.exports = {
 
         if (cardId > NO_CARDS || cardId < 0) return;
 
-        const tarotMeaning = await bot.wheatReadJSON(`./assets/content/${t('main.code')}/tarotMeaning.json`);
-        const tarotCard = tarotMeaning[cardId];
+        await loadTarotMeaning(t('main.code'));
+        const tarotCard = tarotMeaning[t('main.code')][cardId];
 
         const embed = bot.wheatSampleEmbedGenerate();
         embed.setFooter({ text: request.language==='en'?'To show/hide meaning by default when drawing cards, use the /mysettings command.\n**Note: This English version of Tarot Meaning is in experimental stage and may contain inaccuracies due to automatic translation by GenAI. We are working on enhancing the quality of the translation. **':'Để mặc định ẩn/hiện ý nghĩa khi bốc bài, sử dụng lệnh /mysettings.' });
