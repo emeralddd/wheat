@@ -149,7 +149,7 @@ class Request {
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
                     try {
-                        await this.channel.send(t('error.botMissingPermissions', { lng: this.language }));
+                        await this.author.send(t('error.botMissingPermissions', { lng: this.language }));
                     } catch (e) {
                         if (e.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
                             return;
