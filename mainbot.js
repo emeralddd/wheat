@@ -1,12 +1,21 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity;
 require('events').defaultMaxListeners = Infinity;
+const { ClusterClient, getInfo } = require('discord-hybrid-sharding');
 const { ChannelType, Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes } = require('discord.js');
 const databaseManager = require('./modules/databaseManager');
 const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
 
 const wheat = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent], presence: {
+    shards: getInfo().SHARD_LIST,
+    shardCount: getInfo().TOTAL_SHARDS,
+    intents: [
+        GatewayIntentBits.Guilds, 
+        GatewayIntentBits.GuildMessages, 
+        GatewayIntentBits.GuildMembers, 
+        GatewayIntentBits.MessageContent
+    ], 
+    presence: {
         activities: [{
             name: 'EHELP',
             type: ActivityType.Listening
@@ -14,6 +23,9 @@ const wheat = new Client({
         status: 'online'
     }
 });
+
+// Initialize ClusterClient for inter-cluster communication
+wheat.cluster = new ClusterClient(wheat);
 
 const languageBase = require('./modules/languageBase');
 const commandBase = require('./modules/commandBase');
@@ -38,10 +50,16 @@ const firstInit = () => {
     }
 }
 
-// Login and ready
-wheat.once(Events.ClientReady, async () => {
+// Handle cluster ready event
+wheat.cluster.on('ready', async (cluster) => {
+    console.log(`Cluster ${cluster.id} is ready!`);
     firstInit();
-    console.log(`[${wheat.shard.ids[0]}] Da dang nhap duoi ten ${wheat.user.tag}!`);
+});
+
+// Client ready
+wheat.once(Events.ClientReady, async (wheatReady) => {
+    wheatReady.cluster.triggerReady();
+    console.log(`[${wheatReady.cluster.id}] Da dang nhap duoi ten ${wheatReady.user.tag}! Shard IDs: ${wheatReady.cluster.shardList.join(', ')}`);
 });
 
 // Welcome DM to server owner
