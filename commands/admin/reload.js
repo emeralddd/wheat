@@ -16,7 +16,7 @@ module.exports.run = async ({ wheat , request }) => {
 
     const announcementModulePath = path.join(__dirname, '../../modules/announcementManager.js');
 
-    wheat.shard.broadcastEval(async (c, { announcementModulePath }) => {
+    wheat.cluster.broadcastEval(async (c, { announcementModulePath }) => {
         try {
             const announcementManager = require(announcementModulePath);
             await announcementManager.reloadAnnouncementData();
