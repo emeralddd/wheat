@@ -34,7 +34,7 @@ const firstInit = () => {
         databaseManager.connect();
         isInitial = true;
     } catch (error) {
-        console.log(error);
+        console.log("Error initializing bot: ", error);
     }
 }
 
@@ -59,8 +59,10 @@ wheat.on(Events.GuildCreate, async (guild) => {
         await ownerId.send({ enforceNonce: true, nonce: SnowflakeUtil.generate().toString(), embeds: [embed, embed1] });
         await ownerId.send({ enforceNonce: true, nonce: SnowflakeUtil.generate().toString(), content: '🌾**Support Server:** https://discord.gg/z5Z4uzmED9' });
     } catch (error) {
-        if (error.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) return;
-        console.log(error);
+        if (error.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
+            return;
+        }
+        console.log("Error sending welcome message to server owner: ", error);
     };
 });
 
@@ -69,7 +71,6 @@ wheat.on(Events.GuildCreate, async (guild) => {
 wheat.on(Events.InteractionCreate, async interaction => {
     if (interaction.isChatInputCommand()) return;
 
-    
     if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'live') {
         
         const allowUsers = ['687301490238554160'];
@@ -103,7 +104,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             await interactionHandler.run(request, t);
         }
     } catch (error) {
-        console.log(error.message === 'Unknown interaction' ? 'Unknown interaction' : error);
+        console.log("Error while executing non-slash interaction: ", error);
     };
 })
 
@@ -182,7 +183,7 @@ wheat.on(Events.InteractionCreate, async interaction => {
             });
         }
     } catch (error) {
-        console.log(error.message === 'Unknown interaction' ? 'Unknown interaction' : error);
+        console.log("Error while executing slash command: ", error);
     };
 });
 

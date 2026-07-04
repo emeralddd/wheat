@@ -154,12 +154,32 @@ class Request {
                         if (e.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
                             return;
                         }
+
+                        console.log("Error sending bot missing permissions message to author: ", e);
                     }
+                    return;
                 }
+
+                console.log("Error sending bot missing permissions message: ", err);
             }
-        } else {
-            console.log(error);
+        } else if (error.code === RESTJSONErrorCodes.UnknownInteraction) {
+            // If the interaction is unknown, it means the interaction might be expired.
+            
             try {
+                await this.channel.send(t('error.interactionExpired', { lng: this.language }));
+            } catch (err) {
+                if (err.code === RESTJSONErrorCodes.MissingPermissions) {
+                    return;
+                }
+
+                console.log("Error sending interaction expired message: ", err);
+            }
+
+            // Todo: log the error for statistics.
+        } else {
+            console.log("Error handling requests: ", error);
+            try {
+                // Send a message to user that an error occurred.
                 if (this.isInteraction) {
                     if(this.interaction.deferred || this.interaction.replied) {
                         await this.interaction.editReply(t('error.undefinedError', { lng: this.language }));
@@ -170,7 +190,11 @@ class Request {
                     await this.channel.send(t('error.undefinedError', { lng: this.language }));
                 }
             } catch (err) {
-                console.log(err);
+                if (err.code === RESTJSONErrorCodes.MissingPermissions) {
+                    return;
+                }
+
+                console.log("Error handling requests: ", err);
             }
         }
     }
