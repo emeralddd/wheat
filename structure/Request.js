@@ -142,14 +142,22 @@ class Request {
      * Handle error.
      */
 
+    generateNonceOptions() {
+        return {
+            enforceNonce: true,
+            nonce: SnowflakeUtil.generate().toString(),
+            allowedMentions: { parse: [] }
+        }
+    }
+
     async errorHandle(error = {}) {
         if (error.code === RESTJSONErrorCodes.MissingPermissions) {
             try {
-                await this.channel.send(t('error.botMissingPermissions', { lng: this.language }));
+                await this.channel.send({ ...this.generateNonceOptions(), content: t('error.botMissingPermissions', { lng: this.language }) });
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
                     try {
-                        await this.author.send(t('error.botMissingPermissions', { lng: this.language }));
+                        await this.author.send({ ...this.generateNonceOptions(), content: t('error.botMissingPermissions', { lng: this.language }) });
                     } catch (e) {
                         if (e.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
                             return;
@@ -164,9 +172,8 @@ class Request {
             }
         } else if (error.code === RESTJSONErrorCodes.UnknownInteraction) {
             // If the interaction is unknown, it means the interaction might be expired.
-            
             try {
-                await this.channel.send(t('error.interactionExpired', { lng: this.language }));
+                await this.channel.send({ ...this.generateNonceOptions(), content: t('error.interactionExpired', { lng: this.language }) });
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
                     return;
@@ -182,12 +189,12 @@ class Request {
                 // Send a message to user that an error occurred.
                 if (this.isInteraction) {
                     if(this.interaction.deferred || this.interaction.replied) {
-                        await this.interaction.editReply(t('error.undefinedError', { lng: this.language }));
+                        await this.interaction.editReply({ ...this.generateNonceOptions(), content: t('error.undefinedError', { lng: this.language }) });
                     } else {
-                        await this.interaction.reply(t('error.undefinedError', { lng: this.language }));
+                        await this.interaction.reply({ ...this.generateNonceOptions(), content: t('error.undefinedError', { lng: this.language }) });
                     }
                 } else {
-                    await this.channel.send(t('error.undefinedError', { lng: this.language }));
+                    await this.channel.send({ ...this.generateNonceOptions(), content: t('error.undefinedError', { lng: this.language }) });
                 }
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
@@ -208,9 +215,7 @@ class Request {
     async reply(options) {
         try {
             if (typeof (options) === 'string') options = { content: options };
-            options.enforceNonce = true;
-            options.nonce = SnowflakeUtil.generate().toString();
-            options.allowedMentions = { parse: [] };
+            options = { ...this.generateNonceOptions(), ...options };
             return this.lastReply = this.isInteraction ? 
                 (this.interaction.deferred ? 
                     await this.interaction.editReply(options) : 
@@ -231,9 +236,7 @@ class Request {
     async follow(options) {
         try {
             if (typeof (options) === 'string') options = { content: options };
-            options.enforceNonce = true;
-            options.nonce = SnowflakeUtil.generate().toString();
-            options.allowedMentions = { parse: [] };
+            options = { ...this.generateNonceOptions(), ...options };
             return this.lastReply = this.isInteraction ? await this.interaction.followUp(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -249,9 +252,7 @@ class Request {
     async edit(options) {
         try {
             if (typeof (options) === 'string') options = { content: options };
-            options.enforceNonce = true;
-            options.nonce = SnowflakeUtil.generate().toString();
-            options.allowedMentions = { parse: [] };
+            options = { ...this.generateNonceOptions(), ...options };
             return this.isInteraction ? await this.interaction.editReply(options) : await this.lastReply.edit(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -271,6 +272,22 @@ class Request {
             }
         } catch (error) {
             await this.errorHandle(error);
+        }
+    }
+
+    /**
+     * Defer this request.
+     */
+    async deferReply() {
+        try {
+            if (this.isInteraction) {
+                await this.interaction.deferReply();
+            }
+
+            return true;
+        } catch (error) {
+            await this.errorHandle(error);
+            return false;
         }
     }
 }

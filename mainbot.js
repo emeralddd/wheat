@@ -186,8 +186,15 @@ wheat.on(Events.InteractionCreate, async interaction => {
                 });
             }
 
-            await interaction.deferReply();
             const request = new Request(interaction, language, true);
+
+            // Defer the reply to give more time for command execution
+            const deferResult = await request.deferReply();
+            
+            // Check if deferReply was successful before proceeding
+            if (!deferResult) {
+                return;
+            }
 
             databaseManager.logRequest(guildId, request.createdTimestamp, executeCommand, 1);
 
