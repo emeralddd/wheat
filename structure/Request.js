@@ -150,6 +150,63 @@ class Request {
         }
     }
 
+    getBotPermissions() {
+        if (this.isInteraction && this.interaction?.appPermissions) {
+            return this.interaction.appPermissions;
+        }
+
+        if (typeof this.channel?.permissionsFor !== 'function') {
+            return null;
+        }
+
+        const botMember = this.guild?.members?.me ?? this.client?.user;
+        if (!botMember) {
+            return null;
+        }
+
+        return this.channel.permissionsFor(botMember);
+    }
+
+    canSendOnlyTextInChannel() {
+        const permissions = this.getBotPermissions();
+
+        if (!permissions) {
+            return true;
+        }
+
+        return permissions.has([
+            PermissionFlagsBits.ViewChannel, 
+            PermissionFlagsBits.SendMessages
+        ]) && (this.isMessage || permissions.has(PermissionFlagsBits.UseApplicationCommands));
+    }
+
+    canSendInChannel() {
+        const permissions = this.getBotPermissions();
+
+        if (!permissions) {
+            return true;
+        }
+
+        return permissions.has([
+            PermissionFlagsBits.ViewChannel, 
+            PermissionFlagsBits.SendMessages,
+            PermissionFlagsBits.EmbedLinks,
+            PermissionFlagsBits.AttachFiles
+        ]) && (this.isMessage || permissions.has(PermissionFlagsBits.UseApplicationCommands));
+    }
+
+    assertCanSendInChannel() {
+        if (!this.canSendInChannel()) {
+            throw { code: RESTJSONErrorCodes.MissingPermissions };
+        }
+    }
+
+    assertCanSendOnlyTextInChannel() {
+        if (!this.canSendOnlyTextInChannel()) {
+            throw { code: RESTJSONErrorCodes.MissingPermissions };
+        }
+    }
+
     async errorHandle(error = {}) {
         if (error.code === RESTJSONErrorCodes.MissingPermissions) {
             try {
