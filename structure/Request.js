@@ -45,7 +45,23 @@
 
 //2. Các method với Request
 
-const { Snowflake, TextBasedChannel, User, ChatInputCommandInteraction, Message, Guild, GuildMember, MessagePayload, MessageCreateOptions, RESTJSONErrorCodes, InteractionEditReplyOptions, InteractionReplyOptions, SnowflakeUtil } = require('discord.js');
+const { 
+    Snowflake, 
+    TextBasedChannel, 
+    User, 
+    ChatInputCommandInteraction, 
+    Message, 
+    Guild, 
+    GuildMember, 
+    MessagePayload, 
+    MessageCreateOptions,
+    RESTJSONErrorCodes, 
+    InteractionEditReplyOptions, 
+    InteractionReplyOptions, 
+    SnowflakeUtil, 
+    PermissionFlagsBits,
+    Client, 
+} = require('discord.js');
 const { t } = require('i18next');
 
 class Request {
@@ -134,6 +150,12 @@ class Request {
          * @type {GuildMember}
          */
         this.member = source.member;
+
+        /**
+         * The client that owns this request.
+         * @type {Client}
+         */
+        this.client = source.client;
     }
 
     lastReply = null;
@@ -210,6 +232,7 @@ class Request {
     async errorHandle(error = {}) {
         if (error.code === RESTJSONErrorCodes.MissingPermissions) {
             try {
+                this.assertCanSendOnlyTextInChannel();
                 await this.channel.send({ ...this.generateNonceOptions(), content: t('error.botMissingPermissions', { lng: this.language }) });
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
@@ -230,6 +253,7 @@ class Request {
         } else if (error.code === RESTJSONErrorCodes.UnknownInteraction) {
             // If the interaction is unknown, it means the interaction might be expired.
             try {
+                this.assertCanSendOnlyTextInChannel();
                 await this.channel.send({ ...this.generateNonceOptions(), content: t('error.interactionExpired', { lng: this.language }) });
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
@@ -273,6 +297,7 @@ class Request {
         try {
             if (typeof (options) === 'string') options = { content: options };
             options = { ...this.generateNonceOptions(), ...options };
+            this.assertCanSendInChannel();
             return this.lastReply = this.isInteraction ? 
                 (this.interaction.deferred ? 
                     await this.interaction.editReply(options) : 
@@ -294,6 +319,7 @@ class Request {
         try {
             if (typeof (options) === 'string') options = { content: options };
             options = { ...this.generateNonceOptions(), ...options };
+            this.assertCanSendInChannel();
             return this.lastReply = this.isInteraction ? await this.interaction.followUp(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -310,6 +336,7 @@ class Request {
         try {
             if (typeof (options) === 'string') options = { content: options };
             options = { ...this.generateNonceOptions(), ...options };
+            this.assertCanSendInChannel();
             return this.isInteraction ? await this.interaction.editReply(options) : await this.lastReply.edit(options);
         } catch (error) {
             await this.errorHandle(error);
