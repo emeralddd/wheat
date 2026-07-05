@@ -2,6 +2,7 @@ const { Client } = require('discord.js');
 const fs = require('fs');
 const bot = require('wheat-better-cmd');
 const { Request } = require('../../structure/Request');
+const announcementManager = require('../../modules/announcementManager');
 
 /**
  * @param {object} obj
@@ -13,7 +14,7 @@ const { Request } = require('../../structure/Request');
 module.exports.run = async ({ request, args }) => {
     if (request.author.id !== '687301490238554160') return;
 
-    const announcement = require('../../announcement.json');
+    const announcement = announcementManager.announcementData;
 
     if (args[1] === 'active') {
         announcement.status = "active";
@@ -25,8 +26,8 @@ module.exports.run = async ({ request, args }) => {
 
     if (args[1] === 'test') {
         const embed = bot.wheatSampleEmbedGenerate();
-        embed.setTitle(announcement.title);
-        embed.setDescription(announcement.description);
+        embed.setTitle(announcement.title || "No Title");
+        embed.setDescription(announcement.description || "No Description");
         await request.reply({ embeds: [embed] });
         return;
     }
@@ -64,13 +65,13 @@ module.exports.run = async ({ request, args }) => {
         announcement.description = talk;
     }
 
-    fs.writeFileSync('announcement.json', JSON.stringify(announcement));
+    await announcementManager.updateAnnouncementData(announcement);
 }
 
 module.exports.help = {
-    name: "admin",
+    name: "announcement",
     htu: "",
-    des: "abc",
+    des: "",
     group: "",
     aliases: ["ann"]
 }

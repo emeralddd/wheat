@@ -27,7 +27,7 @@ const run = async ({ wheat, request, args }) => {
         if(channel) channel.send('${talk}');
     }`);
 
-    wheat.shard.broadcastEval(fnc);
+    wheat.cluster.broadcastEval(fnc);
 }
 
 module.exports.run = run;

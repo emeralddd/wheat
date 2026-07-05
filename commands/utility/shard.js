@@ -5,7 +5,7 @@ const { Request } = require('../../structure/Request');
 const help = {
     name: "shard",
     group: "utility",
-    aliases: ['shards'],
+    aliases: ['shards','cluster','clusters'],
 };
 
 /**
@@ -16,7 +16,7 @@ const help = {
  */
 
 const run = async ({ wheat, request, t }) => {
-    const shardList = await wheat.shard.broadcastEval(subWheat => {
+    const shardList = await wheat.cluster.broadcastEval(subWheat => {
         const moment = require('moment');
         const uptime = moment.duration(subWheat.uptime, 'milliseconds');
         let uptimeString = "";
@@ -26,6 +26,7 @@ const run = async ({ wheat, request, t }) => {
         if (Math.floor(uptime.asSeconds()) !== 0) uptimeString += ` ${Math.floor(uptime.asSeconds()) % 60}sec${Math.floor(uptime.asSeconds()) === 1 ? '' : 's'}`;
 
         return {
+            shards: subWheat.cluster.shardList,
             guilds: subWheat.guilds.cache.size,
             uptime: uptimeString
         }
@@ -41,20 +42,20 @@ const run = async ({ wheat, request, t }) => {
 
             const embed = bot.wheatSampleEmbedGenerate();
             embed.setAuthor({ name: `Wheat#1261`, iconURL: process.env.AVATAR });
-            embed.setTitle(`Shard list - Page ${shardPage}`);
+            embed.setTitle(`Cluster Shard list - Page ${shardPage}`);
 
             embedList.push(embed);
         }
 
         embedList[shardPage - 1].addFields({
-            name: `Shard ${i}`,
-            value: `Guilds: ${shardList[i].guilds}\nUptime: ${shardList[i].uptime}`,
+            name: `Cluster ${i}`,
+            value: `Managed shard: ${shardList[i].shards.join(', ')}\nGuilds: ${shardList[i].guilds}\nUptime: ${shardList[i].uptime}`,
             inline: true
         });
     }
 
     embedList[shardPage - 1].setFooter({
-        text: t('main.fromShard', { shardId: wheat.shard.ids[0] })
+        text: t('main.fromShard', { shardId: request.guild.shardId })
     });
 
     await request.reply({ embeds: embedList });

@@ -1,22 +1,26 @@
-const { ShardingManager } = require('discord.js');
+// const { ShardingManager } = require('discord.js');
+const { ClusterManager } = require('discord-hybrid-sharding');
+
 require('dotenv').config({ path: 'secret.env' });
 
-const manager = new ShardingManager('./mainbot.js', {
+const manager = new ClusterManager('./mainbot.js', {
     totalShards: (process.env.NODE_ENV === 'dev' ? 2 : Number(process.env.shards)),
-    respawn: true
+    shardsPerClusters: (process.env.NODE_ENV === 'dev' ? 2 : Number(process.env.shardsPerCluster)),
+    mode: 'process',
+    respawn: true,
 });
 
-manager.on('shardCreate', shard => {
-    console.log(`Shard ${shard.id} sinh thanh cong!`);
+manager.on('clusterCreate', cluster => {
+    console.log(`Cluster ${cluster.id} sinh thanh cong!`);
 
-    shard.on('disconnect', (a) => {
-        console.log(`Shard ${shard.id} disconnected`);
+    cluster.on('disconnect', (a) => {
+        console.log(`Cluster ${cluster.id} disconnected`);
     });
-    shard.on('reconnecting', (a) => {
-        console.log(`Shard ${shard.id} reconnecting`);
+    cluster.on('reconnecting', (a) => {
+        console.log(`Cluster ${cluster.id} reconnecting`);
     });
-    shard.on('death', (a) => {
-        console.log(`Shard ${shard.id} died`);
+    cluster.on('death', (a) => {
+        console.log(`Cluster ${cluster.id} died`);
     });
 });
 

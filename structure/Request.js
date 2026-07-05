@@ -45,7 +45,23 @@
 
 //2. Các method với Request
 
-const { Snowflake, TextBasedChannel, User, ChatInputCommandInteraction, Message, Guild, GuildMember, MessagePayload, MessageCreateOptions, RESTJSONErrorCodes, InteractionEditReplyOptions, InteractionReplyOptions, SnowflakeUtil } = require('discord.js');
+const { 
+    Snowflake, 
+    TextBasedChannel, 
+    User, 
+    ChatInputCommandInteraction, 
+    Message, 
+    Guild, 
+    GuildMember, 
+    MessagePayload, 
+    MessageCreateOptions,
+    RESTJSONErrorCodes, 
+    InteractionEditReplyOptions, 
+    InteractionReplyOptions, 
+    SnowflakeUtil, 
+    PermissionFlagsBits,
+    Client, 
+} = require('discord.js');
 const { t } = require('i18next');
 
 class Request {
@@ -134,6 +150,12 @@ class Request {
          * @type {GuildMember}
          */
         this.member = source.member;
+
+        /**
+         * The client that owns this request.
+         * @type {Client}
+         */
+        this.client = source.client;
     }
 
     lastReply = null;
@@ -142,35 +164,125 @@ class Request {
      * Handle error.
      */
 
+    generateNonceOptions() {
+        return {
+            enforceNonce: true,
+            nonce: SnowflakeUtil.generate().toString(),
+            allowedMentions: { parse: [] }
+        }
+    }
+
+    getBotPermissions() {
+        if (this.isInteraction && this.interaction?.appPermissions) {
+            return this.interaction.appPermissions;
+        }
+
+        if (typeof this.channel?.permissionsFor !== 'function') {
+            return null;
+        }
+
+        const botMember = this.guild?.members?.me ?? this.client?.user;
+        if (!botMember) {
+            return null;
+        }
+
+        return this.channel.permissionsFor(botMember);
+    }
+
+    canSendOnlyTextInChannel() {
+        const permissions = this.getBotPermissions();
+
+        if (!permissions) {
+            return true;
+        }
+
+        return permissions.has([
+            PermissionFlagsBits.ViewChannel, 
+            PermissionFlagsBits.SendMessages
+        ]) && (this.isMessage || permissions.has(PermissionFlagsBits.UseApplicationCommands));
+    }
+
+    canSendInChannel() {
+        const permissions = this.getBotPermissions();
+
+        if (!permissions) {
+            return true;
+        }
+
+        return permissions.has([
+            PermissionFlagsBits.ViewChannel, 
+            PermissionFlagsBits.SendMessages,
+            PermissionFlagsBits.EmbedLinks,
+            PermissionFlagsBits.AttachFiles
+        ]) && (this.isMessage || permissions.has(PermissionFlagsBits.UseApplicationCommands));
+    }
+
+    assertCanSendInChannel() {
+        if (!this.canSendInChannel()) {
+            throw { code: RESTJSONErrorCodes.MissingPermissions };
+        }
+    }
+
+    assertCanSendOnlyTextInChannel() {
+        if (!this.canSendOnlyTextInChannel()) {
+            throw { code: RESTJSONErrorCodes.MissingPermissions };
+        }
+    }
+
     async errorHandle(error = {}) {
         if (error.code === RESTJSONErrorCodes.MissingPermissions) {
             try {
-                await this.channel.send(t('error.botMissingPermissions', { lng: this.language }));
+                this.assertCanSendOnlyTextInChannel();
+                await this.channel.send({ ...this.generateNonceOptions(), content: t('error.botMissingPermissions', { lng: this.language }) });
             } catch (err) {
                 if (err.code === RESTJSONErrorCodes.MissingPermissions) {
                     try {
-                        await this.channel.send(t('error.botMissingPermissions', { lng: this.language }));
+                        await this.author.send({ ...this.generateNonceOptions(), content: t('error.botMissingPermissions', { lng: this.language }) });
                     } catch (e) {
                         if (e.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
                             return;
                         }
+
+                        console.log("Error sending bot missing permissions message to author: ", e);
                     }
+                    return;
                 }
+
+                console.log("Error sending bot missing permissions message: ", err);
             }
-        } else {
-            console.log(error);
+        } else if (error.code === RESTJSONErrorCodes.UnknownInteraction) {
+            // If the interaction is unknown, it means the interaction might be expired.
             try {
+                this.assertCanSendOnlyTextInChannel();
+                await this.channel.send({ ...this.generateNonceOptions(), content: t('error.interactionExpired', { lng: this.language }) });
+            } catch (err) {
+                if (err.code === RESTJSONErrorCodes.MissingPermissions) {
+                    return;
+                }
+
+                console.log("Error sending interaction expired message: ", err);
+            }
+
+            // Todo: log the error for statistics.
+        } else {
+            console.log("Error handling requests: ", error);
+            try {
+                // Send a message to user that an error occurred.
                 if (this.isInteraction) {
                     if(this.interaction.deferred || this.interaction.replied) {
-                        await this.interaction.editReply(t('error.undefinedError', { lng: this.language }));
+                        await this.interaction.editReply({ ...this.generateNonceOptions(), content: t('error.undefinedError', { lng: this.language }) });
                     } else {
-                        await this.interaction.reply(t('error.undefinedError', { lng: this.language }));
+                        await this.interaction.reply({ ...this.generateNonceOptions(), content: t('error.undefinedError', { lng: this.language }) });
                     }
                 } else {
-                    await this.channel.send(t('error.undefinedError', { lng: this.language }));
+                    await this.channel.send({ ...this.generateNonceOptions(), content: t('error.undefinedError', { lng: this.language }) });
                 }
             } catch (err) {
-                console.log(err);
+                if (err.code === RESTJSONErrorCodes.MissingPermissions) {
+                    return;
+                }
+
+                console.log("Error handling requests: ", err);
             }
         }
     }
@@ -184,9 +296,8 @@ class Request {
     async reply(options) {
         try {
             if (typeof (options) === 'string') options = { content: options };
-            options.enforceNonce = true;
-            options.nonce = SnowflakeUtil.generate().toString();
-            options.allowedMentions = { parse: [] };
+            options = { ...this.generateNonceOptions(), ...options };
+            this.assertCanSendInChannel();
             return this.lastReply = this.isInteraction ? 
                 (this.interaction.deferred ? 
                     await this.interaction.editReply(options) : 
@@ -207,9 +318,8 @@ class Request {
     async follow(options) {
         try {
             if (typeof (options) === 'string') options = { content: options };
-            options.enforceNonce = true;
-            options.nonce = SnowflakeUtil.generate().toString();
-            options.allowedMentions = { parse: [] };
+            options = { ...this.generateNonceOptions(), ...options };
+            this.assertCanSendInChannel();
             return this.lastReply = this.isInteraction ? await this.interaction.followUp(options) : await this.channel.send(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -225,9 +335,8 @@ class Request {
     async edit(options) {
         try {
             if (typeof (options) === 'string') options = { content: options };
-            options.enforceNonce = true;
-            options.nonce = SnowflakeUtil.generate().toString();
-            options.allowedMentions = { parse: [] };
+            options = { ...this.generateNonceOptions(), ...options };
+            this.assertCanSendInChannel();
             return this.isInteraction ? await this.interaction.editReply(options) : await this.lastReply.edit(options);
         } catch (error) {
             await this.errorHandle(error);
@@ -247,6 +356,22 @@ class Request {
             }
         } catch (error) {
             await this.errorHandle(error);
+        }
+    }
+
+    /**
+     * Defer this request.
+     */
+    async deferReply() {
+        try {
+            if (this.isInteraction) {
+                await this.interaction.deferReply();
+            }
+
+            return true;
+        } catch (error) {
+            await this.errorHandle(error);
+            return false;
         }
     }
 }

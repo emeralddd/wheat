@@ -23,7 +23,7 @@ const run = async ({ wheat, request, t }) => {
     embed.setDescription(t('main.botDescription'));
     const uptime_milli = moment.duration(wheat.uptime, 'milliseconds');
     const promises = [
-        await wheat.shard.fetchClientValues('guilds.cache.size'),
+        await wheat.cluster.fetchClientValues('guilds.cache.size'),
     ];
 
     const guildCount = await Promise.all(promises)

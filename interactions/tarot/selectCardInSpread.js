@@ -4,12 +4,25 @@ const { Request } = require('../../structure/Request');
 
 const NO_CARDS = 78;
 
+let tarotMeaning = {
+	vi: null,
+	en: null
+};
+
+const loadTarotMeaning = async (language) => {
+	if (!tarotMeaning[language]) {
+		tarotMeaning[language] = await bot.wheatReadJSON(`./assets/content/${language}/tarotMeaning.json`);
+	}
+}
+
 module.exports = {
 	name: "selectCardInSpread",
 	/**
 	 * @param {Request} request 
 	 */
 	async run(request, t) {
+		await loadTarotMeaning(t('main.code'));
+
 		if (!request.interaction.values || request.interaction.values.length === 0) return;
 
 		const splitInteractionArray = request.interaction.values[0].split('.').map(item => Number(item));
@@ -20,8 +33,7 @@ module.exports = {
 
 		if (cardId > NO_CARDS || cardId < 0) return;
 
-		const tarotMeaning = await bot.wheatReadJSON(`./assets/content/${t('main.code')}/tarotMeaning.json`);
-		const tarotCard = tarotMeaning[cardId];
+		const tarotCard = tarotMeaning[t('main.code')][cardId];
 
 		const embed = bot.wheatSampleEmbedGenerate();
 		embed.setAuthor({

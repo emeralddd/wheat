@@ -35,6 +35,13 @@ const help = {
         )
 }
 
+let numerology = null;
+const loadNumerologyMeaning = async () => {
+    if (!numerology) {
+        numerology = await bot.wheatReadJSON('./assets/content/vi/numerologyRulingNumber.json');
+    }
+}
+
 /**
  * @param {object} obj
  * @param {Request} obj.request
@@ -53,7 +60,7 @@ const run = async ({ request, args, t }) => {
         return;
     }
 
-    const number = await bot.wheatReadJSON('./assets/content/vi/numerologyRulingNumber.json');
+    await loadNumerologyMeaning();
 
     let sumOfDigit = mmt.format('DDMMYYYY').split('').reduce((prev, cur) => prev + Number(cur), 0);
 
@@ -66,7 +73,7 @@ const run = async ({ request, args, t }) => {
 
         sumOfDigit = sumAgain;
     }
-    const rullingNumber = number[sumOfDigit];
+    const rullingNumber = numerology[sumOfDigit];
 
     if (sumOfDigit === 22) sumOfDigit = "22/4";
 

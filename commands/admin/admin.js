@@ -10,7 +10,7 @@ const { Request } = require('../../structure/Request');
 
 module.exports.run = async ({ wheat, request, args }) => {
     if (args[1] === 'lists' && request.author.id === '687301490238554160') {
-        const tmp = await wheat.shard.broadcastEval(c => {
+        const tmp = await wheat.cluster.broadcastEval(c => {
             return c.guilds.cache.filter(g => g.memberCount > 10000);
         });
 
@@ -21,19 +21,8 @@ module.exports.run = async ({ wheat, request, args }) => {
         }
     }
 
-    if (args[1] === 'count' && request.author.id === '687301490238554160') {
-        request.channel.send(String(wheat.guilds.cache.size));
-        wheat.shard.fetchClientValues('guilds.cache.size')
-            .then(results => {
-                console.log(`${results.reduce((acc, guildCount) => acc + guildCount, 0)} total guilds`);
-            })
-            .catch(console.error);
-
-        return;
-    }
-
-    if (args[1] === 'gg' && message.author.id === '687301490238554160') {
-        const res = await wheat.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0));
+    if (args[1] === 'gg' && request.author.id === '687301490238554160') {
+        const res = await wheat.cluster.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0));
         console.log(res);
         console.log(res.reduce((acc, memberCount) => acc + memberCount, 0));
     }
@@ -42,7 +31,7 @@ module.exports.run = async ({ wheat, request, args }) => {
 module.exports.help = {
     name: "admin",
     htu: "",
-    des: "abc",
+    des: "",
     group: "",
-    aliases: [""]
+    aliases: []
 }

@@ -34,7 +34,17 @@ const help = {
  * @param {String[]} obj.args
  */
 
+let zodiac = null;
+
+const loadZodiacMeaning = async () => {
+    if (!zodiac) {
+        zodiac = await bot.wheatReadJSON('./assets/content/vi/zodiacMeaning.json');
+    }
+}
+
 const run = async ({ request, args, t }) => {
+    await loadZodiacMeaning();
+
     const embed = bot.wheatSampleEmbedGenerate();
 
     const [extractDay, extractMonth] = dateInput(request, args && args.length > 1 ? args[1] : "", '/', ['day', 'month']);
@@ -45,8 +55,6 @@ const run = async ({ request, args, t }) => {
         await request.reply(t('error.formatError'));
         return;
     }
-
-    const zodiac = await bot.wheatReadJSON('./assets/content/vi/zodiacMeaning.json');
 
     const startTime = ["21/03", "20/04", "21/05", "22/06", "23/07", "23/08", "23/09", "23/10", "23/11", "22/12", "20/01", "19/02"];
 
