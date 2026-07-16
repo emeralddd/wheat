@@ -1,7 +1,7 @@
 require('events').EventEmitter.prototype._maxListeners = Infinity;
 require('events').defaultMaxListeners = Infinity;
 const { ClusterClient, getInfo } = require('discord-hybrid-sharding');
-const { ChannelType, Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes } = require('discord.js');
+const { ChannelType, Client, GatewayIntentBits, ActivityType, Events, SnowflakeUtil, RESTJSONErrorCodes, Options } = require('discord.js');
 const databaseManager = require('./modules/databaseManager');
 const bot = require('wheat-better-cmd');
 require('dotenv').config({ path: 'secret.env' });
@@ -14,7 +14,18 @@ const wheat = new Client({
         GatewayIntentBits.GuildMessages, 
         GatewayIntentBits.GuildMembers, 
         GatewayIntentBits.MessageContent
-    ], 
+    ],
+    sweepers: {
+        ...Options.DefaultSweeperSettings,
+        messages: {
+            interval: 3600,
+            lifetime: 7200,
+        },
+    },
+    makeCache: Options.cacheWithLimits({
+        ...Options.DefaultMakeCacheSettings,
+        MessageManager: 100,
+    }),
     presence: {
         activities: [{
             name: 'EHELP',
