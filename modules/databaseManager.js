@@ -177,3 +177,26 @@ module.exports.logRequest = async (serverId, timestamp, command, typeOfRequest) 
         throw err;
     }
 }
+
+module.exports.logAIRequest = async (userId, timestamp, model, totalToken, error=null) => {
+    if (error && error.length > 255) {
+        error = error.substring(0, 255) + '...';
+    }
+    
+    try {
+        await queryWithoutRow(`insert into llmLog values(?, ?, ?, ?, ?)`,
+            [userId, timestamp, model, totalToken, error]);
+    } catch (err) {
+        throw err;
+    }
+}
+
+module.exports.getAIRequestCount = async (userId, sinceTimestamp) => {
+    try {
+        const res = await querySingleRow(`select count(*) as count from llmLog where userId = ? and timestamp >= ?`, 
+            [userId, sinceTimestamp]);
+        return res.count || 0;
+    } catch (err) {
+        throw err;
+    }
+}

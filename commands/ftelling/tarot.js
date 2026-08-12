@@ -45,6 +45,17 @@ const loadTarotMeaning = async (language) => {
 	}
 }
 
+const getVietnamStartOfDayTimestamp = () => {
+	const OFFSET_MS = 7 * 60 * 60 * 1000;
+	const now = new Date();
+	
+	const vnShifted = new Date(now.getTime() + OFFSET_MS);
+	
+	vnShifted.setUTCHours(0, 0, 0, 0);
+	
+	return vnShifted.getTime() - OFFSET_MS;
+};
+
 const help = {
 	name: "tarot",
 	group: "ftelling",
@@ -320,14 +331,31 @@ const run = async ({ request, args, t }) => {
 			}));
 			return request.follow({ embeds: [AIAnswerEmbed] });
 		}
+
+		const questionCount = await databaseManager.getAIRequestCount(memberId, getVietnamStartOfDayTimestamp());
 		
+		if (questionCount >= config.TAROT_QUESTIONS_LIMIT) {
+			AIAnswerEmbed.setDescription(t('tarot.AIAnswerLimit'));
+			return request.follow({ embeds: [AIAnswerEmbed] });
+		}
+
 		AIAnswerEmbed.setDescription(t('tarot.AIAnswerGenerating'));
 		const AIAnswerMessage = await request.follow({ embeds: [AIAnswerEmbed] });
 
 		if(spread !== 'c') {
-			const answerFromAI = await answer(t, questionToAI, tarotCards.map(c => `${tarotMeaning[request.language][c[0]].name} ${reversed ? (c[1] ? 'upright' : 'reversed') : ''}`));
+			const answerFromAI = await answer(
+				t, 
+				questionToAI, 
+				tarotCards.map(c => `${tarotMeaning[request.language][c[0]].name} ${reversed ? (c[1] ? 'upright' : 'reversed') : ''}`),
+				memberId
+			);
+
 			AIAnswerEmbed.setTitle(t('tarot.AIAnswerTitle'));
-			AIAnswerEmbed.setDescription(answerFromAI);
+			AIAnswerEmbed.setDescription(t('tarot.AIAnswerDescription', {
+				questionCount: questionCount + 1,
+				limit: config.TAROT_QUESTIONS_LIMIT,
+				answer: answerFromAI
+			}));
 			AIAnswerEmbed.setFooter( {text: t('tarot.AIAnswerDisclaimer')} );
 
 			AIAnswerMessage.edit({ embeds: [AIAnswerEmbed] });

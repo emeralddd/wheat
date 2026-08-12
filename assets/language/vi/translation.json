@@ -101,7 +101,9 @@
         "celticCrossNoAI": "Trải bài Celtic Cross không hỗ trợ giải thích bằng AI tại thời điểm này.",
         "AIAnswerError": "Tarot Reader AI đã gặp một số vấn đề! Vui lòng thử lại sau hoặc bốc lá bài mới!",
         "AIAnswerGenerating": "🔮 Đang kết nối năng lượng với Vũ trụ...",
-        "AIAnswerRateLimit": "Tarot Reader AI hiện đang nạp lại năng lượng! Vui lòng chờ {{time}} giây từ khi gửi yêu cầu cuối cùng và thử lại!"
+        "AIAnswerRateLimit": "Tarot Reader AI hiện đang nạp lại năng lượng! Vui lòng chờ {{time}} giây từ khi gửi yêu cầu cuối cùng và thử lại!",
+        "AIAnswerLimit": "Bạn đã đạt đến giới hạn số lượng câu hỏi AI trong ngày. Vui lòng thử lại vào ngày mai. Giới hạn được đặt lại vào lúc 0h hàng ngày (múi giờ Việt Nam, UTC+7)!",
+        "AIAnswerDescription": "Câu hỏi: {{questionCount}}/{{limit}}\n*Giới hạn được đặt lại vào lúc 0h hàng ngày (múi giờ Việt Nam, UTC+7)*\n{{answer}}"
     },
     "astro": {
         "zodiacth": "Cung hoàng đạo thứ",

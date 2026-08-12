@@ -102,7 +102,9 @@
         "celticCrossNoAI": "The Celtic Cross spread does not support AI-powered interpretations at this time.",
         "AIAnswerError": "The Tarot AI reader has encountered some issues! Please try again later or draw new cards!",
         "AIAnswerGenerating": "🔮 Connecting the energy with the Universe...",
-        "AIAnswerRateLimit": "The Tarot AI reader is currently recharging its energy! Please wait {{time}} second(s) since your last request and try again!"
+        "AIAnswerRateLimit": "The Tarot AI reader is currently recharging its energy! Please wait {{time}} second(s) since your last request and try again!",
+        "AIAnswerLimit": "You have reached the daily limit for AI questions. Please try again tomorrow. The limit resets at 0:00 daily (Vietnam time, UTC+7)!",
+        "AIAnswerDescription": "Question: {{questionCount}}/{{limit}}\n*The limit resets at 0:00 daily (Vietnam time, UTC+7)*\n{{answer}}"
     },
     "astro": {
         "zodiacth": "Position of Zodiac",

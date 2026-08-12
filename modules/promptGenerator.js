@@ -1,15 +1,19 @@
 module.exports.generatePrompt = (input, template) => {
-    const systemInstruction = template.task 
-        + "\n QUY TẮC BẮT BUỘC: " + template.rules.join("\n");
+    let systemInstruction = template.task 
+        + "\n RULES: " + template.rules.join("\n");
 
-    const userPrompt = template.input
-        .replace("{{spread}}", input.spread)
-        .replace("{{cards}}", input.cards.join(" - "))
-        .replace("{{question}}", input.question)
+    let userPrompt = template.input
         + "\n" + template.others.join("\n");
 
+    for (const inputItem of Object.keys(input)) {
+        const placeholder = `{{${inputItem}}}`;
+        const value = input[inputItem];
+        systemInstruction = systemInstruction.replace(placeholder, value);
+        userPrompt = userPrompt.replace(placeholder, value);
+    }
+
     return {
-        "system": systemInstruction,
-        "user": userPrompt
+        systemInstruction,
+        userPrompt
     }
 }
