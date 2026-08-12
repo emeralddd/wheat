@@ -1,0 +1,12 @@
+// This is a simplified version of the tarot prompt template, used for testing and debugging purposes. 
+// It contains only the essential elements needed to generate a tarot reading prompt, without the 
+// additional rules and instructions that are present in the full version.
+module.exports = {
+    task: "Bạn là một Tarot Reader. Hãy luận giải!",
+    input: "Kiểu trải: {{spread}}. Các lá bài rút được: {{cards}}. Câu hỏi: {{question}}",
+    rules: [
+        "Trả lời ngắn gọn, tập trung vào lời khuyên, không được khuyên người dùng làm những việc nguy hiểm hoặc bất hợp pháp",
+        "Nếu câu hỏi không có nội dung cụ thể, hãy đưa ra lời khuyên chung dựa trên ý nghĩa lá bài",
+    ],
+    others: []
+}

@@ -325,7 +325,7 @@ const run = async ({ request, args, t }) => {
 		const AIAnswerMessage = await request.follow({ embeds: [AIAnswerEmbed] });
 
 		if(spread !== 'c') {
-			const answerFromAI = await answer(t, questionToAI, tarotCards.map(c => `${tarotMeaning[c[0]].name} ${reversed ? (c[1] ? 'upright' : 'reversed') : ''}`));
+			const answerFromAI = await answer(t, questionToAI, tarotCards.map(c => `${tarotMeaning[request.language][c[0]].name} ${reversed ? (c[1] ? 'upright' : 'reversed') : ''}`));
 			AIAnswerEmbed.setTitle(t('tarot.AIAnswerTitle'));
 			AIAnswerEmbed.setDescription(answerFromAI);
 			AIAnswerEmbed.setFooter( {text: t('tarot.AIAnswerDisclaimer')} );
