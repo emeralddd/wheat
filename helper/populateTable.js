@@ -104,12 +104,17 @@ const addHideTarotMeaningColumn = async () => {
     await queryDB("alter table member add column hideTarotMeaning INTEGER DEFAULT 0;");
 }
 
+const addTarotAILogTable = async () => {
+    await queryDB("drop table llmLog");
+    await queryDB("CREATE TABLE llmLog (userId      TEXT, timestamp     INTEGER, model TEXT, totalToken INTEGER, error TEXT);");
+}
+
 const start = async () => {
     // connectMongoDB();
     connectSQLite();
-
-    addHideTarotMeaningColumn();
-
+    addTarotAILogTable();
+    
+    // addHideTarotMeaningColumn();
     // fixLanguage();
     // fixStatistic();
     // getMembers();
