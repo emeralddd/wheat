@@ -193,7 +193,7 @@ module.exports.logAIRequest = async (userId, timestamp, model, totalToken, error
 
 module.exports.getAIRequestCount = async (userId, sinceTimestamp) => {
     try {
-        const res = await querySingleRow(`select count(*) as count from llmLog where userId = ? and timestamp >= ?`, 
+        const res = await querySingleRow(`select count(*) as count from llmLog where userId = ? and timestamp >= ? and error is null`, 
             [userId, sinceTimestamp]);
         return res.count || 0;
     } catch (err) {

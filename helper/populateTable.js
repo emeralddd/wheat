@@ -105,7 +105,7 @@ const addHideTarotMeaningColumn = async () => {
 }
 
 const addTarotAILogTable = async () => {
-    await queryDB("drop table llmLog");
+    // await queryDB("drop table llmLog");
     await queryDB("CREATE TABLE llmLog (userId      TEXT, timestamp     INTEGER, model TEXT, totalToken INTEGER, error TEXT);");
 }
 
