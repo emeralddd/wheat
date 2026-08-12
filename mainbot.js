@@ -18,13 +18,13 @@ const wheat = new Client({
     sweepers: {
         ...Options.DefaultSweeperSettings,
         messages: {
-            interval: 3600,
-            lifetime: 7200,
+            interval: parseInt(process.env.MESSAGE_INTERVAL) || 1800,
+            lifetime: parseInt(process.env.MESSAGE_LIFETIME) || 3600,
         },
     },
     makeCache: Options.cacheWithLimits({
         ...Options.DefaultMakeCacheSettings,
-        MessageManager: 100,
+        MessageManager: parseInt(process.env.CACHED_MESSAGES_PER_CHANNEL) || 50,
     }),
     presence: {
         activities: [{
