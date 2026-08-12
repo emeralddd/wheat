@@ -12,7 +12,7 @@ module.exports = {
         const find = await databaseManager.getMember(memberId);
         const embed = bot.wheatSampleEmbedGenerate();
         
-        const newLanguage = request.interaction.values[0];
+        let newLanguage = request.interaction.values[0];
         
         try {
             if (find.id) {
